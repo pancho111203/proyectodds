@@ -5,7 +5,6 @@ import game.states.LevelState;
 import game.states.MainMenuState;
 
 import java.awt.Canvas;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
@@ -24,6 +23,9 @@ public class GameStart extends Canvas implements Runnable{
 	public static final int WIDTH = 300; //width in pixels
 	public static final int HEIGHT = 300;//height in pixels
 	public static final int pixelSize = 2;//pixel size (default=2x2)
+	
+	public final float ONE_SEC_IN_NANOS = 1000000000;
+	public final float UPDATES = ONE_SEC_IN_NANOS/60; // 60 ups (updates por segundo)
 	
 	
 	private Rendering screen;
@@ -65,7 +67,7 @@ public class GameStart extends Canvas implements Runnable{
 		game.add("mainmenu", new MainMenuState(game,WIDTH,HEIGHT));
 		game.add("level1", new LevelState(game,WIDTH,HEIGHT));
 		
-		key = new Keyboard();
+		key = Keyboard.getSingleton();
 		addKeyListener(key);
 		
 		changeState("level1","init"); 
@@ -78,10 +80,6 @@ public class GameStart extends Canvas implements Runnable{
 		screen = game.getRender();
 	}
 
-	
-	private float getElapsedFrameTime(){
-		return 0.0f;
-	}
 	
 	public void start(){
 
@@ -97,20 +95,52 @@ public class GameStart extends Canvas implements Runnable{
 	@Override
 	public void run() {
 		
+		float prevUpdate = System.nanoTime();
+		float diff, timeNow;
+		float delta = 0, delta2 = 0;
+		int ups=0,fps=0;
 		while(isRunning){
-			update();
-			render();
+			timeNow = System.nanoTime();
+			diff = timeNow-prevUpdate;
+			prevUpdate = timeNow;
+			
+			delta2+=diff;
+			
+			delta+=diff; // delta calcula el tiempo a partir de el ultimo update()
+			
+			if(delta2>ONE_SEC_IN_NANOS){ // OPCIONAL: lo uso para calcular fps y ups
+				updateFrames(fps,ups);
+				delta2 = 0;
+				fps=0;
+				ups=0;
+			}
+			
+			while(delta>=UPDATES){ // 60 veces por segundo se reinicia el delta y se ejecuta update, uso while para evitar que el update se retrase si los ups son inferiores a 60
+				delta -= UPDATES; // los nanosegundos perdidosse guardan para la proxima iteracion, asi el estado del programa siempre es estable a 60ups
+				update();
+				ups++;
+			}
+			
+			render(); // el metodo render no esta limitado, se ejecuta las veces que la maquina lo permita
+			fps++;
+			
+			
+			
 		}
 	}
 	
-	public void update(){
-	
-	    float elapsedTime = getElapsedFrameTime();
-	    game.update(elapsedTime);
+	private void updateFrames(int fps, int ups) {
+		System.out.println("FPS: "+fps+"  UPS: "+ups);
+		
+	}
+
+	private synchronized void update(){
+		key.update();
+	    game.update();
 	    
 	}
 	
-	private void render(){
+	private synchronized void render(){
 		BufferStrategy bs = getBufferStrategy();
 		if(bs==null){
 			createBufferStrategy(3);

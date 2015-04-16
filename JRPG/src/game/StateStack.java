@@ -15,9 +15,9 @@ public class StateStack {
 		stateQueue = new LinkedList<IState>();
 	}
 	
-	public void update(float elapsedTime){
+	public void update(){
 		IState top = stateQueue.peek();
-		top.update(elapsedTime);
+		top.update();
 	}
 	
 	

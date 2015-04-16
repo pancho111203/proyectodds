@@ -6,6 +6,7 @@ import game.graphics.RenderingMainMenu;
 
 public class MainMenuState implements IState{
 
+	@SuppressWarnings("unused")
 	private StateMachine game;
 	private RenderingMainMenu render;
 	
@@ -21,7 +22,7 @@ public class MainMenuState implements IState{
 	}
 
 	@Override
-	public void update(float elapsedTime) {
+	public void update() {
 		// TODO Auto-generated method stub
 	}
 

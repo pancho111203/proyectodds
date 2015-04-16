@@ -12,7 +12,7 @@ public class StateEmpty implements IState{
 	}
 
 	@Override
-	public void update(float elapsedTime) {
+	public void update() {
 		// TODO Auto-generated method stub
 		
 	}

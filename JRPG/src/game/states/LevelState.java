@@ -5,26 +5,33 @@ import game.graphics.Rendering;
 import game.graphics.RenderingLevel;
 import game.input.Keyboard;
 
+import java.awt.event.KeyEvent;
+
 public class LevelState implements IState{
 
+	@SuppressWarnings("unused")
 	private StateMachine game;
 	private RenderingLevel render;
+	private Keyboard key;
 	
 	private int offsetX=0, offsetY=0;
 	
 	public LevelState(StateMachine game, int w, int h){
 		this.game = game;
 		render = new RenderingLevel(w,h);
-		
 		render.randomLevel();
+		key = Keyboard.getSingleton();
 	}
 	
 
 	@Override
-	public void update(float elapsedTime) {
-		// TODO Auto-generated method stub
-		offsetX+=Keyboard.getSingleton().horizontal;
-		offsetY+=Keyboard.getSingleton().vertical;
+	public void update() {
+		// TEST STUFF
+		if(key.keyDown(KeyEvent.VK_W))offsetY--;
+		if(key.keyDown(KeyEvent.VK_S))offsetY++;
+		if(key.keyDown(KeyEvent.VK_A))offsetX--;
+		if(key.keyDown(KeyEvent.VK_D))offsetX++;
+
 		
 	}
 	@Override

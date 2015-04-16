@@ -5,54 +5,93 @@ import java.awt.event.KeyListener;
 
 public class Keyboard implements KeyListener{
 	
-	public int horizontal = 0; //left=-1, right=1
-	public int vertical = 0; //up=-1,down=1
+	private final int MAX_KEYS = 256;
 	
 	private static Keyboard keyboard;
 	
+	private StateKey[] keys;
+	
+	private boolean[] pressed;
+	
+	private enum StateKey{
+		PRESSED,
+		HOLD,
+		RELEASED
+	}
+	
 	public static Keyboard getSingleton(){
-		
+		if(keyboard==null){
+			keyboard = new Keyboard();
+		}
 		return keyboard;
 	}
 	
-	public Keyboard(){
-		if(keyboard==null){
-			keyboard = this;
+	private Keyboard(){
+		pressed = new boolean[MAX_KEYS];
+		keys = new StateKey[MAX_KEYS];
+		
+		for(int i = 0;i<MAX_KEYS;i++){
+			keys[i] = StateKey.RELEASED;
+		}
+	}
+	
+	public synchronized void update(){
+		for(int i = 0;i<MAX_KEYS;i++){ // updates the array keys each time the update function is called
+			if(pressed[i]){
+				if(keys[i]==StateKey.RELEASED){
+					keys[i] = StateKey.PRESSED;
+				}else{
+					keys[i] = StateKey.HOLD;
+				}
+			}else{
+				keys[i] = StateKey.RELEASED;
+			}
 		}
 	}
 
+	public boolean keyDown(int k){ // k = codigo de la tecla
+		try{
+			StateKey s = keys[k];
+			return (s == StateKey.PRESSED || s == StateKey.HOLD);
+		}catch(ArrayIndexOutOfBoundsException e){
+			System.err.println("Called method keyDown(int k) of Keyboard with a key k that exceeds the MAX_KEYS limit");
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean keyPressed(int k){ // k = codigo de la tecla
+		try{
+			StateKey s = keys[k];
+			return (s == StateKey.PRESSED);
+		}catch(ArrayIndexOutOfBoundsException e){
+			System.err.println("Called method keyPressed(int k) of Keyboard with a key k that exceeds the MAX_KEYS limit");
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	
 	
 	@Override
-	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-		if(e.getKeyCode()==KeyEvent.VK_W||e.getKeyCode()==KeyEvent.VK_UP){
-			vertical -= 1;
-		}else if(e.getKeyCode()==KeyEvent.VK_D||e.getKeyCode()==KeyEvent.VK_RIGHT){
-			horizontal += 1;
-		}else if(e.getKeyCode()==KeyEvent.VK_S||e.getKeyCode()==KeyEvent.VK_DOWN){
-			vertical += 1;
-		}else if(e.getKeyCode()==KeyEvent.VK_A||e.getKeyCode()==KeyEvent.VK_LEFT){
-			horizontal -= 1;
+	public synchronized void keyPressed(KeyEvent e) {
+		int k = e.getKeyCode();
+		if(k>=0&&k<MAX_KEYS){
+			pressed[k]=true;
 		}
 	}
 
 	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		if(e.getKeyCode()==KeyEvent.VK_W||e.getKeyCode()==KeyEvent.VK_UP){
-			vertical += 1;
-		}else if(e.getKeyCode()==KeyEvent.VK_D||e.getKeyCode()==KeyEvent.VK_RIGHT){
-			horizontal -= 1;
-		}else if(e.getKeyCode()==KeyEvent.VK_S||e.getKeyCode()==KeyEvent.VK_DOWN){
-			vertical -= 1;
-		}else if(e.getKeyCode()==KeyEvent.VK_A||e.getKeyCode()==KeyEvent.VK_LEFT){
-			horizontal += 1;
+	public synchronized void keyReleased(KeyEvent e) {
+		int k = e.getKeyCode();
+		if(k>=0&&k<MAX_KEYS){
+			pressed[k]=false;
 		}
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
+		// No es necesario
 		
 	}
 

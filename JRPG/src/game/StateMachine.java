@@ -15,8 +15,8 @@ public class StateMachine {
 		currentS = new StateEmpty();
 	}
 	
-	public void update(float elapsedTime){
-		currentS.update(elapsedTime);
+	public void update(){
+		currentS.update();
 	}
 	
 	

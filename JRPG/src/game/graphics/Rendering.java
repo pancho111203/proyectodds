@@ -1,6 +1,6 @@
 package game.graphics;
 
-public class Rendering {
+public abstract class Rendering {
 	public int width, height;
 	public int pixels[];
 	
