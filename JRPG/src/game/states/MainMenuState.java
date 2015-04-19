@@ -9,7 +9,7 @@ public class MainMenuState implements IState{
 	@SuppressWarnings("unused")
 	private StateMachine game;
 	private RenderingMainMenu render;
-	
+	//TODO Main Menu Methods
 	public MainMenuState(StateMachine game, int w, int h){
 		this.game = game;
 		render = new RenderingMainMenu(w,h);
@@ -17,24 +17,20 @@ public class MainMenuState implements IState{
 	
 	@Override
 	public void render() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
 	}
 
 	@Override
 	public void onExit() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void onEnter(String params) {
-		// TODO Auto-generated method stub
 		
 	}
 	public Rendering getRender(){

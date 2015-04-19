@@ -1,8 +1,8 @@
 package game.graphics;
 
 public abstract class Rendering {
-	public int width, height;
-	public int pixels[];
+	protected int width, height;
+	protected int pixels[];
 	
 	public Rendering(int width,int height){
 		this.width = width;
@@ -18,5 +18,8 @@ public abstract class Rendering {
 			pixels[i]=0;
 		}
 		
+	}
+	public int[] getPixels(){
+		return pixels;
 	}
 }

@@ -49,9 +49,6 @@ public class GameStart extends Canvas implements Runnable{
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
-		
-		// Tell AWT not to bother repainting our canvas since we're
-		// going to do that our self in accelerated mode
 		frame.setIgnoreRepaint(true);
 		
 		
@@ -74,7 +71,7 @@ public class GameStart extends Canvas implements Runnable{
 		
 		
 	}
-	// only use this method to change state!
+	// only use this method to change state
 	public void changeState(String state, String params){
 		game.change(state, params);		
 		screen = game.getRender();
@@ -134,13 +131,13 @@ public class GameStart extends Canvas implements Runnable{
 		
 	}
 
-	private synchronized void update(){
+	private synchronized void update(){ // this function handles the update for keyboards and delegates the update to the ccurrent state instance
 		key.update();
 	    game.update();
 	    
 	}
 	
-	private synchronized void render(){
+	private synchronized void render(){ // this function does all the screen reseting and buffering and delegates the functonality to the current state instance
 		BufferStrategy bs = getBufferStrategy();
 		if(bs==null){
 			createBufferStrategy(3);
@@ -155,8 +152,9 @@ public class GameStart extends Canvas implements Runnable{
 		
 		//
 		//Generate the image by filling the pixels array
+		int[] aux = screen.getPixels();
 		for(int i=0;i<pixels.length;i++){
-			pixels[i]=screen.pixels[i];
+			pixels[i]=aux[i];
 		}
 
 		//DRAW GRAPHICS

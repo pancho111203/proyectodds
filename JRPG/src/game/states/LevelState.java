@@ -4,8 +4,8 @@ import game.StateMachine;
 import game.graphics.Rendering;
 import game.graphics.RenderingLevel;
 import game.input.Keyboard;
-
-import java.awt.event.KeyEvent;
+import game.level.Level;
+import game.level.RandomLevel;
 
 public class LevelState implements IState{
 
@@ -13,50 +13,41 @@ public class LevelState implements IState{
 	private StateMachine game;
 	private RenderingLevel render;
 	private Keyboard key;
-	
-	private int offsetX=0, offsetY=0;
+	private Level curLevel;
 	
 	public LevelState(StateMachine game, int w, int h){
 		this.game = game;
 		render = new RenderingLevel(w,h);
-		render.randomLevel();
 		key = Keyboard.getSingleton();
+		curLevel = new RandomLevel(64,64); 
 	}
 	
 
 	@Override
 	public void update() {
-		// TEST STUFF
-		if(key.keyDown(KeyEvent.VK_W))offsetY--;
-		if(key.keyDown(KeyEvent.VK_S))offsetY++;
-		if(key.keyDown(KeyEvent.VK_A))offsetX--;
-		if(key.keyDown(KeyEvent.VK_D))offsetX++;
-
+		
+		curLevel.update();
 		
 	}
 	@Override
 	public void render() {
 		
-		
-		render.renderTiles(offsetX,offsetY);
+		curLevel.render(render);
 		
 	}
 
 	@Override
 	public void onExit() {
-		// TODO Auto-generated method stub
-		
+		// TODO onExit in LevelState
 	}
 
 	@Override
 	public void onEnter(String params) {
-		// TODO Auto-generated method stub
-		
+		// TODO onEnter in LevelState
 	}
 
 	@Override
 	public Rendering getRender() {
-		// TODO Auto-generated method stub
 		return render;
 	}
 
