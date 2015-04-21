@@ -49,6 +49,8 @@ public class Keyboard implements KeyListener{
 		}
 	}
 
+	
+	//keyDown devuelve true cuando la tecla se esta manteniendo
 	public boolean keyDown(int k){ // k = codigo de la tecla
 		try{
 			StateKey s = keys[k];
@@ -60,6 +62,7 @@ public class Keyboard implements KeyListener{
 		}
 	}
 	
+	//keyDown devuelve true cuando la tecla se acaba de pulsar
 	public boolean keyPressed(int k){ // k = codigo de la tecla
 		try{
 			StateKey s = keys[k];

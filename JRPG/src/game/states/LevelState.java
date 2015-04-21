@@ -3,7 +3,6 @@ package game.states;
 import game.StateMachine;
 import game.graphics.Rendering;
 import game.graphics.RenderingLevel;
-import game.input.Keyboard;
 import game.level.Level;
 import game.level.RandomLevel;
 
@@ -12,13 +11,11 @@ public class LevelState implements IState{
 	@SuppressWarnings("unused")
 	private StateMachine game;
 	private RenderingLevel render;
-	private Keyboard key;
 	private Level curLevel;
 	
 	public LevelState(StateMachine game, int w, int h){
 		this.game = game;
 		render = new RenderingLevel(w,h);
-		key = Keyboard.getSingleton();
 		curLevel = new RandomLevel(64,64); 
 	}
 	

@@ -25,7 +25,7 @@ public class RandomLevel extends Level {
 	}
 
 	public void render(RenderingLevel render){
-		render.renderByColors(tiles,TILESIZE);
+		render.renderByColors(tiles,TILESIZE,xOffset,yOffset);
 		super.render(render);
 	}
 }

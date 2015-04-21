@@ -51,7 +51,6 @@ public class GameStart extends Canvas implements Runnable{
 		frame.setVisible(true);
 		frame.setIgnoreRepaint(true);
 		
-		
 		theGame.start();
 	}
 	
