@@ -16,7 +16,7 @@ public class LevelState implements IState{
 	public LevelState(StateMachine game, int w, int h){
 		this.game = game;
 		render = new RenderingLevel(w,h);
-		curLevel = new CustomLevel(64,64); 
+		curLevel = new CustomLevel(64,64,160,160); 
 	}
 	
 

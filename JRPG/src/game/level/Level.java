@@ -3,16 +3,18 @@ package game.level;
 import game.entity.EntityList;
 import game.graphics.RenderingLevel;
 import game.input.Keyboard;
+import game.level.tiles.Tile;
 
 import java.awt.event.KeyEvent;
 
 public abstract class Level {
 	private EntityList entList;
 	
+	//TODO cambiar TileSIZE
 	public static final int TILESIZE = 16;
 	
-	private final int START_POS_X = 0; // posiciones iniciales de la camara
-	private final int START_POS_Y = 0;
+	protected final int START_POS_X; // posiciones iniciales de la camara
+	protected final int START_POS_Y;
 	
 	
 	// enteros que representan la distancia x e y del punto central del nivel al punto actual donde la camara apunta
@@ -28,7 +30,9 @@ public abstract class Level {
 	//
 	
 	
-	public Level(){
+	public Level(int stX, int stY){
+		START_POS_X = stX;
+		START_POS_Y = stY;
 		entList = new EntityList();
 		xOffset = START_POS_X;
 		yOffset = START_POS_Y;
@@ -56,12 +60,11 @@ public abstract class Level {
 	public void render(RenderingLevel render){
 		
 		
-		
-		
-		
+		renderTiles(render);
 		entList.render(render);
 		
 	}
+	
 	public abstract void loadLevel();
 	
 	public void moveFocus(int movX,int movY){ // movX y movY son el delta que se tiene que añadir a los offset correspondientes
@@ -74,5 +77,42 @@ public abstract class Level {
 		 * 			arriba(0,0-)
 		 * 			abajo(0,0+)
 		 */
+	}
+	
+	public Tile getTile(int x, int y){  // (x,y) 
+		
+		if(x < 0 || y < 0 || x >= width || y>= height){return Tile.negro;}
+		
+		if(tiles[x+y*width]==1234){return Tile.verde;}
+		if(tiles[x+y*width]==4321){return Tile.blanco;}
+		if(tiles[x+y*width]==1111){return Tile.rojo;}
+			
+		return Tile.negro;
+	}
+	
+	protected void renderTiles(RenderingLevel render) {
+		int tsize = Level.TILESIZE;
+		
+		int xOffTile = xOffset/tsize;
+		int yOffTile = yOffset/tsize;// (xOffTile,yOffTile) es el desplazamiento de la camara con tile como medida
+		
+		
+		int h = (render.height/tsize)+yOffTile+1; // posicion del tile maximo que hay que dibujar(puede ser uno menos)
+		int w = (render.width/tsize)+xOffTile+1;
+		
+		
+		int xRest = xOffset%tsize;
+		int yRest = yOffset%tsize;
+		
+		if(xRest == 0)w--; // si la posicion del tile cuadra con la pantalla, hay que pintar uno menos
+		if(yRest == 0)h--;
+		
+		for(int y=yOffTile;y<h;y++){
+			for(int x=xOffTile;x<w;x++){
+				getTile(x,y).render(x-xOffTile,y-yOffTile,xRest,yRest,render);
+			}
+		}
+		
+		
 	}
 }
