@@ -31,7 +31,7 @@ public class RenderingLevel extends Rendering{
 	public void renderTile(int xp, int yp, Tile tile){ // (xp,yp) es la posicion del sprite respecto a la pantalla 
 		Sprite sprite = tile.sprite;
 		
-		int size = tile.size;
+		int size = tile.SIZE;
 		
 		int yPixel = yp * size; 
 		int xPixel = xp * size; // transformamos a medida pixel

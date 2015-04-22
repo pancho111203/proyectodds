@@ -8,11 +8,11 @@ public class Tile {
 //TODO limit sprites to tile length
 //TODO funcion de animar el tile
 
-	public int size; 
+	public final int SIZE; 
 	public Sprite sprite;
 
 	public Tile(int size){ // cuando e level crea los tiles, le pasa el tamaño(tiene que ser cuadrado)
-		this.size = size;
+		this.SIZE = size;
 	}
 	public void render(RenderingLevel render){
 		
