@@ -7,7 +7,7 @@ import java.util.Random;
 public class RandomLevel extends Level {
 
 	private Random random = new Random();
-	private final int TILESIZE = 32;
+
 	
 	public RandomLevel(int w, int h){
 		super();
@@ -25,7 +25,7 @@ public class RandomLevel extends Level {
 	}
 
 	public void render(RenderingLevel render){
-		render.renderByColors(tiles,TILESIZE,xOffset,yOffset);
+		render.renderByColors(tiles,Level.TILESIZE,xOffset,yOffset);
 		super.render(render);
 	}
 }

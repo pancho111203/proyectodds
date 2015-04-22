@@ -3,8 +3,8 @@ package game.states;
 import game.StateMachine;
 import game.graphics.Rendering;
 import game.graphics.RenderingLevel;
+import game.level.CustomLevel;
 import game.level.Level;
-import game.level.RandomLevel;
 
 public class LevelState implements IState{
 
@@ -16,7 +16,7 @@ public class LevelState implements IState{
 	public LevelState(StateMachine game, int w, int h){
 		this.game = game;
 		render = new RenderingLevel(w,h);
-		curLevel = new RandomLevel(64,64); 
+		curLevel = new CustomLevel(64,64); 
 	}
 	
 

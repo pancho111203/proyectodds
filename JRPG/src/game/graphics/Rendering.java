@@ -1,7 +1,7 @@
 package game.graphics;
 
 public abstract class Rendering {
-	protected int width, height;
+	public int width, height;
 	protected int pixels[];
 	
 	public Rendering(int width,int height){

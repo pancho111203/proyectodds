@@ -9,6 +9,8 @@ import java.awt.event.KeyEvent;
 public abstract class Level {
 	private EntityList entList;
 	
+	public static final int TILESIZE = 16;
+	
 	private final int START_POS_X = 0; // posiciones iniciales de la camara
 	private final int START_POS_Y = 0;
 	
@@ -52,6 +54,11 @@ public abstract class Level {
 		entList.update();
 	}
 	public void render(RenderingLevel render){
+		
+		
+		
+		
+		
 		entList.render(render);
 		
 	}
