@@ -93,16 +93,15 @@ public abstract class Level {
 	protected void renderTiles(RenderingLevel render) {
 		int tsize = Level.TILESIZE;
 		
+		int xRest = xOffset%tsize;
+		int yRest = yOffset%tsize;
+		
 		int xOffTile = xOffset/tsize;
 		int yOffTile = yOffset/tsize;// (xOffTile,yOffTile) es el desplazamiento de la camara con tile como medida
 		
-		
 		int h = (render.height/tsize)+yOffTile+1; // posicion del tile maximo que hay que dibujar(puede ser uno menos)
 		int w = (render.width/tsize)+xOffTile+1;
-		
-		
-		int xRest = xOffset%tsize;
-		int yRest = yOffset%tsize;
+				
 		
 		if(xRest == 0)w--; // si la posicion del tile cuadra con la pantalla, hay que pintar uno menos
 		if(yRest == 0)h--;
