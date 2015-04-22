@@ -1,8 +1,5 @@
 package game.entity;
 
-import java.awt.event.KeyEvent;
-import java.util.Random;
-
 import game.graphics.RenderingLevel;
 
 public class Hero extends Entity {
