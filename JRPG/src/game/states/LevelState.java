@@ -23,6 +23,8 @@ public class LevelState implements IState{
 	@Override
 	public void update() {
 		
+		
+		
 		curLevel.update();
 		
 	}
