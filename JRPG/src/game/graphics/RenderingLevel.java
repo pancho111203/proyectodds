@@ -1,5 +1,7 @@
 package game.graphics;
 
+import game.level.tiles.Tile;
+
 
 public class RenderingLevel extends Rendering{
 
@@ -26,15 +28,39 @@ public class RenderingLevel extends Rendering{
 	}
 	
 	
+	public void renderTile(int xp, int yp, Tile tile){ // (xp,yp) es la posicion del sprite respecto a la pantalla 
+		Sprite sprite = tile.sprite;
+		
+		int size = tile.size;
+		
+		int yPixel = yp * size; 
+		int xPixel = xp * size; // transformamos a medida pixel
+		
+		for(int y=0;y<size;y++){// (x,y) es la posicion del pixel respecto al sprite
+			int ya = (yPixel+y); // (xa,ya) posicion del pixel al que hay que pintar en la pantalla
+			for(int x=0;x<size;x++){
+				int xa = (xPixel+x);
+				
+				
+				if(xa >= width || xa<0 || ya >= height || ya<0){
+					continue;
+				}
+
+				pixels[xa+ya*width]= sprite.pixels[x+y*size];
+			}
+		}
+	}
 	
 	
-//	public void renderTile(int xp, int yp, Sprite sprite, int xOffset, int yOffset){
-//		xp-= xOffset;
-//		yp-= yOffset;
-//		for(int y=0;y<tile.sprite.SIZE;y++){
-//			int ya = y + yp;
-//			for(int x=0;x<tile.sprite.SIZE;x++){
+//	public void renderEntity(int xp, int yp, Sprite sprite){ // (xp,yp) es la posicion del sprite respecto al mundo 
+//		yp = yp * sprite.HEIGHT;
+//		xp = xp * sprite.WIDTH; // transformamos a medida pixel
+//		
+//		for(int y=0;y<sprite.HEIGHT;y++){// (x,y) es la posicion del pixel respecto al sprite
+//			int ya = y + yp;   				//(xa,ya) es la posicion del pixel respecto al mundo(en medida pixel)
+//			for(int x=0;x<sprite.WIDTH;x++){
 //				int xa = x + xp;
+//				
 //				if(xa < -tile.sprite.SIZE || xa >= width || ya < -tile.sprite.SIZE || ya >= height){break;}
 //				if(xa < 0){xa=0;}
 //				if(ya < 0){ya=0;}
