@@ -40,7 +40,6 @@ public class GameStart extends Canvas implements Runnable{
 	
 	public static void main(String[]args){
 		GameStart theGame = new GameStart();
-		System.out.println("caca");
 		JFrame frame = new JFrame();
 		frame.add(theGame);
 		frame.pack();
@@ -53,7 +52,6 @@ public class GameStart extends Canvas implements Runnable{
 		
 		theGame.start();
 		
-		System.out.println("TEST!");
 	}
 	
 	public GameStart(){
