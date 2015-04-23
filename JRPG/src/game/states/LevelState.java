@@ -3,7 +3,7 @@ package game.states;
 import game.StateMachine;
 import game.graphics.Rendering;
 import game.graphics.RenderingLevel;
-import game.level.CustomLevel;
+import game.level.FirstLevel;
 import game.level.Level;
 
 public class LevelState implements IState{
@@ -16,7 +16,7 @@ public class LevelState implements IState{
 	public LevelState(StateMachine game, int w, int h){
 		this.game = game;
 		render = new RenderingLevel(w,h);
-		curLevel = new CustomLevel(64,64,160,160); 
+		curLevel = new FirstLevel(0,0,"/level.png"); 
 	}
 	
 

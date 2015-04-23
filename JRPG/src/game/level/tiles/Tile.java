@@ -7,14 +7,15 @@ public class Tile {
 
 //TODO limit sprites to tile length
 //TODO funcion de animar el tile
-	
+//TODO ver si es mejor evitar la creacion estatica de tiles y sprites, y crearlos desde el level correspondiente
 	
 	//TEST tiles
 	public static Tile blanco = new Tile(Sprite.blanco);
 	public static Tile verde = new Tile(Sprite.verde);
 	public static Tile rojo = new Tile(Sprite.rojo);
-	public static Tile negro = new Tile(Sprite.negro);
 	//
+	
+	public static Tile voidTile = new Tile(Sprite.negro);
 	
 	public Sprite sprite;
 

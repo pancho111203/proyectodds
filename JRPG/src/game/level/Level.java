@@ -10,7 +10,6 @@ import java.awt.event.KeyEvent;
 public abstract class Level {
 	private EntityList entList;
 	
-	//TODO cambiar TileSIZE
 	public static final int TILESIZE = 16;
 	
 	protected final int START_POS_X; // posiciones iniciales de la camara
@@ -79,16 +78,7 @@ public abstract class Level {
 		 */
 	}
 	
-	public Tile getTile(int x, int y){  // (x,y) 
-		
-		if(x < 0 || y < 0 || x >= width || y>= height){return Tile.negro;}
-		
-		if(tiles[x+y*width]==1234){return Tile.verde;}
-		if(tiles[x+y*width]==4321){return Tile.blanco;}
-		if(tiles[x+y*width]==1111){return Tile.rojo;}
-			
-		return Tile.negro;
-	}
+	public abstract Tile getTile(int x, int y);
 	
 	protected void renderTiles(RenderingLevel render) {
 		int tsize = Level.TILESIZE;

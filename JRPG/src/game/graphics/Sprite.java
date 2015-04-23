@@ -9,10 +9,10 @@ public class Sprite {
 	//TODO buscar la manera de resolver errores introduciendo un tile de tamaño insadecuado
 	//usar Level.TILESIZE para todos los sprites que vayan a ser usados por un tile
 	//TEST sprite
-	public static Sprite rojo=new Sprite(Level.TILESIZE,0xff0000);
+	public static Sprite verde=new Sprite(Level.TILESIZE,0x00ff00);
 	public static Sprite negro=new Sprite(Level.TILESIZE,0x000000);
 	public static Sprite blanco=new Sprite(Level.TILESIZE,0xffffff);
-	public static Sprite verde=new Sprite(Level.TILESIZE,2,2,Spritesheet.tiles);
+	public static Sprite rojo=new Sprite(Level.TILESIZE,2,2,Spritesheet.tiles);
 	//
 	
 	
