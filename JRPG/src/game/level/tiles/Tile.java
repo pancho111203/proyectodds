@@ -28,4 +28,5 @@ public class Tile {
 	public void render(int x, int y, int xRest, int yRest, RenderingLevel render){ // (x,y) es la posicion con respecto a la pantalla 
 		render.renderTile(x, y,xRest,yRest, this);
 	}
+	
 }
