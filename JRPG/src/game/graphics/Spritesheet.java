@@ -8,25 +8,27 @@ import javax.imageio.ImageIO;
 public class Spritesheet {
 	
 	private String path;
-	public final int WIDTH, HEIGHT;
+	public int WIDTH;
+	public int HEIGHT;
 	public int[] pixels;
+	public int indexSize;
 	
-	public static Spritesheet tiles = new Spritesheet("/spritesheet.png",96,48);
+	public static Spritesheet tiles = new Spritesheet("/spritesheet.png",16);
 	
-	public Spritesheet(String path,int width,int height){
+	public Spritesheet(String path, int ind){
 		this.path=path;
-		WIDTH = width;
-		HEIGHT= height;
-		pixels = new int[WIDTH*HEIGHT];
+		indexSize=ind;
+		
 		load();
 	}
 	
 	private void load(){
 		try {
 			BufferedImage image = ImageIO.read(Spritesheet.class.getResource(path));
-			int w= image.getWidth();
-			int h=image.getHeight();
-			image.getRGB(0, 0, w, h, pixels, 0, w);
+			WIDTH= image.getWidth();
+			HEIGHT=image.getHeight();
+			pixels = new int[WIDTH*HEIGHT];
+			image.getRGB(0, 0, WIDTH, HEIGHT, pixels, 0, WIDTH);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -66,6 +66,11 @@ public abstract class Level {
 	
 	public abstract void loadLevel();
 	
+	//TODO cambiar el movimiento al player, el cual llama desde su metodo mover a moveFocus
+	// tambien falta implementar una funcionalidad en moveFocus: checkea si es posible mover el focus de la camara para evitar
+	// que se salga de el nivel - si el check da false, la camara no se mueve, solo el player
+	
+	
 	public void moveFocus(int movX,int movY){ // movX y movY son el delta que se tiene que añadir a los offset correspondientes
 		xOffset += movX;
 		yOffset += movY;
