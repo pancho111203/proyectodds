@@ -37,5 +37,17 @@ public class Animator {
 		return actSprite;
 	}
 	
+	public Sprite getActual(){
+		return actSprite;
+	}
 	
+	public void update(){
+		//TODO se llama cada frame y va sumando un contador que llegado cierto numero le indica qu cambie al prox sprite
+		//en el jugador esta funcion solo se llama para el animador actual(izq si se esta moviendo a la izquiea, etc)
+		// el los tiles se llamara siempre desde la update() de el Level a todos
+	}
+	
+	public void startAgain(){
+		//TODO reinicia el animador para que empiece desde el sprite inicial(util para el jugador, que tiene que empezar la animacion de saltar p ej)
+	}
 }

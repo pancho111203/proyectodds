@@ -2,10 +2,12 @@ package game.level;
 
 import game.entity.EntityList;
 import game.graphics.RenderingLevel;
+import game.graphics.Sprite;
 import game.input.Keyboard;
 import game.level.tiles.Tile;
 
 import java.awt.event.KeyEvent;
+import java.util.HashMap;
 
 public abstract class Level {
 	private EntityList entList;
@@ -22,6 +24,10 @@ public abstract class Level {
 	protected int width, height;
 	protected int[] tiles;
 	
+	protected HashMap<String,Sprite> iniSprites;
+	protected HashMap<String,Tile> iniTiles;
+	
+	
 	
 	//TEST Movimiento desde el nivel, mas adelante planeo hacerlo desde player
 	private Keyboard key;
@@ -37,7 +43,11 @@ public abstract class Level {
 		yOffset = START_POS_Y;
 		
 		key = Keyboard.getSingleton();
+		
+		iniTiles = new HashMap<String, Tile>();
+		iniSprites = new HashMap<String, Sprite>();
 				
+		initializeSpritesAndTiles();
 	}
 	public void update(){
 		//TEST mov
@@ -65,6 +75,8 @@ public abstract class Level {
 	}
 	
 	public abstract void loadLevel();
+	
+	public abstract void initializeSpritesAndTiles();
 	
 	//TODO cambiar el movimiento al player, el cual llama desde su metodo mover a moveFocus
 	// tambien falta implementar una funcionalidad en moveFocus: checkea si es posible mover el focus de la camara para evitar
