@@ -9,6 +9,8 @@ public class SpriteAnim extends Sprite {
 	//se puede crear como un Sprite normal y corriente y usarlo como tal o añadirle despues acciones..
 	public SpriteAnim(int size, int x, int y, Spritesheet sheet) {
 		super(size, x, y, sheet);
+		
+		actions = new ArrayList<Animator>();
 	}
 	//no se si es util hacer un constructor con un Arraylist de Animators ya defindos 
 

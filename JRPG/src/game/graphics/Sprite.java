@@ -12,7 +12,7 @@ public class Sprite {
 	public static Sprite verde=new Sprite(Level.TILESIZE,0x00ff00);
 	public static Sprite negro=new Sprite(Level.TILESIZE,0x000000);
 	public static Sprite blanco=new Sprite(Level.TILESIZE,0xffffff);
-	public static Sprite rojo=new Sprite(Level.TILESIZE,1,1,Spritesheet.tiles);
+	public static Sprite rojo=new Sprite(Level.TILESIZE,2,2,Spritesheet.tiles);
 	//
 	
 	
@@ -21,6 +21,7 @@ public class Sprite {
 	public int width, height;
 	protected Spritesheet sheet;
 	
+	//TEST
 	
 	public Sprite (int size, int x, int y, Spritesheet sheet){
 		width = height = size;
