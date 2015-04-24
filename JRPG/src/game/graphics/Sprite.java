@@ -12,14 +12,14 @@ public class Sprite {
 	public static Sprite verde=new Sprite(Level.TILESIZE,0x00ff00);
 	public static Sprite negro=new Sprite(Level.TILESIZE,0x000000);
 	public static Sprite blanco=new Sprite(Level.TILESIZE,0xffffff);
-	public static Sprite rojo=new Sprite(Level.TILESIZE,2,2,Spritesheet.tiles);
+	public static Sprite rojo=new Sprite(Level.TILESIZE,1,1,Spritesheet.tiles);
 	//
 	
 	
 	public int[] pixels;
 	public int x, y;
 	public int width, height;
-	private Spritesheet sheet;
+	protected Spritesheet sheet;
 	
 	
 	public Sprite (int size, int x, int y, Spritesheet sheet){
