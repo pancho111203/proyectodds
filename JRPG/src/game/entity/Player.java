@@ -2,6 +2,7 @@ package game.entity;
 
 import game.graphics.Animator;
 import game.graphics.RenderingLevel;
+import game.graphics.Sprite;
 import game.graphics.Spritesheet;
 import game.input.Keyboard;
 import game.level.Level;
@@ -13,7 +14,7 @@ public class Player extends Entity{
 	private Keyboard key;
 	private int speed=1;
 	private Level level;
-	private Animator currentAnim; // mas adelante habr un animador por cada estado diferente(moviendose a la izq, der, arriba, abajo, saltando, etc.)
+	private Sprite currentAnim; // mas adelante habr un animador por cada estado diferente(moviendose a la izq, der, arriba, abajo, saltando, etc.)
 	
 	public Player(int x, int y,Level level) {
 		super(x, y);
