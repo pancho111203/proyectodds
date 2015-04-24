@@ -2,7 +2,7 @@ package game.graphics;
 
 import java.util.ArrayList;
 
-public class SpriteAnim extends Sprite {
+public class SpriteAnim extends SingleSprite {
 
 	public ArrayList<Animator> actions; //cada sprite animado tendrá un animator para cada cosa que sepa hacer (andar, saltar, atacar, cagar...)
 	

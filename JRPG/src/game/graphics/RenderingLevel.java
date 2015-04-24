@@ -15,7 +15,7 @@ public class RenderingLevel extends Rendering{
 		//(xRest,yRest) respresentan el desplazamiento del sprite. el valor maximo de este desplazamiento
 		// es 31(el tamano del tile-1). el desplazamiento sera hacia la izquierda con respecto a la pantalla
 		
-		Sprite sprite = tile.getSprite();
+		SingleSprite sprite = tile.getSprite();
 		
 		int size = Level.TILESIZE;
 		
@@ -37,24 +37,25 @@ public class RenderingLevel extends Rendering{
 		}
 	}
 	
-	//TODO renderEntity
-//	public void renderEntity(int xp, int yp, Sprite sprite){ // (xp,yp) es la posicion del sprite respecto a la pantalla(en pixels!!)
-//		int spriteHeight = sprite.height;
-//		int spriteWidth = sprite.width;
-//		
-//		for(int y=0;y<spriteHeight;y++){// (x,y) es la posicion del pixel respecto al sprite
-//			int ya = (yp+y); // (xa,ya) posicion del pixel al que hay que pintar en la pantalla
-//			for(int x=0;x<spriteWidth;x++){
-//				int xa = (xp+x);
-//				
-//				
-//				if(xa >= width || xa<0 || ya >= height || ya<0){
-//					continue;
-//				}
-//
-//				pixels[xa+ya*width]= sprite.pixels[x+y*spriteWidth];
-//			}
-//		}
-//	}
+	public void renderEntity(int xp, int yp, Sprite sp){ // (xp,yp) es la posicion del sprite respecto a la pantalla(en pixels!!)
+		SingleSprite sprite = sp.getActual();
+		
+		int spriteHeight = sprite.getHeight();
+		int spriteWidth = sprite.getWidth();
+		
+		for(int y=0;y<spriteHeight;y++){// (x,y) es la posicion del pixel respecto al sprite
+			int ya = (yp+y); // (xa,ya) posicion del pixel al que hay que pintar en la pantalla
+			for(int x=0;x<spriteWidth;x++){
+				int xa = (xp+x);
+				
+				
+				if(xa >= width || xa<0 || ya >= height || ya<0){
+					continue;
+				}
+
+				pixels[xa+ya*width]= sprite.pixels[x+y*spriteWidth];
+			}
+		}
+	}
 
 }

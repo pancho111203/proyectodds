@@ -1,12 +1,12 @@
 package game.level;
 
 import game.entity.EntityList;
+import game.entity.Player;
+import game.graphics.Animator;
 import game.graphics.RenderingLevel;
-import game.graphics.Sprite;
-import game.input.Keyboard;
+import game.graphics.SingleSprite;
 import game.level.tiles.Tile;
 
-import java.awt.event.KeyEvent;
 import java.util.HashMap;
 
 public abstract class Level {
@@ -23,55 +23,44 @@ public abstract class Level {
 	
 	protected int width, height;
 	protected int[] tiles;
+	public int screenW;
+
+	public int screenH;
 	
-	protected HashMap<String,Sprite> iniSprites;
+	protected Player player;
+	
+	protected HashMap<String,SingleSprite> iniSprites;
+	protected HashMap<String,Animator> iniAnimSprites; //TODO
 	protected HashMap<String,Tile> iniTiles;
 	
 	
-	
-	//TEST Movimiento desde el nivel, mas adelante planeo hacerlo desde player
-	private Keyboard key;
-	private int speed = 1;
-	//
-	
-	
-	public Level(int stX, int stY){
+	public Level(int stX, int stY, int w, int h){
 		START_POS_X = stX;
 		START_POS_Y = stY;
 		entList = new EntityList();
 		xOffset = START_POS_X;
 		yOffset = START_POS_Y;
 		
-		key = Keyboard.getSingleton();
+		screenW = w;
+		screenH = h;
 		
 		iniTiles = new HashMap<String, Tile>();
-		iniSprites = new HashMap<String, Sprite>();
-				
+		iniSprites = new HashMap<String, SingleSprite>();
+		
+		
+		player = new Player(xOffset,yOffset,this);
+		
 		initializeSpritesAndTiles();
 	}
 	public void update(){
-		//TEST mov
-		if(key.keyDown(KeyEvent.VK_W)||key.keyDown(KeyEvent.VK_UP)){
-			moveFocus(0, -speed);
-		}
-		if(key.keyDown(KeyEvent.VK_S)||key.keyDown(KeyEvent.VK_DOWN)){
-			moveFocus(0, speed);
-		}
-		if(key.keyDown(KeyEvent.VK_A)||key.keyDown(KeyEvent.VK_LEFT)){
-			moveFocus(-speed, 0);
-		}
-		if(key.keyDown(KeyEvent.VK_D)||key.keyDown(KeyEvent.VK_RIGHT)){
-			moveFocus(speed, 0);
-		}
-		//
 		entList.update();
+		player.update();
 	}
 	public void render(RenderingLevel render){
-		
-		
 		renderTiles(render);
-		entList.render(render);
 		
+		entList.render(render);
+		player.render(render);
 	}
 	
 	public abstract void loadLevel();
@@ -83,19 +72,21 @@ public abstract class Level {
 	// que se salga de el nivel - si el check da false, la camara no se mueve, solo el player
 	
 	
-	public void moveFocus(int movX,int movY){ // movX y movY son el delta que se tiene que añadir a los offset correspondientes
-		xOffset += movX;
-		yOffset += movY;
+	public void moveFocus(int offX,int offY){ 
+		xOffset += offX;
+		yOffset += offY;
 		
-		/*		movimiento:
-		 * 			derecha (0+,0)
-		 * 			izquierda (0-,0)
-		 * 			arriba(0,0-)
-		 * 			abajo(0,0+)
-		 */
 	}
 	
 	public abstract Tile getTile(int x, int y);
+	
+	public int getXPosScreen(){
+		return xOffset;
+	}
+	public int getYPosScreen(){
+		return yOffset;
+	}
+	
 	
 	protected void renderTiles(RenderingLevel render) {
 		int tsize = Level.TILESIZE;

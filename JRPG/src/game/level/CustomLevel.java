@@ -1,6 +1,6 @@
 package game.level;
 
-import game.graphics.Sprite;
+import game.graphics.SingleSprite;
 import game.graphics.Spritesheet;
 import game.level.tiles.StaticTile;
 import game.level.tiles.Tile;
@@ -8,8 +8,8 @@ import game.level.tiles.Tile;
 
 public class CustomLevel extends Level {
 
-	public CustomLevel(int w, int h, int startPosX, int startPosY){
-		super(startPosX,startPosY);
+	public CustomLevel(int w, int h, int startPosX, int startPosY,int wi, int hi){
+		super(startPosX,startPosY,wi,hi);
 		width = w;
 		height = h;
 		tiles = new int[width*height];
@@ -43,10 +43,10 @@ public class CustomLevel extends Level {
 
 	@Override
 	public void initializeSpritesAndTiles() {
-		iniSprites.put("verde", new Sprite(TILESIZE,0x00ff00));
-		iniSprites.put("rojo", new Sprite(TILESIZE,2,2,Spritesheet.tiles));
-		iniSprites.put("blanco", new Sprite(TILESIZE,0xffffff));
-		iniSprites.put("negro", new Sprite(TILESIZE,0x000000));
+		iniSprites.put("verde", new SingleSprite(TILESIZE,0x00ff00));
+		iniSprites.put("rojo", new SingleSprite(TILESIZE,2,2,Spritesheet.tiles));
+		iniSprites.put("blanco", new SingleSprite(TILESIZE,0xffffff));
+		iniSprites.put("negro", new SingleSprite(TILESIZE,0x000000));
 		
 		
 		

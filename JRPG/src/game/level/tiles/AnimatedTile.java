@@ -2,7 +2,7 @@ package game.level.tiles;
 
 import game.graphics.Animator;
 import game.graphics.RenderingLevel;
-import game.graphics.Sprite;
+import game.graphics.SingleSprite;
 
 public class AnimatedTile implements Tile{
 
@@ -15,7 +15,7 @@ public class AnimatedTile implements Tile{
 	}
 	
 	@Override
-	public Sprite getSprite() {
+	public SingleSprite getSprite() {
 		return anim.getActual();
 	}
 

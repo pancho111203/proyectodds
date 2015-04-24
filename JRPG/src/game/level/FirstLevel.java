@@ -1,7 +1,7 @@
 package game.level;
 
 import game.graphics.RenderingLevel;
-import game.graphics.Sprite;
+import game.graphics.SingleSprite;
 import game.graphics.SpriteAnim;
 import game.graphics.Spritesheet;
 import game.level.tiles.StaticTile;
@@ -18,8 +18,8 @@ public class FirstLevel extends Level {
 	private String imgLevelPath;
 	private Tile player; //player del nivel añadido para probar cosas
 
-	public FirstLevel(int startPosX, int startPosY, String pathImgToLvL){
-		super(startPosX,startPosY);
+	public FirstLevel(int startPosX, int startPosY, String pathImgToLvL, int w, int h){
+		super(startPosX,startPosY,w,h);
 		imgLevelPath = pathImgToLvL;
 		loadLevel();
 		player = new StaticTile(new SpriteAnim(16, 0, 2, Spritesheet.tiles)); //creo un ejemplo de tile
@@ -78,10 +78,10 @@ public class FirstLevel extends Level {
 
 	@Override
 	public void initializeSpritesAndTiles() {
-		iniSprites.put("verde", new Sprite(TILESIZE,0x00ff00));
-		iniSprites.put("rojo", new Sprite(TILESIZE,2,2,Spritesheet.tiles));
-		iniSprites.put("blanco", new Sprite(TILESIZE,0xffffff));
-		iniSprites.put("negro", new Sprite(TILESIZE,0x000000));
+		iniSprites.put("verde", new SingleSprite(TILESIZE,0x00ff00));
+		iniSprites.put("rojo", new SingleSprite(TILESIZE,2,2,Spritesheet.tiles));
+		iniSprites.put("blanco", new SingleSprite(TILESIZE,0xffffff));
+		iniSprites.put("negro", new SingleSprite(TILESIZE,0x000000));
 		
 		
 		
