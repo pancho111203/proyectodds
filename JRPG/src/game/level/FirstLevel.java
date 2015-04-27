@@ -2,7 +2,6 @@ package game.level;
 
 import game.graphics.RenderingLevel;
 import game.graphics.SingleSprite;
-import game.graphics.SpriteAnim;
 import game.graphics.Spritesheet;
 import game.level.tiles.StaticTile;
 import game.level.tiles.Tile;
