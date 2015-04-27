@@ -16,7 +16,7 @@ public class SpriteAnim extends SingleSprite {
 
 	//aádir una acción nueva
 	public void addAction(int s, int x,int y, int n){
-		actions.add(new Animator(x, y, s, y, sheet));
+		//actions.add(new Animator(x, y, s, y, sheet));
 	}
 	
 	//(ahora mismo en mi cabeza tiene sentido) le dices el id de la acción que está realizando y pasa al siguiente sprite de esta.
