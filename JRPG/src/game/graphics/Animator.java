@@ -62,7 +62,7 @@ public class Animator implements Sprite{
 	}
 	
 	public void startAgain(){
-		//partiendo de que pongamos en el spritesheet los tiles en orden.
+		//partiendo de que pongamos en el spritesheet los tiles en orden...
 		actSprite=sprites[0];
 	}
 	
