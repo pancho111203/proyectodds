@@ -30,9 +30,9 @@ public abstract class Level {
 	protected Player player;
 	
 	protected HashMap<String,SingleSprite> iniSprites;
-	protected HashMap<String,Animator> iniAnimSprites; //TODO
+	protected HashMap<String,Animator> iniAnimSprites; //TODO sprites animados
 	protected HashMap<String,Tile> iniTiles;
-	
+	//TODO separar sprites en background y foreground
 	
 	public Level(int stX, int stY, int w, int h){
 		START_POS_X = stX;
@@ -54,6 +54,7 @@ public abstract class Level {
 	}
 	public void update(){
 		entList.update();
+		
 		player.update();
 	}
 	public void render(RenderingLevel render){
@@ -66,11 +67,6 @@ public abstract class Level {
 	public abstract void loadLevel();
 	
 	public abstract void initializeSpritesAndTiles();
-	
-	//TODO cambiar el movimiento al player, el cual llama desde su metodo mover a moveFocus
-	// tambien falta implementar una funcionalidad en moveFocus: checkea si es posible mover el focus de la camara para evitar
-	// que se salga de el nivel - si el check da false, la camara no se mueve, solo el player
-	
 	
 	public void moveFocus(int offX,int offY){ 
 		xOffset += offX;

@@ -14,7 +14,7 @@ public class Player extends Entity{
 	private Keyboard key;
 	private int speed=1;
 	private Level level;
-	private Sprite currentAnim; // mas adelante habr un animador por cada estado diferente(moviendose a la izq, der, arriba, abajo, saltando, etc.)
+	private Sprite currentAnim; //TODO mas adelante habr un animador por cada estado diferente(moviendose a la izq, der, arriba, abajo, saltando, etc.)
 	
 	public Player(int x, int y,Level level) {
 		super(x, y);
@@ -66,9 +66,11 @@ public class Player extends Entity{
 	
 	public void move(int movX,int movY){
 		//TODO falta comprobar bounds de player y comprobar bounds de level con funcion auxiliar en level
+		
 		//TODO usa patron estrategia para diferentes tipos de movimiento
 		x+=movX;
 		y+=movY;
+		
 		level.moveFocus(movX, movY);
 		
 		/*		movimiento:

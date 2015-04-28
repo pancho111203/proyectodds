@@ -14,6 +14,7 @@ public class Spritesheet {
 	public int indexSize;
 	
 	public static Spritesheet tiles = new Spritesheet("/spritesheet.png",16);
+	public static Spritesheet test = new Spritesheet("/pilar_pequeno.png", 16);
 	
 	public Spritesheet(String path, int ind){
 		this.path=path;
@@ -30,7 +31,6 @@ public class Spritesheet {
 			pixels = new int[WIDTH*HEIGHT];
 			image.getRGB(0, 0, WIDTH, HEIGHT, pixels, 0, WIDTH);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
