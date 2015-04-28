@@ -24,7 +24,8 @@ public class Player extends Entity{
 		int startpointPlayerX = x + level.screenW/2;
 		int startpointPlayerY = y + level.screenH/2;
 		
-		currentAnim = new Animator(16, 16, 0, 2, 3, Spritesheet.tiles, 20);
+		
+		currentAnim = new Animator(16, 16, 0, 2, 3, Spritesheet.tiles, 60);
 		//currentAnim = new Sprite(16,16,0,2,Spritesheet.tiles);
 		
 		this.x = startpointPlayerX-currentAnim.getWidth()/2;
@@ -34,6 +35,9 @@ public class Player extends Entity{
 	@Override
 	public void update() {
 		
+		if(currentAnim instanceof Animator){
+			((Animator)currentAnim).update();
+		} 
 		//TODO es temporal
 		if(key.keyDown(KeyEvent.VK_W)||key.keyDown(KeyEvent.VK_UP)){
 			move(0,-speed);
