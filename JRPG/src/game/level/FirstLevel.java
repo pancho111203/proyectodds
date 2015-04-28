@@ -2,7 +2,6 @@ package game.level;
 
 import game.graphics.RenderingLevel;
 import game.graphics.SingleSprite;
-import game.graphics.SpriteAnim;
 import game.graphics.Spritesheet;
 import game.level.tiles.StaticTile;
 import game.level.tiles.Tile;
@@ -22,8 +21,6 @@ public class FirstLevel extends Level {
 		super(startPosX,startPosY,w,h);
 		imgLevelPath = pathImgToLvL;
 		loadLevel();
-		player = new StaticTile(new SpriteAnim(16, 0, 2, Spritesheet.tiles)); //creo un ejemplo de tile
-		//(SpriteAnim)(player.sprite).addAction(16,0,2,3);      //no puedo utilizarlo como SpriteAnim por que no he hecho el rollo del patron con interfaz etc... tomorrou more
 	}
 	
 	@Override
@@ -73,7 +70,6 @@ public class FirstLevel extends Level {
 	//he añadido la función render aquí para renderizar cosas de este nivel y no directamente en la clase padre generica level (creo que es más limpio)
 	public void render(RenderingLevel render){
 		super.render(render);
-		player.render(3, 4, 0, 0, render);
 	}
 
 	@Override
