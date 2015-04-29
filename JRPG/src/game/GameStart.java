@@ -60,6 +60,7 @@ public class GameStart extends Canvas implements Runnable{
 		
 		game = new StateMachine();
 		
+		
 		game.add("mainmenu", new MainMenuState(game,WIDTH,HEIGHT));
 		game.add("level1", new LevelState(game,WIDTH,HEIGHT));
 		

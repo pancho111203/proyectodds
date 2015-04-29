@@ -17,10 +17,10 @@ public class RenderingMainMenu extends Rendering{
 				int xa = (xp+x);
 				
 				
-				if(xa >= width || xa<0 || ya >= height || ya<0){
+				if(xa >= width || xa<0 || ya >= height || ya<0 ){
 					continue;
 				}
-
+				if(sp.pixels[x+y*spriteWidth] != 0xffff00de)
 				pixels[xa+ya*width]= sp.pixels[x+y*spriteWidth];
 			}
 		}
