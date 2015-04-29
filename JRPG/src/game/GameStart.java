@@ -58,7 +58,7 @@ public class GameStart extends Canvas implements Runnable{
 		
 		setPreferredSize(new Dimension(WIDTH*pixelSize,HEIGHT*pixelSize));
 		
-		game = new StateMachine();
+		game = new StateMachine(this);
 		
 		
 		game.add("mainmenu", new MainMenuState(game,WIDTH,HEIGHT));
@@ -67,14 +67,14 @@ public class GameStart extends Canvas implements Runnable{
 		key = Keyboard.getSingleton();
 		addKeyListener(key);
 		
-		changeState("mainmenu","init"); 
+		game.change("mainmenu","init");
 		
 		
 	}
 	// only use this method to change state
-	public void changeState(String state, String params){
-		game.change(state, params);		
-		screen = game.getRender();
+	public void setRender(Rendering render) {
+		screen = render;
+		
 	}
 
 	
@@ -164,4 +164,6 @@ public class GameStart extends Canvas implements Runnable{
 		g.dispose();
 		bs.show();
 	}
+
+
 }
