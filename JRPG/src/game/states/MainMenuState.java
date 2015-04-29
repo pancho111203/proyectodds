@@ -30,7 +30,7 @@ public class MainMenuState implements IState{
 		bg = new Image("/images/bg.png");
 		btn = new Image("/images/botonsito.png");
 		sel = new Image("/images/selectorp.png");
-		selx=255;
+		selx=265;
 		sely=20;
 	}
 	
