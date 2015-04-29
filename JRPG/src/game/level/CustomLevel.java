@@ -1,9 +1,6 @@
 package game.level;
 
-import game.graphics.SingleSprite;
 import game.graphics.Spritesheet;
-import game.level.tiles.StaticTile;
-import game.level.tiles.Tile;
 
 
 public class CustomLevel extends Level {
@@ -30,30 +27,12 @@ public class CustomLevel extends Level {
 	}
 
 	@Override
-	public Tile getTile(int x, int y) {  // (x,y) 
-		
-		if(x < 0 || y < 0 || x >= width || y>= height){return iniTiles.get("voidTile");}
-		
-		if(tiles[x+y*width]==1234){return iniTiles.get("verde");}
-		if(tiles[x+y*width]==4321){return iniTiles.get("blanco");}
-		if(tiles[x+y*width]==1111){return iniTiles.get("rojo");}
-			
-		return iniTiles.get("voidTile");
-	}
-
-	@Override
 	public void initializeSpritesAndTiles() {
-		iniSprites.put("verde", new SingleSprite(TILESIZE,0x00ff00));
-		iniSprites.put("rojo", new SingleSprite(TILESIZE,2,2,Spritesheet.tiles));
-		iniSprites.put("blanco", new SingleSprite(TILESIZE,0xffffff));
-		iniSprites.put("negro", new SingleSprite(TILESIZE,0x000000));
 		
+		spr_t.initSpriteOnTileOnHex("verde", 0x00ff00, 1234);
+		spr_t.initSpriteOnTileOnHex("blanco", 0xffffff, 4321);
+		spr_t.initSpriteOnTileOnHex("rojo", 2, 2, Spritesheet.tiles, 1111);
 		
-		
-		iniTiles.put("verde",new StaticTile(iniSprites.get("verde")));
-		iniTiles.put("rojo",new StaticTile(iniSprites.get("rojo")));
-		iniTiles.put("blanco",new StaticTile(iniSprites.get("blanco")));
-		iniTiles.put("voidTile",new StaticTile(iniSprites.get("negro")));
 	}
 	
 	

@@ -2,12 +2,10 @@ package game.level;
 
 import game.entity.EntityList;
 import game.entity.Player;
-import game.graphics.Animator;
 import game.graphics.RenderingLevel;
 import game.graphics.SingleSprite;
+import game.level.tiles.SpriteTileFacade;
 import game.level.tiles.Tile;
-
-import java.util.HashMap;
 
 public abstract class Level {
 	private EntityList entList;
@@ -17,6 +15,7 @@ public abstract class Level {
 	protected final int START_POS_X; // posiciones iniciales de la camara
 	protected final int START_POS_Y;
 	
+	protected Tile voidTile = new Tile(new SingleSprite(Level.TILESIZE, 0x000000));
 	
 	// enteros que representan la distancia x e y del punto central del nivel al punto actual donde la camara apunta
 	protected int xOffset, yOffset; 
@@ -28,10 +27,9 @@ public abstract class Level {
 	public int screenH;
 	
 	protected Player player;
+
+	protected SpriteTileFacade spr_t;
 	
-	protected HashMap<String,SingleSprite> iniSprites;
-	protected HashMap<String,Animator> iniAnimSprites; //TODO sprites animados
-	protected HashMap<String,Tile> iniTiles;
 	//TODO separar sprites en background y foreground
 	
 	public Level(int stX, int stY, int w, int h){
@@ -44,8 +42,7 @@ public abstract class Level {
 		screenW = w;
 		screenH = h;
 		
-		iniTiles = new HashMap<String, Tile>();
-		iniSprites = new HashMap<String, SingleSprite>();
+		spr_t = new SpriteTileFacade();
 		
 		
 		player = new Player(xOffset,yOffset,this);
@@ -54,8 +51,8 @@ public abstract class Level {
 	}
 	public void update(){
 		entList.update();
-		
 		player.update();
+		spr_t.updateAnims(); //update de sprites animados
 	}
 	public void render(RenderingLevel render){
 		renderTiles(render);
@@ -74,7 +71,19 @@ public abstract class Level {
 		
 	}
 	
-	public abstract Tile getTile(int x, int y);
+	public Tile getTile(int x, int y) {  // (x,y) 
+		
+		if(x < 0 || y < 0 || x >= width || y>= height){return voidTile;}
+		
+		Tile t = spr_t.getTile(tiles[(x+y*width)]);
+		
+		if(t!=null){
+			return t;
+		}
+		
+		return voidTile;
+	}
+
 	
 	public int getXPosScreen(){
 		return xOffset;

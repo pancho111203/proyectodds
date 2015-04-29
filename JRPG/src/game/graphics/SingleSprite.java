@@ -46,6 +46,7 @@ public class SingleSprite implements Sprite{
 			}
 		
 	}
+	
 	@Override
 	public SingleSprite getActual() {
 		return this;

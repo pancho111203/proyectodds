@@ -22,6 +22,19 @@ public class Animator implements Sprite{
 		actSprite=sprites[act];
 	}
 	
+	public Animator(int size,int x, int y,int n,Spritesheet spriteSheet, int r){
+		this.x=x;
+		this.y=y;
+		this.width=size;
+		this.height=size;
+		rate = r;
+		this.sprites =new SingleSprite[n];
+		this.spriteSheet = spriteSheet;
+		slice();
+		act=0;
+		actSprite=sprites[act];
+	}
+	
 	//a partir de la posición del primer sprite, su tamaño y el numero de sprites, los saca todos y al array
 	public void slice(){
 		for (int i=0;i<sprites.length;i++){
