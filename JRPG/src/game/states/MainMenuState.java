@@ -14,6 +14,8 @@ public class MainMenuState implements IState{
 	private RenderingMainMenu render;
 	private Keyboard key;
 	
+	//AssetManager AM= AssetManager.getSingleton();
+	
 	private Image bg;
 	private Image btn;
 	private Image sel;
@@ -24,7 +26,7 @@ public class MainMenuState implements IState{
 		this.game = game;
 		render = new RenderingMainMenu(w,h);
 		key = Keyboard.getSingleton();
-		bg = new Image("/images/bg.png");
+		bg =new Image("/images/bg.png");
 		btn = new Image("/images/botonsito.png");
 		sel = new Image("/images/selectorp.png");
 		selx=265;

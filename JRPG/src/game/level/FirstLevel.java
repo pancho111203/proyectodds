@@ -40,14 +40,11 @@ public class FirstLevel extends Level {
 		
 		
 	}
-	
-	//he añadido la función render aquí para renderizar cosas de este nivel y no directamente en la clase padre generica level (creo que es más limpio)
+
 	public void render(RenderingLevel render){
 		super.render(render);
-
 		
 		//SoundManager.getSingleton().play(0); 
-		//SoundManager.getSingleton().play(1);  //recomiendo solo uno a la vez, era para comprobar que se pueden solapar varios
 	}
 
 	@Override

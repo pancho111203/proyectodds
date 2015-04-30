@@ -3,7 +3,6 @@ package game.graphics;
 import game.states.MainMenuState;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -24,6 +23,18 @@ public class Image {
 				e.printStackTrace();
 			}
 	}
+	
+	public Image(BufferedImage img) {
+		try {
+			BufferedImage image = img;
+			w=image.getWidth();
+			h=image.getHeight();
+			pixels = new int[w*h];
+			image.getRGB(0, 0, w, h, pixels, 0, w);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+}
 	
 	public int getHeight(){
 		return h;
