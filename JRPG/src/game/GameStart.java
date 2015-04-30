@@ -20,7 +20,7 @@ public class GameStart extends Canvas implements Runnable{
 	private static final long serialVersionUID = 1L;
 
 	public static final String NAME = "My Game";
-	public static final int WIDTH = 320; //width in pixels
+	public static final int WIDTH = 320; //width in pixels // tienen que ser multiplos de 16
 	public static final int HEIGHT = 320;//height in pixels
 	public static final int pixelSize = 2;//pixel size (default=2x2)
 	
@@ -58,7 +58,8 @@ public class GameStart extends Canvas implements Runnable{
 		
 		setPreferredSize(new Dimension(WIDTH*pixelSize,HEIGHT*pixelSize));
 		
-		game = new StateMachine();
+		game = new StateMachine(this);
+		
 		
 		game.add("mainmenu", new MainMenuState(game,WIDTH,HEIGHT));
 		game.add("level1", new LevelState(game,WIDTH,HEIGHT));
@@ -66,14 +67,14 @@ public class GameStart extends Canvas implements Runnable{
 		key = Keyboard.getSingleton();
 		addKeyListener(key);
 		
-		changeState("level1","init"); 
+		game.change("mainmenu","init");
 		
 		
 	}
 	// only use this method to change state
-	public void changeState(String state, String params){
-		game.change(state, params);		
-		screen = game.getRender();
+	public void setRender(Rendering render) {
+		screen = render;
+		
 	}
 
 	
@@ -163,4 +164,6 @@ public class GameStart extends Canvas implements Runnable{
 		g.dispose();
 		bs.show();
 	}
+
+
 }

@@ -9,10 +9,12 @@ import java.util.HashMap;
 public class StateMachine {
 	private HashMap<String,IState> states;
 	private IState currentS;
+	private GameStart game;
 	
-	public StateMachine(){
+	public StateMachine(GameStart gameStart){
 		states = new HashMap<String,IState>();
 		currentS = new StateEmpty();
+		game = gameStart;
 	}
 	
 	public void update(){
@@ -31,6 +33,8 @@ public class StateMachine {
 		currentS.onExit();
 		currentS = states.get(newState);
 		currentS.onEnter(params);
+		
+		game.setRender(getRender());
 	}
 	
 	
