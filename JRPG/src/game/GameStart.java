@@ -20,7 +20,7 @@ public class GameStart extends Canvas implements Runnable{
 	private static final long serialVersionUID = 1L;
 
 	public static final String NAME = "My Game";
-	public static final int WIDTH = 320; //width in pixels
+	public static final int WIDTH = 320; //width in pixels // tienen que ser multiplos de 16
 	public static final int HEIGHT = 320;//height in pixels
 	public static final int pixelSize = 2;//pixel size (default=2x2)
 	

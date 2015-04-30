@@ -1,18 +1,15 @@
 package game.states;
 
-import java.awt.event.KeyEvent;
-import java.io.File;
-
 import game.StateMachine;
 import game.graphics.Image;
 import game.graphics.Rendering;
 import game.graphics.RenderingMainMenu;
-import game.graphics.Spritesheet;
 import game.input.Keyboard;
+
+import java.awt.event.KeyEvent;
 
 public class MainMenuState implements IState{
 
-	@SuppressWarnings("unused")
 	private StateMachine game;
 	private RenderingMainMenu render;
 	private Keyboard key;
