@@ -4,6 +4,7 @@ import game.graphics.Animator;
 import game.graphics.RenderingLevel;
 import game.graphics.Sprite;
 import game.graphics.Spritesheet;
+import game.input.Gamepad;
 import game.input.Keyboard;
 import game.level.Level;
 
@@ -11,6 +12,7 @@ import java.awt.event.KeyEvent;
 
 public class Player extends Entity{
 
+	private Gamepad pad;
 	private Keyboard key;
 	private int speed=1;
 	private Level level;
@@ -19,6 +21,7 @@ public class Player extends Entity{
 	public Player(int x, int y,Level level) {
 		super(x, y);
 		key = Keyboard.getSingleton();
+		pad = new Gamepad();
 		this.level = level;
 		
 		int startpointPlayerX = x + level.screenW/2;
@@ -39,16 +42,17 @@ public class Player extends Entity{
 			((Animator)currentAnim).update();
 		} 
 		//TODO es temporal
-		if(key.keyDown(KeyEvent.VK_W)||key.keyDown(KeyEvent.VK_UP)){
+		pad.pollController();
+		if(key.keyDown(KeyEvent.VK_W)||key.keyDown(KeyEvent.VK_UP)||pad.Rup){
 			move(0,-speed);
 		}
-		if(key.keyDown(KeyEvent.VK_S)||key.keyDown(KeyEvent.VK_DOWN)){
+		if(key.keyDown(KeyEvent.VK_S)||key.keyDown(KeyEvent.VK_DOWN)||pad.Rdown){
 			move(0, speed);
 		}
-		if(key.keyDown(KeyEvent.VK_A)||key.keyDown(KeyEvent.VK_LEFT)){
+		if(key.keyDown(KeyEvent.VK_A)||key.keyDown(KeyEvent.VK_LEFT)||pad.Rleft){
 			move(-speed, 0);
 		}
-		if(key.keyDown(KeyEvent.VK_D)||key.keyDown(KeyEvent.VK_RIGHT)){
+		if(key.keyDown(KeyEvent.VK_D)||key.keyDown(KeyEvent.VK_RIGHT)||pad.Rright){
 			move(speed, 0);
 		}
 		//

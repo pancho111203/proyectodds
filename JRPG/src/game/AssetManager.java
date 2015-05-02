@@ -11,7 +11,7 @@ import javax.imageio.ImageIO;
 public class AssetManager {
 	
 	//TODO cargar estos arrays desde un archivo que dependa del nivel o estado actual
-	private final String images[]={"level","pilar_pequeño","spritesheet","selectorp","bg","botonsito"};
+	private final String images[]={"level","pilar_pequeno","spritesheet","selectorp","bg","botonsito"};
 	private final String sounds[]={"footsteps","shoot"};
 	
 	private static AssetManager assetmanager;
@@ -32,7 +32,6 @@ public class AssetManager {
 		try{
 			
 			for(int i=0;i<images.length;i++){
-				System.out.println(images[i]+" "+ImageIO.read(AssetManager.class.getResource("/images/"+images[i]+".png")).toString());
 				image.put(images[i], ImageIO.read(AssetManager.class.getResource("/images/"+images[i]+".png")));
 			}
 			

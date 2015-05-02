@@ -1,9 +1,11 @@
 package game.states;
 
+import game.AssetManager;
 import game.StateMachine;
 import game.graphics.Image;
 import game.graphics.Rendering;
 import game.graphics.RenderingMainMenu;
+import game.input.Gamepad;
 import game.input.Keyboard;
 
 import java.awt.event.KeyEvent;
@@ -13,8 +15,9 @@ public class MainMenuState implements IState{
 	private StateMachine game;
 	private RenderingMainMenu render;
 	private Keyboard key;
-	
-	//AssetManager AM= AssetManager.getSingleton();
+	private Gamepad pad;
+	int timer=0;
+	AssetManager AM= AssetManager.getSingleton();
 	
 	private Image bg;
 	private Image btn;
@@ -25,16 +28,18 @@ public class MainMenuState implements IState{
 	public MainMenuState(StateMachine game, int w, int h){
 		this.game = game;
 		render = new RenderingMainMenu(w,h);
+		pad = new Gamepad();
 		key = Keyboard.getSingleton();
-		bg =new Image("/images/bg.png");
-		btn = new Image("/images/botonsito.png");
-		sel = new Image("/images/selectorp.png");
+		bg =new Image(AM.getImage("bg"));
+		btn = new Image(AM.getImage("botonsito"));
+		sel = new Image(AM.getImage("selectorp"));
 		selx=265;
 		sely=20;
 	}
 	
 	@Override
 	public void render() {
+		
 		render.renderImage(0, 0, bg);
 		render.renderImage(200, 30, btn);
 		render.renderImage(200, 55, btn);
@@ -44,13 +49,16 @@ public class MainMenuState implements IState{
 
 	@Override
 	public void update() {
-		if(key.keyPressed(KeyEvent.VK_W)||key.keyPressed(KeyEvent.VK_UP)){
+	
+		pad.pollController();
+			
+		if(key.keyPressed(KeyEvent.VK_W)||key.keyPressed(KeyEvent.VK_UP)||pad.Rup){
 			sely = (sely > 30) ? (sely-25) : 70;
 		}
-		if(key.keyPressed(KeyEvent.VK_S)||key.keyPressed(KeyEvent.VK_DOWN)){
+		if(key.keyPressed(KeyEvent.VK_S)||key.keyPressed(KeyEvent.VK_DOWN)||pad.Rdown){
 			sely = (sely < 60) ? (sely+25) : 20;
 		}
-		if(key.keyPressed(KeyEvent.VK_ENTER)){
+		if(key.keyPressed(KeyEvent.VK_ENTER)||pad.getButtonValue(pad.START)||pad.getButtonValue(pad.CROS)){
 			game.change("level1", "init");
 		}
 	}
