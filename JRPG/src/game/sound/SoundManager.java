@@ -14,7 +14,7 @@ public class SoundManager {
 	
 	//falta hacer que se pueda pedir sonidos por el nombre a traves del AM(no le pongo ToDo por que no hay prisa) 
 	private Clip[] clips;
-	private AssetManager AM = AssetManager.getSingleton();
+	private AssetManager AM = AssetManager.getSingleton("FirstLevel");
 	
 	public static SoundManager soundmanager;
 	

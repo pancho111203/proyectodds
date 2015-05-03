@@ -17,7 +17,7 @@ public class MainMenuState implements IState{
 	private Keyboard key;
 	private Gamepad pad;
 	int timer=0;
-	AssetManager AM= AssetManager.getSingleton();
+	AssetManager AM= AssetManager.getSingleton("MainMenu");
 	
 	private Image bg;
 	private Image btn;
@@ -52,13 +52,13 @@ public class MainMenuState implements IState{
 	
 		pad.pollController();
 			
-		if(key.keyPressed(KeyEvent.VK_W)||key.keyPressed(KeyEvent.VK_UP)||pad.Rup){
+		if(key.keyPressed(KeyEvent.VK_W)||key.keyPressed(KeyEvent.VK_UP)||pad.padChanged(pad.Lup)){
 			sely = (sely > 30) ? (sely-25) : 70;
 		}
-		if(key.keyPressed(KeyEvent.VK_S)||key.keyPressed(KeyEvent.VK_DOWN)||pad.Rdown){
+		if(key.keyPressed(KeyEvent.VK_S)||key.keyPressed(KeyEvent.VK_DOWN)||pad.padChanged(pad.Ldown)){
 			sely = (sely < 60) ? (sely+25) : 20;
 		}
-		if(key.keyPressed(KeyEvent.VK_ENTER)||pad.getButtonValue(pad.START)||pad.getButtonValue(pad.CROS)){
+		if(key.keyPressed(KeyEvent.VK_ENTER)||pad.getButtonValue(pad.START)||pad.padChanged(pad.CROS)){
 			game.change("level1", "init");
 		}
 	}
@@ -72,6 +72,7 @@ public class MainMenuState implements IState{
 	public void onEnter(String params) {
 		
 	}
+	
 	public Rendering getRender(){
 		return render;
 	}

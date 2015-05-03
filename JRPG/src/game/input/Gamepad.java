@@ -11,21 +11,25 @@ import net.java.games.input.ControllerEnvironment;
 public class Gamepad{
     
     private Controller controller;
-                                                                           //todo(?)
-    public final int CROS=0,CIRC=2,SQUA=3,TRIA=4;                        //UP=0,DOWN=0,LEFT=0,RIGHT=0;
-    public final int L1=4,R1=5,SELECT=6,START=7,L3=8,R3=9;                //L2=999,R2=999,
+    //id de cada botón                                                   //todo(?) estos van como los pads y me da peresita :/
+    public final int CROS=0,CIRC=2,SQUA=3,TRIA=4;                        //UP=0,DOWN=0,LEFT=0,RIGHT=0;      (flechas)
+    public final int L1=4,R1=5,SELECT=6,START=7,L3=8,R3=9;               //L2=0,R2=0 						(gatillos)
+    //ID de cada direccion de los dos pads
+    public final int Lup=0,Ldown=1,Lleft=2,Lright=3,Rup=4,Rdown=5,Rleft=6,Rright=7;
     
-    // Estado de los botones
+    // Estado de los botones y axis
     private ArrayList<Boolean> buttonsValues;
-    //Estado de los Joystics
-    public boolean Lup=false, Ldown=false, Rup=false, Rdown=false;  
-    public boolean Lleft=false, Lright=false, Rleft=false, Rright=false;
+    public boolean pads[],padsReaded[];
     
     public Gamepad()
     {
         this.controller = null;
         this.buttonsValues = new ArrayList<Boolean>();
+        pads = new boolean[8];     
+        padsReaded = new boolean[8];
         initController();
+        axisClear();
+        axisStateClear();
     }
    
     private void initController()
@@ -39,8 +43,9 @@ public class Gamepad{
             }
         }
     }
-
-    //si retorna false hay un problema con el controller
+    
+    //actualiza el estado del pad
+    //si retorna false, hay un problema con el controller
     public boolean pollController()
     {
         boolean isControllerValid;
@@ -88,7 +93,11 @@ public class Gamepad{
     
     public boolean getButtonValue(int index)
     {
-         return buttonsValues.get(index);
+         try {
+        	 return buttonsValues.get(index);
+         }catch(Exception e){
+        	 return false;
+         }
     }
     
     
@@ -120,35 +129,35 @@ public class Gamepad{
     }
     
     
-    public void RX(){
+    public void LX(){
     	if (getXAxisValue()>0.5 && getXAxisValue()<1.5){
-    		Rright=true;
+    		pads[Lright]=true;
     	}else if (getXAxisValue()<-0.5 && getXAxisValue()>-1.5){
-    		Rleft=true;
+    		pads[Lleft]=true;
     	}
     }
     
-	public void RY(){
-		if (getYAxisValue()>0.5 && getYAxisValue()<1.5){
-			Rdown=true;
-    	}else if (getYAxisValue()<-0.5 && getYAxisValue()>-1.5){
-    		Rup=true;
-    	}
-	}
-	
-	public void LX(){
-		if (getXRotationValue()>0.5 && getXRotationValue()<1.5){
-			Lright=true;
-    	}else if (getXRotationValue()<-0.5 && getXRotationValue()>-1.5){
-    		Lleft=true;
-    	}
-	}
-	
 	public void LY(){
+		if (getYAxisValue()>0.5 && getYAxisValue()<1.5){
+			pads[Ldown]=true;
+    	}else if (getYAxisValue()<-0.5 && getYAxisValue()>-1.5){
+    		pads[Lup]=true;
+    	}
+	}
+	
+	public void RX(){
+		if (getXRotationValue()>0.5 && getXRotationValue()<1.5){
+			pads[Rright]=true;
+    	}else if (getXRotationValue()<-0.5 && getXRotationValue()>-1.5){
+    		pads[Rleft]=true;
+    	}
+	}
+	
+	public void RY(){
 		if (getYRotationValue()>0.5 && getYRotationValue()<1.5){
-    		Ldown=true;
+			pads[Rdown]=true;
     	}else if (getYRotationValue()<-0.5 && getYRotationValue()>-1.5){
-    		Lup=true;
+    		pads[Rup]=true;
     	}	
 	}
 	
@@ -157,13 +166,30 @@ public class Gamepad{
 		LY();LX();
 	}
 	private void axisClear(){
-        Lup=false; Ldown=false; 
-        Rup=false; Rdown=false; 
-        Lleft=false; Lright=false; 
-        Rleft=false; Rright=false;
+        for(int i=0;i<pads.length;i++){
+        	pads[i]=false;
+        }
+	}
+	private void axisStateClear(){
+	  for(int i=0;i<padsReaded.length;i++){
+		  padsReaded[i]=false;
+      }
 	}
     
+	public boolean getPadState(int pad){
+		return pads[pad];
+	}
+	
+	public boolean padChanged(int pad){
+		
+		if(getPadState(pad)&&!padsReaded[pad]){
+			padsReaded[pad]=true;
+			return true;
+		}else if(!getPadState(pad)){
+			padsReaded[pad]=false;
+			return false;
+		}
+		return false;
+	}
     
 }
-    
-
