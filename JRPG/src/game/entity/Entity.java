@@ -9,6 +9,6 @@ public abstract class Entity {
 		this.x = x;
 		this.y = y;
 	}
-	public abstract void update(); //TODO update function for entities
-	public abstract void render(RenderingLevel render);//TODO render function for entities
+	public abstract void update(); 
+	public abstract void render(RenderingLevel render);
 }

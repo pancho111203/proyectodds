@@ -38,12 +38,12 @@ public class LevelState implements IState{
 
 	@Override
 	public void onExit() {
-		// TODO onExit in LevelState
+		
 	}
 
 	@Override
 	public void onEnter(String params) {
-		// TODO onEnter in LevelState
+		
 	}
 
 	@Override
