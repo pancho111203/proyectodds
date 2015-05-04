@@ -19,7 +19,7 @@ public class MainMenuState implements IState{
 	private Image sel;
 	int selx,sely;
 	
-	//TODO Main Menu Methods
+
 	public MainMenuState(StateMachine game, int w, int h){
 		this.game = game;
 		render = new RenderingMainMenu(w,h);

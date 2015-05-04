@@ -10,6 +10,11 @@ public class SpriteTileFacade {
 	// no he incluido funciones como añadir un sprite por separado porque es algo que nunca se hara en la practica,
 	// ya que todos los tiles que se añadan tiene que ser asociados a un tile al menos. Lo mismo pasa con añadir
 	// un un tile sin asociarlo a un hex 
+	
+	
+	//TODO retainAll(Collection<?> c)
+	//Retains only the elements in this collection that are contained in the specified collection
+	//usarlo para guardar los sprites repetidos de un nivel a otro?
 
 	private LevelSprites ls;
 	private LevelTiles lt;
