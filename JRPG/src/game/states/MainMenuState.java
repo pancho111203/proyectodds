@@ -17,18 +17,19 @@ public class MainMenuState implements IState{
 	private Keyboard key;
 	private Gamepad pad;
 	int timer=0;
-	AssetManager AM= AssetManager.getSingleton("MainMenu");
+	AssetManager AM;
 	
 	private Image bg;
 	private Image btn;
 	private Image sel;
 	int selx,sely;
 	
-	//TODO Main Menu Methods
+
 	public MainMenuState(StateMachine game, int w, int h){
 		this.game = game;
 		render = new RenderingMainMenu(w,h);
 		pad = new Gamepad();
+		AM= AssetManager.getSingleton("MainMenu");
 		key = Keyboard.getSingleton();
 		bg =new Image(AM.getImage("bg"));
 		btn = new Image(AM.getImage("botonsito"));
