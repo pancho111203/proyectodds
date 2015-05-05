@@ -4,7 +4,6 @@ import game.AssetManager;
 import game.StateMachine;
 import game.graphics.Rendering;
 import game.graphics.RenderingLevel;
-import game.level.FirstLevel;
 import game.level.Level;
 
 public class LevelState implements IState{
@@ -18,9 +17,11 @@ public class LevelState implements IState{
 	public LevelState(StateMachine game, int w, int h){
 		this.game = game;
 		render = new RenderingLevel(w,h);
-		AM = AssetManager.getSingleton();
+		
+		
+		/*AM = AssetManager.getSingleton();
 		AM.load("FirstLevel");
-		curLevel = new FirstLevel(0,0,AM.getImage("level"),w,h); 
+		curLevel = new FirstLevel(0,0,AM.getImage("level"),w,h); */
 	}
 	
 

@@ -74,7 +74,11 @@ public class FirstLevel extends Level {
 			}
 		}
 		
-		spr_t.initSpriteOnTileOnHex("verde", 0x00ff00, 0xffb5e61d);
+		
+		
+		
+		
+		/*spr_t.initSpriteOnTileOnHex("verde", 0x00ff00, 0xffb5e61d);
 		spr_t.initHex(0xffefe4b0, "verde");
 		spr_t.initHex(0xffff7f27, "verde");
 		spr_t.initHex(0xfffff200, "verde");
@@ -83,7 +87,7 @@ public class FirstLevel extends Level {
 		spr_t.initHex(0xffa349a4, "verde");
 		spr_t.initSpriteOnTileOnHex("blanco", 0xffffff, 0xff3f48cc);
 		spr_t.initSpriteOnTileOnHex("rojo", 2, 2, new Spritesheet(AM.getImage("spritesheet")), 0xff7f7f7f);
-		spr_t.initHex(0xff22b14c, "rojo");
+		spr_t.initHex(0xff22b14c, "rojo");*/
 		
 	
 	}

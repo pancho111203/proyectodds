@@ -14,8 +14,11 @@ public class Spritesheet {
 	public int[] pixels;
 	public final int indexSize= 16;
 	
+	
+	
+	
 	//public static Spritesheet tiles = new Spritesheet("/images/spritesheet.png");
-	public static Spritesheet test = new Spritesheet("/images/pilar_pequeno.png");
+	//public static Spritesheet test = new Spritesheet("/images/pilar_pequeno.png");
 	
 	public Spritesheet(String path){
 		this.path=path;
