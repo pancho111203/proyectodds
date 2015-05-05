@@ -18,6 +18,12 @@ public class Player extends Entity{
 	private Level level;
 	private Sprite currentAnim; //TODO mas adelante habr un animador por cada estado diferente(moviendose a la izq, der, arriba, abajo, saltando, etc.)
 	
+	private final int WIDTH = 16;
+	private final int HEIGHT = 16;
+	
+	//collisions
+	private int startColX = 0, startColY = 0, endColX = WIDTH, endColY = HEIGHT;
+	
 	public Player(int x, int y,Level level) {
 		super(x, y);
 		key = Keyboard.getSingleton();
@@ -28,7 +34,7 @@ public class Player extends Entity{
 		int startpointPlayerY = y + level.screenH/2;
 		
 		
-		currentAnim = new Animator(16, 16, 0, 2, 3, Spritesheet.tiles, 60);
+		currentAnim = new Animator(WIDTH, HEIGHT, 0, 2, 3, Spritesheet.tiles, 60);
 		//currentAnim = new Sprite(16,16,0,2,Spritesheet.tiles);
 		
 		this.x = startpointPlayerX-currentAnim.getWidth()/2;
@@ -72,6 +78,11 @@ public class Player extends Entity{
 		//TODO falta comprobar bounds de player y comprobar bounds de level con funcion auxiliar en level
 		
 		//TODO usa patron estrategia para diferentes tipos de movimiento
+		
+		if(checkCollision(movX,movY)){
+			return;
+		}
+		
 		x+=movX;
 		y+=movY;
 		
@@ -83,6 +94,14 @@ public class Player extends Entity{
 		 * 			arriba(0,0-)
 		 * 			abajo(0,0+)
 		 */
+	}
+
+	private boolean checkCollision(int movX, int movY) {
+		
+		
+		
+		
+		return false;
 	}
 
 }
