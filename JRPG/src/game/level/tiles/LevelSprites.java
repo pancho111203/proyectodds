@@ -13,6 +13,9 @@ public class LevelSprites { // crea los sprites(solo para el nivel, las entidade
 	private HashMap<String,SingleSprite> sprites;
 	private HashMap<String,Animator> anims;
 	
+	//TODO separar sprites en background y foreground
+
+	
 	public LevelSprites(){
 		sprites = new HashMap<String, SingleSprite>();
 		anims = new HashMap<String, Animator>();

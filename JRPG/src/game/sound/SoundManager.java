@@ -1,6 +1,8 @@
 package game.sound;
 
 
+import game.AssetManager;
+
 import java.io.File;
 import java.net.URL;
 
@@ -10,18 +12,19 @@ import javax.sound.sampled.Clip;
 
 public class SoundManager {
 	
-	//comentarios en drive
+	//falta hacer que se pueda pedir sonidos por el nombre a traves del AM(no le pongo ToDo por que no hay prisa) 
 	private Clip[] clips;
-	private static final String SOUNDS[]={"footsteps-4.wav","Shot.wav"};
-	private static final int slength=2;
-	
+	private AssetManager AM;
+	private static String state;
 	public static SoundManager soundmanager;
 	
-	public SoundManager() {
+	public SoundManager(String state) {
+		this.state=state;
+		AM = AssetManager.getSingleton(this.state);
 		try {
-			clips = new Clip[slength];
-			for(int i=0;i<slength;i++){
-		     URL defaultSound = SoundManager.class.getResource("/sounds/"+SOUNDS[i]);
+			clips = new Clip[AM.getSoundsSize()];
+			for(int i=0;i<AM.getSoundsSize();i++){
+		     URL defaultSound = AM.getAllSounds()[i];
 		     File soundFile = new File(defaultSound.toURI());
 		     AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
 		     clips[i] = AudioSystem.getClip();	 
@@ -33,9 +36,9 @@ public class SoundManager {
 		}
 	}
 	
-	public static SoundManager getSingleton(){
-		if(soundmanager==null){
-			soundmanager = new SoundManager();
+	public static SoundManager getSingleton(String state){
+		if(soundmanager==null||SoundManager.state!=state){
+			soundmanager = new SoundManager(state);
 		}
 		return soundmanager;
 	}

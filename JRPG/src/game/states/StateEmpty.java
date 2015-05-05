@@ -4,7 +4,7 @@ import game.graphics.Rendering;
 
 public class StateEmpty implements IState{
 
-	//TODO empty state methods
+	
 	@Override
 	public void render() {
 		

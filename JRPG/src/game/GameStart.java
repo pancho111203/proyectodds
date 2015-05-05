@@ -134,7 +134,6 @@ public class GameStart extends Canvas implements Runnable{
 	private synchronized void update(){ // this function handles the update for keyboards and delegates the update to the ccurrent state instance
 		key.update();
 	    game.update();
-	    
 	}
 	
 	private synchronized void render(){ // this function does all the screen reseting and buffering and delegates the functonality to the current state instance

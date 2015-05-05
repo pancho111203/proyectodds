@@ -1,5 +1,6 @@
 package game.states;
 
+import game.AssetManager;
 import game.StateMachine;
 import game.graphics.Rendering;
 import game.graphics.RenderingLevel;
@@ -9,6 +10,7 @@ import game.level.Level;
 public class LevelState implements IState{
 
 	@SuppressWarnings("unused")
+	private AssetManager AM;
 	private StateMachine game;
 	private RenderingLevel render;
 	private Level curLevel;
@@ -16,7 +18,7 @@ public class LevelState implements IState{
 	public LevelState(StateMachine game, int w, int h){
 		this.game = game;
 		render = new RenderingLevel(w,h);
-
+		AM = AssetManager.getSingleton("FirstLevel"); //TODO falta modificar FirstLevel para que pueda recibir el archivo ya cargado
 		curLevel = new FirstLevel(0,0,"/images/level.png",w,h); 
 	}
 	
@@ -38,12 +40,12 @@ public class LevelState implements IState{
 
 	@Override
 	public void onExit() {
-		// TODO onExit in LevelState
+		
 	}
 
 	@Override
 	public void onEnter(String params) {
-		// TODO onEnter in LevelState
+		
 	}
 
 	@Override

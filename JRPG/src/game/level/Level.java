@@ -29,9 +29,7 @@ public abstract class Level {
 	protected Player player;
 
 	protected SpriteTileFacade spr_t;
-	
-	//TODO separar sprites en background y foreground
-	
+		
 	public Level(int stX, int stY, int w, int h){
 		START_POS_X = stX;
 		START_POS_Y = stY;
