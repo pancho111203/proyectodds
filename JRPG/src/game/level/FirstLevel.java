@@ -45,7 +45,7 @@ public class FirstLevel extends Level {
 	public void render(RenderingLevel render){
 		super.render(render);
 		
-		SoundManager.getSingleton().play(1); 
+		SoundManager.getSingleton("FirstLevel").play(1); 
 	}
 
 	@Override

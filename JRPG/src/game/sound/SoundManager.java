@@ -14,11 +14,13 @@ public class SoundManager {
 	
 	//falta hacer que se pueda pedir sonidos por el nombre a traves del AM(no le pongo ToDo por que no hay prisa) 
 	private Clip[] clips;
-	private AssetManager AM = AssetManager.getSingleton("FirstLevel");
-	
+	private AssetManager AM;
+	private static String state;
 	public static SoundManager soundmanager;
 	
-	public SoundManager() {
+	public SoundManager(String state) {
+		this.state=state;
+		AM = AssetManager.getSingleton(this.state);
 		try {
 			clips = new Clip[AM.getSoundsSize()];
 			for(int i=0;i<AM.getSoundsSize();i++){
@@ -34,9 +36,9 @@ public class SoundManager {
 		}
 	}
 	
-	public static SoundManager getSingleton(){
-		if(soundmanager==null){
-			soundmanager = new SoundManager();
+	public static SoundManager getSingleton(String state){
+		if(soundmanager==null||SoundManager.state!=state){
+			soundmanager = new SoundManager(state);
 		}
 		return soundmanager;
 	}
