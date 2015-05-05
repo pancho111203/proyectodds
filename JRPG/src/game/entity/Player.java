@@ -18,8 +18,8 @@ public class Player extends Entity{
 	private Level level;
 	private Sprite currentAnim; //TODO mas adelante habr un animador por cada estado diferente(moviendose a la izq, der, arriba, abajo, saltando, etc.)
 	
-	private final int WIDTH = 16;
-	private final int HEIGHT = 16;
+	private final int WIDTH = 32;
+	private final int HEIGHT = 48;
 	
 	//collisions
 	private int startColX = 0, startColY = 0, endColX = WIDTH, endColY = HEIGHT;
@@ -34,7 +34,7 @@ public class Player extends Entity{
 		int startpointPlayerY = y + level.screenH/2;
 		
 		
-		currentAnim = new Animator(WIDTH, HEIGHT, 0, 2, 3, Spritesheet.tiles, 60);
+		currentAnim = new Animator(WIDTH, HEIGHT, 2, 3, 1, Spritesheet.test, 60);
 		//currentAnim = new Sprite(16,16,0,2,Spritesheet.tiles);
 		
 		this.x = startpointPlayerX-currentAnim.getWidth()/2;

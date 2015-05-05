@@ -13,8 +13,8 @@ public class Spritesheet {
 	public int[] pixels;
 	public int indexSize;
 	
-	public static Spritesheet tiles = new Spritesheet("/images/spritesheet.png",16);
-	public static Spritesheet test = new Spritesheet("/images/pilar_pequeno.png", 16);
+	//public static Spritesheet tiles = new Spritesheet("/images/spritesheet.png",16);
+	public static Spritesheet test = new Spritesheet("/images/BloqueSprites01.png", 16);
 	
 	public Spritesheet(String path, int ind){
 		this.path=path;
