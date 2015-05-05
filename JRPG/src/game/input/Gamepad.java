@@ -9,6 +9,8 @@ import net.java.games.input.ControllerEnvironment;
 
 
 public class Gamepad{
+	
+	private static Gamepad gamepad;
     
     private Controller controller;
     //id de cada botón                                                   //todo(?) estos van como los pads y me da peresita :/
@@ -30,6 +32,13 @@ public class Gamepad{
         initController();
         axisClear();
         axisStateClear();
+    }
+    
+    public static Gamepad getSingleton(){
+    	if(gamepad==null){
+    		gamepad = new Gamepad();
+		}
+		return gamepad;
     }
    
     private void initController()

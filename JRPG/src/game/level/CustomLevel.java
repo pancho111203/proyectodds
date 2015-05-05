@@ -1,6 +1,5 @@
 package game.level;
 
-import game.graphics.Spritesheet;
 
 
 public class CustomLevel extends Level {
@@ -31,7 +30,7 @@ public class CustomLevel extends Level {
 		
 		spr_t.initSpriteOnTileOnHex("verde", 0x00ff00, 1234);
 		spr_t.initSpriteOnTileOnHex("blanco", 0xffffff, 4321);
-		spr_t.initSpriteOnTileOnHex("rojo", 2, 2, Spritesheet.tiles, 1111);
+		//spr_t.initSpriteOnTileOnHex("rojo", 2, 2, Spritesheet.tiles, 1111);
 		
 	}
 	

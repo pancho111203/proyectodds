@@ -29,7 +29,8 @@ public class MainMenuState implements IState{
 		this.game = game;
 		render = new RenderingMainMenu(w,h);
 		pad = new Gamepad();
-		AM= AssetManager.getSingleton("MainMenu");
+		AM= AssetManager.getSingleton();
+		AM.load("MainMenu");
 		key = Keyboard.getSingleton();
 		bg =new Image(AM.getImage("bg"));
 		btn = new Image(AM.getImage("botonsito"));

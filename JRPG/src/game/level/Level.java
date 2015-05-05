@@ -1,5 +1,6 @@
 package game.level;
 
+import game.AssetManager;
 import game.entity.EntityList;
 import game.entity.Player;
 import game.graphics.RenderingLevel;
@@ -17,6 +18,8 @@ public abstract class Level {
 	
 	protected Tile voidTile = new Tile(new SingleSprite(Level.TILESIZE, 0x000000));
 	
+	public AssetManager AM;
+	
 	// enteros que representan la distancia x e y del punto central del nivel al punto actual donde la camara apunta
 	protected int xOffset, yOffset; 
 	
@@ -33,6 +36,10 @@ public abstract class Level {
 	public Level(int stX, int stY, int w, int h){
 		START_POS_X = stX;
 		START_POS_Y = stY;
+		
+		AM=AssetManager.getSingleton();
+		AM.load(this.getClass().getSimpleName()); //TODO creo que ahora se puede acceder a am desde todo el juego y cargará todo pero me falta testear cuando cambia el lvl
+		
 		entList = new EntityList();
 		xOffset = START_POS_X;
 		yOffset = START_POS_Y;

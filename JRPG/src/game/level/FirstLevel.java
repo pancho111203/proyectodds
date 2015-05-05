@@ -2,7 +2,6 @@ package game.level;
 
 import game.graphics.RenderingLevel;
 import game.graphics.Spritesheet;
-import game.sound.SoundManager;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -13,6 +12,7 @@ import javax.imageio.ImageIO;
 public class FirstLevel extends Level {
 	
 	private String imgLevelPath;
+	private BufferedImage imgToLvL;
 	
 	public FirstLevel(int startPosX, int startPosY, String pathImgToLvL, int w, int h){
 		super(startPosX,startPosY,w,h);
@@ -20,15 +20,24 @@ public class FirstLevel extends Level {
 		loadLevel();
 	}
 	
+	public FirstLevel(int startPosX, int startPosY, BufferedImage imgToLvL, int w, int h){
+		super(startPosX,startPosY,w,h);
+		imgLevelPath = null;
+		this.imgToLvL=imgToLvL;
+		loadLevel();
+	}
+	
 	@Override
 	public void loadLevel(){
-		loadLevelFromImage(imgLevelPath);
+		loadLevelFromImage();
 	}
 	
 	
-	public void loadLevelFromImage(String path){
+	public void loadLevelFromImage(){
 		try{
-			BufferedImage image = ImageIO.read(Level.class.getResource(path));
+			BufferedImage image;
+			if(imgLevelPath==null) image = imgToLvL;
+			else image = ImageIO.read(Level.class.getResource(this.imgLevelPath));
 			width=image.getWidth();
 			height=image.getHeight();			
 			tiles=new int[width*height];
@@ -45,7 +54,6 @@ public class FirstLevel extends Level {
 	public void render(RenderingLevel render){
 		super.render(render);
 		
-		SoundManager.getSingleton("FirstLevel").play(1); 
 	}
 
 	@Override
@@ -74,7 +82,7 @@ public class FirstLevel extends Level {
 		spr_t.initHex(0xff00a2e8, "verde");
 		spr_t.initHex(0xffa349a4, "verde");
 		spr_t.initSpriteOnTileOnHex("blanco", 0xffffff, 0xff3f48cc);
-		spr_t.initSpriteOnTileOnHex("rojo", 2, 2, Spritesheet.tiles, 0xff7f7f7f);
+		spr_t.initSpriteOnTileOnHex("rojo", 2, 2, new Spritesheet(AM.getImage("spritesheet")), 0xff7f7f7f);
 		spr_t.initHex(0xff22b14c, "rojo");
 		
 	
