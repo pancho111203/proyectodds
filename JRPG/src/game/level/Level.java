@@ -50,8 +50,8 @@ public abstract class Level {
 		spr_t = new SpriteTileFacade();
 		
 		
-		player = new Player(xOffset,yOffset,this);
-		
+		player = new Player(xOffset,yOffset,this, 8, 24, 36, 47);
+
 		initializeSpritesAndTiles();
 	}
 	public void update(){

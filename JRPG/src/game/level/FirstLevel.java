@@ -65,34 +65,34 @@ public class FirstLevel extends Level {
 		int pilar = 0;
 		for(int y = 0;y<3;y++){
 			for(int x=0;x<2;x++){
-				spr_t.initSpriteOnTileOnHex("borde"+x+y, x, y, ss, 0xff00f6f0+pilar);
+				spr_t.initSpriteOnTileOnHex("borde"+x+y, x, y, ss, 0xff00f6f0+pilar,1,1,1,1); //TEST
 				pilar++;
 			}
 		}
 		//suelo
 		spr_t.initSpriteOnTileOnHex("suelo", 1, 4, ss, 0xffff7f27); //y: 0 y 1 diferentes suelos
 		//borde grande
-		spr_t.initSpriteOnTileOnHex("bordeGra", 1, 3, ss, 0xfffd0691);
+		spr_t.initSpriteOnTileOnHex("bordeGra", 1, 3, ss, 0xfffd0691, 1, 1, 1, 1);
 		//borde lateral derecha
-		spr_t.initSpriteOnTileOnHex("bordeDer", 2, 2, ss, 0xfffff200);
+		spr_t.initSpriteOnTileOnHex("bordeDer", 2, 2, ss, 0xfffff200, 1, 0, 1, 0);
 		//borde lateral izquierda
-		spr_t.initSpriteOnTileOnHex("bordeIzq", 3, 2, ss, 0xfffd0634);
+		spr_t.initSpriteOnTileOnHex("bordeIzq", 3, 2, ss, 0xfffd0634, 0, 1, 0, 1);
 		//cielo
 		spr_t.initSpriteOnTileOnHex("cielo", 0, 3, ss, 0xffa349a4);
 		//puerta
 		int puerta = 0;
 		for(int y = 0;y<6;y++){
 			for(int x=0;x<8;x++){
-				spr_t.initSpriteOnTileOnHex("puerta"+x+y, 4+x, y, ss, 0xff28a661+puerta);
+				spr_t.initSpriteOnTileOnHex("puerta"+x+y, 4+x, y, ss, 0xff28a661+puerta, 1, 1, 1, 1);
 				puerta++;
 			}
 		}
 		//paret
-		int paret = 0;
+		int pared = 0;
 		for(int y = 0;y<2;y++){
 			for(int x=0;x<2;x++){
-				spr_t.initSpriteOnTileOnHex("paret"+x+y, 2+x, y, ss, 0xff06599c+paret);
-				paret++;
+				spr_t.initSpriteOnTileOnHex("pared"+x+y, 2+x, y, ss, 0xff06599c+pared, 1, 1, 1, 1);
+				pared++;
 			}
 		}
 		

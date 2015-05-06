@@ -9,7 +9,6 @@ import game.level.Level;
 
 public class LevelState implements IState{
 
-	@SuppressWarnings("unused")
 	private AssetManager AM;
 	private StateMachine game;
 	private RenderingLevel render;
@@ -20,7 +19,7 @@ public class LevelState implements IState{
 		render = new RenderingLevel(w,h);
 		AM = AssetManager.getSingleton(); //TODO falta modificar FirstLevel para que pueda recibir el archivo ya cargado
 		AM.load("FirstLevel");
-		curLevel = new FirstLevel(0,0,AM.getImage("level3"),w,h); 
+		curLevel = new FirstLevel(80,0,AM.getImage("level3"),w,h); 
 	}
 	
 	

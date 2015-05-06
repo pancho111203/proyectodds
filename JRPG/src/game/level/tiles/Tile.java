@@ -52,6 +52,9 @@ public class Tile {
 		render.renderTile(x, y,xRest,yRest, this);
 	}
 	
+	public int getState(int i){
+		return subStates[i];
+	}
 	
 	
 }
