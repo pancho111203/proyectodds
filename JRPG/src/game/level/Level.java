@@ -71,7 +71,8 @@ public abstract class Level {
 	public abstract void initializeSpritesAndTiles();
 	
 	public void moveFocus(int offX,int offY){ 
-		xOffset += offX;
+		
+		xOffset += offX;		
 		yOffset += offY;
 		
 	}
@@ -95,6 +96,12 @@ public abstract class Level {
 	}
 	public int getYPosScreen(){
 		return yOffset;
+	}
+	public int getWidth(){
+		return width;
+	}
+	public int getHeight(){
+		return height;
 	}
 	
 	

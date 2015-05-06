@@ -104,15 +104,27 @@ public class Player extends Entity{
 	
 	public void move(int movX,int movY){
 		//TODO falta comprobar bounds de player y comprobar bounds de level con funcion auxiliar en level
-		
 		//TODO usa patron estrategia para diferentes tipos de movimiento
 		
 		if(checkCollision(movX,movY)){
 			return;
 		}
+		//  H=24   W=30
+		// x/y=0 arriba izquierda   x=60 y=64
 		
 		x+=movX;
 		y+=movY;
+		//si el mapa se sale de la camara || el player está volviendo al centro de esta: (<- contenido de los ifs)
+		if(movX+level.getXPosScreen()<0 || x<0+level.screenW/2)movX=0;
+		
+		if(( (level.getWidth()*TS)-level.screenW) < (movX+level.getXPosScreen()) 
+				|| x>((level.getWidth()*TS)-(level.screenW/2))) movX=0;
+		
+		
+		if(movY+level.getYPosScreen()<0 || y<0+level.screenH/2)	movY=0;
+		
+		if(((level.getHeight()*TS)-level.screenH) < (movY+level.getYPosScreen()) 
+				|| y>((level.getHeight()*TS)-(level.screenH/2))) movY=0;
 		
 		level.moveFocus(movX, movY);
 		
@@ -230,4 +242,13 @@ public class Player extends Entity{
 		}
 	}
 
+	public boolean isCentered(){
+		if(x<0+level.screenW/2){
+			return true;
+		}
+		if(x>((level.getWidth()*TS)-(level.screenW/2)))return true;
+		
+		return false;
+	}
+	
 }

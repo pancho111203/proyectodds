@@ -67,7 +67,7 @@ public class GameStart extends Canvas implements Runnable{
 		key = Keyboard.getSingleton();
 		addKeyListener(key);
 		
-		game.change("mainmenu","init");
+		game.change("level1","init");
 		
 		
 	}
