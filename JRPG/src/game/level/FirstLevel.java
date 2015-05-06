@@ -71,9 +71,18 @@ public class FirstLevel extends Level {
 			for(int x=0;x<8;x++){
  				spr_t.initSpriteOnTileOnHex("puerta"+x+y, 4+x, y, Spritesheet.test, 0xff28a661+puerta);
  				puerta++;
-			}
-		}
-	
+ 			}
+ 		}
+ 		//paret
+ 		int paret = 0;
+ 		for(int y = 0;y<2;y++){
+ 			for(int x=0;x<2;x++){
+ 				spr_t.initSpriteOnTileOnHex("paret"+x+y, 2+x, y, Spritesheet.test, 0xff06599c+paret);
+ 				paret++;
+ 			}
+ 		}
+ 		
+ 		
 	}
 
 		

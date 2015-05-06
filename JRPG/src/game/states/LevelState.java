@@ -4,7 +4,6 @@ import game.AssetManager;
 import game.StateMachine;
 import game.graphics.Rendering;
 import game.graphics.RenderingLevel;
-import game.level.FirstLevel;
 import game.level.Level;
 
 public class LevelState implements IState{
@@ -18,8 +17,6 @@ public class LevelState implements IState{
 	public LevelState(StateMachine game, int w, int h){
 		this.game = game;
 		render = new RenderingLevel(w,h);
-		AM = AssetManager.getSingleton("FirstLevel"); //TODO falta modificar FirstLevel para que pueda recibir el archivo ya cargado
- 		curLevel = new FirstLevel(0,0,"/images/level3.png",w,h); 
 	}
 	
 
