@@ -34,7 +34,7 @@ public class Player extends Entity{
 		int startpointPlayerY = y + level.screenH/2;
 		
 		
-		currentAnim = new Animator(WIDTH, HEIGHT, 2, 3, 1, Spritesheet.test, 60);
+		currentAnim = new Animator(WIDTH, HEIGHT, 2, 3, 1, new Spritesheet(level.AM.getImage("BloqueSprites01")), 60);
 		//currentAnim = new Sprite(16,16,0,2,Spritesheet.tiles);
 		
 		

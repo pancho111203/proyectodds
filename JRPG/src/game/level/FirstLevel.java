@@ -2,7 +2,6 @@ package game.level;
 
 import game.graphics.RenderingLevel;
 import game.graphics.Spritesheet;
-import game.sound.SoundManager;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -13,6 +12,7 @@ import javax.imageio.ImageIO;
 public class FirstLevel extends Level {
 	
 	private String imgLevelPath;
+	private BufferedImage imgToLvL;
 	
 	public FirstLevel(int startPosX, int startPosY, String pathImgToLvL, int w, int h){
 		super(startPosX,startPosY,w,h);
@@ -20,15 +20,24 @@ public class FirstLevel extends Level {
 		loadLevel();
 	}
 	
+	public FirstLevel(int startPosX, int startPosY, BufferedImage imgToLvL, int w, int h){
+		super(startPosX,startPosY,w,h);
+		imgLevelPath = null;
+		this.imgToLvL = imgToLvL;
+		loadLevel();
+	}
+	
 	@Override
 	public void loadLevel(){
-		loadLevelFromImage(imgLevelPath);
+		loadLevelFromImage();
 	}
 	
 	
-	public void loadLevelFromImage(String path){
+	public void loadLevelFromImage(){
 		try{
-			BufferedImage image = ImageIO.read(Level.class.getResource(path));
+			BufferedImage image;
+			if(imgLevelPath!=null)	image = ImageIO.read(Level.class.getResource(imgLevelPath));
+			else image = imgToLvL;
 			width=image.getWidth();
 			height=image.getHeight();			
 			tiles=new int[width*height];
@@ -45,36 +54,36 @@ public class FirstLevel extends Level {
 	public void render(RenderingLevel render){
 		super.render(render);
 		
-		SoundManager.getSingleton("FirstLevel").play(1); 
+		AM.playSound("footsteps"); 
 	}
 
 	@Override
 	public void initializeSpritesAndTiles() {
 		//TODO herramienta para facilitar creacion de sprites y tiles
-		
+		Spritesheet ss = new Spritesheet(AM.getImage("BloqueSprites01"));
 		//pilar
 		int pilar = 0;
 		for(int y = 0;y<3;y++){
 			for(int x=0;x<2;x++){
-				spr_t.initSpriteOnTileOnHex("borde"+x+y, x, y, Spritesheet.test, 0xff00f6f0+pilar);
+				spr_t.initSpriteOnTileOnHex("borde"+x+y, x, y, ss, 0xff00f6f0+pilar);
 				pilar++;
 			}
 		}
 		//suelo
-		spr_t.initSpriteOnTileOnHex("suelo", 1, 4, Spritesheet.test, 0xffff7f27); //y: 0 y 1 diferentes suelos
+		spr_t.initSpriteOnTileOnHex("suelo", 1, 4, ss, 0xffff7f27); //y: 0 y 1 diferentes suelos
 		//borde grande
-		spr_t.initSpriteOnTileOnHex("bordeGra", 1, 3, Spritesheet.test, 0xfffd0691);
+		spr_t.initSpriteOnTileOnHex("bordeGra", 1, 3, ss, 0xfffd0691);
 		//borde lateral derecha
-		spr_t.initSpriteOnTileOnHex("bordeDer", 2, 2, Spritesheet.test, 0xfffff200);
+		spr_t.initSpriteOnTileOnHex("bordeDer", 2, 2, ss, 0xfffff200);
 		//borde lateral izquierda
-		spr_t.initSpriteOnTileOnHex("bordeIzq", 3, 2, Spritesheet.test, 0xfffd0634);
+		spr_t.initSpriteOnTileOnHex("bordeIzq", 3, 2, ss, 0xfffd0634);
 		//cielo
-		spr_t.initSpriteOnTileOnHex("cielo", 0, 3, Spritesheet.test, 0xffa349a4);
+		spr_t.initSpriteOnTileOnHex("cielo", 0, 3, ss, 0xffa349a4);
 		//puerta
 		int puerta = 0;
 		for(int y = 0;y<6;y++){
 			for(int x=0;x<8;x++){
-				spr_t.initSpriteOnTileOnHex("puerta"+x+y, 4+x, y, Spritesheet.test, 0xff28a661+puerta);
+				spr_t.initSpriteOnTileOnHex("puerta"+x+y, 4+x, y, ss, 0xff28a661+puerta);
 				puerta++;
 			}
 		}
@@ -82,7 +91,7 @@ public class FirstLevel extends Level {
 		int paret = 0;
 		for(int y = 0;y<2;y++){
 			for(int x=0;x<2;x++){
-				spr_t.initSpriteOnTileOnHex("paret"+x+y, 2+x, y, Spritesheet.test, 0xff06599c+paret);
+				spr_t.initSpriteOnTileOnHex("paret"+x+y, 2+x, y, ss, 0xff06599c+paret);
 				paret++;
 			}
 		}

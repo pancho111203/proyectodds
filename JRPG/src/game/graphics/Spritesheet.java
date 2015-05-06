@@ -15,9 +15,9 @@ public class Spritesheet {
 	public final int indexSize= 16;
 	
 	//public static Spritesheet tiles = new Spritesheet("/images/spritesheet.png",16);
-	public static Spritesheet test = new Spritesheet("/images/BloqueSprites01.png", 16);
+	//public static Spritesheet test = new Spritesheet("/images/BloqueSprites01.png", 16);
 	
-	public Spritesheet(String path,int ind){
+	public Spritesheet(String path){
 		this.path=path;
 		this.spriteSheet=null;
 		
