@@ -68,14 +68,14 @@ public class FirstLevel extends Level {
 		
 		int i = 0;
 		for(int y = 0;y<6;y++){
-			for(int x=0;x<4;x++){
-				spr_t.initSpriteOnTileOnHex("col"+x+y, x, y,new Spritesheet(AM.getImage("pilar_pequeno")), hexValuesCol[i]);
-				i++;
+			for(int x=0;x<8;x++){
+ 				spr_t.initSpriteOnTileOnHex("puerta"+x+y, 4+x, y, Spritesheet.test, 0xff28a661+puerta);
+ 				puerta++;
 			}
 		}
 	
 	}
 
-	
+		
 
 }
