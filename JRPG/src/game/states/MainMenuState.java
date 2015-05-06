@@ -60,7 +60,7 @@ public class MainMenuState implements IState{
 		if(key.keyPressed(KeyEvent.VK_S)||key.keyPressed(KeyEvent.VK_DOWN)||pad.padChanged(pad.Ldown)){
 			sely = (sely < 60) ? (sely+25) : 20;
 		}
-		if(key.keyPressed(KeyEvent.VK_ENTER)||pad.getButtonValue(pad.START)||pad.padChanged(pad.CROS)){
+		if(key.keyPressed(KeyEvent.VK_ENTER)||pad.getButtonValue(pad.START)||pad.getButtonValue(pad.CROS)){
 			game.change("level1", "init");
 		}
 	}
