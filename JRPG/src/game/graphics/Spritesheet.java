@@ -16,9 +16,8 @@ public class Spritesheet {
 	
 	
 	
-	
-	//public static Spritesheet tiles = new Spritesheet("/images/spritesheet.png");
-	//public static Spritesheet test = new Spritesheet("/images/pilar_pequeno.png");
+	//public static Spritesheet tiles = new Spritesheet("/images/spritesheet.png",16);
+	public static Spritesheet test = new Spritesheet("/images/BloqueSprites01.png", 16);
 	
 	public Spritesheet(String path){
 		this.path=path;

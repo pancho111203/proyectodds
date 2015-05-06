@@ -69,28 +69,13 @@ public class FirstLevel extends Level {
 		int i = 0;
 		for(int y = 0;y<6;y++){
 			for(int x=0;x<4;x++){
-				spr_t.initSpriteOnTileOnHex("col"+x+y, x, y, Spritesheet.test, hexValuesCol[i]);
+				spr_t.initSpriteOnTileOnHex("col"+x+y, x, y,new Spritesheet(AM.getImage("pilar_pequeno")), hexValuesCol[i]);
 				i++;
 			}
 		}
-		
-		
-		
-		
-		
-		/*spr_t.initSpriteOnTileOnHex("verde", 0x00ff00, 0xffb5e61d);
-		spr_t.initHex(0xffefe4b0, "verde");
-		spr_t.initHex(0xffff7f27, "verde");
-		spr_t.initHex(0xfffff200, "verde");
-		spr_t.initHex(0xff7092be, "verde");
-		spr_t.initHex(0xff00a2e8, "verde");
-		spr_t.initHex(0xffa349a4, "verde");
-		spr_t.initSpriteOnTileOnHex("blanco", 0xffffff, 0xff3f48cc);
-		spr_t.initSpriteOnTileOnHex("rojo", 2, 2, new Spritesheet(AM.getImage("spritesheet")), 0xff7f7f7f);
-		spr_t.initHex(0xff22b14c, "rojo");*/
-		
 	
 	}
 
+	
 
 }
