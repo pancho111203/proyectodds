@@ -54,7 +54,7 @@ public class FirstLevel extends Level {
 	public void render(RenderingLevel render){
 		super.render(render);
 		
-		AM.playSound("footsteps"); 
+		//AM.playSound("footsteps"); 
 	}
 
 	@Override
