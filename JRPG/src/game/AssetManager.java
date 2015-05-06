@@ -1,11 +1,12 @@
 package game;
 
+import game.sound.SoundManager;
+
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -19,56 +20,59 @@ public class AssetManager {
 	private ArrayList<String> sounds;
 	
 	private static AssetManager assetmanager;
-	private static String state;
+	private static String statesreaded="";
+	
 	
 	private HashMap<String,BufferedImage> image;
-	private HashMap<String,URL> sound;
+	private SoundManager sound;
 	private BufferedReader br;
 	//private File savedgames[];
 	//private File configFile;
 	
-	public AssetManager(String state) {
+	public AssetManager() {
 		images= new ArrayList<String>();
 		sounds= new ArrayList<String>();
 		
-		this.state=state;
 		
 		image = new HashMap<String,BufferedImage>();
-		sound = new HashMap<String,URL>();
+		sound = SoundManager.getSingleton();
 		
-		load();
 	}
 	
-	public void load(){
-		readResources();
-		System.out.println(images.toString()+" "+sounds.toString());
-		try{
-			
-			for(int i=0;i<images.size();i++){
-				image.put(images.get(i), ImageIO.read(AssetManager.class.getResource("/images/"+images.get(i)+".png")));
+	public void load(String state){
+		if(!statesreaded.contains(state)){
+			this.statesreaded+=state;
+			readResources(state);
+			System.out.println(images.toString()+" "+sounds.toString());
+			try{
+				
+				for(int i=0;i<images.size();i++){
+					image.put(images.get(i), ImageIO.read(AssetManager.class.getResource("/images/"+images.get(i)+".png")));
+				}
+				
+				for(int i=0;i<sounds.size();i++){
+					sound.add(sounds.get(i), AssetManager.class.getResource("/sounds/"+sounds.get(i)+".wav"));
+				}
+				
+			}catch(IOException e){
+				System.err.println("Error cargando algún asset: "+e);
 			}
-			
-			for(int i=0;i<sounds.size();i++){
-				sound.put(sounds.get(i), AssetManager.class.getResource("/sounds/"+sounds.get(i)+".wav"));
-			}
-			
-		}catch(IOException e){
-			System.err.println("Error cargando algún asset: "+e);
 		}
 	}
 
-	public static AssetManager getSingleton(String state){
-		if(!state.equals(AssetManager.state)){
-			assetmanager=null;
-		}
+	public static AssetManager getSingleton(){
 		if(assetmanager==null){
-			assetmanager = new AssetManager(state);
+			assetmanager = new AssetManager();
 		}
 		return assetmanager;
 	}
 	
-	public URL getSound(String key){
-		return sound.get(key);
+	public SoundManager getSounds(){
+		return sound;
+	}
+	
+	public void playSound(String id){
+		sound.play(id);
 	}
 	
 	public BufferedImage getImage(String key){
@@ -83,15 +87,11 @@ public class AssetManager {
 		return image.size();
 	}
 	
-	public URL[] getAllSounds(){
-		return sound.values().toArray(new URL[sound.size()]);	
-	}
-	
 	public BufferedImage[] getAllImages(){
 		return image.values().toArray(new BufferedImage[image.size()]);	
 	}
 	
-	private void readResources(){
+	private void readResources(String state){
 		boolean actState=false,img=false,sound=false;
 		try{
 			br = new BufferedReader(new FileReader(new File("./res/resources")));

@@ -37,6 +37,7 @@ public class Player extends Entity{
 		currentAnim = new Animator(WIDTH, HEIGHT, 2, 3, 1, Spritesheet.test, 60);
 		//currentAnim = new Sprite(16,16,0,2,Spritesheet.tiles);
 		
+		
 		this.x = startpointPlayerX-currentAnim.getWidth()/2;
 		this.y = startpointPlayerY-currentAnim.getHeight()/2;
 	}

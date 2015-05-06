@@ -1,6 +1,5 @@
 package game.level;
 
-import game.graphics.Spritesheet;
 
 
 public class CustomLevel extends Level {
