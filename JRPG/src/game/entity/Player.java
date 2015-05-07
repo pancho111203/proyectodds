@@ -243,12 +243,13 @@ public class Player extends Entity{
 	}
 
 	public boolean isCentered(){
-		if(x<0+level.screenW/2){
-			return true;
-		}
-		if(x>((level.getWidth()*TS)-(level.screenW/2)))return true;
 		
-		return false;
+		if(x<0+level.screenW/2)return false;
+		if(x>((level.getWidth()*TS)-(level.screenW/2)))return false;
+		if(y<0+level.screenH/2)return false;
+		if(y>((level.getHeight()*TS)-(level.screenH/2)))return false;
+		
+		return true;
 	}
 	
 }

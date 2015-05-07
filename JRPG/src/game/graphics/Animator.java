@@ -35,10 +35,10 @@ public class Animator implements Sprite{
 		actSprite=sprites[act];
 	}
 	
-	//a partir de la posición del primer sprite, su tamaño y el numero de sprites, los saca todos y al array
+	//TODO arreglar esto para que no salte solo un tile si no un sprite D:
 	public void slice(){
 		for (int i=0;i<sprites.length;i++){
-			sprites[i]= new SingleSprite(width,height,x+i,y,spriteSheet);
+			sprites[i]= new SingleSprite(width ,height , x+(i*(width/16)) ,y , spriteSheet);
 		}
 	}
 	

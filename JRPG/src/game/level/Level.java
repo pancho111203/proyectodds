@@ -2,6 +2,7 @@ package game.level;
 
 import game.AssetManager;
 import game.entity.EntityList;
+import game.entity.Marbao;
 import game.entity.Player;
 import game.graphics.RenderingLevel;
 import game.graphics.SingleSprite;
@@ -30,6 +31,7 @@ public abstract class Level {
 	public int screenH;
 	
 	protected Player player;
+	protected Marbao malo;
 
 	protected SpriteTileFacade spr_t;
 		
@@ -51,12 +53,14 @@ public abstract class Level {
 		
 		
 		player = new Player(xOffset,yOffset,this, 8, 24, 36, 47);
+		malo = new Marbao(140,40,this);
 
 		initializeSpritesAndTiles();
 	}
 	public void update(){
 		entList.update();
 		player.update();
+		malo.update();
 		spr_t.updateAnims(); //update de sprites animados
 	}
 	public void render(RenderingLevel render){
@@ -64,6 +68,7 @@ public abstract class Level {
 		
 		entList.render(render);
 		player.render(render);
+		malo.render(render);
 	}
 	
 	public abstract void loadLevel();
