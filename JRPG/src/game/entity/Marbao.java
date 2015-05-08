@@ -37,7 +37,7 @@ public class Marbao extends Entity {
 	public void render(RenderingLevel render) {
 		int xInScreen = x-level.getXPosScreen();
 		int yInScreen = y-level.getYPosScreen();
-
+		currAnim.getActual().Flip();
 		render.renderEntity(xInScreen,yInScreen,currAnim);
 	}
 

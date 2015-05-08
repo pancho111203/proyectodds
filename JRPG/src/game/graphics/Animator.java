@@ -3,7 +3,8 @@ package game.graphics;
 public class Animator implements Sprite{
 	
 	//(n) es el numero de sprites en fila, (size) tamaño del sprite, (act) id del sprite actual en el array
-	public int x,y,n,width,height,act, rate; // rate es el numero de frames que tarda en cambiar de sprite  
+	private int x,y,width,height;
+	public int n,act, rate; // rate es el numero de frames que tarda en cambiar de sprite  
 	public Spritesheet spriteSheet; //subSpritesheet solo con la fila de movimientos del sprite a animar
 	public SingleSprite sprites[], actSprite; // array de sprites en total y sprite actual en el que se encuentra
 	
@@ -90,5 +91,15 @@ public class Animator implements Sprite{
 	@Override
 	public int getWidth() {
 		return width;
+	}
+
+	@Override
+	public int getX() {
+		return x;
+	}
+
+	@Override
+	public int getY() {
+		return y;
 	}
 }
