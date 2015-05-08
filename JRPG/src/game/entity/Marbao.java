@@ -12,6 +12,8 @@ public class Marbao extends Entity {
 	private final int w=64,h=64;
 	private Level level;
 	
+	private int timer=0;
+	
 	Animator currAnim;
 	
 	public Marbao(int x, int y,Level level) {
@@ -30,6 +32,11 @@ public class Marbao extends Entity {
 			((Animator)currAnim).update();
 		} 
 		ia();
+		timer++;
+		if(timer>60){
+			currAnim.FlipAll();
+			timer=0;
+		}
 		
 	}
 
@@ -37,7 +44,7 @@ public class Marbao extends Entity {
 	public void render(RenderingLevel render) {
 		int xInScreen = x-level.getXPosScreen();
 		int yInScreen = y-level.getYPosScreen();
-		currAnim.getActual().Flip();
+		
 		render.renderEntity(xInScreen,yInScreen,currAnim);
 	}
 

@@ -102,4 +102,11 @@ public class Animator implements Sprite{
 	public int getY() {
 		return y;
 	}
+
+	@Override
+	public void FlipAll() {
+		for(int i = 0; i < sprites.length ; i++){
+			sprites[i].Flip();
+		}
+	}
 }

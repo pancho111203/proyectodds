@@ -6,5 +6,5 @@ public interface Sprite {
 	public int getWidth();
 	public int getX();
 	public int getY();
-	
+	public void FlipAll();
 }

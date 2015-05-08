@@ -67,4 +67,9 @@ public class Image implements Sprite{
 		y=ny;
 	}
 
+	@Override
+	public void FlipAll() {
+		
+	}
+
 }
