@@ -38,7 +38,8 @@ public abstract class Rendering {
 				if(xa >= width || xa<0 || ya >= height || ya<0){
 					continue;
 				}
-				if(pixels[x+y*w]!=ALPHA2&&pixels[x+y*w]!=ALPHA3)
+				int aux = pixels[x+y*w];
+				if(aux!=ALPHA&&aux!=ALPHA2&&aux!=ALPHA3)
 				this.pixels[xa+ya*width]= pixels[x+y*w];
 			}
 		}

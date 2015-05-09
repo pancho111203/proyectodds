@@ -4,6 +4,10 @@ import game.AssetManager;
 import game.entity.EntityList;
 import game.entity.Marbao;
 import game.entity.Player;
+import game.entity.movement.ForwardMovement;
+import game.entity.movement.Movement;
+import game.entity.movement.PathMovement;
+import game.entity.movement.PlayerMovement;
 import game.graphics.RenderingLevel;
 import game.graphics.SingleSprite;
 import game.level.tiles.SpriteTileFacade;
@@ -17,7 +21,7 @@ public abstract class Level {
 	protected final int START_POS_X; // posiciones iniciales de la camara
 	protected final int START_POS_Y;
 	
-	protected Tile voidTile = new Tile(new SingleSprite(Level.TILESIZE, 0x000000));
+	protected Tile voidTile = new Tile(new SingleSprite(Level.TILESIZE, 0x000000),9,9,9,9);
 	
 	public AssetManager AM;
 	
@@ -31,7 +35,6 @@ public abstract class Level {
 	public int screenH;
 	
 	protected Player player;
-	protected Marbao malo;
 
 	protected SpriteTileFacade spr_t;
 		
@@ -51,16 +54,33 @@ public abstract class Level {
 		
 		spr_t = new SpriteTileFacade();
 		
+		int startpointPlayerX = xOffset + screenW/2;
+		int startpointPlayerY = yOffset + screenH/2;
 		
-		player = new Player(xOffset,yOffset,this, 8, 24, 36, 47);
-		malo = new Marbao(140,40,this);
+
+		Movement mov = new PlayerMovement(this, 1);
+		player = new Player(startpointPlayerX,startpointPlayerY,2,3,mov,this, 8, 24, 36, 47);
+		mov.initializeEntity(player);
+	
+	    //TEST probando lo diferentes tipos de movimiento de enemigos
+		//TODO interfaz (patron Facade?) que haga estos 4 pasos llamando a un solo metodo, para simplificar
+	    mov = new ForwardMovement(this, 1,1);
+	    Marbao malo1 = new Marbao(startpointPlayerX,startpointPlayerY,4,4,mov,this,25,28,57,62); // hay que ajustar los offsets
+		mov.initializeEntity(malo1);
+		entList.addEntity(malo1);
+		
+		
+		mov = new PathMovement(this, 0,-100,1);
+	    Marbao malo2 = new Marbao(startpointPlayerX,startpointPlayerY,4,4,mov,this,25,28,57,62);
+		mov.initializeEntity(malo2);
+		entList.addEntity(malo2);
+		//
 
 		initializeSpritesAndTiles();
 	}
 	public void update(){
 		entList.update();
 		player.update();
-		malo.update();
 		spr_t.updateAnims(); //update de sprites animados
 	}
 	public void render(RenderingLevel render){
@@ -68,7 +88,7 @@ public abstract class Level {
 		
 		entList.render(render);
 		player.render(render);
-		malo.render(render);
+		
 	}
 	
 	public abstract void loadLevel();
