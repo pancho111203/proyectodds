@@ -6,7 +6,7 @@ package game.graphics;
 public class SingleSprite implements Sprite{
 
 	public int[] pixels;
-	public int x, y;
+	private int x, y;
 	protected int width, height;
 	protected Spritesheet sheet;
 	
@@ -51,6 +51,25 @@ public class SingleSprite implements Sprite{
 	public SingleSprite getActual() {
 		return this;
 	}
+	
+	public void Flip() {
+		// TODO arreglar esta puta mierda de Flip()
+		int l = pixels.length;
+		
+		int temp[] = new int[l];
+		
+		/*for(int y=0;y<height;y++){
+			for(int x=0;x<width;x++){
+				pixels[x +y*width]=temp[ ((width-x)-1) +y*width];
+			}
+		}*/
+		for(int i=0;i<l;i++){
+			temp[i]=pixels[l-i-1];
+		}
+		
+		pixels = temp;
+	}
+	
 	@Override
 	public int getHeight() {
 		return height;
@@ -58,5 +77,17 @@ public class SingleSprite implements Sprite{
 	@Override
 	public int getWidth() {
 		return width;
+	}
+	@Override
+	public int getX() {
+		return x;
+	}
+	@Override
+	public int getY() {
+		return y;
+	}
+	@Override
+	public void FlipAll() {
+		Flip();
 	}
 }
