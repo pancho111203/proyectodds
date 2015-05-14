@@ -6,7 +6,7 @@ import game.graphics.RenderingLevel;
 import game.graphics.Spritesheet;
 import game.level.Level;
 
-public class Marbao extends MovingEntity {
+public class Enemy extends MovingEntity {
 	
 	private Level level;
 	
@@ -14,7 +14,7 @@ public class Marbao extends MovingEntity {
 	
 	Animator currAnim;
 	
-	public Marbao(int x, int y,int w, int h, Movement mov, Level level, int offsetXStart, int offsetXEnd, int offsetYStart, int offsetYEnd) {
+	public Enemy(int x, int y,int w, int h, Movement mov, Level level, int offsetXStart, int offsetXEnd, int offsetYStart, int offsetYEnd) {
 		super(x, y, w, h, mov);
 		this.level=level;
 		
