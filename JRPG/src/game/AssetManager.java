@@ -41,7 +41,7 @@ public class AssetManager {
 	
 	public void load(String state){
 		if(!statesreaded.contains(state)){
-			this.statesreaded+=state;
+			statesreaded+=state;
 			readResources(state);
 			System.out.println(images.toString()+" "+sounds.toString());
 			try{

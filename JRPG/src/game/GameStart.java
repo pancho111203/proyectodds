@@ -1,6 +1,7 @@
 package game;
 import game.graphics.Rendering;
 import game.input.Keyboard;
+import game.input.Mouse;
 import game.states.LevelState;
 import game.states.MainMenuState;
 
@@ -32,6 +33,7 @@ public class GameStart extends Canvas implements Runnable{
 	private StateMachine game;
 	private static boolean isRunning = false;
 	private Keyboard key;
+	private Mouse mouse;
 	
 	//Rendering
 	private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
@@ -49,7 +51,6 @@ public class GameStart extends Canvas implements Runnable{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 		frame.setIgnoreRepaint(true);
-		
 		theGame.start();
 		
 	}
@@ -66,6 +67,8 @@ public class GameStart extends Canvas implements Runnable{
 		
 		key = Keyboard.getSingleton();
 		addKeyListener(key);
+		mouse = Mouse.getSingleton();
+		addMouseListener(mouse);
 		
 		game.change("level1","init");
 		
@@ -133,6 +136,7 @@ public class GameStart extends Canvas implements Runnable{
 
 	private synchronized void update(){ // this function handles the update for keyboards and delegates the update to the ccurrent state instance
 		key.update();
+		mouse.update();
 	    game.update();
 	}
 	

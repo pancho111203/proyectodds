@@ -4,8 +4,9 @@ public abstract class Rendering {
 	public int width, height;
 	protected int pixels[];
 	
-	private final int ALPHA2=0xffff1ef2;//e
-	private final int ALPHA=0xffff00de;//e
+	private final int ALPHA2=0xffff1ef2;
+	private final int ALPHA=0xffff00de;
+	private final int ALPHA3=0xff808080;
 	
 	public Rendering(int width,int height){
 		this.width = width;
@@ -37,7 +38,8 @@ public abstract class Rendering {
 				if(xa >= width || xa<0 || ya >= height || ya<0){
 					continue;
 				}
-				if(pixels[x+y*w]!=ALPHA2)
+				int aux = pixels[x+y*w];
+				if(aux!=ALPHA&&aux!=ALPHA2&&aux!=ALPHA3)
 				this.pixels[xa+ya*width]= pixels[x+y*w];
 			}
 		}

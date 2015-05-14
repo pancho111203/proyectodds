@@ -7,9 +7,9 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class Image {
+public class Image implements Sprite{
 	
-	int x,y,w,h;
+	private int x,y,w,h;
 	public int[] pixels;
 	
 	public Image(String img) {
@@ -42,6 +42,34 @@ public class Image {
 	
 	public int getWidth(){
 		return w;
+	}
+
+	@Override
+	public SingleSprite getActual() {
+		return null;
+	}
+
+	@Override
+	public int getX() {
+		return x;
+	}
+
+	@Override
+	public int getY() {
+		return y;
+	}
+	
+	public void setX(int nx) {
+		x=nx;
+	}
+
+	public void setY(int ny) {
+		y=ny;
+	}
+
+	@Override
+	public void FlipAll() {
+		
 	}
 
 }
