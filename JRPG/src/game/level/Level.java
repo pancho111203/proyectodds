@@ -10,6 +10,7 @@ import game.entity.movement.PathMovement;
 import game.entity.movement.PlayerMovement;
 import game.graphics.RenderingLevel;
 import game.graphics.SingleSprite;
+import game.graphics.UserIface;
 import game.level.tiles.SpriteTileFacade;
 import game.level.tiles.Tile;
 
@@ -30,11 +31,12 @@ public abstract class Level {
 	
 	protected int width, height;
 	protected int[] tiles;
+	
 	public int screenW;
-
 	public int screenH;
 	
 	protected Player player;
+	protected UserIface UI;
 
 	protected SpriteTileFacade spr_t;
 		
@@ -61,6 +63,7 @@ public abstract class Level {
 		Movement mov = new PlayerMovement(this, 1);
 		player = new Player(startpointPlayerX,startpointPlayerY,2,3,mov,this, 8, 24, 36, 47);
 		mov.initializeEntity(player);
+		UI = new UserIface(player);
 	
 	    //TEST probando lo diferentes tipos de movimiento de enemigos
 		//TODO interfaz (patron Facade?) que haga estos 4 pasos llamando a un solo metodo, para simplificar
@@ -82,12 +85,15 @@ public abstract class Level {
 		entList.update();
 		player.update();
 		spr_t.updateAnims(); //update de sprites animados
+		UI.update();
 	}
 	public void render(RenderingLevel render){
 		renderTiles(render);
 		
 		entList.render(render);
 		player.render(render);
+		
+		UI.render(render);
 		
 	}
 	

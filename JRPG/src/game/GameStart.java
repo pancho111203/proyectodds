@@ -3,7 +3,7 @@ import game.graphics.Rendering;
 import game.input.Keyboard;
 import game.input.Mouse;
 import game.states.LevelState;
-import game.states.MainMenuState;
+import game.states.MenuState;
 
 import java.awt.Canvas;
 import java.awt.Dimension;
@@ -62,7 +62,7 @@ public class GameStart extends Canvas implements Runnable{
 		game = new StateMachine(this);
 		
 		
-		game.add("mainmenu", new MainMenuState(game,WIDTH,HEIGHT));
+		game.add("mainmenu", new MenuState(game,WIDTH,HEIGHT));
 		game.add("level1", new LevelState(game,WIDTH,HEIGHT));
 		
 		key = Keyboard.getSingleton();
@@ -70,7 +70,7 @@ public class GameStart extends Canvas implements Runnable{
 		mouse = Mouse.getSingleton();
 		addMouseListener(mouse);
 		
-		game.change("level1","init");
+		game.change("mainmenu","init");
 		
 		
 	}

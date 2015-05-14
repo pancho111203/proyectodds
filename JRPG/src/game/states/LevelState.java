@@ -20,19 +20,15 @@ public class LevelState implements IState{
 		AM = AssetManager.getSingleton(); //TODO falta modificar FirstLevel para que pueda recibir el archivo ya cargado
 		AM.load("FirstLevel");
 		curLevel = new FirstLevel(80,0,AM.getImage("level3"),w,h); 
-	}
-	
-	
-	
+	}	
 
 	@Override
 	public void update() {
 		
-		
-		
-		curLevel.update();
-		
+		curLevel.update();		
+	
 	}
+	
 	@Override
 	public void render() {
 		

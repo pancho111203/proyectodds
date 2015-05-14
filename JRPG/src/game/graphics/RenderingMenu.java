@@ -1,8 +1,8 @@
 package game.graphics;
 
-public class RenderingMainMenu extends Rendering{
+public class RenderingMenu extends Rendering{
 
-	public RenderingMainMenu(int width, int height) {
+	public RenderingMenu(int width, int height) {
 		super(width, height);
 	}
 	
