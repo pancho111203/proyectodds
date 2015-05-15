@@ -22,10 +22,10 @@ public class MainMenu extends Menu {
 	public void update(){
 		int sely=sel.getY();
 		
-		if(key.keyPressed(KeyEvent.VK_W)||key.keyPressed(KeyEvent.VK_UP)||pad.padChanged(pad.Lup)){
+		if(key.keyPressed(KeyEvent.VK_W)||key.keyPressed(KeyEvent.VK_UP)||pad.padChanged(pad.Lup)||pad.buttonChanged(pad.UP)){
 			sely = (sely > 30) ? (sely-25) : 70;
 		}
-		if(key.keyPressed(KeyEvent.VK_S)||key.keyPressed(KeyEvent.VK_DOWN)||pad.padChanged(pad.Ldown)){
+		if(key.keyPressed(KeyEvent.VK_S)||key.keyPressed(KeyEvent.VK_DOWN)||pad.padChanged(pad.Ldown)||pad.buttonChanged(pad.DOWN)){
 			sely = (sely < 60) ? (sely+25) : 20;
 		}
 		sel.setY(sely);

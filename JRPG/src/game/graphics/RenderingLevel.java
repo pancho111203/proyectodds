@@ -27,5 +27,18 @@ public class RenderingLevel extends Rendering{
 		
 		super.render(sprite.getHeight(),sprite.getWidth(),xp,yp,sprite.pixels);
 	}
+	
+	public void renderPart(int h, int w, int px, int py, int[] pixels, float p){
+		int nw = ((int)(w*p));
+		int aux[]= new int[nw*h];
+		
+		for(int y=0;y<h;y++){
+			for(int x=0;x<nw;x++){
+				aux[x+y*nw]=pixels[x+y*w];
+			}
+		}
+		
+		super.render(h,nw,px,py,aux);
+	}
 
 }

@@ -21,7 +21,7 @@ public class UserIface {
 	
 	public void render(RenderingLevel render){
 		render.render(HPbar.getHeight(),HPbar.getWidth(), 0, 0, HPbar.pixels);
-		render.render(life.getHeight(),life.getWidth()/2, 0, 0, life.pixels);
+		render.renderPart(life.getHeight(),life.getWidth(), 0, 0, life.pixels,0.9f);
 		
 	}
 

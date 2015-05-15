@@ -25,17 +25,16 @@ public class PlayerMovement extends Movement{
 	
 	public void updateAux(){
 
-		pad.pollController();
-		if(key.keyDown(KeyEvent.VK_W)||key.keyDown(KeyEvent.VK_UP)||pad.getPadState(pad.Lup)){
+		if(key.keyDown(KeyEvent.VK_W)||key.keyDown(KeyEvent.VK_UP)||pad.getPadState(pad.Lup)||pad.getButtonValue(pad.UP)){
 			moveUp();
 		}
-		if(key.keyDown(KeyEvent.VK_S)||key.keyDown(KeyEvent.VK_DOWN)||pad.getPadState(pad.Ldown)){
+		if(key.keyDown(KeyEvent.VK_S)||key.keyDown(KeyEvent.VK_DOWN)||pad.getPadState(pad.Ldown)||pad.getButtonValue(pad.DOWN)){
 			moveDown();
 		}
-		if(key.keyDown(KeyEvent.VK_A)||key.keyDown(KeyEvent.VK_LEFT)||pad.getPadState(pad.Lleft)){
+		if(key.keyDown(KeyEvent.VK_A)||key.keyDown(KeyEvent.VK_LEFT)||pad.getPadState(pad.Lleft)||pad.getButtonValue(pad.LEFT)){
 			moveLeft();
 		}
-		if(key.keyDown(KeyEvent.VK_D)||key.keyDown(KeyEvent.VK_RIGHT)||pad.getPadState(pad.Lright)){
+		if(key.keyDown(KeyEvent.VK_D)||key.keyDown(KeyEvent.VK_RIGHT)||pad.getPadState(pad.Lright)||pad.getButtonValue(pad.RIGHT)){
 			moveRight();
 		}
 		

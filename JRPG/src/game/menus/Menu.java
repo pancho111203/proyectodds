@@ -16,15 +16,13 @@ public abstract class Menu {
 	
 	public Menu() {
 		changeTo=null;
-		pad = new Gamepad();
+		pad = Gamepad.getSingleton();
 		AM= AssetManager.getSingleton();
 		AM.load("MainMenu");
 		key = Keyboard.getSingleton();
 	}
 	
-	public void update(){
-		pad.pollController();
-		
+	public void update(){		
 	}
 
 	public void render(RenderingMenu render){
