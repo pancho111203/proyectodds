@@ -32,11 +32,6 @@ public class ForwardMovement extends Movement{
 		direcV = (-1)*direcV;
 	}
 
-	@Override
-	protected boolean collisionWithState(int s) {
-		// TODO Auto-generated method stub
-		return (s==1)||(s==9); // colision con *solid* y con *void*
-	}
 	
 	
 

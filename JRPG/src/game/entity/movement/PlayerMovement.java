@@ -55,11 +55,6 @@ public class PlayerMovement extends Movement{
 	protected void moveDown(){
 		move(0,speed);
 	}
-
-	@Override
-	protected boolean collisionWithState(int s) {
-		return s==1; //colision con *solid*
-	}
 	
 	
 }

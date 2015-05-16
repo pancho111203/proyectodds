@@ -90,4 +90,7 @@ public class SingleSprite implements Sprite{
 	public void FlipAll() {
 		Flip();
 	}
+	@Override
+	public void startAgain() {
+	}
 }

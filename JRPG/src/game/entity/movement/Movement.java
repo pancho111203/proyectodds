@@ -8,6 +8,8 @@ public abstract class Movement { // maneja el movimiento
 	// no permite que haya movimiento hacia dos lados contrarios a la vez(evita fallos)
 	// maneja colisiones
 	
+	//TODO falta funcionalidad que permita que el player cambie de estado cuando se meta en el agua(nadar) y para escaleras, etc
+	
 	protected int prevVertical;
 	protected int prevHorizontal;
 	protected int vertical;
@@ -61,6 +63,35 @@ public abstract class Movement { // maneja el movimiento
 	public abstract void updateAux();
 	
 	protected void timeToMove(){
+		// variable con valores de 0 a 7 indicando la direccion(tmb diagonal), se usa sobre todo para elegir sprite
+		//si tiene valor 8 es pq el pj esta quieto
+		int dir = 8;
+		if(horizontal<0){
+			if(vertical<0){
+				dir = 7;
+			}else if(vertical>0){
+				dir = 5;
+			}else{
+				dir = 6;
+			}
+		}else if(horizontal>0){
+			if(vertical<0){
+				dir = 1;
+			}else if(vertical>0){
+				dir = 3;
+			}else{
+				dir = 2;
+			}
+		}else{
+			if(vertical<0){
+				dir = 0;
+			}else if(vertical>0){
+				dir = 4;
+			}
+		}
+		
+		ent.changeDirection(dir);
+		
 		if(doMove){
 			
 			if(horizontal!=0){
@@ -143,6 +174,7 @@ public abstract class Movement { // maneja el movimiento
 		case 1: //va hacia derecha
 			
 			if(isSolid(nextX+endColX,nextY+endColY, -1) || isSolid(nextX+endColX,nextY+startColY, -1)){
+				
 				return true; //prueba para las esquinas
 			}
 			for(int i = 1;(i*TS)+startColY < endColY ; i++){
@@ -225,6 +257,15 @@ public abstract class Movement { // maneja el movimiento
 		}
 	}
 	
-	protected abstract boolean collisionWithState(int s); // checkea si el tipo de movimiento genera colisiones cn el estado dado
+	protected boolean collisionWithState(int s){
+		//esta implementacion permite que se defina dentro de la MovingEntity los elementos con los que esta colisiona. 
+		//pero lo bueno de esta implementacion es que algunas clases que extiendan Movement pueden sobreesribir el metodo, creando
+		// movimientos con unos colliders especificos
+		
+		
+		
+		return ent.collidesWithState(s);
+		// checkea si el tipo de movimiento genera colisiones cn el estado dado
+	}
 	//p ejemplo, para unidades voladoras el estado 1(solido) no generara colisiones
 }
