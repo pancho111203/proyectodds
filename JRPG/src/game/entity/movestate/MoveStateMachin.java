@@ -5,6 +5,8 @@ import game.graphics.Sprite;
 import java.util.HashMap;
 
 public class MoveStateMachin {
+	//TODO borrar esta clase y pasarla a movingentity
+	
 	// cada estado diferente se puede usar para cambiar estas cosas dependiendo del estado en el que se este:
 	// 1. los valores movX y movY(velocidad de movimiento)
 	// 2.los sprites usados

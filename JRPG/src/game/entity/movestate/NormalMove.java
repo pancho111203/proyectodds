@@ -39,13 +39,11 @@ public class NormalMove implements IMove{
 
 	@Override
 	public int getMovX() {
-		// TODO Auto-generated method stub
 		return movX;
 	}
 
 	@Override
 	public int getMovY() {
-		// TODO Auto-generated method stub
 		return movY;
 	}
 

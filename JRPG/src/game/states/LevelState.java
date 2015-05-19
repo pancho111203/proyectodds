@@ -17,7 +17,7 @@ public class LevelState implements IState{
 	public LevelState(StateMachine game, int w, int h){
 		this.game = game;
 		render = new RenderingLevel(w,h);
-		AM = AssetManager.getSingleton(); //TODO falta modificar FirstLevel para que pueda recibir el archivo ya cargado
+		AM = AssetManager.getSingleton(); 
 		AM.load("FirstLevel");
 		curLevel = new FirstLevel(80,0,AM.getImage("level3"),w,h); 
 	}	

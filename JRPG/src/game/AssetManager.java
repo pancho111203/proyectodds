@@ -15,7 +15,6 @@ import javax.imageio.ImageIO;
 
 public class AssetManager {
 	
-	//TODO cargar estos arrays desde un archivo que dependa del nivel o estado actual
 	private ArrayList<String> images;
 	private ArrayList<String> sounds;
 	

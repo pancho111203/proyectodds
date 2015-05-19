@@ -59,7 +59,6 @@ public class FirstLevel extends Level {
 
 	@Override
 	public void initializeSpritesAndTiles() {
-		//TODO herramienta para facilitar creacion de sprites y tiles
 		Spritesheet ss = new Spritesheet(AM.getImage("BloqueSprites01"));
 		//pilar
 		int pilar = 0;

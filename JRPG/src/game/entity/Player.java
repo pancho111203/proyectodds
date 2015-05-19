@@ -65,9 +65,6 @@ public class Player extends MovingEntity{
 	}
 	
 	public void move(int movX,int movY){
-		//TODO falta comprobar bounds de player y comprobar bounds de level con funcion auxiliar en level
-		//TODO usa patron estrategia para diferentes tipos de movimiento
-		
 		msm.move(movX, movY);
 		
 		movX = msm.getMovX();
