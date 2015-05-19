@@ -72,4 +72,8 @@ public class Image implements Sprite{
 		
 	}
 
+	@Override
+	public void startAgain() {
+	}
+
 }

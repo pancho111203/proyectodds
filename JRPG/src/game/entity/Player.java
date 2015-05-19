@@ -1,6 +1,7 @@
 package game.entity;
 
 import game.entity.movement.Movement;
+import game.entity.movestate.NormalMove;
 import game.graphics.Animator;
 import game.graphics.RenderingLevel;
 import game.graphics.Sprite;
@@ -10,13 +11,12 @@ import game.level.Level;
 public class Player extends MovingEntity{
 
 	private Level level;
-	private Sprite currentAnim; //TODO mas adelante habr un animador por cada estado diferente(moviendose a la izq, der, arriba, abajo, saltando, etc.)
-	
 		
 	public Player(int x, int y,int w, int h, Movement mov, Level level, int offsetXStart, int offsetXEnd, int offsetYStart, int offsetYEnd) {
 		super(x, y,w,h, mov);
 
 		this.level = level;
+		
 		
 		//collisions
 		spriteOffsets[0]= offsetXStart; // siempre asignarlas antes de inicializar mov!!
@@ -24,9 +24,22 @@ public class Player extends MovingEntity{
 		spriteOffsets[2]= offsetYStart;
 		spriteOffsets[3]= offsetYEnd;
 		
-		currentAnim = new Animator(WIDTH, HEIGHT, 2, 3, 1, new Spritesheet(level.AM.getImage("BloqueSprites01")), 60);
-		//currentAnim = new Sprite(16,16,0,2,Spritesheet.tiles);
 		
+		
+		Sprite currentAnim = new Animator(WIDTH, HEIGHT, 0, 0, 3, new Spritesheet(level.AM.getImage("MinotauroFrontal")), 15);
+		//currentAnim = new Sprite(16,16,0,2,Spritesheet.tiles);
+		SpriteContainer normalState = new SpriteContainer();
+		normalState.addSprite("0", currentAnim); // hay que añadir un sprite para cada direccion (obligatorio para que la statemachine funcione)
+		normalState.addSprite("1", currentAnim); // despues puedo anadir los sprites que sean necesarios para cada estado diferente
+		normalState.addSprite("2", currentAnim);
+		normalState.addSprite("3", currentAnim);
+		normalState.addSprite("4", currentAnim);
+		normalState.addSprite("5", currentAnim);
+		normalState.addSprite("6", currentAnim);
+		normalState.addSprite("7", currentAnim);
+		normalState.addSprite("8", currentAnim);
+		msm.add("normal", new NormalMove(normalState));
+		msm.change("normal", "");
 		
 		this.x = x-currentAnim.getWidth()/2;
 		this.y = y-currentAnim.getHeight()/2;
@@ -36,9 +49,7 @@ public class Player extends MovingEntity{
 	@Override
 	public void update() {
 		
-		if(currentAnim instanceof Animator){
-			((Animator)currentAnim).update();
-		} 
+		msm.update();
 		
 		mov.update();
 		
@@ -50,17 +61,19 @@ public class Player extends MovingEntity{
 		int xInScreen = x-level.getXPosScreen();
 		int yInScreen = y-level.getYPosScreen();
 
-		render.renderEntity(xInScreen,yInScreen,currentAnim); // hay que pasar la posicion del jugador respecto a la pantalla(en pixeles)
+		render.renderEntity(xInScreen,yInScreen,msm.getSprite()); // hay que pasar la posicion del jugador respecto a la pantalla(en pixeles)
 	}
 	
 	public void move(int movX,int movY){
 		//TODO falta comprobar bounds de player y comprobar bounds de level con funcion auxiliar en level
 		//TODO usa patron estrategia para diferentes tipos de movimiento
 		
+		msm.move(movX, movY);
 		
+		movX = msm.getMovX();
+		movY = msm.getMovY();
 		//  H=24   W=30
 		// x/y=0 arriba izquierda   x=60 y=64
-		
 		x+=movX;
 		y+=movY;
 		//si el mapa se sale de la camara || el player está volviendo al centro de esta: (<- contenido de los ifs)
@@ -96,5 +109,13 @@ public class Player extends MovingEntity{
 		
 		return true;
 	}
+
+
+	@Override
+	public boolean collidesWithState(int s) {
+		return s==1; //colision con *solid*
+	}
+
+
 	
 }

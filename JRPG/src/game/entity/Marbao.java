@@ -9,7 +9,6 @@ import game.level.Level;
 public class Marbao extends MovingEntity {
 	
 	private Level level;
-	
 //	private int timer=0;
 	
 	Animator currAnim;
@@ -60,5 +59,11 @@ public class Marbao extends MovingEntity {
 		x+=movX;
 		y+=movY;
 	}
+
+	@Override
+	public boolean collidesWithState(int s) {
+		return (s==1)||(s==9); // colision con *solid* y con *void*
+	}
+
 	
 }

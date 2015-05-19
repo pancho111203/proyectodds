@@ -7,4 +7,5 @@ public interface Sprite {
 	public int getX();
 	public int getY();
 	public void FlipAll();
+	public void startAgain();
 }
