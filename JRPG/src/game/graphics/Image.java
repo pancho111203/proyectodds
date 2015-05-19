@@ -1,6 +1,6 @@
 package game.graphics;
 
-import game.states.MainMenuState;
+import game.states.MenuState;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -14,7 +14,7 @@ public class Image implements Sprite{
 	
 	public Image(String img) {
 			try {
-				BufferedImage image = ImageIO.read(MainMenuState.class.getResource(img));
+				BufferedImage image = ImageIO.read(MenuState.class.getResource(img));
 				w=image.getWidth();
 				h=image.getHeight();
 				pixels = new int[w*h];

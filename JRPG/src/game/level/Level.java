@@ -2,7 +2,7 @@ package game.level;
 
 import game.AssetManager;
 import game.entity.EntityList;
-import game.entity.Marbao;
+import game.entity.Enemy;
 import game.entity.Player;
 import game.entity.movement.ForwardMovement;
 import game.entity.movement.Movement;
@@ -10,6 +10,7 @@ import game.entity.movement.PathMovement;
 import game.entity.movement.PlayerMovement;
 import game.graphics.RenderingLevel;
 import game.graphics.SingleSprite;
+import game.graphics.UserIface;
 import game.level.tiles.SpriteTileFacade;
 import game.level.tiles.Tile;
 
@@ -30,11 +31,12 @@ public abstract class Level {
 	
 	protected int width, height;
 	protected int[] tiles;
+	
 	public int screenW;
-
 	public int screenH;
 	
 	protected Player player;
+	protected UserIface UI;
 
 	protected SpriteTileFacade spr_t;
 		
@@ -61,17 +63,18 @@ public abstract class Level {
 		Movement mov = new PlayerMovement(this, 1);
 		player = new Player(startpointPlayerX,startpointPlayerY,2,3,mov,this, 8, 24, 36, 47);
 		mov.initializeEntity(player);
+		UI = new UserIface(player);
 	
 	    //TEST probando lo diferentes tipos de movimiento de enemigos
 		//TODO interfaz (patron Facade?) que haga estos 4 pasos llamando a un solo metodo, para simplificar
 	    mov = new ForwardMovement(this, 1,1);
-	    Marbao malo1 = new Marbao(startpointPlayerX,startpointPlayerY,4,4,mov,this,25,28,57,62); // hay que ajustar los offsets
+	    Enemy malo1 = new Enemy(startpointPlayerX,startpointPlayerY,4,4,mov,this,25,28,57,62); // hay que ajustar los offsets
 		mov.initializeEntity(malo1);
 		entList.addEntity(malo1);
 		
 		
-		mov = new PathMovement(this, 0,-100,1);
-	    Marbao malo2 = new Marbao(startpointPlayerX,startpointPlayerY,4,4,mov,this,25,28,57,62);
+		mov = new PathMovement(this, -100,-100,1);
+	    Enemy malo2 = new Enemy(startpointPlayerX,startpointPlayerY,4,4,mov,this,25,28,57,62);
 		mov.initializeEntity(malo2);
 		entList.addEntity(malo2);
 		//
@@ -82,12 +85,15 @@ public abstract class Level {
 		entList.update();
 		player.update();
 		spr_t.updateAnims(); //update de sprites animados
+		UI.update();
 	}
 	public void render(RenderingLevel render){
 		renderTiles(render);
 		
 		entList.render(render);
 		player.render(render);
+		
+		UI.render(render);
 		
 	}
 	

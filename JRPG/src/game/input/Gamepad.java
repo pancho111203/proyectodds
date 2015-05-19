@@ -9,19 +9,20 @@ import net.java.games.input.ControllerEnvironment;
 
 
 public class Gamepad{
+	//esta clase funciona con el mando de la PS3 con el driver del de la XBox, no se que pasará con otro...
 	
 	private static Gamepad gamepad;
     
     private Controller controller;
-    //id de cada botón                                                   //todo(?) estos van como los pads y me da peresita :/
-    public final int CROS=0,CIRC=2,SQUA=3,TRIA=4;                        //UP=0,DOWN=0,LEFT=0,RIGHT=0;      (flechas)
-    public final int L1=4,R1=5,SELECT=6,START=7,L3=8,R3=9;               //L2=0,R2=0 						(gatillos)
+    //id de cada botón 
+    public final int CROS=0,CIRC=1,SQUA=2,TRIA=3, UP=10, DOWN=11, LEFT=12, RIGHT=13;
+    public final int L1=4,R1=5,SELECT=6,START=7,L3=8,R3=9;               				//TODO L2=14,R2=15 (gatillos)
     //ID de cada direccion de los dos pads
     public final int Lup=0,Ldown=1,Lleft=2,Lright=3,Rup=4,Rdown=5,Rleft=6,Rright=7;
     
     // Estado de los botones y axis
     private ArrayList<Boolean> buttonsValues;
-    public boolean pads[],padsReaded[];
+    public boolean pads[],padsReaded[],buttonReaded[];
     
     public Gamepad()
     {
@@ -55,8 +56,7 @@ public class Gamepad{
     
     //actualiza el estado del pad
     //si retorna false, hay un problema con el controller
-    public boolean pollController()
-    {
+    private boolean pollController()   {
         boolean isControllerValid;
         
         // Clear previous values of buttons.
@@ -81,10 +81,29 @@ public class Gamepad{
             
             // Add states of the buttons
             if(component.getName().contains("But")||component.getName().contains("Bot"))
-                if(component.getPollData() > 0.5f)
+                if(component.getPollData() > 0.9f)
                     buttonsValues.add(Boolean.TRUE);
                 else
                     buttonsValues.add(Boolean.FALSE);
+        }
+        
+        //                                   FLECHAS
+        //leer estado de flechas
+        boolean arrows[] = pollArrows();
+        //elimino el id del grupo de flechas general
+        buttonsValues.remove(10);
+        //añado un id para cada flecha con su estado
+        for(int i=0;i<arrows.length;i++){        	
+        	buttonsValues.add(arrows[i]);       	
+        }
+        //la primera vez pongo a false el estado leido de cada flecha
+        try{
+	        if (buttonReaded==null){
+	        	buttonReaded = new boolean[buttonsValues.size()];
+	        	buttonStateClear();
+	        }
+        }catch(NullPointerException e){
+        	return false;
         }
         
         return isControllerValid;
@@ -102,6 +121,7 @@ public class Gamepad{
     
     public boolean getButtonValue(int index)
     {
+    	pollController();
          try {
         	 return buttonsValues.get(index);
          }catch(Exception e){
@@ -179,6 +199,7 @@ public class Gamepad{
         	pads[i]=false;
         }
 	}
+	
 	private void axisStateClear(){
 	  for(int i=0;i<padsReaded.length;i++){
 		  padsReaded[i]=false;
@@ -186,11 +207,12 @@ public class Gamepad{
 	}
     
 	public boolean getPadState(int pad){
+		pollController();
 		return pads[pad];
 	}
 	
 	public boolean padChanged(int pad){
-		
+		pollController();
 		if(getPadState(pad)&&!padsReaded[pad]){
 			padsReaded[pad]=true;
 			return true;
@@ -199,6 +221,65 @@ public class Gamepad{
 			return false;
 		}
 		return false;
+	}
+	
+	private void buttonStateClear(){
+		  for(int i=0;i<buttonReaded.length;i++){
+			  buttonReaded[i]=false;
+	      }
+		}
+	
+	public boolean buttonChanged(int button){
+		if(!pollController())return false;
+		if(getButtonValue(button)&&!buttonReaded[button]){
+			buttonReaded[button]=true;
+			return true;
+		}else if(!getButtonValue(button)){
+			buttonReaded[button]=false;
+			return false;
+		}
+		return false;
+	}	
+	
+	public float getHatSwitchPosition()   {
+        Identifier identifier = Component.Identifier.Axis.POV;
+        return controller.getComponent(identifier).getPollData();
+    }
+	
+	public boolean[] pollArrows(){
+		int res = (int)(getHatSwitchPosition()*1000);
+		boolean arrows[]= new boolean[4];
+		
+		switch (res){
+			case 1000:
+				arrows[0]=false; arrows[1]=false; arrows[2]=true;  arrows[3]=false; break;
+				
+			case 875:
+				arrows[0]=false; arrows[1]=true;  arrows[2]=true;  arrows[3]=false; break;
+				
+			case 750:
+				arrows[0]=false; arrows[1]=true;  arrows[2]=false; arrows[3]=false; break;
+				
+			case 625:
+				arrows[0]=false; arrows[1]=true;  arrows[2]=false; arrows[3]=true;  break;
+				
+			case 500:
+				arrows[0]=false; arrows[1]=false; arrows[2]=false; arrows[3]=true;  break;
+				
+			case 375:
+				arrows[0]=true;  arrows[1]=false; arrows[2]=false; arrows[3]=true;  break;
+				
+			case 250:
+				arrows[0]=true;  arrows[1]=false; arrows[2]=false; arrows[3]=false; break;
+				
+			case 125:
+				arrows[0]=true;  arrows[1]=false; arrows[2]=true;  arrows[3]=false; break;
+				
+			default:
+				arrows[0]=false; arrows[1]=false; arrows[2]=false; arrows[3]=false; break;
+				
+		}
+		return arrows;
 	}
     
 }
