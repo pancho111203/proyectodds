@@ -70,7 +70,7 @@ public class GameStart extends Canvas implements Runnable{
 		mouse = Mouse.getSingleton();
 		addMouseListener(mouse);
 		
-		game.change("mainmenu","init");
+		game.change("level1","init");
 		
 		
 	}

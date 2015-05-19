@@ -9,6 +9,7 @@ import game.level.Level;
 public class Enemy extends MovingEntity {
 	
 	private Level level;
+	private boolean dirchanged;
 //	private int timer=0;
 	
 	Animator currAnim;
@@ -16,7 +17,7 @@ public class Enemy extends MovingEntity {
 	public Enemy(int x, int y,int w, int h, Movement mov, Level level, int offsetXStart, int offsetXEnd, int offsetYStart, int offsetYEnd) {
 		super(x, y, w, h, mov);
 		this.level=level;
-		
+		dirchanged=false;
 	    currAnim = new Animator(64,64, 0, 0, 4, new Spritesheet(level.AM.getImage("Caballitomarbao")), 30);
 	    
 	  //collisions
@@ -43,6 +44,13 @@ public class Enemy extends MovingEntity {
 //			timer=0;
 //		}
 //		//
+		if(dir<4&&!dirchanged){
+			currAnim.FlipAll();
+			dirchanged=true;
+		}else if(dir>4&&dirchanged){
+			currAnim.FlipAll();
+			dirchanged=false;
+		}
 	}
 
 	@Override

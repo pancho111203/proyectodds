@@ -53,19 +53,22 @@ public class SingleSprite implements Sprite{
 	}
 	
 	public void Flip() {
-		// TODO arreglar esta puta mierda de Flip()
 		int l = pixels.length;
 		
 		int temp[] = new int[l];
 		
-		/*for(int y=0;y<height;y++){
+		//esto lo hace flip de lado
+		for(int y=0;y<height;y++){
 			for(int x=0;x<width;x++){
-				pixels[x +y*width]=temp[ ((width-x)-1) +y*width];
+				temp[x +y*width]=pixels[ ((width-x)-1) +y*width];
 			}
-		}*/
+		}
+		
+		//esto le pega la vuelta 180grados
+		/*
 		for(int i=0;i<l;i++){
 			temp[i]=pixels[l-i-1];
-		}
+		}*/
 		
 		pixels = temp;
 	}
