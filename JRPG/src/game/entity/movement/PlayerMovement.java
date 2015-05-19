@@ -1,4 +1,5 @@
 package game.entity.movement;
+import game.input.GameInput;
 import game.input.Gamepad;
 import game.input.Keyboard;
 import game.level.Level;
@@ -10,14 +11,12 @@ public class PlayerMovement extends Movement{
 	
 	private int speed;
 	
-	private Gamepad pad;
-	private Keyboard key;
+	private GameInput gi;
 	
 	public PlayerMovement(Level level,int s){
 		super(level);
 		
-		key = Keyboard.getSingleton();
-		pad = new Gamepad();
+		gi= GameInput.getSingleton();
 		
 		speed = s;
 		
@@ -25,16 +24,16 @@ public class PlayerMovement extends Movement{
 	
 	public void updateAux(){
 
-		if(key.keyDown(KeyEvent.VK_W)||key.keyDown(KeyEvent.VK_UP)||pad.getPadState(pad.Lup)||pad.getButtonValue(pad.UP)){
+		if(gi.inputDown(gi.UP)){
 			moveUp();
 		}
-		if(key.keyDown(KeyEvent.VK_S)||key.keyDown(KeyEvent.VK_DOWN)||pad.getPadState(pad.Ldown)||pad.getButtonValue(pad.DOWN)){
+		if(gi.inputDown(gi.DOWN)){
 			moveDown();
 		}
-		if(key.keyDown(KeyEvent.VK_A)||key.keyDown(KeyEvent.VK_LEFT)||pad.getPadState(pad.Lleft)||pad.getButtonValue(pad.LEFT)){
+		if(gi.inputDown(gi.LEFT)){
 			moveLeft();
 		}
-		if(key.keyDown(KeyEvent.VK_D)||key.keyDown(KeyEvent.VK_RIGHT)||pad.getPadState(pad.Lright)||pad.getButtonValue(pad.RIGHT)){
+		if(gi.inputDown(gi.RIGHT)){
 			moveRight();
 		}
 		

@@ -1,5 +1,6 @@
 package game;
 import game.graphics.Rendering;
+import game.input.GameInput;
 import game.input.Keyboard;
 import game.input.Mouse;
 import game.states.LevelState;
@@ -32,6 +33,7 @@ public class GameStart extends Canvas implements Runnable{
 	private Rendering screen;
 	private StateMachine game;
 	private static boolean isRunning = false;
+	private GameInput gi;
 	private Keyboard key;
 	private Mouse mouse;
 	
@@ -65,12 +67,13 @@ public class GameStart extends Canvas implements Runnable{
 		game.add("mainmenu", new MenuState(game,WIDTH,HEIGHT));
 		game.add("level1", new LevelState(game,WIDTH,HEIGHT));
 		
+		gi= GameInput.getSingleton();
 		key = Keyboard.getSingleton();
 		addKeyListener(key);
 		mouse = Mouse.getSingleton();
 		addMouseListener(mouse);
 		
-		game.change("level1","init");
+		game.change("mainmenu","init");
 		
 		
 	}
@@ -137,7 +140,8 @@ public class GameStart extends Canvas implements Runnable{
 	private synchronized void update(){ // this function handles the update for keyboards and delegates the update to the ccurrent state instance
 		key.update();
 		mouse.update();
-	    game.update();
+		gi.update();
+		game.update();
 	}
 	
 	private synchronized void render(){ // this function does all the screen reseting and buffering and delegates the functonality to the current state instance

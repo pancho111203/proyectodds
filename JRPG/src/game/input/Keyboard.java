@@ -13,6 +13,7 @@ public class Keyboard implements KeyListener{
 	
 	private boolean[] pressed;
 	
+	
 	private enum StateKey{
 		PRESSED,
 		HOLD,
@@ -27,6 +28,7 @@ public class Keyboard implements KeyListener{
 	}
 	
 	private Keyboard(){
+		
 		pressed = new boolean[MAX_KEYS];
 		keys = new StateKey[MAX_KEYS];
 		
