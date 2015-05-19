@@ -34,8 +34,6 @@ public class GameStart extends Canvas implements Runnable{
 	private StateMachine game;
 	private static boolean isRunning = false;
 	private GameInput gi;
-	private Keyboard key;
-	private Mouse mouse;
 	
 	//Rendering
 	private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
@@ -68,10 +66,7 @@ public class GameStart extends Canvas implements Runnable{
 		game.add("level1", new LevelState(game,WIDTH,HEIGHT));
 		
 		gi= GameInput.getSingleton();
-		key = Keyboard.getSingleton();
-		addKeyListener(key);
-		mouse = Mouse.getSingleton();
-		addMouseListener(mouse);
+		gi.addListeners(this);
 		
 		game.change("mainmenu","init");
 		
@@ -138,8 +133,6 @@ public class GameStart extends Canvas implements Runnable{
 	}
 
 	private synchronized void update(){ // this function handles the update for keyboards and delegates the update to the ccurrent state instance
-		key.update();
-		mouse.update();
 		gi.update();
 		game.update();
 	}

@@ -36,7 +36,7 @@ public class Animator implements Sprite{
 		actSprite=sprites[act];
 	}
 	
-	//TODO arreglar esto para que no salte solo un tile si no un sprite D:
+	
 	public void slice(){
 		for (int i=0;i<sprites.length;i++){
 			sprites[i]= new SingleSprite(width ,height , x+(i*(width/16)) ,y , spriteSheet);

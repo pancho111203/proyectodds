@@ -13,6 +13,7 @@ public class MoveStateMachin {
 	private IMove current;
 	private HashMap<String,IMove> states;
 	private int dir;
+	
 	public MoveStateMachin(){
 		states = new HashMap<String,IMove>();
 		current = new EmptyMove();

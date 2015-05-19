@@ -1,17 +1,17 @@
 package game.input;
 
+import game.GameStart;
+
 import java.awt.event.KeyEvent;
 
 public class GameInput {
 	
-	// molaria más adelante, desde esta clase leer la configuración de teclas y botones 
-	// de un archivo para que el usuario pueda cambiar los controles a su gusto
 	public final int UP=0,DOWN=1,RIGHT=2,LEFT=3,ATACK=4,JUMP=5,PAUSE=6,ESC=7;
 	public boolean actions[],actionsPressed[]; 
 
 	private Keyboard key;
 	private Gamepad pad;
-	//private Mouse mouse;
+	private Mouse mouse;
 	
 	private static GameInput gi;
 	
@@ -25,6 +25,7 @@ public class GameInput {
 	public GameInput() {
 		key= Keyboard.getSingleton();
 		pad= Gamepad.getSingleton();
+		mouse= Mouse.getSingleton();
 		
 		actions=new boolean[8];
 		actionsPressed=new boolean[8];
@@ -44,6 +45,9 @@ public class GameInput {
 	}
 	
 	public void update(){
+		key.update();
+		mouse.update();
+		
 		//limpiar imputs
 		for(int i=0;i<8;i++){
 			actions[i]=false;
@@ -82,6 +86,11 @@ public class GameInput {
 			actionsPressed[PAUSE]=true;
 		}
 		
+	}
+	
+	public void addListeners(GameStart gs){
+		gs.addKeyListener(key);
+		gs.addMouseListener(mouse);
 	}
 
 }
