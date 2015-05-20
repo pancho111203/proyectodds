@@ -4,6 +4,8 @@ import game.entity.MovingEntity;
 import game.level.Level;
 import game.level.tiles.Tile;
 
+import java.awt.Rectangle;
+
 public abstract class Movement { // maneja el movimiento
 	// no permite que haya movimiento hacia dos lados contrarios a la vez(evita fallos)
 	// maneja colisiones
@@ -45,12 +47,12 @@ public abstract class Movement { // maneja el movimiento
 		
 		ent = e;
 		
-		int[] offs = ent.getSpriteOffsets();
+		Rectangle offs = ent.getSpriteOffsets();
 		
-		startColX = offs[0];
-		endColX = offs[1];
-		startColY = offs[2];
-		endColY = offs[3];
+		startColX = (int)offs.getX();
+		endColX = (int)offs.getWidth();
+		startColY = (int)offs.getY();
+		endColY = (int)offs.getHeight();
 	}
 	
 	

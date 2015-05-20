@@ -2,6 +2,8 @@ package game.states;
 
 import game.graphics.Rendering;
 
+import java.awt.Graphics;
+
 public class StateEmpty implements IState{
 
 	
@@ -27,5 +29,10 @@ public class StateEmpty implements IState{
 
 	public Rendering getRender(){
 		return null;
+	}
+
+	@Override
+	public void debug(Graphics g) {
+		
 	}
 }

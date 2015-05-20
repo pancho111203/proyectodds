@@ -1,6 +1,5 @@
 package game.entity;
 
-import game.entity.collision.Collider;
 import game.entity.movement.Movement;
 import game.entity.movestate.NormalMove;
 import game.graphics.Animator;
@@ -9,25 +8,20 @@ import game.graphics.Sprite;
 import game.graphics.Spritesheet;
 import game.level.Level;
 
+import java.awt.Rectangle;
+
 public class Enemy extends MovingEntity {
 	
-	private Level level;
-	private Collider collider;
+	private int dmg=10;
 //	private int timer=0;
 	
 	public Enemy(int x, int y,int w, int h, Movement mov, Level level, int offsetXStart, int offsetXEnd, int offsetYStart, int offsetYEnd) {
-		super(x, y, w, h, mov);
-		this.level=level;
+		super(x, y, w, h,level, mov);
 		
 	   
-	    
-	  //collisions
-  		spriteOffsets[0]= offsetXStart; // siempre asignarlas antes de inicializar mov!!
-  		spriteOffsets[1]= offsetXEnd;
-  		spriteOffsets[2]= offsetYStart;
-  		spriteOffsets[3]= offsetYEnd;
+	    spriteOffsets = new Rectangle(offsetXStart,offsetYStart,offsetXEnd,offsetYEnd);// siempre asignarlas antes de inicializar mov!!
 
-  		
+	    
   		Sprite currentAnim = new Animator(64,64, 0, 0, 4, new Spritesheet(level.AM.getImage("Caballitomarbao")), 30);
   		Sprite currentAnimSplit = new Animator(64,64, 0, 0, 4, new Spritesheet(level.AM.getImage("Caballitomarbao")), 30);
   		currentAnimSplit.FlipAll();
@@ -46,7 +40,9 @@ public class Enemy extends MovingEntity {
 		msm.add("normal", new NormalMove(normalState));
 		msm.change("normal", "");
 		
-		collider= new Collider(x,y,w,h,this);
+		collider = new Rectangle((int)(spriteOffsets.getWidth()-spriteOffsets.getX()),(int)(spriteOffsets.getHeight()-spriteOffsets.getY()));
+		collider.setLocation((int)(x+spriteOffsets.getX()), (int)(y+spriteOffsets.getY()));
+		
 	}
 
 	@Override
@@ -54,9 +50,7 @@ public class Enemy extends MovingEntity {
 		msm.update();
 		
 		mov.update();
-		
-		collider.update(x,y);
-		
+		updateCollider();
 //		//TEST
 //		timer++;
 //		if(timer>60){
@@ -64,12 +58,13 @@ public class Enemy extends MovingEntity {
 //			timer=0;
 //		}
 //		//
+		
+		xInScreen = x-level.getXPosScreen();
+		yInScreen = y-level.getYPosScreen();
 	}
 
 	@Override
 	public void render(RenderingLevel render) {
-		int xInScreen = x-level.getXPosScreen();
-		int yInScreen = y-level.getYPosScreen();
 		
 		render.renderEntity(xInScreen,yInScreen,msm.getSprite());
 	}
@@ -91,8 +86,12 @@ public class Enemy extends MovingEntity {
 		return (s==1)||(s==9); // colision con *solid* y con *void*
 	}
 
-	public void collidesWith(Collider e){
-		//TODO accion del enemigo al tocar al player
+	@Override
+	public void collide(Entity e) {
+		//TODO
+		if(e instanceof Player){
+			((Player)e).takeDamage(dmg);
+		}
 	}
 
 }

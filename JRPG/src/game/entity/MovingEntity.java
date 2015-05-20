@@ -2,6 +2,7 @@ package game.entity;
 
 import game.entity.movement.Movement;
 import game.entity.movestate.MoveStateMachin;
+import game.level.Level;
 
 
 public abstract class MovingEntity extends Entity{
@@ -10,8 +11,8 @@ public abstract class MovingEntity extends Entity{
 	protected MoveStateMachin msm;
 	protected int dir;
 	
-	public MovingEntity(int x, int y, int w, int h, Movement mov) {
-		super(x, y, w, h);
+	public MovingEntity(int x, int y, int w, int h, Level level, Movement mov) {
+		super(x, y, w, h, level);
 		
 		this.mov = mov;
 		
@@ -26,6 +27,13 @@ public abstract class MovingEntity extends Entity{
 	public void changeDirection(int dir){
 		if(this.dir!=dir)msm.changeDirection(dir);
 		this.dir = dir;
+	}
+	
+	protected void updateCollider(){
+		collider.setLocation((int)(x+spriteOffsets.getX()), (int)(y+spriteOffsets.getY()));
+		
+	
+		//if(this instanceof Player)System.out.println((int)(x+spriteOffsets.getX())+" "+ (int)(y+spriteOffsets.getY()));
 	}
 
 

@@ -8,7 +8,7 @@ public class Tile {
 	
 	private Sprite sprite;
 	
-	private int subStates[];	// 0 normal, 1 solid, 2 kill, 9 void
+	private int subStates[];	// 0 normal, 1 solid, 2 kill, 3 agua, 9 void
 
 	public Tile(Sprite sprite){ // inicializa el tile con estado normal (0)
 		subStates = new int[4];

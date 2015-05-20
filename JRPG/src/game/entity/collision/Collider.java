@@ -1,49 +1,42 @@
 package game.entity.collision;
 
-import game.entity.Enemy;
 import game.entity.Entity;
-import game.entity.Player;
+import game.entity.list.EntityIterator;
+import game.entity.list.EntityList;
+import game.level.Level;
 
 import java.awt.Rectangle;
-import java.util.ArrayList;
 
 public class Collider extends Rectangle{
-
-	public static ArrayList<Collider> colliders;
-	public static Collider playerCollider;
 	
-	Entity owner;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
-	public Collider(int x, int y, int w,int h, Enemy e) {
-		super(x, y, w*16, h*16);
+	
+	private Entity owner;
+	private Rectangle ownerRect;
+	private EntityList el;
+	
+	public Collider(int x, int y, int w,int h, Entity e) {
+		super(x, y, w*Level.TILESIZE, h*Level.TILESIZE);
+		ownerRect = e.getCollider();
 		owner = e;
-		colliders = new ArrayList<Collider>();
-		colliders.add(this);
-	}
-	
-	public Collider(int x, int y, int w,int h, Player e) {
-		super(x, y, w*16, h*16);
-		owner = e;
-		playerCollider=this;
-	}
-	
-	public void update(int x, int y){
-	    setLocation(x, y);
-	}
-	
-	public static void checkCollisions(){
+		el = e.level.getEntityList();
 		
-		for(int i=0;i<colliders.size();i++){
-			if(playerCollider.intersects(colliders.get(i))){
-				
-				((Player)playerCollider.owner).collidesWith(colliders.get(i));
-				((Enemy)colliders.get(i).owner).collidesWith(playerCollider);
-				
+	}
+	
+	public void checkCollisions(){
+		EntityIterator iterator = (EntityIterator) el.getIterator();
+		ownerRect = owner.getCollider();
+		while(iterator.hasNext()){
+			Entity current = iterator.next();
+			if(ownerRect.intersects(current.getCollider())){
+				current.collide(owner);
 			}
-		}
 		
+		}
 	}
-	
-	
 
 }

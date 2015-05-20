@@ -76,13 +76,7 @@ public class GameStart extends Canvas implements Runnable{
 		
 		
 	}
-	// only use this method to change state
-	public void setRender(Rendering render) {
-		screen = render;
 		
-	}
-
-	
 	public void start(){
 
 		//Starting gameloop
@@ -165,8 +159,18 @@ public class GameStart extends Canvas implements Runnable{
 		Graphics g = bs.getDrawGraphics();
 		
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
+		
+		if(true){
+			debug(g);
+		}
+		
 		g.dispose();
 		bs.show();
+	}
+
+	private void debug(Graphics g) {
+
+		currentS.debug(g);
 	}
 
 	public void change(String newState, String params){
@@ -174,17 +178,11 @@ public class GameStart extends Canvas implements Runnable{
 		currentS = states.get(newState);
 		currentS.onEnter(params);
 		
-		this.setRender(getRender());
+		screen = currentS.getRender();
 	}
 	
 	public void add(String stName, IState state){
 		states.put(stName, state);
 	}
 	
-
-	public Rendering getRender(){
-		return currentS.getRender();
-	}
-	
-
 }

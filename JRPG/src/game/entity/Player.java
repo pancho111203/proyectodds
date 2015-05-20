@@ -3,29 +3,25 @@ package game.entity;
 import game.entity.collision.Collider;
 import game.entity.movement.Movement;
 import game.entity.movestate.NormalMove;
+import game.entity.movestate.SwimMove;
 import game.graphics.Animator;
 import game.graphics.RenderingLevel;
 import game.graphics.Sprite;
 import game.graphics.Spritesheet;
 import game.level.Level;
 
+import java.awt.Rectangle;
+
 public class Player extends MovingEntity{
 
-	private Level level;
-	private Collider collider;
+	private Collider colls;
 	int delta=-1;
 	boolean red=false;
 		
 	public Player(int x, int y,int w, int h, Movement mov, Level level, int offsetXStart, int offsetXEnd, int offsetYStart, int offsetYEnd) {
-		super(x, y,w,h, mov);
-		this.level = level;
+		super(x, y,w,h,level, mov);
 		
-		//collisions
-		spriteOffsets[0]= offsetXStart; // siempre asignarlas antes de inicializar mov!!
-		spriteOffsets[1]= offsetXEnd;
-		spriteOffsets[2]= offsetYStart;
-		spriteOffsets[3]= offsetYEnd;
-		
+	    spriteOffsets = new Rectangle(offsetXStart,offsetYStart,offsetXEnd,offsetYEnd);// siempre asignarlas antes de inicializar mov!!
 		
 		
 		Sprite currentAnim = new Animator(WIDTH, HEIGHT, 0, 0, 3, new Spritesheet(level.AM.getImage("MinotauroFrontal")), 15);
@@ -43,10 +39,33 @@ public class Player extends MovingEntity{
 		msm.add("normal", new NormalMove(normalState));
 		msm.change("normal", "");
 		
-		this.x = x-currentAnim.getWidth()/2;
-		this.y = y-currentAnim.getHeight()/2;
+		Sprite swimAnim = new Animator(64,64, 0, 0, 4, new Spritesheet(level.AM.getImage("Caballitomarbao")), 30);
+		//currentAnim = new Sprite(16,16,0,2,Spritesheet.tiles);
+		SpriteContainer swimState = new SpriteContainer();
+		swimState.addSprite("0", swimAnim); // hay que añadir un sprite para cada direccion (obligatorio para que la statemachine funcione)
+		swimState.addSprite("1", swimAnim); // despues puedo anadir los sprites que sean necesarios para cada estado diferente
+		swimState.addSprite("2", swimAnim);
+		swimState.addSprite("3", swimAnim);
+		swimState.addSprite("4", swimAnim);
+		swimState.addSprite("5", swimAnim);
+		swimState.addSprite("6", swimAnim);
+		swimState.addSprite("7", swimAnim);
+		swimState.addSprite("8", swimAnim);
+		msm.add("swim", new SwimMove(swimState));
+		msm.change("normal", "");
 		
-		collider = new Collider(this.x,this.y,w,h,this);
+		
+		this.x = x-w*TS/2;
+		this.y = y-h*TS/2;
+		
+		
+		colls = new Collider(this.x,this.y,w,h,this);
+	
+		
+		collider = new Rectangle((int)(spriteOffsets.getWidth()-spriteOffsets.getX()),(int)(spriteOffsets.getHeight()-spriteOffsets.getY()));
+		collider.setLocation((int)(this.x+spriteOffsets.getX()), (int)(this.y+spriteOffsets.getY()));
+
+	
 	}
 
 	
@@ -58,17 +77,21 @@ public class Player extends MovingEntity{
 			red=false;
 			delta=-1;
 		}
+		
 		msm.update();
 		mov.update();
-		collider.update(x,y);
+		
+		xInScreen = x-level.getXPosScreen();
+		yInScreen = y-level.getYPosScreen();
+		
+		updateCollider();
+		colls.checkCollisions();
+		
+		
 	}
 
 	@Override
 	public void render(RenderingLevel render) {
-
-		int xInScreen = x-level.getXPosScreen();
-		int yInScreen = y-level.getYPosScreen();
-
 		if(red){
 			render.renderEntityColored(xInScreen,yInScreen,msm.getSprite(),0xDD0000); 
 		}
@@ -86,15 +109,17 @@ public class Player extends MovingEntity{
 		x+=movX;
 		y+=movY;
 		//si el mapa se sale de la camara || el player está volviendo al centro de esta: (<- contenido de los ifs)
+		
+		//TODO fallo que hace que se vaya acumulando un pixel de diferecia cuando se va hacia al borde y se vuelve
 		if(movX+level.getXPosScreen()<0 || x<0+level.screenW/2)movX=0;
 		
-		if(( (level.getWidth()*TS)-level.screenW) < (movX+level.getXPosScreen()) 
+		else if(( (level.getWidth()*TS)-level.screenW) < (movX+level.getXPosScreen()) 
 				|| x>((level.getWidth()*TS)-(level.screenW/2))) movX=0;
 		
 		
-		if(movY+level.getYPosScreen()<0 || y<0+level.screenH/2)	movY=0;
+		else if(movY+level.getYPosScreen()<0 || y<0+level.screenH/2)	movY=0;
 		
-		if(((level.getHeight()*TS)-level.screenH) < (movY+level.getYPosScreen()) 
+		else if(((level.getHeight()*TS)-level.screenH) < (movY+level.getYPosScreen()) 
 				|| y>((level.getHeight()*TS)-(level.screenH/2))) movY=0;
 		
 		level.moveFocus(movX, movY);
@@ -122,13 +147,18 @@ public class Player extends MovingEntity{
 
 	@Override
 	public boolean collidesWithState(int s) {
+
 		return s==1; //colision con *solid*
 	}
-	
-	public void collidesWith(Collider e){
-		red=true;
+
+
+	@Override
+	public void collide(Entity e) {
 	}
 	
+	public void takeDamage(int d){
+		red = true;
+	}
 
 
 	

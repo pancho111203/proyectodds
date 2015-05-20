@@ -5,8 +5,6 @@ import game.graphics.Sprite;
 import java.util.HashMap;
 
 public class MoveStateMachin {
-	//TODO borrar esta clase y pasarla a movingentity
-	
 	// cada estado diferente se puede usar para cambiar estas cosas dependiendo del estado en el que se este:
 	// 1. los valores movX y movY(velocidad de movimiento)
 	// 2.los sprites usados
@@ -15,10 +13,12 @@ public class MoveStateMachin {
 	private IMove current;
 	private HashMap<String,IMove> states;
 	private int dir;
+	private String currentStateName;
 	
 	public MoveStateMachin(){
 		states = new HashMap<String,IMove>();
 		current = new EmptyMove();
+		currentStateName = "empty";
 	}
 	
 	public void move(int movX, int movY){
@@ -38,7 +38,11 @@ public class MoveStateMachin {
 	
 		
 	public void change(String newState, String params){
+		if(currentStateName.equals(newState)){
+			return;
+		}
 		current = states.get(newState);
+		currentStateName = newState;
 		current.onEnter(dir);
 	}
 	

@@ -2,12 +2,10 @@ package game.level;
 
 import game.AssetManager;
 import game.entity.Enemy;
-import game.entity.EntityList;
 import game.entity.Player;
-import game.entity.collision.Collider;
+import game.entity.list.EntityList;
 import game.entity.movement.ForwardMovement;
 import game.entity.movement.Movement;
-import game.entity.movement.PathMovement;
 import game.entity.movement.PlayerMovement;
 import game.graphics.RenderingLevel;
 import game.graphics.SingleSprite;
@@ -49,7 +47,9 @@ public abstract class Level {
 		AM.load(this.getClass().getSimpleName()); 
 		//TODO creo que ahora se puede acceder a am desde todo el juego y cargará todo pero me falta testear cuando cambia el lvl
 		
-		entList = new EntityList();
+		entList = new EntityList(this);
+		entList.clearList();
+		
 		xOffset = START_POS_X;
 		yOffset = START_POS_Y;
 		
@@ -63,39 +63,35 @@ public abstract class Level {
 		
 
 		Movement mov = new PlayerMovement(this, 1);
-		player = new Player(startpointPlayerX,startpointPlayerY,2,3,mov,this, 8, 24, 36, 47);
+		player = new Player(startpointPlayerX,startpointPlayerY,2,3,mov,this, 8, 22, 36, 45);
 		mov.initializeEntity(player);
 		UI = new UserIface(player);
-	
+		entList.addPlayer(player);
 	    //TEST probando lo diferentes tipos de movimiento de enemigos
 		//TODO interfaz (patron Facade?) que haga estos 4 pasos llamando a un solo metodo, para simplificar
 	    mov = new ForwardMovement(this, 1,1);
-	    Enemy malo1 = new Enemy(startpointPlayerX,startpointPlayerY,4,4,mov,this,25,28,57,62); // hay que ajustar los offsets
+	    Enemy malo1 = new Enemy(startpointPlayerX,startpointPlayerY,4,4,mov,this,25,42,57,62); // hay que ajustar los offsets
 		mov.initializeEntity(malo1);
 		entList.addEntity(malo1);
 		
 		
-		mov = new PathMovement(this, -100,-100,1);
-	    Enemy malo2 = new Enemy(startpointPlayerX,startpointPlayerY,4,4,mov,this,25,28,57,62);
-		mov.initializeEntity(malo2);
-		entList.addEntity(malo2);
+//		mov = new PathMovement(this, -100,-100,1);
+//	    Enemy malo2 = new Enemy(startpointPlayerX,startpointPlayerY,4,4,mov,this,25,28,57,62);
+//		mov.initializeEntity(malo2);
+//		entList.addEntity(malo2);
 		//
 
 		initializeSpritesAndTiles();
 	}
 	public void update(){
 		entList.update();
-		player.update();
 		spr_t.updateAnims(); //update de sprites animados
 		UI.update();
-		
-		Collider.checkCollisions();
 	}
 	public void render(RenderingLevel render){
 		renderTiles(render);
 		
 		entList.render(render);
-		player.render(render);
 		
 		UI.render(render);
 		
@@ -163,5 +159,8 @@ public abstract class Level {
 		}
 		
 		
+	}
+	public EntityList getEntityList() {
+		return entList;
 	}
 }

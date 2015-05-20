@@ -77,7 +77,7 @@ public class FirstLevel extends Level {
 		//borde lateral izquierda
 		spr_t.initSpriteOnTileOnHex("bordeIzq", 3, 2, ss, 0xfffd0634, 0, 1, 0, 1);
 		//cielo
-		spr_t.initSpriteOnTileOnHex("cielo", 0, 3, ss, 0xffa349a4);
+		spr_t.initSpriteOnTileOnHex("agua", 0, 3, ss, 0xffa349a4, 3,3,3,3);
 		//puerta
 		int puerta = 0;
 		for(int y = 0;y<6;y++){
