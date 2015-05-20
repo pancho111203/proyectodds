@@ -1,8 +1,8 @@
 package game.level;
 
 import game.AssetManager;
-import game.entity.EntityList;
 import game.entity.Enemy;
+import game.entity.EntityList;
 import game.entity.Player;
 import game.entity.movement.ForwardMovement;
 import game.entity.movement.Movement;
@@ -45,7 +45,8 @@ public abstract class Level {
 		START_POS_Y = stY;
 		
 		AM=AssetManager.getSingleton();
-		AM.load(this.getClass().getSimpleName()); //TODO creo que ahora se puede acceder a am desde todo el juego y cargará todo pero me falta testear cuando cambia el lvl
+		AM.load(this.getClass().getSimpleName()); 
+		//TODO creo que ahora se puede acceder a am desde todo el juego y cargará todo pero me falta testear cuando cambia el lvl
 		
 		entList = new EntityList();
 		xOffset = START_POS_X;

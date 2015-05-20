@@ -13,10 +13,6 @@ public class SpriteTileFacade {
 	// menos. Lo mismo pasa con añadir
 	// un un tile sin asociarlo a un hex
 
-	// TODO retainAll(Collection<?> c)
-	// Retains only the elements in this collection that are contained in the
-	// specified collection
-	// usarlo para guardar los sprites repetidos de un nivel a otro?
 
 	private LevelSprites ls;
 	private LevelTiles lt;

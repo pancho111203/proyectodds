@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 // Maneja el cambio de estados(menu, mapa local, mapa global, etc)
 public class StateMachine {
+	//TODO borrar esta clase y pasarla a GameStart
 	private HashMap<String,IState> states;
 	private IState currentS;
 	private GameStart game;

@@ -57,7 +57,7 @@ public class Mouse implements MouseListener{
 	}
 	
 	//retorna true si se ha pulsado sobre un sprite concreto del juego (singlesprite/animator/image)
-	//TODO por alguna razón tiene un margen de error cuanto más te alejas de (0,0) de +-5
+	// por alguna razón tiene un margen de error cuanto más te alejas de (0,0) de +-5
 	public boolean spritePressed(Sprite s, int b){
 		
 		if(pressed[b] && ( x>s.getX()&&x<(s.getX()+s.getWidth())) && (y>s.getY()&&y<(s.getY()+s.getHeight())) )
