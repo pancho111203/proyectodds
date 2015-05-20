@@ -28,6 +28,15 @@ public class RenderingLevel extends Rendering{
 		super.render(sprite.getHeight(),sprite.getWidth(),xp,yp,sprite.pixels);
 	}
 	
+	public void renderEntityColored(int xp, int yp, Sprite sp,int color){ // (xp,yp) es la posicion del sprite respecto a la pantalla(en pixels!!)
+		SingleSprite sprite = sp.getActual();
+		int pix[] = new int[sprite.pixels.length];
+		for(int i=0;i<pix.length;i++){
+			pix[i]=sprite.pixels[i]|color;
+		}
+		super.render(sprite.getHeight(),sprite.getWidth(),xp,yp,pix);
+	}
+	
 	public void renderPart(int h, int w, int px, int py, int[] pixels, float p){
 		int nw = ((int)(w*p));
 		int aux[]= new int[nw*h];

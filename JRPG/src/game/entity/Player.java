@@ -1,5 +1,6 @@
 package game.entity;
 
+import game.entity.collision.Collider;
 import game.entity.movement.Movement;
 import game.entity.movestate.NormalMove;
 import game.graphics.Animator;
@@ -11,12 +12,13 @@ import game.level.Level;
 public class Player extends MovingEntity{
 
 	private Level level;
+	private Collider collider;
+	int delta=-1;
+	boolean red=false;
 		
 	public Player(int x, int y,int w, int h, Movement mov, Level level, int offsetXStart, int offsetXEnd, int offsetYStart, int offsetYEnd) {
 		super(x, y,w,h, mov);
-
 		this.level = level;
-		
 		
 		//collisions
 		spriteOffsets[0]= offsetXStart; // siempre asignarlas antes de inicializar mov!!
@@ -43,16 +45,22 @@ public class Player extends MovingEntity{
 		
 		this.x = x-currentAnim.getWidth()/2;
 		this.y = y-currentAnim.getHeight()/2;
+		
+		collider = new Collider(this.x,this.y,w,h,this);
 	}
 
 	
 	@Override
 	public void update() {
-		
+		if(red&&delta<=10){
+			delta++;
+		}else if(red&&delta>10){
+			red=false;
+			delta=-1;
+		}
 		msm.update();
-		
 		mov.update();
-		
+		collider.update(x,y);
 	}
 
 	@Override
@@ -61,7 +69,11 @@ public class Player extends MovingEntity{
 		int xInScreen = x-level.getXPosScreen();
 		int yInScreen = y-level.getYPosScreen();
 
-		render.renderEntity(xInScreen,yInScreen,msm.getSprite()); // hay que pasar la posicion del jugador respecto a la pantalla(en pixeles)
+		if(red){
+			render.renderEntityColored(xInScreen,yInScreen,msm.getSprite(),0xDD0000); 
+		}
+		else render.renderEntity(xInScreen,yInScreen,msm.getSprite());
+
 	}
 	
 	public void move(int movX,int movY){
@@ -112,6 +124,11 @@ public class Player extends MovingEntity{
 	public boolean collidesWithState(int s) {
 		return s==1; //colision con *solid*
 	}
+	
+	public void collidesWith(Collider e){
+		red=true;
+	}
+	
 
 
 	

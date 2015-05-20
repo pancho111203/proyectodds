@@ -15,7 +15,7 @@ public class LevelState implements IState{
 	private Level curLevel;
 	
 	public LevelState(GameStart game, int w, int h){
-		this.game = game;
+		this.game = game; 
 		render = new RenderingLevel(w,h);
 		AM = AssetManager.getSingleton(); 
 		AM.load("FirstLevel");

@@ -3,8 +3,6 @@ package game.menus;
 import game.AssetManager;
 import game.graphics.RenderingMenu;
 import game.input.GameInput;
-import game.input.Gamepad;
-import game.input.Keyboard;
 
 public abstract class Menu {
 
@@ -24,7 +22,7 @@ public abstract class Menu {
 	}
 
 	public void render(RenderingMenu render){
-		
+		 
 	}
 	
 

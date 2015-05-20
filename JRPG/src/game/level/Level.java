@@ -4,6 +4,7 @@ import game.AssetManager;
 import game.entity.Enemy;
 import game.entity.EntityList;
 import game.entity.Player;
+import game.entity.collision.Collider;
 import game.entity.movement.ForwardMovement;
 import game.entity.movement.Movement;
 import game.entity.movement.PathMovement;
@@ -87,6 +88,8 @@ public abstract class Level {
 		player.update();
 		spr_t.updateAnims(); //update de sprites animados
 		UI.update();
+		
+		Collider.checkCollisions();
 	}
 	public void render(RenderingLevel render){
 		renderTiles(render);

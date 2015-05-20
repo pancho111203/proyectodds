@@ -1,18 +1,11 @@
 package game.states;
 
-import game.AssetManager;
 import game.GameStart;
-import game.graphics.Image;
 import game.graphics.Rendering;
 import game.graphics.RenderingMenu;
-import game.input.Gamepad;
-import game.input.Keyboard;
-import game.level.Level;
 import game.menus.MainMenu;
 import game.menus.Menu;
-
-import java.awt.event.KeyEvent;
-
+ 
 public class MenuState implements IState{
 
 	private GameStart game;

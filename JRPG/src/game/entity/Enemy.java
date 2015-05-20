@@ -1,5 +1,6 @@
 package game.entity;
 
+import game.entity.collision.Collider;
 import game.entity.movement.Movement;
 import game.entity.movestate.NormalMove;
 import game.graphics.Animator;
@@ -11,6 +12,7 @@ import game.level.Level;
 public class Enemy extends MovingEntity {
 	
 	private Level level;
+	private Collider collider;
 //	private int timer=0;
 	
 	public Enemy(int x, int y,int w, int h, Movement mov, Level level, int offsetXStart, int offsetXEnd, int offsetYStart, int offsetYEnd) {
@@ -43,6 +45,8 @@ public class Enemy extends MovingEntity {
 		normalState.addSprite("8", currentAnim);
 		msm.add("normal", new NormalMove(normalState));
 		msm.change("normal", "");
+		
+		collider= new Collider(x,y,w,h,this);
 	}
 
 	@Override
@@ -50,7 +54,8 @@ public class Enemy extends MovingEntity {
 		msm.update();
 		
 		mov.update();
-			
+		
+		collider.update(x,y);
 		
 //		//TEST
 //		timer++;
@@ -86,5 +91,8 @@ public class Enemy extends MovingEntity {
 		return (s==1)||(s==9); // colision con *solid* y con *void*
 	}
 
-	
+	public void collidesWith(Collider e){
+		//TODO accion del enemigo al tocar al player
+	}
+
 }

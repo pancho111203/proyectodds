@@ -1,10 +1,6 @@
 package game.entity.movement;
 import game.input.GameInput;
-import game.input.Gamepad;
-import game.input.Keyboard;
 import game.level.Level;
-
-import java.awt.event.KeyEvent;
 
 public class PlayerMovement extends Movement{
 
@@ -17,7 +13,7 @@ public class PlayerMovement extends Movement{
 		super(level);
 		
 		gi= GameInput.getSingleton();
-		
+		 
 		speed = s;
 		
 	}

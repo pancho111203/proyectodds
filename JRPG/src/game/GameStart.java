@@ -1,8 +1,6 @@
 package game;
 import game.graphics.Rendering;
 import game.input.GameInput;
-import game.input.Keyboard;
-import game.input.Mouse;
 import game.states.IState;
 import game.states.LevelState;
 import game.states.MenuState;
@@ -59,7 +57,7 @@ public class GameStart extends Canvas implements Runnable{
 		theGame.start();
 		
 	}
-	
+	 
 	public GameStart(){
 		
 		setPreferredSize(new Dimension(WIDTH*pixelSize,HEIGHT*pixelSize));
