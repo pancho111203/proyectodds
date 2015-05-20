@@ -57,18 +57,17 @@ public class SingleSprite implements Sprite{
 		
 		int temp[] = new int[l];
 		
-		//esto lo hace flip horizontalmente 
 		for(int y=0;y<height;y++){
 			for(int x=0;x<width;x++){
-				temp[x +y*width]=pixels[ ((width-x)-1) +y*width];  //el orden de 'Y' se mantiene y solo se invierte 'X'
+				temp[x +y*width]=pixels[ ((width-x)-1) +y*width];
 			}
 		}
 		
-		//esto le pega la vuelta 180grados
-		/*
-		for(int i=0;i<l;i++){
-			temp[i]=pixels[l-i-1];
-		}*/
+		
+		
+		//for(int i=0;i<l;i++){
+			//temp[i]=pixels[l-i-1];
+		//}
 		
 		pixels = temp;
 	}
