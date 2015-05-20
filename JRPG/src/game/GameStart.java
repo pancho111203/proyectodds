@@ -3,8 +3,10 @@ import game.graphics.Rendering;
 import game.input.GameInput;
 import game.input.Keyboard;
 import game.input.Mouse;
+import game.states.IState;
 import game.states.LevelState;
 import game.states.MenuState;
+import game.states.StateEmpty;
 
 import java.awt.Canvas;
 import java.awt.Dimension;
@@ -12,6 +14,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import java.util.HashMap;
 
 import javax.swing.JFrame;
 public class GameStart extends Canvas implements Runnable{
@@ -29,9 +32,11 @@ public class GameStart extends Canvas implements Runnable{
 	public final float ONE_SEC_IN_NANOS = 1000000000;
 	public final float UPDATES = ONE_SEC_IN_NANOS/60; // 60 ups (updates por segundo)
 	
+	//gestion de estados
+	private HashMap<String,IState> states;
+	private IState currentS;
 	
 	private Rendering screen;
-	private StateMachine game;
 	private static boolean isRunning = false;
 	private GameInput gi;
 	
@@ -59,16 +64,17 @@ public class GameStart extends Canvas implements Runnable{
 		
 		setPreferredSize(new Dimension(WIDTH*pixelSize,HEIGHT*pixelSize));
 		
-		game = new StateMachine(this);
+		states = new HashMap<String,IState>();
+		currentS = new StateEmpty();
 		
 		
-		game.add("mainmenu", new MenuState(game,WIDTH,HEIGHT));
-		game.add("level1", new LevelState(game,WIDTH,HEIGHT));
+		add("mainmenu", new MenuState(this,WIDTH,HEIGHT));
+		add("level1", new LevelState(this,WIDTH,HEIGHT));
 		
 		gi= GameInput.getSingleton();
 		gi.addListeners(this);
 		
-		game.change("mainmenu","init");
+		change("mainmenu","init");
 		
 		
 	}
@@ -134,7 +140,7 @@ public class GameStart extends Canvas implements Runnable{
 
 	private synchronized void update(){ // this function handles the update for keyboards and delegates the update to the ccurrent state instance
 		gi.update();
-		game.update();
+		currentS.update();
 	}
 	
 	private synchronized void render(){ // this function does all the screen reseting and buffering and delegates the functonality to the current state instance
@@ -147,7 +153,7 @@ public class GameStart extends Canvas implements Runnable{
 		screen.clear(); // set the pixels to 0
 		//
 		
-		game.render();
+		currentS.render();
 		
 		
 		//
@@ -165,5 +171,22 @@ public class GameStart extends Canvas implements Runnable{
 		bs.show();
 	}
 
+	public void change(String newState, String params){
+		currentS.onExit();
+		currentS = states.get(newState);
+		currentS.onEnter(params);
+		
+		this.setRender(getRender());
+	}
+	
+	public void add(String stName, IState state){
+		states.put(stName, state);
+	}
+	
+
+	public Rendering getRender(){
+		return currentS.getRender();
+	}
+	
 
 }

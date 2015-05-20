@@ -1,7 +1,7 @@
 package game.states;
 
 import game.AssetManager;
-import game.StateMachine;
+import game.GameStart;
 import game.graphics.Rendering;
 import game.graphics.RenderingLevel;
 import game.level.FirstLevel;
@@ -10,11 +10,11 @@ import game.level.Level;
 public class LevelState implements IState{
 
 	private AssetManager AM;
-	private StateMachine game;
+	private GameStart game;
 	private RenderingLevel render;
 	private Level curLevel;
 	
-	public LevelState(StateMachine game, int w, int h){
+	public LevelState(GameStart game, int w, int h){
 		this.game = game;
 		render = new RenderingLevel(w,h);
 		AM = AssetManager.getSingleton(); 

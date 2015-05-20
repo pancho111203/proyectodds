@@ -1,7 +1,7 @@
 package game.states;
 
 import game.AssetManager;
-import game.StateMachine;
+import game.GameStart;
 import game.graphics.Image;
 import game.graphics.Rendering;
 import game.graphics.RenderingMenu;
@@ -15,14 +15,14 @@ import java.awt.event.KeyEvent;
 
 public class MenuState implements IState{
 
-	private StateMachine game;
+	private GameStart game;
 	private RenderingMenu render;
 	
 
 	private Menu curMenu;
 	
 
-	public MenuState(StateMachine game, int w, int h){
+	public MenuState(GameStart game, int w, int h){
 		this.game = game;
 		render = new RenderingMenu(w,h);
 		
