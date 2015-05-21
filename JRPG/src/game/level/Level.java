@@ -92,20 +92,28 @@ public abstract class Level {
 		renderTiles(render);
 		
 		entList.render(render);
+		moveFocus();
 		
 		UI.render(render);
-		
 	}
 	
 	public abstract void loadLevel();
 	
 	public abstract void initializeSpritesAndTiles();
 	
-	public void moveFocus(int offX,int offY){ 
+	public void moveFocus(){ 
 		
-		xOffset += offX;		
-		yOffset += offY;
+		int px = player.getX();
+		int py = player.getY();
+			
 		
+		xOffset = px - screenW/2 + player.getWidth()/2;
+		yOffset = py - screenH/2 + player.getHeight()/2;
+		
+		if(xOffset<0)xOffset=0;
+		if(yOffset<0)yOffset=0;
+		if(xOffset+screenW>width*TILESIZE)xOffset = width*TILESIZE-screenW;
+		if(yOffset+screenH>height*TILESIZE)yOffset = height*TILESIZE-screenH;
 	}
 	
 	public Tile getTile(int x, int y) {  // (x,y) 

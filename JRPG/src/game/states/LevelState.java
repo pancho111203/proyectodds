@@ -68,7 +68,7 @@ public class LevelState implements IState{
 		while(it.hasNext()){
 			Entity e = (Entity)it.next();
 			Rectangle r = e.getCollider();
-			g.drawRect(((int)(r.getX()-curLevel.getXPosScreen())*px)+7,((int)(r.getY()-curLevel.getYPosScreen())*px)+7,(int)r.getWidth()*px,(int)r.getHeight()*px);
+			g.drawRect(((int)(r.getX()-curLevel.getXPosScreen())*px),((int)(r.getY()-curLevel.getYPosScreen())*px),(int)r.getWidth()*px,(int)r.getHeight()*px);
 		}
 	
 	}

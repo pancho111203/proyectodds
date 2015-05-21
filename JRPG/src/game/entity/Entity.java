@@ -64,7 +64,12 @@ public abstract class Entity {
 	public int getYScreen() {
 		return yInScreen;
 	}
-	
+	public int getWidth(){
+		return WIDTH;
+	}
+	public int getHeight(){
+		return HEIGHT;
+	}
 	public Rectangle getSpriteOffsets(){
 		return spriteOffsets;
 	}

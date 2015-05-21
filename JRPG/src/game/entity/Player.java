@@ -55,8 +55,8 @@ public class Player extends MovingEntity{
 		msm.change("normal", "");
 		
 		
-		this.x = x-w*TS/2;
-		this.y = y-h*TS/2;
+		this.x = x;
+		this.y = y;
 		
 		
 		colls = new Collider(this.x,this.y,w,h,this);
@@ -108,21 +108,8 @@ public class Player extends MovingEntity{
 		// x/y=0 arriba izquierda   x=60 y=64
 		x+=movX;
 		y+=movY;
-		//si el mapa se sale de la camara || el player está volviendo al centro de esta: (<- contenido de los ifs)
 		
-		//TODO fallo que hace que se vaya acumulando un pixel de diferecia cuando se va hacia al borde y se vuelve
-		if(movX+level.getXPosScreen()<0 || x<0+level.screenW/2)movX=0;
-		
-		else if(( (level.getWidth()*TS)-level.screenW) < (movX+level.getXPosScreen()) 
-				|| x>((level.getWidth()*TS)-(level.screenW/2))) movX=0;
-		
-		
-		else if(movY+level.getYPosScreen()<0 || y<0+level.screenH/2)	movY=0;
-		
-		else if(((level.getHeight()*TS)-level.screenH) < (movY+level.getYPosScreen()) 
-				|| y>((level.getHeight()*TS)-(level.screenH/2))) movY=0;
-		
-		level.moveFocus(movX, movY);
+
 		
 		/*		movimiento:
 		 * 			derecha (0+,0)
