@@ -1,5 +1,8 @@
-package game.entity;
+package game.entity.implementations;
 
+import game.entity.Entity;
+import game.entity.MovingEntity;
+import game.entity.SpriteContainer;
 import game.entity.movement.Movement;
 import game.entity.movestate.NormalMove;
 import game.graphics.Animator;
@@ -15,11 +18,11 @@ public class Enemy extends MovingEntity {
 	private int dmg=10;
 //	private int timer=0;
 	
-	public Enemy(int x, int y,int w, int h, Movement mov, Level level, int offsetXStart, int offsetXEnd, int offsetYStart, int offsetYEnd) {
+	public Enemy(int x, int y,int w, int h, Movement mov, Level level, Rectangle tileOffs) {
 		super(x, y, w, h,level, mov);
 		
 	   
-	    spriteOffsets = new Rectangle(offsetXStart,offsetYStart,offsetXEnd,offsetYEnd);// siempre asignarlas antes de inicializar mov!!
+	    spriteOffsets = tileOffs;// siempre asignarlas antes de inicializar mov!!
 
 	    
   		Sprite currentAnim = new Animator(64,64, 0, 0, 4, new Spritesheet(level.AM.getImage("Caballitomarbao")), 30);
@@ -40,8 +43,8 @@ public class Enemy extends MovingEntity {
 		msm.add("normal", new NormalMove(normalState));
 		msm.change("normal", "");
 		
-		collider = new Rectangle((int)(spriteOffsets.getWidth()-spriteOffsets.getX()),(int)(spriteOffsets.getHeight()-spriteOffsets.getY()));
-		collider.setLocation((int)(x+spriteOffsets.getX()), (int)(y+spriteOffsets.getY()));
+		collider = new Rectangle((int)(colliderOffsets.getWidth()-colliderOffsets.getX()),(int)(colliderOffsets.getHeight()-colliderOffsets.getY()));
+		collider.setLocation((int)(x+colliderOffsets.getX()), (int)(y+colliderOffsets.getY()));
 		
 	}
 
@@ -67,6 +70,8 @@ public class Enemy extends MovingEntity {
 	public void render(RenderingLevel render) {
 		
 		render.renderEntity(xInScreen,yInScreen,msm.getSprite());
+		
+		debug(render);
 	}
 
 

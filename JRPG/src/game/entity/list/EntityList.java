@@ -1,8 +1,8 @@
 package game.entity.list;
 
 import game.entity.Entity;
-import game.entity.NullEntity;
-import game.entity.Player;
+import game.entity.implementations.NullEntity;
+import game.entity.implementations.Player;
 import game.graphics.RenderingLevel;
 import game.level.Level;
 

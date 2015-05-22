@@ -6,7 +6,10 @@ import java.awt.event.KeyEvent;
 
 public class GameInput {
 	
-	public final int UP=0,DOWN=1,RIGHT=2,LEFT=3,ATACK=4,JUMP=5,PAUSE=6,ESC=7;
+	
+	private final int NUMACTIONS = 9;
+	//TODO refactoring de esto pasandolo a un enum para evitar errores
+	public final int UP=0,DOWN=1,RIGHT=2,LEFT=3,ATACK=4,JUMP=5,PAUSE=6,ESC=7, F9=8;
 	public boolean actions[],actionsPressed[]; 
 
 	private Keyboard key;
@@ -27,10 +30,10 @@ public class GameInput {
 		pad= Gamepad.getSingleton();
 		mouse= Mouse.getSingleton();
 		
-		actions=new boolean[8];
-		actionsPressed=new boolean[8];
+		actions=new boolean[NUMACTIONS];
+		actionsPressed=new boolean[NUMACTIONS];
 		
-		for(int i=0;i<8;i++){
+		for(int i=0;i<NUMACTIONS;i++){
 			actions[i]=false;
 			actionsPressed[i]=false;
 		}
@@ -49,7 +52,7 @@ public class GameInput {
 		mouse.update();
 		
 		//limpiar imputs
-		for(int i=0;i<8;i++){
+		for(int i=0;i<NUMACTIONS;i++){
 			actions[i]=false;
 			actionsPressed[i]=false;
 		}
@@ -66,6 +69,9 @@ public class GameInput {
 		}
 		if(key.keyDown(KeyEvent.VK_D)||key.keyDown(KeyEvent.VK_RIGHT)||pad.getPadState(pad.Lright)||pad.getButtonValue(pad.RIGHT)){
 			actions[RIGHT]=true;
+		}
+		if(key.keyDown(KeyEvent.VK_F9)){
+			actions[F9]=true;
 		}
 		
 		//leerPRESSED
@@ -85,7 +91,9 @@ public class GameInput {
 			actionsPressed[ATACK]=true;
 			actionsPressed[PAUSE]=true;
 		}
-		
+		if(key.keyPressed(KeyEvent.VK_F9)){
+			actionsPressed[F9]=true;
+		}
 	}
 	
 	public void addListeners(GameStart gs){

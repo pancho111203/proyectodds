@@ -1,5 +1,7 @@
 package game.entity;
 
+import game.GameStart;
+import game.graphics.Rendering;
 import game.graphics.RenderingLevel;
 import game.level.Level;
 
@@ -12,9 +14,8 @@ public abstract class Entity {
 	protected Rectangle spriteOffsets;
 	//usamos rectangulo solo por comodidad, guardando el indice inicial en X y el final en Width (lo mismo para y y height)
 	
+	protected Rectangle colliderOffsets;
 	protected Rectangle collider;
-	//TODO fallo en los bounds del collider, no se si es fallo del debug o del collider mismo, 
-	//EL ERROR PARECE TENER LUGAR CUANDO LA CAMARA SE BLOQUE EN LOS BORDES DEL ESCENARIO
 	
 	
 	protected final int WIDTH;
@@ -45,6 +46,7 @@ public abstract class Entity {
 		xInScreen = x-level.getXPosScreen();
 		yInScreen = y-level.getYPosScreen();
 		
+		colliderOffsets = new Rectangle(0,0,WIDTH,HEIGHT);
 		spriteOffsets = new Rectangle(0,0,WIDTH,HEIGHT);
 		
 	}
@@ -73,6 +75,9 @@ public abstract class Entity {
 	public Rectangle getSpriteOffsets(){
 		return spriteOffsets;
 	}
+	public Rectangle getColliderOffsets(){
+		return colliderOffsets;
+	}
 	
 	public Rectangle getCollider(){
 		return collider;
@@ -84,4 +89,19 @@ public abstract class Entity {
 		}
 	}
 	public abstract void collide(Entity e); //metodo llamado cuando e collidea con this
+	
+	public void debug(Rendering render){
+		if(!GameStart.getDebug())return;
+		
+		int tileColliderColor = 0xff0000ff;
+		int entityColliderColor = 0xffff0000;
+		
+		//Tile Collider
+		render.renderRect((int)(x-level.getXPosScreen()+spriteOffsets.getX()), (int)(y-level.getYPosScreen()+spriteOffsets.getY()), (int)(spriteOffsets.getWidth()-spriteOffsets.getX()), (int)(spriteOffsets.getHeight()-spriteOffsets.getY()), tileColliderColor);
+
+		
+		//Entity Collider
+		render.renderRect((int)(collider.getX()-level.getXPosScreen()), (int)(collider.getY()-level.getYPosScreen()), (int)(collider.getWidth()), (int)(collider.getHeight()), entityColliderColor);
+
+	}
 }

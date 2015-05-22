@@ -1,5 +1,6 @@
-package game.entity;
+package game.entity.implementations;
 
+import game.entity.Entity;
 import game.graphics.RenderingLevel;
 import game.level.Level;
 

@@ -1,8 +1,8 @@
 package game.level;
 
 import game.AssetManager;
-import game.entity.Enemy;
-import game.entity.Player;
+import game.entity.implementations.Enemy;
+import game.entity.implementations.Player;
 import game.entity.list.EntityList;
 import game.entity.movement.ForwardMovement;
 import game.entity.movement.Movement;
@@ -12,6 +12,8 @@ import game.graphics.SingleSprite;
 import game.graphics.UserIface;
 import game.level.tiles.SpriteTileFacade;
 import game.level.tiles.Tile;
+
+import java.awt.Rectangle;
 
 public abstract class Level {
 	private EntityList entList;
@@ -63,20 +65,22 @@ public abstract class Level {
 		
 
 		Movement mov = new PlayerMovement(this, 1);
-		player = new Player(startpointPlayerX,startpointPlayerY,2,3,mov,this, 8, 22, 36, 45);
+		Rectangle playerTileOffs = new Rectangle(8,36,23,45);
+		player = new Player(startpointPlayerX,startpointPlayerY,2,3,mov,this, playerTileOffs);
 		mov.initializeEntity(player);
 		UI = new UserIface(player);
 		entList.addPlayer(player);
 	    //TEST probando lo diferentes tipos de movimiento de enemigos
 		//TODO interfaz (patron Facade?) que haga estos 4 pasos llamando a un solo metodo, para simplificar
+		
 	    mov = new ForwardMovement(this, 1,1);
-	    Enemy malo1 = new Enemy(startpointPlayerX,startpointPlayerY,4,4,mov,this,25,42,57,62); // hay que ajustar los offsets
+	    Rectangle enemy1TileOffs = new Rectangle(25,57,42,62);
+	    Enemy malo1 = new Enemy(startpointPlayerX,startpointPlayerY,4,4,mov,this,enemy1TileOffs); // hay que ajustar los offsets
 		mov.initializeEntity(malo1);
 		entList.addEntity(malo1);
 		
-		
 //		mov = new PathMovement(this, -100,-100,1);
-//	    Enemy malo2 = new Enemy(startpointPlayerX,startpointPlayerY,4,4,mov,this,25,28,57,62);
+//	    Enemy malo2 = new Enemy(startpointPlayerX,startpointPlayerY,4,4,mov,this,enemy1TileOffs);
 //		mov.initializeEntity(malo2);
 //		entList.addEntity(malo2);
 		//

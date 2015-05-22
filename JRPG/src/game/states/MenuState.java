@@ -5,8 +5,6 @@ import game.graphics.Rendering;
 import game.graphics.RenderingMenu;
 import game.menus.MainMenu;
 import game.menus.Menu;
-
-import java.awt.Graphics;
  
 public class MenuState implements IState{
 
@@ -51,8 +49,4 @@ public class MenuState implements IState{
 		return render;
 	}
 
-	@Override
-	public void debug(Graphics g) {
-	}
-	
 }

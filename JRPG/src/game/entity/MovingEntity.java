@@ -30,10 +30,8 @@ public abstract class MovingEntity extends Entity{
 	}
 	
 	protected void updateCollider(){
-		collider.setLocation((int)(x+spriteOffsets.getX()), (int)(y+spriteOffsets.getY()));
+		collider.setLocation((int)(x+colliderOffsets.getX()), (int)(y+colliderOffsets.getY()));
 		
-	
-		//if(this instanceof Player)System.out.println((int)(x+spriteOffsets.getX())+" "+ (int)(y+spriteOffsets.getY()));
 	}
 
 

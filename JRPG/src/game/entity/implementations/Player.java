@@ -1,5 +1,8 @@
-package game.entity;
+package game.entity.implementations;
 
+import game.entity.Entity;
+import game.entity.MovingEntity;
+import game.entity.SpriteContainer;
 import game.entity.collision.Collider;
 import game.entity.movement.Movement;
 import game.entity.movestate.NormalMove;
@@ -17,11 +20,18 @@ public class Player extends MovingEntity{
 	private Collider colls;
 	int delta=-1;
 	boolean red=false;
+	
+	public Player(int x, int y,int w, int h, Movement mov, Level level, Rectangle tileOffs, Rectangle entityOffs) {
+		//este constructor se usa cuando se quiere usar un collider especifico(normalmente el collider cubre todo el sprite)
+		this(x,y,w,h,mov,level,tileOffs);
+		colliderOffsets = entityOffs;
+	}
 		
-	public Player(int x, int y,int w, int h, Movement mov, Level level, int offsetXStart, int offsetXEnd, int offsetYStart, int offsetYEnd) {
+		
+	public Player(int x, int y,int w, int h, Movement mov, Level level, Rectangle tileOffs) {
 		super(x, y,w,h,level, mov);
 		
-	    spriteOffsets = new Rectangle(offsetXStart,offsetYStart,offsetXEnd,offsetYEnd);// siempre asignarlas antes de inicializar mov!!
+	    spriteOffsets = tileOffs;// siempre asignarlas antes de inicializar mov!!
 		
 		
 		Sprite currentAnim = new Animator(WIDTH, HEIGHT, 0, 0, 3, new Spritesheet(level.AM.getImage("MinotauroFrontal")), 15);
@@ -62,8 +72,8 @@ public class Player extends MovingEntity{
 		colls = new Collider(this.x,this.y,w,h,this);
 	
 		
-		collider = new Rectangle((int)(spriteOffsets.getWidth()-spriteOffsets.getX()),(int)(spriteOffsets.getHeight()-spriteOffsets.getY()));
-		collider.setLocation((int)(this.x+spriteOffsets.getX()), (int)(this.y+spriteOffsets.getY()));
+		collider = new Rectangle((int)(colliderOffsets.getWidth()-colliderOffsets.getX()),(int)(colliderOffsets.getHeight()-colliderOffsets.getY()));
+		collider.setLocation((int)(this.x+colliderOffsets.getX()), (int)(this.y+colliderOffsets.getY()));
 
 	
 	}
@@ -96,7 +106,8 @@ public class Player extends MovingEntity{
 			render.renderEntityColored(xInScreen,yInScreen,msm.getSprite(),0xDD0000); 
 		}
 		else render.renderEntity(xInScreen,yInScreen,msm.getSprite());
-
+		
+		debug(render);
 	}
 	
 	public void move(int movX,int movY){

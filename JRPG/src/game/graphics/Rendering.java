@@ -45,4 +45,20 @@ public abstract class Rendering {
 		}
 		
 	}
+	
+	public void renderRect(int x, int y, int w, int h, int color){ 
+		for(int i=0;i<w;i++){
+			if(x+i < width && x+i > 0 ){
+				if(y< height && y > 0)pixels[x+i+y*width] = color;
+				if(y+h < height && y+h > 0)pixels[x+i+(y+h)*width] = color;
+			}
+		}
+		for(int i=0;i<h;i++){
+			if(y+i < height && y+i > 0 ){
+				if(x < width && x > 0)pixels[x+(y+i)*width] = color;
+				if(x+w<width && x+w >0)pixels[(x+w)+(y+i)*width] = color;
+			}
+		}
+			
+	}
 }

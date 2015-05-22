@@ -22,6 +22,8 @@ public class GameStart extends Canvas implements Runnable{
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private static boolean debug = false;
+	
 	public static final String NAME = "My Game";
 	public static final int WIDTH = 320; //width in pixels // tienen que ser multiplos de 16
 	public static final int HEIGHT = 320;//height in pixels
@@ -133,8 +135,12 @@ public class GameStart extends Canvas implements Runnable{
 	private synchronized void update(){ // this function handles the update for keyboards and delegates the update to the ccurrent state instance
 		gi.update();
 		currentS.update();
+		if(gi.inputPressed(8)){
+			changeDebug();
+		}
 	}
 	
+
 	private synchronized void render(){ // this function does all the screen reseting and buffering and delegates the functonality to the current state instance
 		BufferStrategy bs = getBufferStrategy();
 		if(bs==null){
@@ -160,17 +166,8 @@ public class GameStart extends Canvas implements Runnable{
 		
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 		
-		if(true){
-			debug(g);
-		}
-		
 		g.dispose();
 		bs.show();
-	}
-
-	private void debug(Graphics g) {
-
-		currentS.debug(g);
 	}
 
 	public void change(String newState, String params){
@@ -185,4 +182,11 @@ public class GameStart extends Canvas implements Runnable{
 		states.put(stName, state);
 	}
 	
+	public static boolean getDebug(){
+		return debug;
+	}
+	
+	private void changeDebug() {
+		debug = !debug;
+	}
 }
