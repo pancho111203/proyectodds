@@ -14,13 +14,19 @@ public class LevelState implements IState{
 	private GameStart game;
 	private RenderingLevel render;
 	private Level curLevel;
+	private int WIDTH,HEIGHT;
 	
 	public LevelState(GameStart game, int w, int h){
 		this.game = game; 
 		render = new RenderingLevel(w,h);
 		AM = AssetManager.getSingleton(); 
 		AM.load("FirstLevel");
-		curLevel = new FirstLevel(80,0,AM.getImage("level3"),w,h); 
+		
+		WIDTH = w;
+		HEIGHT = h;
+		
+		changeLevel("FirstLevel");
+		
 	}	
 
 	@Override
@@ -51,6 +57,18 @@ public class LevelState implements IState{
 		return render;
 	}
 	
+	public void changeLevel(String newL){
+		
+		
+		if(newL.equals("FirstLevel")){
+
+			
+			curLevel = new FirstLevel(80,0,AM.getImage("level3"),WIDTH,HEIGHT,this); 
+			
+		}
+		
+		
+	}
 
 
 }

@@ -1,10 +1,8 @@
 package game.level;
 
 import game.AssetManager;
-import game.entity.implementations.Enemy;
 import game.entity.implementations.Player;
 import game.entity.list.EntityList;
-import game.entity.movement.ForwardMovement;
 import game.entity.movement.Movement;
 import game.entity.movement.PlayerMovement;
 import game.graphics.RenderingLevel;
@@ -12,11 +10,12 @@ import game.graphics.SingleSprite;
 import game.graphics.UserIface;
 import game.level.tiles.SpriteTileFacade;
 import game.level.tiles.Tile;
+import game.states.LevelState;
 
 import java.awt.Rectangle;
 
 public abstract class Level {
-	private EntityList entList;
+	protected EntityList entList;
 	
 	public static final int TILESIZE = 16;
 	
@@ -36,12 +35,17 @@ public abstract class Level {
 	public int screenW;
 	public int screenH;
 	
+	public LevelState parent;
+	
 	protected Player player;
 	protected UserIface UI;
 
 	protected SpriteTileFacade spr_t;
 		
-	public Level(int stX, int stY, int w, int h){
+	public Level(int stX, int stY, int w, int h, LevelState l){
+		
+		parent = l;
+		
 		START_POS_X = stX;
 		START_POS_Y = stY;
 		
@@ -70,20 +74,9 @@ public abstract class Level {
 		mov.initializeEntity(player);
 		UI = new UserIface(player);
 		entList.addPlayer(player);
-	    //TEST probando lo diferentes tipos de movimiento de enemigos
 		//TODO interfaz (patron Facade?) que haga estos 4 pasos llamando a un solo metodo, para simplificar
 		
-	    mov = new ForwardMovement(this, 1,1);
-	    Rectangle enemy1TileOffs = new Rectangle(25,57,42,62);
-	    Enemy malo1 = new Enemy(startpointPlayerX,startpointPlayerY,4,4,mov,this,enemy1TileOffs); // hay que ajustar los offsets
-		mov.initializeEntity(malo1);
-		entList.addEntity(malo1);
-		
-//		mov = new PathMovement(this, -100,-100,1);
-//	    Enemy malo2 = new Enemy(startpointPlayerX,startpointPlayerY,4,4,mov,this,enemy1TileOffs);
-//		mov.initializeEntity(malo2);
-//		entList.addEntity(malo2);
-		//
+	   
 
 		initializeSpritesAndTiles();
 	}

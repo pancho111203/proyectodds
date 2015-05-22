@@ -7,9 +7,9 @@ import java.awt.event.KeyEvent;
 public class GameInput {
 	
 	
-	private final int NUMACTIONS = 9;
+	private final int NUMACTIONS = 10;
 	//TODO refactoring de esto pasandolo a un enum para evitar errores
-	public final int UP=0,DOWN=1,RIGHT=2,LEFT=3,ATACK=4,JUMP=5,PAUSE=6,ESC=7, F9=8;
+	public final int UP=0,DOWN=1,RIGHT=2,LEFT=3,ATACK=4,JUMP=5,PAUSE=6,ESC=7, F9=8, ACTION=9;
 	public boolean actions[],actionsPressed[]; 
 
 	private Keyboard key;
@@ -73,6 +73,9 @@ public class GameInput {
 		if(key.keyDown(KeyEvent.VK_F9)){
 			actions[F9]=true;
 		}
+		if(key.keyDown(KeyEvent.VK_ENTER)){
+			actions[ACTION]=true;
+		}
 		
 		//leerPRESSED
 		if(key.keyPressed(KeyEvent.VK_W)||key.keyPressed(KeyEvent.VK_UP)||pad.padChanged(pad.Lup)||pad.buttonChanged(pad.UP)){
@@ -93,6 +96,9 @@ public class GameInput {
 		}
 		if(key.keyPressed(KeyEvent.VK_F9)){
 			actionsPressed[F9]=true;
+		}
+		if(key.keyPressed(KeyEvent.VK_ENTER)){
+			actionsPressed[ACTION]=true;
 		}
 	}
 	

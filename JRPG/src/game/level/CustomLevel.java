@@ -1,11 +1,13 @@
 package game.level;
 
+import game.states.LevelState;
+
 
 
 public class CustomLevel extends Level {
 
-	public CustomLevel(int w, int h, int startPosX, int startPosY,int wi, int hi){
-		super(startPosX,startPosY,wi,hi);
+	public CustomLevel(int w, int h, int startPosX, int startPosY,int wi, int hi, LevelState p){
+		super(startPosX,startPosY,wi,hi,p);
 		width = w;
 		height = h;
 		tiles = new int[width*height];

@@ -65,10 +65,6 @@ public class Player extends MovingEntity{
 		msm.change("normal", "");
 		
 		
-		this.x = x;
-		this.y = y;
-		
-		
 		colls = new Collider(this.x,this.y,w,h,this);
 	
 		
