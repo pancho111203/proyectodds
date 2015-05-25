@@ -6,8 +6,11 @@ import game.states.LevelState;
 
 public class CustomLevel extends Level {
 
-	public CustomLevel(int w, int h, int startPosX, int startPosY,int wi, int hi, LevelState p){
-		super(startPosX,startPosY,wi,hi,p);
+	public static final int START_POS_X = 50; 
+	public static final int START_POS_Y = 50;
+	
+	public CustomLevel(int spawnPosXPlayer, int spawnPosYPlayer, int w, int h, LevelState p){
+		super(spawnPosXPlayer,spawnPosXPlayer,w,h,p);
 		width = w;
 		height = h;
 		tiles = new int[width*height];

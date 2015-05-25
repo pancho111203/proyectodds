@@ -19,9 +19,6 @@ public abstract class Level {
 	
 	public static final int TILESIZE = 16;
 	
-	protected final int START_POS_X; // posiciones iniciales de la camara
-	protected final int START_POS_Y;
-	
 	protected Tile voidTile = new Tile(new SingleSprite(Level.TILESIZE, 0x000000),9,9,9,9);
 	
 	public AssetManager AM;
@@ -42,12 +39,9 @@ public abstract class Level {
 
 	protected SpriteTileFacade spr_t;
 		
-	public Level(int stX, int stY, int w, int h, LevelState l){
+	public Level(int spawnPosXPlayer, int spawnPosYPlayer, int w, int h, LevelState l){
 		
 		parent = l;
-		
-		START_POS_X = stX;
-		START_POS_Y = stY;
 		
 		AM=AssetManager.getSingleton();
 		AM.load(this.getClass().getSimpleName()); 
@@ -56,27 +50,20 @@ public abstract class Level {
 		entList = new EntityList(this);
 		entList.clearList();
 		
-		xOffset = START_POS_X;
-		yOffset = START_POS_Y;
-		
 		screenW = w;
 		screenH = h;
 		
 		spr_t = new SpriteTileFacade();
-		
-		int startpointPlayerX = xOffset + screenW/2;
-		int startpointPlayerY = yOffset + screenH/2;
-		
 
 		Movement mov = new PlayerMovement(this, 1);
 		Rectangle playerTileOffs = new Rectangle(8,36,23,45);
-		player = new Player(startpointPlayerX,startpointPlayerY,2,3,mov,this, playerTileOffs);
+		player = new Player(spawnPosXPlayer,spawnPosYPlayer,2,3,mov,this, playerTileOffs);
 		mov.initializeEntity(player);
 		UI = new UserIface(player);
 		entList.addPlayer(player);
 		//TODO interfaz (patron Facade?) que haga estos 4 pasos llamando a un solo metodo, para simplificar
 		
-	   
+	    moveFocus();
 
 		initializeSpritesAndTiles();
 	}

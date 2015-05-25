@@ -10,8 +10,12 @@ import java.awt.Rectangle;
 public class Door extends Entity{
 	private GameInput gi;
 	private String targetLevel;
-	public Door(int x, int y, int w, int h, Level level, String targetLevel) {
+	private int spXNL, spYNL;
+	public Door(int x, int y, int w, int h, Level level, String targetLevel, int spawnXNewLVL,int spawnYNewLvl) {
 		super(x, y, w, h, level);
+		
+		spXNL = spawnXNewLVL;
+		spYNL = spawnYNewLvl;
 		
 		this.targetLevel = targetLevel;
 		
@@ -34,8 +38,7 @@ public class Door extends Entity{
 	@Override
 	public void collide(Entity e) {
 		if(gi.inputPressed(9)){
-			System.out.println("DOOR OPENED");
-			level.parent.changeLevel(targetLevel);
+			level.parent.changeLevel(targetLevel, spXNL, spYNL);
 		}
 	}
 

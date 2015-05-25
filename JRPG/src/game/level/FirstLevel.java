@@ -11,31 +11,20 @@ import game.states.LevelState;
 
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 
 
 public class FirstLevel extends Level {
 	
-	private String imgLevelPath;
+	public static final int START_POS_X = 200; 
+	public static final int START_POS_Y = 160;
+	
 	private BufferedImage imgToLvL;
-	
-	public FirstLevel(int startPosX, int startPosY, String pathImgToLvL, int w, int h, LevelState p){
-		this(startPosX,startPosY,w,h,p);
-		imgLevelPath = pathImgToLvL;
+		
+	public FirstLevel(int spawnPosXPlayer, int spawnPosYPlayer, int w, int h, LevelState p){
+		super(spawnPosXPlayer,spawnPosYPlayer,w,h,p);
+		
+		imgToLvL = AM.getImage("level3");
 		loadLevel();
-	}
-	
-	public FirstLevel(int startPosX, int startPosY, BufferedImage imgToLvL, int w, int h, LevelState p){
-		this(startPosX,startPosY,w,h,p);
-		imgLevelPath = null;
-		this.imgToLvL = imgToLvL;
-		loadLevel();
-	}
-	
-	public FirstLevel(int startPosX, int startPosY, int w, int h, LevelState p){
-		super(startPosX,startPosY,w,h,p);
 		
 		Movement mov = new ForwardMovement(this, 1,1);
 	    Rectangle enemy1TileOffs = new Rectangle(25,57,42,62);
@@ -48,7 +37,7 @@ public class FirstLevel extends Level {
 		mov.initializeEntity(malo2);
 		entList.addEntity(malo2);
 		
-		Door door1 = new Door(224, 38, 2, 2, this,"FirstLevel");
+		Door door1 = new Door(224, 38, 2, 2, this,"CustomLevel", 224, 350); 
 		entList.addEntity(door1);
 		
 	}
@@ -59,19 +48,13 @@ public class FirstLevel extends Level {
 	
 	
 	public void loadLevelFromImage(){
-		try{
-			BufferedImage image;
-			if(imgLevelPath!=null)	image = ImageIO.read(Level.class.getResource(imgLevelPath));
-			else image = imgToLvL;
-			width=image.getWidth();
-			height=image.getHeight();			
-			tiles=new int[width*height];
-			image.getRGB(0, 0, width, height, tiles, 0, width); // se pasa la imagen al array tiles en formato RGB
-												// mas adelante el metodo getTile se encarga de mapear cada color a un tile
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.out.println("Error! No se ha podido cargar el nivel.");
-		}
+		BufferedImage image;
+		image = imgToLvL;
+		width=image.getWidth();
+		height=image.getHeight();			
+		tiles=new int[width*height];
+		image.getRGB(0, 0, width, height, tiles, 0, width); // se pasa la imagen al array tiles en formato RGB
+											// mas adelante el metodo getTile se encarga de mapear cada color a un tile
 		
 		
 	}

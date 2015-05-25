@@ -15,6 +15,7 @@ public class LevelState implements IState{
 	private RenderingLevel render;
 	private Level curLevel;
 	private int WIDTH,HEIGHT;
+	private LevelFactory fact;
 	
 	public LevelState(GameStart game, int w, int h){
 		this.game = game; 
@@ -25,7 +26,9 @@ public class LevelState implements IState{
 		WIDTH = w;
 		HEIGHT = h;
 		
-		changeLevel("FirstLevel");
+		fact = new LevelFactory(WIDTH, HEIGHT, this);
+		
+		changeLevel("FirstLevel",FirstLevel.START_POS_X, FirstLevel.START_POS_Y);
 		
 	}	
 
@@ -57,17 +60,8 @@ public class LevelState implements IState{
 		return render;
 	}
 	
-	public void changeLevel(String newL){
-		
-		
-		if(newL.equals("FirstLevel")){
-
-			
-			curLevel = new FirstLevel(80,0,AM.getImage("level3"),WIDTH,HEIGHT,this); 
-			
-		}
-		
-		
+	public void changeLevel(String newL, int spawnX, int spawnY){
+		curLevel = fact.getLevel(newL,spawnX,spawnY);		
 	}
 
 
