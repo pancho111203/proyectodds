@@ -20,11 +20,14 @@ public class Player extends MovingEntity{
 	private Collider colls;
 	int delta=-1;
 	boolean red=false;
+	private Stats stats;
 	
 	public Player(int x, int y,int w, int h, Movement mov, Level level, Rectangle tileOffs, Rectangle entityOffs) {
 		//este constructor se usa cuando se quiere usar un collider especifico(normalmente el collider cubre todo el sprite)
 		this(x,y,w,h,mov,level,tileOffs);
 		colliderOffsets = entityOffs;
+		stats = new Stats();
+		stats.setHP(100);
 	}
 		
 		
@@ -71,7 +74,8 @@ public class Player extends MovingEntity{
 		collider = new Rectangle((int)(colliderOffsets.getWidth()-colliderOffsets.getX()),(int)(colliderOffsets.getHeight()-colliderOffsets.getY()));
 		collider.setLocation((int)(this.x+colliderOffsets.getX()), (int)(this.y+colliderOffsets.getY()));
 
-	
+		stats = new Stats();
+		stats.setHP(100);
 	}
 
 	
@@ -149,11 +153,20 @@ public class Player extends MovingEntity{
 	@Override
 	public void collide(Entity e) {
 	}
-	
+
 	public void takeDamage(int d){
 		red = true;
+		stats.hit(d);
+	}
+	
+	public int getHP(){
+		return stats.getHP();
 	}
 
+	public boolean isAlive(){
+		return stats.isAlive();
+	}
+	
 
 	
 }

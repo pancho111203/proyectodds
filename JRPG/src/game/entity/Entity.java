@@ -104,4 +104,32 @@ public abstract class Entity {
 		render.renderRect((int)(collider.getX()-level.getXPosScreen()), (int)(collider.getY()-level.getYPosScreen()), (int)(collider.getWidth()), (int)(collider.getHeight()), entityColliderColor);
 
 	}
+	
+	protected class Stats{
+		private int HP,delta=0;
+		
+		public Stats(){
+			HP=0;
+		}
+		
+		public void setHP(int hp){
+			HP=hp;
+		}
+		
+		public int getHP(){
+			return HP;
+		}
+		
+		public Boolean isAlive(){
+			return HP>0;
+		}
+		
+		public void hit(int damage){
+			if(delta>30){
+				if(HP-damage>=0)HP-=damage;
+				else HP=0;
+				delta=0;
+			}else delta++;
+		}
+	}
 }

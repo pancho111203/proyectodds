@@ -13,33 +13,19 @@ public class UserIface {
 		player=p;
 		HPbar = new Image(AssetManager.getSingleton().getImage("HPbar"));
 		life = new Image(AssetManager.getSingleton().getImage("life"));
+		hP = player.getHP();
 	}
 	
 	public void update(){
-		
+		hP = player.getHP();
 	}
 	
 	public void render(RenderingLevel render){
 		render.render(HPbar.getHeight(),HPbar.getWidth(), 0, 0, HPbar.pixels);
-		render.renderPart(life.getHeight(),life.getWidth(), 0, 0, life.pixels,0.9f);
+		render.renderPart(life.getHeight(),life.getWidth(), 0, 0, life.pixels,hP/100f);
 		
 	}
 
-	private int getFur() {
-		return fur;
-	}
-
-	private void setFur(int fur) {
-		this.fur = fur;
-	}
-
-	private int gethP() {
-		return hP;
-	}
-
-	private void sethP(int hP) {
-		this.hP = hP;
-	}
 	
 	public void damage(int d){
 		hP-=d;
