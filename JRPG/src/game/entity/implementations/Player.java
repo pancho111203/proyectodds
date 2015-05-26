@@ -5,8 +5,9 @@ import game.entity.MovingEntity;
 import game.entity.SpriteContainer;
 import game.entity.collision.Collider;
 import game.entity.movement.Movement;
+import game.entity.movement.NoMovement;
+import game.entity.movestate.NoMove;
 import game.entity.movestate.NormalMove;
-import game.entity.movestate.SwimMove;
 import game.graphics.Animator;
 import game.graphics.RenderingLevel;
 import game.graphics.Sprite;
@@ -17,8 +18,9 @@ import java.awt.Rectangle;
 
 public class Player extends MovingEntity{
 
+	private boolean dead = false;
 	private Collider colls;
-	int delta=-1;
+	int delta=-1, contDead = 0;
 	boolean red=false;
 	
 	public Player(int x, int y,int w, int h, Movement mov, Level level, Rectangle tileOffs, Rectangle entityOffs) {
@@ -34,7 +36,7 @@ public class Player extends MovingEntity{
 	    spriteOffsets = tileOffs;// siempre asignarlas antes de inicializar mov!!
 		
 		
-		Sprite currentAnim = new Animator(WIDTH, HEIGHT, 0, 0, 3, new Spritesheet(level.AM.getImage("MinotauroFrontal")), 15);
+		Sprite currentAnim = new Animator(WIDTH, HEIGHT, 0, 0, 3, new Spritesheet(level.AM.getImage("MinotauroFrontal")), 15,false);
 		//currentAnim = new Sprite(16,16,0,2,Spritesheet.tiles);
 		SpriteContainer normalState = new SpriteContainer();
 		normalState.addSprite("0", currentAnim); // hay que añadir un sprite para cada direccion (obligatorio para que la statemachine funcione)
@@ -49,21 +51,9 @@ public class Player extends MovingEntity{
 		msm.add("normal", new NormalMove(normalState));
 		msm.change("normal", "");
 		
-		Sprite swimAnim = new Animator(64,64, 0, 0, 4, new Spritesheet(level.AM.getImage("Caballitomarbao")), 30);
-		//currentAnim = new Sprite(16,16,0,2,Spritesheet.tiles);
-		SpriteContainer swimState = new SpriteContainer();
-		swimState.addSprite("0", swimAnim); // hay que añadir un sprite para cada direccion (obligatorio para que la statemachine funcione)
-		swimState.addSprite("1", swimAnim); // despues puedo anadir los sprites que sean necesarios para cada estado diferente
-		swimState.addSprite("2", swimAnim);
-		swimState.addSprite("3", swimAnim);
-		swimState.addSprite("4", swimAnim);
-		swimState.addSprite("5", swimAnim);
-		swimState.addSprite("6", swimAnim);
-		swimState.addSprite("7", swimAnim);
-		swimState.addSprite("8", swimAnim);
-		msm.add("swim", new SwimMove(swimState));
-		msm.change("normal", "");
 		
+		Sprite deadAnim = new Animator(54,48, 0, 0, 6, new Spritesheet(level.AM.getImage("minoDead")), 15,true);
+		msm.add("dead", new NoMove(deadAnim));
 		
 		colls = new Collider(this.x,this.y,w,h,this);
 	
@@ -93,7 +83,12 @@ public class Player extends MovingEntity{
 		updateCollider();
 		colls.checkCollisions();
 		
-		
+		if(dead){
+			contDead++;
+			if(contDead>=180){
+				finishGame();
+			}
+		}
 	}
 
 	@Override
@@ -152,8 +147,18 @@ public class Player extends MovingEntity{
 	
 	public void takeDamage(int d){
 		red = true;
+		die();
 	}
 
+	private void die(){
+		mov = new NoMovement(level);
+		msm.change("dead", "");
+		dead = true;
+		
+	}
+	private void finishGame(){
+		level.finish();
+	}
 
 	
 }

@@ -7,10 +7,11 @@ public class Animator implements Sprite{
 	public int n,act, rate; // rate es el numero de frames que tarda en cambiar de sprite  
 	public Spritesheet spriteSheet; //subSpritesheet solo con la fila de movimientos del sprite a animar
 	public SingleSprite sprites[], actSprite; // array de sprites en total y sprite actual en el que se encuentra
-	
+	private boolean onlyOneRun = false;
 	private long delta=0;
 	
-	public Animator(int w,int h,int x, int y,int n,Spritesheet spriteSheet, int r){
+	public Animator(int w,int h,int x, int y,int n,Spritesheet spriteSheet, int r,boolean oneRunOnly){
+		onlyOneRun = oneRunOnly;
 		this.x=x;
 		this.y=y;
 		this.width=w;
@@ -23,7 +24,8 @@ public class Animator implements Sprite{
 		actSprite=sprites[act];
 	}
 	
-	public Animator(int size,int x, int y,int n,Spritesheet spriteSheet, int r){
+	public Animator(int size,int x, int y,int n,Spritesheet spriteSheet, int r, boolean oneRunOnly){
+		onlyOneRun = oneRunOnly;
 		this.x=x;
 		this.y=y;
 		this.width=size;
@@ -38,7 +40,7 @@ public class Animator implements Sprite{
 	
 	public void slice(){
 		for (int i=0;i<sprites.length;i++){
-			sprites[i]= new SingleSprite(width ,height , x+(i*(width/16)) ,y , spriteSheet);
+			sprites[i]= new SingleSprite(width ,height , x+i ,y , spriteSheet);
 		}
 	}
 	
@@ -47,7 +49,8 @@ public class Animator implements Sprite{
 		if(act<sprites.length-1){
 			act++;
 			actSprite=sprites[act];
-		}else{
+		}else if(!onlyOneRun){
+			
 			act=0;
 			actSprite=sprites[act];
 		}

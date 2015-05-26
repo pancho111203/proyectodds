@@ -1,18 +1,15 @@
 package game.entity.movestate;
 
-import game.entity.SpriteContainer;
 import game.graphics.Animator;
 import game.graphics.Sprite;
 
-public class SwimMove implements IMove {
-	private SpriteContainer ns;
+public class NoMove implements IMove{
 	private Sprite currentSprite;
-	private int movX, movY;
-	public SwimMove(SpriteContainer sc) {
-		ns = sc;
-		currentSprite = ns.getSprite("0");
+	
+	public NoMove(Sprite sprite) {
+		this.currentSprite = sprite;
 	}
-
+	
 	@Override
 	public void update() {
 		if(currentSprite instanceof Animator){
@@ -22,35 +19,38 @@ public class SwimMove implements IMove {
 
 	@Override
 	public void onEnter(int dir) {
-		changeDirection(dir);
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void changeDirection(int dir) {
-		currentSprite = ns.getSprite(dir+"");
-		currentSprite.startAgain();
-	}
-
-	@Override
-	public void move(int movX, int movY) {
-		this.movX = movX;
-		this.movY = movY;
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public int getMovX() {
-		return movX;
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	@Override
 	public int getMovY() {
-		return movY;
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void move(int movX, int movY) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public Sprite getSprite() {
+		// TODO Auto-generated method stub
 		return currentSprite;
 	}
-	
 
 }
