@@ -155,4 +155,7 @@ public abstract class Level {
 	public EntityList getEntityList() {
 		return entList;
 	}
+	public void finish() {
+		parent.finish();
+	}
 }

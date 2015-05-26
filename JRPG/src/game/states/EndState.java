@@ -6,7 +6,7 @@ import game.graphics.RenderingMenu;
 import game.menus.MainMenu;
 import game.menus.Menu;
  
-public class MenuState implements IState{
+public class EndState implements IState{
 
 	private GameStart game;
 	private RenderingMenu render;
@@ -15,7 +15,7 @@ public class MenuState implements IState{
 	private Menu curMenu;
 	
 
-	public MenuState(GameStart game, int w, int h){
+	public EndState(GameStart game, int w, int h){
 		this.game = game;
 		render = new RenderingMenu(w,h);
 		

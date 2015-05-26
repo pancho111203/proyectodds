@@ -52,7 +52,9 @@ public class LevelState implements IState{
 
 	@Override
 	public void onEnter(String params) {
-		
+		if(curLevel==null){
+			changeLevel("FirstLevel",FirstLevel.START_POS_X, FirstLevel.START_POS_Y);
+		}
 	}
 
 	@Override
@@ -62,6 +64,11 @@ public class LevelState implements IState{
 	
 	public void changeLevel(String newL, int spawnX, int spawnY){
 		curLevel = fact.getLevel(newL,spawnX,spawnY);		
+	}
+
+	public void finish() {
+		game.change("end", "");
+		curLevel = null;
 	}
 
 

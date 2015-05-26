@@ -1,6 +1,7 @@
 package game;
 import game.graphics.Rendering;
 import game.input.GameInput;
+import game.states.EndState;
 import game.states.IState;
 import game.states.LevelState;
 import game.states.MenuState;
@@ -69,6 +70,7 @@ public class GameStart extends Canvas implements Runnable{
 		
 		
 		add("mainmenu", new MenuState(this,WIDTH,HEIGHT));
+		add("end", new EndState(this,WIDTH,HEIGHT));
 		add("level1", new LevelState(this,WIDTH,HEIGHT));
 		
 		gi= GameInput.getSingleton();

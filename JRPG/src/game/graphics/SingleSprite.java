@@ -13,8 +13,8 @@ public class SingleSprite implements Sprite{
 	
 	public SingleSprite (int size, int x, int y, Spritesheet sheet){
 		width = height = size;
-		this.x= x*sheet.indexSize;
-		this.y= y*sheet.indexSize;
+		this.x= x*width;
+		this.y= y*height;
 		this.sheet=sheet;
 		pixels = new int[height*width];
 		load();
@@ -22,8 +22,8 @@ public class SingleSprite implements Sprite{
 	public SingleSprite (int w, int h, int x, int y, Spritesheet sheet){
 		width = w;
 		height = h;
-		this.x= x*sheet.indexSize;
-		this.y= y*sheet.indexSize;
+		this.x= x*width;
+		this.y= y*height;
 		this.sheet=sheet;
 		pixels = new int[height*width];
 		load();

@@ -12,7 +12,6 @@ public class Spritesheet {
 	public int WIDTH;
 	public int HEIGHT;
 	public int[] pixels;
-	public final int indexSize= 16;
 	
 	
 	public Spritesheet(String path){

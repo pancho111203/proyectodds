@@ -35,7 +35,7 @@ public class LevelSprites { // crea los sprites(solo para el nivel, las entidade
 	}
 	
 	public Sprite createAnim(String name, int x, int y, int n, Spritesheet sheet, int r){
-		Animator aux = new Animator(Level.TILESIZE, x, y, n, sheet, r);
+		Animator aux = new Animator(Level.TILESIZE, x, y, n, sheet, r, false);
 		anims.put(name, aux);
 		return aux;
 	}

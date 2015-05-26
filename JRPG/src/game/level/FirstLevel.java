@@ -16,7 +16,7 @@ import java.awt.image.BufferedImage;
 public class FirstLevel extends Level {
 	
 	public static final int START_POS_X = 200; 
-	public static final int START_POS_Y = 160;
+	public static final int START_POS_Y = 260;
 	
 	private BufferedImage imgToLvL;
 		
