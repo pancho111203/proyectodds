@@ -51,6 +51,9 @@ public class SingleSprite implements Sprite{
 	public SingleSprite getActual() {
 		return this;
 	}
+	public SingleSprite getFirst() {
+		return this;
+	}
 	
 	public void Flip() {
 		int l = pixels.length;

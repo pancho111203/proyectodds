@@ -60,6 +60,9 @@ public class Animator implements Sprite{
 	public SingleSprite getActual(){
 		return actSprite;
 	}
+	public SingleSprite getFirst(){
+		return sprites[0];
+	}
 	
 	public void update(){
 		

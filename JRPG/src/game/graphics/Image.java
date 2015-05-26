@@ -48,6 +48,9 @@ public class Image implements Sprite{
 	public SingleSprite getActual() {
 		return null;
 	}
+	public SingleSprite getFirst() {
+		return null;
+	}
 
 	@Override
 	public int getX() {

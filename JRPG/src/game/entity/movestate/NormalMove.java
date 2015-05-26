@@ -10,7 +10,7 @@ public class NormalMove implements IMove{
 	private int movX, movY;
 	public NormalMove(SpriteContainer normalState) {
 		ns = normalState;
-		currentSprite = ns.getSprite("0");
+		currentSprite = ns.getSprite("8");
 	}
 
 	@Override
@@ -27,8 +27,15 @@ public class NormalMove implements IMove{
 
 	@Override
 	public void changeDirection(int dir) {
-		currentSprite = ns.getSprite(dir+"");
-		currentSprite.startAgain();
+		
+		if(dir==8){
+			currentSprite = currentSprite.getFirst();
+		}else{
+			currentSprite = ns.getSprite(dir+"");
+			currentSprite.startAgain();
+		}
+		
+
 	}
 
 	@Override
