@@ -76,12 +76,15 @@ public class Player extends MovingEntity{
 	
 	@Override
 	public void update() {
-		if(red&&delta<=10){
-			delta++;
-		}else if(red&&delta>10){
-			red=false;
-			delta=-1;
+		if(red&&!dead){
+			if(delta<=20){
+				delta++;
+			}else{
+				red=false;
+				delta=-1;
+			}
 		}
+		
 		
 		msm.update();
 		mov.update();
@@ -174,6 +177,7 @@ public class Player extends MovingEntity{
 		mov = new NoMovement(level);
 		msm.change("dead", "");
 		dead = true;
+		red = false;
 		
 	}
 	private void finishGame(){
