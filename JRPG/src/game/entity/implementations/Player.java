@@ -10,6 +10,7 @@ import game.entity.movestate.NoMove;
 import game.entity.movestate.NormalMove;
 import game.graphics.Animator;
 import game.graphics.RenderingLevel;
+import game.graphics.SingleSprite;
 import game.graphics.Sprite;
 import game.graphics.Spritesheet;
 import game.level.Level;
@@ -39,17 +40,21 @@ public class Player extends MovingEntity{
 	    spriteOffsets = tileOffs;// siempre asignarlas antes de inicializar mov!!
 		
 		
-		Sprite currentAnim = new Animator(WIDTH, HEIGHT, 0, 0, 3, new Spritesheet(level.AM.getImage("MinotauroFrontal")), 15,false);
+	    Sprite currentAnimFront = new Animator(WIDTH, HEIGHT, 0, 0, 4, new Spritesheet(level.AM.getImage("minoFront")), 15,false);
+	    Sprite currentAnim = new SingleSprite(WIDTH, HEIGHT, 0, 0, new Spritesheet(level.AM.getImage("minoFront")));
+	    Sprite currentAnimBack = new Animator(WIDTH, HEIGHT, 0, 0, 4, new Spritesheet(level.AM.getImage("minoBack")), 15,false);
+	    Sprite currentAnimIzq = new Animator(WIDTH, HEIGHT, 0, 0, 4, new Spritesheet(level.AM.getImage("minoPerfilIzq")), 15,false);
+		Sprite currentAnimDer = new Animator(WIDTH, HEIGHT, 0, 0, 4, new Spritesheet(level.AM.getImage("minoPerfilDer")), 15,false);
 		//currentAnim = new Sprite(16,16,0,2,Spritesheet.tiles);
 		SpriteContainer normalState = new SpriteContainer();
-		normalState.addSprite("0", currentAnim); // hay que añadir un sprite para cada direccion (obligatorio para que la statemachine funcione)
-		normalState.addSprite("1", currentAnim); // despues puedo anadir los sprites que sean necesarios para cada estado diferente
-		normalState.addSprite("2", currentAnim);
-		normalState.addSprite("3", currentAnim);
-		normalState.addSprite("4", currentAnim);
-		normalState.addSprite("5", currentAnim);
-		normalState.addSprite("6", currentAnim);
-		normalState.addSprite("7", currentAnim);
+		normalState.addSprite("0", currentAnimBack); // hay que añadir un sprite para cada direccion (obligatorio para que la statemachine funcione)
+		normalState.addSprite("1", currentAnimDer); // despues puedo anadir los sprites que sean necesarios para cada estado diferente
+		normalState.addSprite("2", currentAnimDer);
+		normalState.addSprite("3", currentAnimDer);
+		normalState.addSprite("4", currentAnimFront);
+		normalState.addSprite("5", currentAnimIzq);
+		normalState.addSprite("6", currentAnimIzq);
+		normalState.addSprite("7", currentAnimIzq);
 		normalState.addSprite("8", currentAnim);
 		msm.add("normal", new NormalMove(normalState));
 		msm.change("normal", "");
