@@ -125,11 +125,10 @@ public abstract class Entity {
 		}
 		
 		public void hit(int damage){
-			if(delta>30){
-				if(HP-damage>=0)HP-=damage;
-				else HP=0;
-				delta=0;
-			}else delta++;
+			if(HP-damage>=0)HP-=damage;
+			else{
+				HP = 0;
+			}
 		}
 	}
 }

@@ -87,6 +87,10 @@ public class Player extends MovingEntity{
 		updateCollider();
 		colls.checkCollisions();
 		
+		if(!isAlive()){
+			die();
+		}
+		
 		if(dead){
 			contDead++;
 			if(contDead>=180){
@@ -150,9 +154,8 @@ public class Player extends MovingEntity{
 	}
 
 	public void takeDamage(int d){
+		if(red==false)stats.hit(d);
 		red = true;
-		stats.hit(d);
-		die();
 	}
 	
 	public int getHP(){
