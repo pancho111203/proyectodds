@@ -1,12 +1,15 @@
 package game.graphics;
 
+import java.util.ArrayList;
+
 public class Animator implements Sprite{
 	
 	//(n) es el numero de sprites en fila, (size) tamaño del sprite, (act) id del sprite actual en el array
 	private int x,y,width,height;
-	public int n,act, rate; // rate es el numero de frames que tarda en cambiar de sprite  
+	public int n,act, rate,size; // rate es el numero de frames que tarda en cambiar de sprite  
 	public Spritesheet spriteSheet; //subSpritesheet solo con la fila de movimientos del sprite a animar
-	public SingleSprite sprites[], actSprite; // array de sprites en total y sprite actual en el que se encuentra
+	public SingleSprite actSprite;
+	public ArrayList<SingleSprite> sprites; // array de sprites en total y sprite actual en el que se encuentra
 	private boolean onlyOneRun = false;
 	private long delta=0;
 	
@@ -17,11 +20,12 @@ public class Animator implements Sprite{
 		this.width=w;
 		this.height=h;
 		rate = r;
-		this.sprites =new SingleSprite[n];
+		size=n;
+		this.sprites = new ArrayList<SingleSprite>();
 		this.spriteSheet = spriteSheet;
 		slice();
 		act=0;
-		actSprite=sprites[act];
+		actSprite=sprites.get(act);
 	}
 	
 	public Animator(int size,int x, int y,int n,Spritesheet spriteSheet, int r, boolean oneRunOnly){
@@ -31,28 +35,29 @@ public class Animator implements Sprite{
 		this.width=size;
 		this.height=size;
 		rate = r;
-		this.sprites =new SingleSprite[n];
+		size=n;
+		this.sprites = new ArrayList<SingleSprite>();
 		this.spriteSheet = spriteSheet;
 		slice();
 		act=0;
-		actSprite=sprites[act];
+		actSprite=sprites.get(act);
 	}
 	
 	public void slice(){
-		for (int i=0;i<sprites.length;i++){
-			sprites[i]= new SingleSprite(width ,height , x+i ,y , spriteSheet);
+		for (int i=0;i<size;i++){
+			addSprite( new SingleSprite(width ,height , x+i ,y , spriteSheet));
 		}
 	}
 	
 	//pasa al siguiente sprite
 	public SingleSprite updateSprite(){
-		if(act<sprites.length-1){
+		if(act<sprites.size()-1){
 			act++;
-			actSprite=sprites[act];
+			actSprite=sprites.get(act);
 		}else if(!onlyOneRun){
 			
 			act=0;
-			actSprite=sprites[act];
+			actSprite=sprites.get(act);
 		}
 		return actSprite;
 	}
@@ -61,8 +66,27 @@ public class Animator implements Sprite{
 		return actSprite;
 	}
 	public SingleSprite getFirst(){
-		return sprites[0];
+		return sprites.get(0);
 	}
+	
+	public void addSprite(Sprite e){
+		if(e instanceof SingleSprite){
+			sprites.add((SingleSprite)e);
+			size++;
+		}
+		else System.err.println("Only SingleSprites accepted on Animator");
+	}
+	
+	public void removeSprite(Sprite e){
+		sprites.remove(e);
+		size--;
+	}
+	
+	public Sprite getSprite(int i){
+		return sprites.get(i);
+	}
+	
+	
 	
 	public void update(){
 		
@@ -81,7 +105,7 @@ public class Animator implements Sprite{
 	public void startAgain(){
 		//partiendo de que pongamos en el spritesheet los tiles en orden...
 		act = 0;
-		actSprite=sprites[0];
+		actSprite=getFirst();
 	}
 	
 	public void changeRate(int r){
@@ -110,8 +134,8 @@ public class Animator implements Sprite{
 
 	@Override
 	public void FlipAll() {
-		for(int i = 0; i < sprites.length ; i++){
-			sprites[i].Flip();
+		for(int i = 0; i < sprites.size() ; i++){
+			sprites.get(i).Flip();
 		}
 	}
 }

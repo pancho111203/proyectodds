@@ -61,5 +61,9 @@ public class MoveStateMachin {
 		return current.getSprite();
 	}
 	
+	public int getDir(){
+		return dir;
+	}
+	
 	
 }

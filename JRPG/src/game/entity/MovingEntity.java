@@ -33,6 +33,10 @@ public abstract class MovingEntity extends Entity{
 		collider.setLocation((int)(x+colliderOffsets.getX()), (int)(y+colliderOffsets.getY()));
 		
 	}
+	
+	public int getDir(){
+		return dir;
+	}
 
 
 }
