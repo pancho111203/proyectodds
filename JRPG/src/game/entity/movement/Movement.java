@@ -11,6 +11,8 @@ public abstract class Movement { // maneja el movimiento
 	// maneja colisiones
 	
 	//TODO falta funcionalidad que permita que el player cambie de estado cuando se meta en el agua(nadar) y para escaleras, etc
+	protected int stop = 0; //representa los proximus updates que no habra movimiento(si es negativo sera infinito)
+	
 	
 	protected int prevVertical;
 	protected int prevHorizontal;
@@ -65,6 +67,10 @@ public abstract class Movement { // maneja el movimiento
 	public abstract void updateAux();
 	
 	protected void timeToMove(){
+		if(stop!=0){
+			stop--;
+			return;
+		}
 		// variable con valores de 0 a 7 indicando la direccion(tmb diagonal), se usa sobre todo para elegir sprite
 		//si tiene valor 8 es pq el pj esta quieto
 		int dir = 8;
@@ -270,4 +276,9 @@ public abstract class Movement { // maneja el movimiento
 		// checkea si el tipo de movimiento genera colisiones cn el estado dado
 	}
 	//p ejemplo, para unidades voladoras el estado 1(solido) no generara colisiones
+
+	public void stop(int i) {
+		stop = i;
+		
+	}
 }

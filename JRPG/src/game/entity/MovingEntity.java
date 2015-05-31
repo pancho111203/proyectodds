@@ -3,6 +3,7 @@ package game.entity;
 import game.entity.movement.Movement;
 import game.entity.movestate.MoveStateMachin;
 import game.level.Level;
+import auxiliar.Vector2D;
 
 
 public abstract class MovingEntity extends Entity{
@@ -31,6 +32,19 @@ public abstract class MovingEntity extends Entity{
 	
 	protected void updateCollider(){
 		collider.setLocation((int)(x+colliderOffsets.getX()), (int)(y+colliderOffsets.getY()));
+		
+	}
+	
+
+	protected void push(Vector2D eVec, int dist){
+		
+		Vector2D vec = new Vector2D(x,y);
+		
+		vec = vec.minus(eVec);
+				
+		vec = vec.normalizeToLength(dist);
+		
+		mov.move((int)vec.x, (int)vec.y);
 		
 	}
 

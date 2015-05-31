@@ -1,6 +1,11 @@
 package game.level;
 
+import game.entity.implementations.Enemy;
+import game.entity.movement.EasyPFMovment;
+import game.entity.movement.Movement;
 import game.states.LevelState;
+
+import java.awt.Rectangle;
 
 
 
@@ -14,6 +19,13 @@ public class CustomLevel extends Level {
 		width = w;
 		height = h;
 		tiles = new int[width*height];
+		
+		Movement mov = new EasyPFMovment(this,player);
+	    Rectangle enemy1TileOffs = new Rectangle(25,57,42,62);
+	    Enemy malo1 = new Enemy(200,100,4,4,mov,this,enemy1TileOffs); // hay que ajustar los offsets
+		mov.initializeEntity(malo1);
+		entList.addEntity(malo1);
+		
 		loadLevel();
 	}
 	

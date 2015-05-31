@@ -5,7 +5,6 @@ import game.entity.MovingEntity;
 import game.entity.SpriteContainer;
 import game.entity.collision.Collider;
 import game.entity.movement.Movement;
-import game.entity.movement.NoMovement;
 import game.entity.movestate.NoMove;
 import game.entity.movestate.NormalMove;
 import game.graphics.Animator;
@@ -16,6 +15,8 @@ import game.graphics.Spritesheet;
 import game.level.Level;
 
 import java.awt.Rectangle;
+
+import auxiliar.Vector2D;
 
 public class Player extends MovingEntity{
 
@@ -161,8 +162,11 @@ public class Player extends MovingEntity{
 	public void collide(Entity e) {
 	}
 
-	public void takeDamage(int d){
-		if(red==false)stats.hit(d);
+	public void takeDamage(int d, int ex, int ey){
+		if(red==false){
+			push(new Vector2D(ex, ey), 20);
+			stats.hit(d);
+		}
 		red = true;
 	}
 	
@@ -174,7 +178,7 @@ public class Player extends MovingEntity{
 		return stats.isAlive();
 	}
 	private void die(){
-		mov = new NoMovement(level);
+		mov.stop(-1);
 		msm.change("dead", "");
 		dead = true;
 		red = false;

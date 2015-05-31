@@ -95,7 +95,8 @@ public class Enemy extends MovingEntity {
 	public void collide(Entity e) {
 		//TODO
 		if(e instanceof Player){
-			((Player)e).takeDamage(dmg);
+			((Player)e).takeDamage(dmg, x, y);
+			mov.stop(30);
 		}
 	}
 
