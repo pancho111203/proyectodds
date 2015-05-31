@@ -90,6 +90,8 @@ public class Player extends MovingEntity{
 		msm.update();
 		mov.update();
 		
+		addEnergy(1);
+		
 		xInScreen = x-level.getXPosScreen();
 		yInScreen = y-level.getYPosScreen();
 		
@@ -173,6 +175,13 @@ public class Player extends MovingEntity{
 	public int getHP(){
 		return stats.getHP();
 	}
+	
+	public int substractEnergy(int x){
+		return stats.substractEnergy(x);
+	}
+	public int addEnergy(int x){
+		return stats.addEnergy(x);
+	}
 
 	public boolean isAlive(){
 		return stats.isAlive();
@@ -186,6 +195,11 @@ public class Player extends MovingEntity{
 	}
 	private void finishGame(){
 		level.finish();
+	}
+
+
+	public int getEnergy() {
+		return stats.getEnergy();
 	}
 
 	
