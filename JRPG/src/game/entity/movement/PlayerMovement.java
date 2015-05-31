@@ -5,7 +5,7 @@ import game.level.Level;
 
 public class PlayerMovement extends Movement{
 
-	
+	private final int ENERGYCONSUMEDONSPRINT = 10;
 	private int speed;
 	private int sprint = 1;
 	private GameInput gi;
@@ -20,7 +20,7 @@ public class PlayerMovement extends Movement{
 	
 	public void updateAux(){
 		if(gi.inputDown(10)){			
-			sprint = ((Player)ent).substractEnergy(10)>=0?2:1;
+			sprint = ((Player)ent).substractEnergy(ENERGYCONSUMEDONSPRINT)>=0?2:1;
 		}else{
 			sprint = 1;
 		}
