@@ -2,9 +2,8 @@ package game.level;
 
 import game.entity.implementations.Door;
 import game.entity.implementations.Enemy;
-import game.entity.movement.ForwardMovement;
+import game.entity.movement.EasyPFMovment;
 import game.entity.movement.Movement;
-import game.entity.movement.PathMovement;
 import game.graphics.RenderingLevel;
 import game.graphics.Spritesheet;
 import game.states.LevelState;
@@ -26,16 +25,16 @@ public class FirstLevel extends Level {
 		imgToLvL = AM.getImage("level3");
 		loadLevel();
 		
-		Movement mov = new ForwardMovement(this, 1,1);
+		Movement mov = new EasyPFMovment(this,player);
 	    Rectangle enemy1TileOffs = new Rectangle(25,57,42,62);
 	    Enemy malo1 = new Enemy(200,100,4,4,mov,this,enemy1TileOffs); // hay que ajustar los offsets
 		mov.initializeEntity(malo1);
 		entList.addEntity(malo1);
 			
-		mov = new PathMovement(this, -100,-100,1);
-	    Enemy malo2 = new Enemy(200,100,4,4,mov,this,enemy1TileOffs);
-		mov.initializeEntity(malo2);
-		entList.addEntity(malo2);
+//		mov = new PathMovement(this, -100,-100,1);
+//	    Enemy malo2 = new Enemy(200,100,4,4,mov,this,enemy1TileOffs);
+//		mov.initializeEntity(malo2);
+//		entList.addEntity(malo2);
 		
 		Door door1 = new Door(224, 38, 2, 2, this,"CustomLevel", 224, 350); 
 		entList.addEntity(door1);
