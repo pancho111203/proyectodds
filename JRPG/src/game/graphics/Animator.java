@@ -20,7 +20,7 @@ public class Animator implements Sprite{
 		this.width=w;
 		this.height=h;
 		rate = r;
-		size=n;
+		this.size=n;
 		this.sprites = new ArrayList<SingleSprite>();
 		this.spriteSheet = spriteSheet;
 		slice();
@@ -35,17 +35,17 @@ public class Animator implements Sprite{
 		this.width=size;
 		this.height=size;
 		rate = r;
-		size=n;
 		this.sprites = new ArrayList<SingleSprite>();
 		this.spriteSheet = spriteSheet;
+		this.size=n;
 		slice();
 		act=0;
 		actSprite=sprites.get(act);
 	}
 	
 	public void slice(){
-		for (int i=0;i<size;i++){
-			addSprite( new SingleSprite(width ,height , x+i ,y , spriteSheet));
+		for (int i=0;i<size-1;i++){
+			addSprite( new SingleSprite(width ,height ,x+i ,y ,spriteSheet ) );
 		}
 	}
 	
@@ -72,7 +72,6 @@ public class Animator implements Sprite{
 	public void addSprite(Sprite e){
 		if(e instanceof SingleSprite){
 			sprites.add((SingleSprite)e);
-			size++;
 		}
 		else System.err.println("Only SingleSprites accepted on Animator");
 	}
