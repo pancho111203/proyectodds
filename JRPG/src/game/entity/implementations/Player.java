@@ -31,6 +31,7 @@ public class Player extends MovingEntity{
 		colliderOffsets = entityOffs;
 		stats = new Stats();
 		stats.setHP(100);
+		
 	}
 		
 		
@@ -159,6 +160,9 @@ public class Player extends MovingEntity{
 
 	@Override
 	public void collide(Entity e) {
+		if(e instanceof Enemy){
+			int edir=((Enemy) e).getDir();
+		}
 	}
 
 	public void takeDamage(int d){
@@ -173,6 +177,7 @@ public class Player extends MovingEntity{
 	public boolean isAlive(){
 		return stats.isAlive();
 	}
+	
 	private void die(){
 		mov = new NoMovement(level);
 		msm.change("dead", "");
@@ -180,6 +185,7 @@ public class Player extends MovingEntity{
 		red = false;
 		
 	}
+	
 	private void finishGame(){
 		level.finish();
 	}
