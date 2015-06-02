@@ -21,13 +21,12 @@ public abstract class Entity {
 	protected final int WIDTH;
 	protected final int HEIGHT;
 	
-	protected final int WIDTHINTILES;
-	protected final int HEIGHTINTILES;
 	
 	public Level level;
 
 	
 	protected final int TS;
+	
 	
 	public Entity(int x, int y, int w, int h, Level level){
 		this.level = level;
@@ -37,11 +36,9 @@ public abstract class Entity {
 		TS = Level.TILESIZE;
 		
 		
-		WIDTHINTILES = w;
-		HEIGHTINTILES = h;
 		
-		WIDTH = WIDTHINTILES*TS;
-		HEIGHT = HEIGHTINTILES*TS;
+		WIDTH = w;
+		HEIGHT = h;
 		
 		xInScreen = x-level.getXPosScreen();
 		yInScreen = y-level.getYPosScreen();
@@ -49,6 +46,15 @@ public abstract class Entity {
 		colliderOffsets = new Rectangle(0,0,WIDTH,HEIGHT);
 		spriteOffsets = new Rectangle(0,0,WIDTH,HEIGHT);
 		
+		collider = new Rectangle((int)(colliderOffsets.getWidth()-colliderOffsets.getX()),(int)(colliderOffsets.getHeight()-colliderOffsets.getY()));
+		collider.setLocation((int)(x+colliderOffsets.getX()), (int)(y+colliderOffsets.getY()));
+		
+	}
+	
+	
+	public void addCustomCollider(Rectangle newColl){
+		colliderOffsets = newColl;
+		collider.setSize((int)(colliderOffsets.getWidth()-colliderOffsets.getX()), (int)(colliderOffsets.getHeight()-colliderOffsets.getY()));
 	}
 	
 	public abstract void update(); 
@@ -106,10 +112,12 @@ public abstract class Entity {
 	}
 	
 	protected class Stats{
-		private int HP,delta=0;
+		private int HP,ENERGY;
+		private final int MAXENERGY = 1000;
 		
 		public Stats(){
 			HP=0;
+			ENERGY=MAXENERGY;
 		}
 		
 		public void setHP(int hp){
@@ -119,8 +127,30 @@ public abstract class Entity {
 		public int getHP(){
 			return HP;
 		}
+		public void setEnergy(int en){
+			ENERGY=en;
+		}
 		
-		public Boolean isAlive(){
+		public int getEnergy(){
+			return ENERGY;
+		}
+		
+		public int substractEnergy(int x){
+			if(ENERGY-x<=0){
+				return -1;
+			}
+			ENERGY-=x;
+			return ENERGY;
+		}
+		public int addEnergy(int x){
+			if(ENERGY+x>MAXENERGY){
+				return -1;
+			}
+			ENERGY+=x;
+			return ENERGY;
+		}
+		
+		public boolean isAlive(){
 			return HP>0;
 		}
 		

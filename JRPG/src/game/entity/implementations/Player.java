@@ -5,7 +5,6 @@ import game.entity.MovingEntity;
 import game.entity.SpriteContainer;
 import game.entity.collision.Collider;
 import game.entity.movement.Movement;
-import game.entity.movement.NoMovement;
 import game.entity.movestate.NoMove;
 import game.entity.movestate.NormalMove;
 import game.graphics.Animator;
@@ -17,23 +16,18 @@ import game.level.Level;
 
 import java.awt.Rectangle;
 
+import auxiliar.Vector2D;
+
 public class Player extends MovingEntity{
 
+	
 	private boolean dead = false;
 	private Collider colls;
 	int delta=-1, contDead = 0;
 	boolean red=false;
 	private Stats stats;
 	
-	public Player(int x, int y,int w, int h, Movement mov, Level level, Rectangle tileOffs, Rectangle entityOffs) {
-		//este constructor se usa cuando se quiere usar un collider especifico(normalmente el collider cubre todo el sprite)
-		this(x,y,w,h,mov,level,tileOffs);
-		colliderOffsets = entityOffs;
-		stats = new Stats();
-		stats.setHP(100);
-		
-	}
-		
+	private ChangeLevel changeLevel;
 		
 	public Player(int x, int y,int w, int h, Movement mov, Level level, Rectangle tileOffs) {
 		super(x, y,w,h,level, mov);
@@ -63,6 +57,9 @@ public class Player extends MovingEntity{
 		Sprite deadAnim = new Animator(54,48, 0, 0, 6, new Spritesheet(level.AM.getImage("minoDead")), 15,true);
 		msm.add("dead", new NoMove(deadAnim));
 		
+		Sprite changeZoneAnim = new Animator(WIDTH,HEIGHT, 0, 0, 4, new Spritesheet(level.AM.getImage("minoDisolver")), 15,true);
+		msm.add("disolve", new NoMove(changeZoneAnim));
+		
 		
 		colls = new Collider(this.x,this.y,w,h,this);
 	
@@ -90,6 +87,8 @@ public class Player extends MovingEntity{
 		msm.update();
 		mov.update();
 		
+		addEnergy(1);
+		
 		xInScreen = x-level.getXPosScreen();
 		yInScreen = y-level.getYPosScreen();
 		
@@ -104,6 +103,13 @@ public class Player extends MovingEntity{
 			contDead++;
 			if(contDead>=180){
 				finishGame();
+			}
+		}
+		if(changeLevel!=null){
+			changeLevel.cont++;
+			if(changeLevel.cont>=70){
+				level.parent.changeLevel(changeLevel.targetLevel, changeLevel.spawnX, changeLevel.spawnY);
+				changeLevel = null;
 			}
 		}
 	}
@@ -160,18 +166,25 @@ public class Player extends MovingEntity{
 
 	@Override
 	public void collide(Entity e) {
-		if(e instanceof Enemy){
-			int edir=((Enemy) e).getDir();
-		}
 	}
 
-	public void takeDamage(int d){
-		if(red==false)stats.hit(d);
+	public void takeDamage(int d, int ex, int ey){
+		if(red==false&&changeLevel==null){
+			push(new Vector2D(ex, ey), 20);
+			stats.hit(d);
+		}
 		red = true;
 	}
 	
 	public int getHP(){
 		return stats.getHP();
+	}
+	
+	public int substractEnergy(int x){
+		return stats.substractEnergy(x);
+	}
+	public int addEnergy(int x){
+		return stats.addEnergy(x);
 	}
 
 	public boolean isAlive(){
@@ -179,7 +192,7 @@ public class Player extends MovingEntity{
 	}
 	
 	private void die(){
-		mov = new NoMovement(level);
+		mov.stop(-1);
 		msm.change("dead", "");
 		dead = true;
 		red = false;
@@ -190,5 +203,27 @@ public class Player extends MovingEntity{
 		level.finish();
 	}
 
+
+	public int getEnergy() {
+		return stats.getEnergy();
+	}
+
+	public void changeZone(String targetLevel, int spXNL, int spYNL){
+		msm.change("disolve", "");
+		
+		changeLevel = new ChangeLevel(targetLevel, spXNL, spYNL);
+		
+	}
 	
+	
+	private class ChangeLevel {
+		int cont = 0;
+		String targetLevel;
+		int spawnX, spawnY;
+		public ChangeLevel(String tl, int sx, int sy){
+			targetLevel = tl;
+			spawnX = sx;
+			spawnY = sy;
+		}
+	}
 }
