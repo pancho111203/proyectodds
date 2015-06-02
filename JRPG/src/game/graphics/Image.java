@@ -79,4 +79,17 @@ public class Image implements Sprite{
 	public void startAgain() {
 	}
 
+	@Override
+	public void addSprite(Sprite e) {
+	}
+
+	@Override
+	public void removeSprite(Sprite e) {
+	}
+
+	@Override
+	public Sprite getSprite(int i) {
+		return null;
+	}
+
 }

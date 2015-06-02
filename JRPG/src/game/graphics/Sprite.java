@@ -9,4 +9,7 @@ public interface Sprite {
 	public void FlipAll();
 	public void startAgain();
 	public SingleSprite getFirst();
+	public void addSprite(Sprite e);
+	public void removeSprite(Sprite e);
+	public Sprite getSprite(int i);
 }
