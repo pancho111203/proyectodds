@@ -20,20 +20,13 @@ import auxiliar.Vector2D;
 
 public class Player extends MovingEntity{
 
+	
 	private boolean dead = false;
 	private Collider colls;
 	int delta=-1, contDead = 0;
 	boolean red=false;
 	private Stats stats;
-	
-	public Player(int x, int y,int w, int h, Movement mov, Level level, Rectangle tileOffs, Rectangle entityOffs) {
-		//este constructor se usa cuando se quiere usar un collider especifico(normalmente el collider cubre todo el sprite)
-		this(x,y,w,h,mov,level,tileOffs);
-		colliderOffsets = entityOffs;
-		stats = new Stats();
-		stats.setHP(100);
-	}
-		
+	private ChangeLevel changeLevel;
 		
 	public Player(int x, int y,int w, int h, Movement mov, Level level, Rectangle tileOffs) {
 		super(x, y,w,h,level, mov);
@@ -62,6 +55,9 @@ public class Player extends MovingEntity{
 		
 		Sprite deadAnim = new Animator(54,48, 0, 0, 6, new Spritesheet(level.AM.getImage("minoDead")), 15,true);
 		msm.add("dead", new NoMove(deadAnim));
+		
+		Sprite changeZoneAnim = new Animator(WIDTH,HEIGHT, 0, 0, 4, new Spritesheet(level.AM.getImage("minoDisolver")), 15,true);
+		msm.add("disolve", new NoMove(changeZoneAnim));
 		
 		
 		colls = new Collider(this.x,this.y,w,h,this);
@@ -106,6 +102,13 @@ public class Player extends MovingEntity{
 			contDead++;
 			if(contDead>=180){
 				finishGame();
+			}
+		}
+		if(changeLevel!=null){
+			changeLevel.cont++;
+			if(changeLevel.cont>=70){
+				level.parent.changeLevel(changeLevel.targetLevel, changeLevel.spawnX, changeLevel.spawnY);
+				changeLevel = null;
 			}
 		}
 	}
@@ -165,7 +168,7 @@ public class Player extends MovingEntity{
 	}
 
 	public void takeDamage(int d, int ex, int ey){
-		if(red==false){
+		if(red==false&&changeLevel==null){
 			push(new Vector2D(ex, ey), 20);
 			stats.hit(d);
 		}
@@ -202,5 +205,22 @@ public class Player extends MovingEntity{
 		return stats.getEnergy();
 	}
 
+	public void changeZone(String targetLevel, int spXNL, int spYNL){
+		msm.change("disolve", "");
+		
+		changeLevel = new ChangeLevel(targetLevel, spXNL, spYNL);
+		
+	}
 	
+	
+	private class ChangeLevel {
+		int cont = 0;
+		String targetLevel;
+		int spawnX, spawnY;
+		public ChangeLevel(String tl, int sx, int sy){
+			targetLevel = tl;
+			spawnX = sx;
+			spawnY = sy;
+		}
+	}
 }

@@ -56,8 +56,10 @@ public abstract class Level {
 		spr_t = new SpriteTileFacade();
 
 		Movement mov = new PlayerMovement(this, 1);
+		Rectangle playerCollider = new Rectangle(0, 5, 32, 45);
 		Rectangle playerTileOffs = new Rectangle(8,36,23,45);
-		player = new Player(spawnPosXPlayer,spawnPosYPlayer,2,3,mov,this, playerTileOffs);
+		player = new Player(spawnPosXPlayer,spawnPosYPlayer,32,48,mov,this, playerTileOffs);
+		player.addCustomCollider(playerCollider);
 		mov.initializeEntity(player);
 		UI = new UserIface(player);
 		entList.addPlayer(player);

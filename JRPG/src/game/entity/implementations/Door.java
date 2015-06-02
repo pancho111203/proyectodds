@@ -5,8 +5,6 @@ import game.graphics.RenderingLevel;
 import game.input.GameInput;
 import game.level.Level;
 
-import java.awt.Rectangle;
-
 public class Door extends Entity{
 	private GameInput gi;
 	private String targetLevel;
@@ -20,9 +18,6 @@ public class Door extends Entity{
 		this.targetLevel = targetLevel;
 		
 		gi = GameInput.getSingleton();
-		
-		collider = new Rectangle((int)(colliderOffsets.getWidth()-colliderOffsets.getX()),(int)(colliderOffsets.getHeight()-colliderOffsets.getY()));
-		collider.setLocation((int)(this.x+colliderOffsets.getX()), (int)(this.y+colliderOffsets.getY()));
 	}
 
 	@Override
@@ -37,8 +32,8 @@ public class Door extends Entity{
 
 	@Override
 	public void collide(Entity e) {
-		if(gi.inputPressed(9)){
-			level.parent.changeLevel(targetLevel, spXNL, spYNL);
+		if(gi.inputPressed(9)&&e instanceof Player){
+			((Player)e).changeZone(targetLevel, spXNL, spYNL);
 		}
 	}
 
