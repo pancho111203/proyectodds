@@ -4,11 +4,13 @@ import game.entity.AtackingEntity;
 import game.entity.Entity;
 import game.entity.MovingEntity;
 import game.entity.SpriteContainer;
+import game.entity.SpriteContainerWithReceiver;
 import game.entity.SpriteFinishReceiver;
 import game.entity.collision.Collider;
 import game.entity.movement.Movement;
+import game.entity.movestate.LockMove;
 import game.entity.movestate.NoMove;
-import game.entity.movestate.NormalMove;
+import game.entity.movestate.NormalMovePlayer;
 import game.entity.weapons.Sword;
 import game.entity.weapons.Weapon;
 import game.graphics.Animator;
@@ -16,6 +18,7 @@ import game.graphics.RenderingLevel;
 import game.graphics.SingleSprite;
 import game.graphics.Sprite;
 import game.graphics.Spritesheet;
+import game.input.GameInput;
 import game.level.Level;
 
 import java.awt.Rectangle;
@@ -25,7 +28,7 @@ import auxiliar.Vector2D;
 public class Player extends MovingEntity implements AtackingEntity, SpriteFinishReceiver{
 
 	
-	private boolean dead = false;
+	private boolean dead = false, attacking = false;
 	private Collider colls;
 	int delta=-1;
 	boolean red=false;
@@ -33,6 +36,7 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 	
 	private ChangeLevel changeLevel;
 	private Weapon weapon;
+	private String prevState = "normal";
 		
 	public Player(int x, int y,int w, int h, Movement mov, Level level, Rectangle tileOffs) {
 		super(x, y,w,h,level, mov);
@@ -56,8 +60,8 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 		normalState.addSprite("6", currentAnimIzq);
 		normalState.addSprite("7", currentAnimIzq);
 		normalState.addSprite("8", currentAnim);
-		msm.add("normal", new NormalMove(normalState));
-		msm.change("normal", "");
+		msm.add("normal", new NormalMovePlayer(normalState));
+		msm.change("normal", "", false);
 		
 		Animator deadAnim = new Animator(54,48, 0, 0, 6, new Spritesheet(level.AM.getImage("minoDead")), 15,true);
 		deadAnim.addNotifictionReceiver(this, "dead");
@@ -66,6 +70,20 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 		Animator changeZoneAnim = new Animator(WIDTH,HEIGHT, 0, 0, 4, new Spritesheet(level.AM.getImage("minoDisolver")), 15,true);
 		changeZoneAnim.addNotifictionReceiver(this, "disolve");
 		msm.add("disolve", new NoMove(changeZoneAnim));
+		
+		//ataques
+		Animator attackAnimSword = new Animator(60, 68, 0, 0, 3, new Spritesheet(level.AM.getImage("ataqueFrente")), 15,true);
+		SpriteContainerWithReceiver attackStateContainer = new SpriteContainerWithReceiver(this);
+		attackStateContainer.addAnimatorWithReceiver("0", attackAnimSword, "ataque");
+		attackStateContainer.addAnimatorWithReceiver("1", attackAnimSword, "ataque");
+		attackStateContainer.addAnimatorWithReceiver("2", attackAnimSword, "ataque");
+		attackStateContainer.addAnimatorWithReceiver("3", attackAnimSword, "ataque");
+		attackStateContainer.addAnimatorWithReceiver("4", attackAnimSword, "ataque");
+		attackStateContainer.addAnimatorWithReceiver("5", attackAnimSword, "ataque");
+		attackStateContainer.addAnimatorWithReceiver("6", attackAnimSword, "ataque");
+		attackStateContainer.addAnimatorWithReceiver("7", attackAnimSword, "ataque");
+		attackStateContainer.addAnimatorWithReceiver("8", attackAnimSword, "ataque");
+		msm.add("ataque1Sword", new LockMove(attackStateContainer));
 		
 		
 		colls = new Collider(this.x,this.y,w,h,this);
@@ -77,12 +95,24 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 		stats = new Stats();
 		stats.setHP(100);
 		
+		
+		msm.unBlock();
+		//TODO empezar con "Unarmed"
 		weapon = new Sword(this);
+		
+		
 	}
 
 	
 	@Override
 	public void update() {
+		
+		//TEST es temporal para probar ataque
+		if(GameInput.getSingleton().inputPressed(4)){
+			attack();
+		}
+		
+		
 		if(red&&!dead){
 			if(delta<=20){
 				delta++;
@@ -92,7 +122,7 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 			}
 		}
 		
-		
+		weapon.update();
 		msm.update();
 		mov.update();
 		
@@ -188,14 +218,17 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 	
 	private void die(){
 		mov.stop(-1);
-		msm.change("dead", "");
+		msm.change("dead", "", true);
 		dead = true;
 		red = false;
 		
 	}
 	
 	private void finishGame(){
+		
+		msm.unBlock();
 		level.finish();
+		
 	}
 
 
@@ -204,7 +237,7 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 	}
 
 	public void changeZone(String targetLevel, int spXNL, int spYNL){
-		msm.change("disolve", "");
+		msm.change("disolve", "", true);
 		
 		changeLevel = new ChangeLevel(targetLevel, spXNL, spYNL);
 		
@@ -224,8 +257,20 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 
 	@Override
 	public void attack() {
-		weapon.attack();
-		
+		if(!attacking){
+			weapon.attack();
+			attacking = true;
+			prevState  = msm.getCurrentStateName();
+			msm.change("ataque1Sword", "", true);
+		}
+	}
+
+
+	private void finishAttack() {
+		attacking = false;
+		weapon.stopAttack();
+		msm.unBlock();
+		msm.change(prevState, "", false);
 	}
 
 
@@ -239,8 +284,12 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 	public void spriteFinished(String id) {
 		switch(id){
 		case "dead": finishGame(); break;
-		case "disolve": level.parent.changeLevel(changeLevel.targetLevel, changeLevel.spawnX, changeLevel.spawnY); break;
+		case "disolve": level.parent.changeLevel(changeLevel.targetLevel, changeLevel.spawnX, changeLevel.spawnY);
+						msm.unBlock();
+						break;
+		case "ataque": finishAttack(); break;
 		}
 	}
+
 	
 }

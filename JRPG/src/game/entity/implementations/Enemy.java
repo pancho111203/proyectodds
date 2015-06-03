@@ -41,7 +41,7 @@ public class Enemy extends MovingEntity {
 		normalState.addSprite("7", currentAnim);
 		normalState.addSprite("8", currentAnim);
 		msm.add("normal", new NormalMove(normalState));
-		msm.change("normal", "");
+		msm.change("normal", "", false);
 		
 		collider = new Rectangle((int)(colliderOffsets.getWidth()-colliderOffsets.getX()),(int)(colliderOffsets.getHeight()-colliderOffsets.getY()));
 		collider.setLocation((int)(x+colliderOffsets.getX()), (int)(y+colliderOffsets.getY()));

@@ -9,7 +9,7 @@ public class GameInput {
 	
 	private final int NUMACTIONS = 11;
 	//TODO refactoring de esto pasandolo a un enum para evitar errores
-	public final int UP=0,DOWN=1,RIGHT=2,LEFT=3,ATACK=4,JUMP=5,PAUSE=6,ESC=7, F9=8, ACTION=9, SPRINT=10;
+	public final int UP=0,DOWN=1,RIGHT=2,LEFT=3,ATTACK=4,JUMP=5,PAUSE=6,ESC=7, F9=8, ACTION=9, SPRINT=10;
 	public boolean actions[],actionsPressed[]; 
 
 	private Keyboard key;
@@ -79,6 +79,9 @@ public class GameInput {
 		if(key.keyDown(KeyEvent.VK_SHIFT)){
 			actions[SPRINT]=true;
 		}
+		if(key.keyDown(KeyEvent.VK_Z)){
+			actions[ATTACK]=true;
+		}
 		
 		//leerPRESSED
 		if(key.keyPressed(KeyEvent.VK_W)||key.keyPressed(KeyEvent.VK_UP)||pad.padChanged(pad.Lup)||pad.buttonChanged(pad.UP)){
@@ -93,10 +96,6 @@ public class GameInput {
 		if(key.keyPressed(KeyEvent.VK_D)||key.keyPressed(KeyEvent.VK_RIGHT)||pad.padChanged(pad.Lright)||pad.buttonChanged(pad.RIGHT)){
 			actionsPressed[RIGHT]=true;
 		}
-		if(key.keyPressed(KeyEvent.VK_ENTER)||pad.getButtonValue(pad.START)||pad.getButtonValue(pad.CROS)){
-			actionsPressed[ATACK]=true;
-			actionsPressed[PAUSE]=true;
-		}
 		if(key.keyPressed(KeyEvent.VK_F9)){
 			actionsPressed[F9]=true;
 		}
@@ -105,6 +104,9 @@ public class GameInput {
 		}
 		if(key.keyPressed(KeyEvent.VK_SHIFT)){
 			actionsPressed[SPRINT]=true;
+		}
+		if(key.keyPressed(KeyEvent.VK_Z)){
+			actionsPressed[ATTACK]=true;
 		}
 	}
 	

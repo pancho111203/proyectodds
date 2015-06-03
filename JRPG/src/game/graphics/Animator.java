@@ -50,7 +50,7 @@ public class Animator implements Sprite{
 	}
 	
 	public void slice(){
-		for (int i=0;i<size-1;i++){
+		for (int i=0;i<size;i++){
 			addSprite( new SingleSprite(width ,height ,x+i ,y ,spriteSheet ) );
 		}
 	}

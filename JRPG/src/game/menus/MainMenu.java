@@ -27,7 +27,7 @@ public class MainMenu extends Menu {
 			sely = (sely < 60) ? (sely+25) : 20;
 		}
 		sel.setY(sely);
-		if(gi.inputPressed(gi.PAUSE)||gi.inputPressed(gi.ATACK)){
+		if(gi.inputPressed(gi.ACTION)){
 			changeTo = "level1";
 		}
 	}

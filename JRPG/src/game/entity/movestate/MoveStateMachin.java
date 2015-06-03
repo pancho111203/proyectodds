@@ -16,6 +16,7 @@ public class MoveStateMachin {
 	private HashMap<String,IMove> states;
 	private int dir;
 	private String currentStateName;
+	private boolean blocked = false;
 	
 	public MoveStateMachin(){
 		states = new HashMap<String,IMove>();
@@ -39,14 +40,21 @@ public class MoveStateMachin {
 	}
 	
 		
-	public void change(String newState, String params){
-		if(currentStateName.equals(newState)){
+	public void change(String newState, String params, boolean blocking){
+		if(currentStateName.equals(newState)||blocked==true){
 			return;
 		}
 		current = states.get(newState);
 		currentStateName = newState;
 		current.onEnter(dir);
+		if(blocking)blocked = true;
 	}
+	
+	public void unBlock(){
+		blocked = false;
+	}
+
+	
 	
 	
 	//añade un nuevo estado
@@ -70,6 +78,7 @@ public class MoveStateMachin {
 	public String getCurrentStateName(){
 		return currentStateName;
 	}
+
 	
 	
 }

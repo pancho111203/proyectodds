@@ -3,16 +3,19 @@ package game.entity.movestate;
 import game.entity.SpriteContainer;
 import game.graphics.Animator;
 import game.graphics.Sprite;
+//TODO
+public class LockMove implements IMove{
 
-public class NormalMove implements IMove{
-	protected SpriteContainer ns;
-	protected Sprite currentSprite;
+	private SpriteContainer container;
+	private Sprite currentSprite;
 	private int movX, movY;
-	public NormalMove(SpriteContainer normalState) {
-		ns = normalState;
-		currentSprite = ns.getSprite("8");
+	
+	public LockMove(SpriteContainer sc){
+		
+		container = sc;
+		currentSprite = container.getSprite("8");
 	}
-
+	
 	@Override
 	public void update() {
 		if(currentSprite instanceof Animator){
@@ -22,22 +25,18 @@ public class NormalMove implements IMove{
 
 	@Override
 	public void onEnter(int dir) {
-		changeDirection(dir);
-	}
-
-	@Override
-	public void changeDirection(int dir) {
 		
-		currentSprite = ns.getSprite(dir+"");
+		currentSprite = container.getSprite(dir+"");
 		currentSprite.startAgain();
 		
 	}
 
+	
 	@Override
-	public void move(int movX, int movY) {
-		this.movX = movX;
-		this.movY = movY;
+	public void changeDirection(int dir) { // esta clase solo permite cambio de sprite en la entrada del estado ("onEnter")
 	}
+	
+	
 
 	@Override
 	public int getMovX() {
@@ -50,8 +49,14 @@ public class NormalMove implements IMove{
 	}
 
 	@Override
+	public void move(int movX, int movY) {
+		this.movX = movX;
+		this.movY = movY;
+	}
+
+	@Override
 	public Sprite getSprite() {
 		return currentSprite;
 	}
-	
+
 }
