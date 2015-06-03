@@ -51,7 +51,6 @@ public class GameInput {
 		key.update();
 		mouse.update();
 		
-		
 		//limpiar imputs
 		for(int i=0;i<NUMACTIONS;i++){
 			actions[i]=false;
@@ -74,13 +73,13 @@ public class GameInput {
 		if(key.keyDown(KeyEvent.VK_F9)){
 			actions[F9]=true;
 		}
-		if(key.keyDown(KeyEvent.VK_ENTER)||pad.getButtonValue(pad.L1)){
+		if(key.keyDown(KeyEvent.VK_ENTER)||pad.getButtonValue(pad.CROS)||pad.getButtonValue(pad.START)){
 			actions[ACTION]=true;
 		}
-		if(key.keyDown(KeyEvent.VK_SHIFT)){
+		if(key.keyDown(KeyEvent.VK_SHIFT)||pad.getButtonValue(pad.SQUA)){
 			actions[SPRINT]=true;
 		}
-		if(key.keyDown(KeyEvent.VK_Z)){
+		if(key.keyDown(KeyEvent.VK_Z)||pad.getButtonValue(pad.CIRC)){
 			actions[ATTACK]=true;
 		}
 		
@@ -100,13 +99,13 @@ public class GameInput {
 		if(key.keyPressed(KeyEvent.VK_F9)){
 			actionsPressed[F9]=true;
 		}
-		if(key.keyPressed(KeyEvent.VK_ENTER)){
+		if(key.keyPressed(KeyEvent.VK_ENTER)||pad.buttonChanged(pad.CROS)||pad.buttonChanged(pad.START)){
 			actionsPressed[ACTION]=true;
 		}
-		if(key.keyPressed(KeyEvent.VK_SHIFT)){
+		if(key.keyPressed(KeyEvent.VK_SHIFT)||pad.buttonChanged(pad.SQUA)){
 			actionsPressed[SPRINT]=true;
 		}
-		if(key.keyPressed(KeyEvent.VK_Z)){
+		if(key.keyPressed(KeyEvent.VK_Z)||pad.buttonChanged(pad.CIRC)){
 			actionsPressed[ATTACK]=true;
 		}
 	}
