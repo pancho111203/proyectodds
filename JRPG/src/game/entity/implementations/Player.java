@@ -1,6 +1,7 @@
 package game.entity.implementations;
 
 import game.GameMaster;
+import static org.junit.Assert.assertFalse;
 import game.entity.AtackingEntity;
 import game.entity.Entity;
 import game.entity.MovingEntity;

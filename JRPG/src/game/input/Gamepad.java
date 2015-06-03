@@ -1,12 +1,13 @@
 package game.input;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 
 import net.java.games.input.Component;
 import net.java.games.input.Component.Identifier;
 import net.java.games.input.Controller;
 import net.java.games.input.ControllerEnvironment;
-
 
 public class Gamepad{
 	//esta clase funciona con el mando de la PS3 con el driver del de la XBox, no se que pasará con otro...
@@ -105,7 +106,10 @@ public class Gamepad{
         }catch(NullPointerException e){
         	return false;
         }
-        if(buttonsValues.get(0))System.out.println("pene");
+        
+        //comprobar que ha detectado los 14 botones del mando
+        assertEquals(buttonsValues.size(),14);
+        
         return isControllerValid;
     }
     
@@ -128,6 +132,18 @@ public class Gamepad{
         	 return false;
          }
     }
+    
+	public boolean buttonChanged(int button){
+		if(!pollController())return false;
+		if(getButtonValue(button)&&!buttonReaded[button]){
+			buttonReaded[button]=true;
+			return true;
+		}else if(!getButtonValue(button)){
+			buttonReaded[button]=false;
+			return false;
+		}
+		return false;
+	}	
     
     
     //joysticks
@@ -229,18 +245,6 @@ public class Gamepad{
 	      }
 		}
 	
-	public boolean buttonChanged(int button){
-		if(!pollController())return false;
-		if(getButtonValue(button)&&!buttonReaded[button]){
-			buttonReaded[button]=true;
-			return true;
-		}else if(!getButtonValue(button)){
-			buttonReaded[button]=false;
-			return false;
-		}
-		return false;
-	}	
-	
 	public float getHatSwitchPosition()   {
         Identifier identifier = Component.Identifier.Axis.POV;
         return controller.getComponent(identifier).getPollData();
@@ -248,35 +252,30 @@ public class Gamepad{
 	
 	public boolean[] pollArrows(){
 		int res = (int)(getHatSwitchPosition()*1000);
-		boolean arrows[]= new boolean[4];
+		boolean arrows[] = {false,false,false,false};
 		
 		switch (res){
-			case 1000:
-				arrows[0]=false; arrows[1]=false; arrows[2]=true;  arrows[3]=false; break;
+			case 1000: arrows[2]=true; break;
 				
-			case 875:
-				arrows[0]=false; arrows[1]=true;  arrows[2]=true;  arrows[3]=false; break;
+			case 875:  arrows[1]=true;  
+					   arrows[2]=true; break;
 				
-			case 750:
-				arrows[0]=false; arrows[1]=true;  arrows[2]=false; arrows[3]=false; break;
+			case 750:  arrows[1]=true; break;
 				
-			case 625:
-				arrows[0]=false; arrows[1]=true;  arrows[2]=false; arrows[3]=true;  break;
+			case 625:  arrows[1]=true; 
+					   arrows[3]=true;  break;
 				
-			case 500:
-				arrows[0]=false; arrows[1]=false; arrows[2]=false; arrows[3]=true;  break;
+			case 500:  arrows[3]=true;  break;
 				
-			case 375:
-				arrows[0]=true;  arrows[1]=false; arrows[2]=false; arrows[3]=true;  break;
+			case 375:  arrows[0]=true; 
+					   arrows[3]=true;  break;
 				
-			case 250:
-				arrows[0]=true;  arrows[1]=false; arrows[2]=false; arrows[3]=false; break;
+			case 250:  arrows[0]=true; break;
 				
-			case 125:
-				arrows[0]=true;  arrows[1]=false; arrows[2]=true;  arrows[3]=false; break;
+			case 125:  arrows[0]=true; 
+					   arrows[2]=true; break;
 				
-			default:
-				arrows[0]=false; arrows[1]=false; arrows[2]=false; arrows[3]=false; break;
+			default:   arrows[2]=false; break;
 				
 		}
 		return arrows;
