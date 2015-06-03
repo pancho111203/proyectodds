@@ -1,12 +1,16 @@
 package game.entity.implementations;
 
+import game.entity.AtackingEntity;
 import game.entity.Entity;
 import game.entity.MovingEntity;
 import game.entity.SpriteContainer;
+import game.entity.SpriteFinishReceiver;
 import game.entity.collision.Collider;
 import game.entity.movement.Movement;
 import game.entity.movestate.NoMove;
 import game.entity.movestate.NormalMove;
+import game.entity.weapons.Sword;
+import game.entity.weapons.Weapon;
 import game.graphics.Animator;
 import game.graphics.RenderingLevel;
 import game.graphics.SingleSprite;
@@ -18,16 +22,17 @@ import java.awt.Rectangle;
 
 import auxiliar.Vector2D;
 
-public class Player extends MovingEntity{
+public class Player extends MovingEntity implements AtackingEntity, SpriteFinishReceiver{
 
 	
 	private boolean dead = false;
 	private Collider colls;
-	int delta=-1, contDead = 0;
+	int delta=-1;
 	boolean red=false;
 	private Stats stats;
 	
 	private ChangeLevel changeLevel;
+	private Weapon weapon;
 		
 	public Player(int x, int y,int w, int h, Movement mov, Level level, Rectangle tileOffs) {
 		super(x, y,w,h,level, mov);
@@ -54,10 +59,12 @@ public class Player extends MovingEntity{
 		msm.add("normal", new NormalMove(normalState));
 		msm.change("normal", "");
 		
-		Sprite deadAnim = new Animator(54,48, 0, 0, 6, new Spritesheet(level.AM.getImage("minoDead")), 15,true);
+		Animator deadAnim = new Animator(54,48, 0, 0, 6, new Spritesheet(level.AM.getImage("minoDead")), 15,true);
+		deadAnim.addNotifictionReceiver(this, "dead");
 		msm.add("dead", new NoMove(deadAnim));
 		
-		Sprite changeZoneAnim = new Animator(WIDTH,HEIGHT, 0, 0, 4, new Spritesheet(level.AM.getImage("minoDisolver")), 15,true);
+		Animator changeZoneAnim = new Animator(WIDTH,HEIGHT, 0, 0, 4, new Spritesheet(level.AM.getImage("minoDisolver")), 15,true);
+		changeZoneAnim.addNotifictionReceiver(this, "disolve");
 		msm.add("disolve", new NoMove(changeZoneAnim));
 		
 		
@@ -69,6 +76,8 @@ public class Player extends MovingEntity{
 
 		stats = new Stats();
 		stats.setHP(100);
+		
+		weapon = new Sword(this);
 	}
 
 	
@@ -97,20 +106,6 @@ public class Player extends MovingEntity{
 		
 		if(!isAlive()){
 			die();
-		}
-		
-		if(dead){
-			contDead++;
-			if(contDead>=180){
-				finishGame();
-			}
-		}
-		if(changeLevel!=null){
-			changeLevel.cont++;
-			if(changeLevel.cont>=70){
-				level.parent.changeLevel(changeLevel.targetLevel, changeLevel.spawnX, changeLevel.spawnY);
-				changeLevel = null;
-			}
 		}
 	}
 
@@ -217,7 +212,6 @@ public class Player extends MovingEntity{
 	
 	
 	private class ChangeLevel {
-		int cont = 0;
 		String targetLevel;
 		int spawnX, spawnY;
 		public ChangeLevel(String tl, int sx, int sy){
@@ -226,4 +220,27 @@ public class Player extends MovingEntity{
 			spawnY = sy;
 		}
 	}
+
+
+	@Override
+	public void attack() {
+		weapon.attack();
+		
+	}
+
+
+	@Override
+	public void setWeapon(Weapon weapon) {
+		this.weapon = weapon;
+	}
+
+
+	@Override
+	public void spriteFinished(String id) {
+		switch(id){
+		case "dead": finishGame(); break;
+		case "disolve": level.parent.changeLevel(changeLevel.targetLevel, changeLevel.spawnX, changeLevel.spawnY); break;
+		}
+	}
+	
 }

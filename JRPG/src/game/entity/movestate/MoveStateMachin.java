@@ -6,10 +6,12 @@ import java.util.HashMap;
 
 public class MoveStateMachin {
 	// cada estado diferente se puede usar para cambiar estas cosas dependiendo del estado en el que se este:
-	// 1. los valores movX y movY(velocidad de movimiento)
-	// 2.los sprites usados
+	// 1.los sprites usados
 	// en el metodo update de cada estado se puede implementar cualquier funcionalidad
 	// p ejemplo: en el estado nadando, puedo poner un contador en el update y si se pasa nadando mas de 10 segundos se muere
+	
+	//problema: no se puede modificar la velocidad pq la clase Movement comprueba las colisiones antes de pasar por aqui, 
+	// y generaria problemas que la comprobacion fuese inconsistente
 	private IMove current;
 	private HashMap<String,IMove> states;
 	private int dir;
@@ -63,6 +65,10 @@ public class MoveStateMachin {
 	
 	public int getDir(){
 		return dir;
+	}
+	
+	public String getCurrentStateName(){
+		return currentStateName;
 	}
 	
 	

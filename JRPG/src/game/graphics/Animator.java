@@ -1,5 +1,7 @@
 package game.graphics;
 
+import game.entity.SpriteFinishReceiver;
+
 import java.util.ArrayList;
 
 public class Animator implements Sprite{
@@ -12,6 +14,8 @@ public class Animator implements Sprite{
 	public ArrayList<SingleSprite> sprites; // array de sprites en total y sprite actual en el que se encuentra
 	private boolean onlyOneRun = false;
 	private long delta=0;
+	private ArrayList<Receiver> finishReceivers;
+	
 	
 	public Animator(int w,int h,int x, int y,int n,Spritesheet spriteSheet, int r,boolean oneRunOnly){
 		onlyOneRun = oneRunOnly;
@@ -26,6 +30,7 @@ public class Animator implements Sprite{
 		slice();
 		act=0;
 		actSprite=sprites.get(act);
+		finishReceivers = new ArrayList<Receiver>();
 	}
 	
 	public Animator(int size,int x, int y,int n,Spritesheet spriteSheet, int r, boolean oneRunOnly){
@@ -41,6 +46,7 @@ public class Animator implements Sprite{
 		slice();
 		act=0;
 		actSprite=sprites.get(act);
+		finishReceivers = new ArrayList<Receiver>();
 	}
 	
 	public void slice(){
@@ -49,15 +55,26 @@ public class Animator implements Sprite{
 		}
 	}
 	
+	public void addNotifictionReceiver(SpriteFinishReceiver fr, String ident){
+		
+		Receiver rec = new Receiver(fr, ident);
+		finishReceivers.add(rec);
+	}
+	
 	//pasa al siguiente sprite
 	public SingleSprite updateSprite(){
 		if(act<sprites.size()-1){
 			act++;
 			actSprite=sprites.get(act);
-		}else if(!onlyOneRun){
-			
-			act=0;
-			actSprite=sprites.get(act);
+		}else {
+			if(!onlyOneRun){
+				act=0;
+				actSprite=sprites.get(act);				
+			}
+			for(int i = 0;i<finishReceivers.size();i++){
+				Receiver current = finishReceivers.get(i);
+				current.receiver.spriteFinished(current.ident);
+			}
 		}
 		return actSprite;
 	}
@@ -137,4 +154,14 @@ public class Animator implements Sprite{
 			sprites.get(i).Flip();
 		}
 	}
+	
+	private class Receiver{
+		public SpriteFinishReceiver receiver;
+		public String ident;
+		public Receiver(SpriteFinishReceiver r, String i){
+			receiver = r;
+			ident = i;
+		}
+	}
+	
 }
