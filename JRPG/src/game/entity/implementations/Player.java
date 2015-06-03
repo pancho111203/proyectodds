@@ -212,14 +212,6 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 		red = false;
 		
 	}
-	
-	private void finishGame(){
-		
-		msm.unBlock();
-		level.finish();
-		
-	}
-
 
 	public int getEnergy() {
 		return stats.getEnergy();
@@ -254,15 +246,6 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 		}
 	}
 
-
-	private void finishAttack() {
-		attacking = false;
-		weapon.stopAttack();
-		msm.unBlock();
-		msm.change(prevState, "", false);
-	}
-
-
 	@Override
 	public void setWeapon(Weapon weapon) {
 		this.weapon = weapon;
@@ -273,12 +256,26 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 	public void spriteFinished(String id) {
 		switch(id){
 		case "dead": finishGame(); break;
-		case "disolve": level.parent.changeLevel(changeLevel.targetLevel, changeLevel.spawnX, changeLevel.spawnY);
-						msm.unBlock();
-						break;
+		case "disolve": finishDisolve(); break;
 		case "ataque": finishAttack(); break;
 		}
 	}
-
 	
+	private void finishGame(){
+		msm.unBlock();
+		level.finish();
+	}
+	
+	private void finishDisolve() {
+		level.parent.changeLevel(changeLevel.targetLevel, changeLevel.spawnX, changeLevel.spawnY);
+		msm.unBlock();
+	}
+	
+	private void finishAttack() {
+		attacking = false;
+		weapon.stopAttack();
+		msm.unBlock();
+		msm.change(prevState, "", false);
+	}
+
 }
