@@ -76,7 +76,7 @@ public class FirstLevel extends Level {
 		int pilar = 0;
 		for(int y = 0;y<3;y++){
 			for(int x=0;x<2;x++){
-				spr_t.initSpriteOnTileOnHex("borde"+x+y, x, y, ss, 0xff00f6f0+pilar,1,1,1,1); //TEST
+				spr_t.initSpriteOnTileOnHex("borde"+x+y, x, y, ss, 0xff00f6f0+pilar,1,1,1,1);
 				pilar++;
 			}
 		}

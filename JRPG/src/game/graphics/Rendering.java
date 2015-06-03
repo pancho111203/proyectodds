@@ -13,7 +13,6 @@ public abstract class Rendering {
 		this.height = height;
 		pixels = new int[width*height];
 	}
-	//TODO efecto de difuminar
 	
 
 	//set all the pixels to 0

@@ -31,8 +31,8 @@ public class Door extends Entity{
 	}
 
 	@Override
-	public void collide(Entity e) {
-		if(gi.inputPressed(9)&&e instanceof Player){
+	public void collide(Entity e,String args) {
+		if(gi.inputPressed(9)&&args.equals("player")){
 			((Player)e).changeZone(targetLevel, spXNL, spYNL);
 		}
 	}

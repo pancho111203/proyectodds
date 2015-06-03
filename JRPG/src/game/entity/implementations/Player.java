@@ -28,8 +28,8 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 	
 	private boolean dead = false, attacking = false;
 	private Collider colls;
-	int delta=-1;
-	boolean red=false;
+	private int delta=-1;
+	private boolean red=false;
 	private Stats stats;
 	
 	private ChangeLevel changeLevel;
@@ -70,10 +70,10 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 		msm.add("disolve", new NoMove(changeZoneAnim));
 		
 		
-		colls = new Collider(this.x,this.y,w,h,this);
+		collider = new Rectangle((int)(colliderOffsets.getWidth()-colliderOffsets.getX()),(int)(colliderOffsets.getHeight()-colliderOffsets.getY()));
+		colls = new Collider(this);//siempre en este orden (o no usar new, simplemente modificar width y heght del rect anterior)
 	
 		
-		collider = new Rectangle((int)(colliderOffsets.getWidth()-colliderOffsets.getX()),(int)(colliderOffsets.getHeight()-colliderOffsets.getY()));
 		collider.setLocation((int)(this.x+colliderOffsets.getX()), (int)(this.y+colliderOffsets.getY()));
 
 		stats = new Stats();
@@ -86,8 +86,7 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 		Sword sword = new Sword(this, "ataque");
 		msm.add(sword.getType(),sword.getVisualMovement());
 		
-		
-		//TODO empezar con "Unarmed"
+		//TODO diferetes controles para diferentes armas
 		setWeapon(sword);
 		
 	}
@@ -121,7 +120,7 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 		yInScreen = y-level.getYPosScreen();
 		
 		updateCollider();
-		colls.checkCollisions();
+		colls.checkCollisions("player");
 		
 		if(!isAlive()){
 			die();
@@ -131,12 +130,13 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 	@Override
 	public void render(RenderingLevel render) {
 		
+		
 		Sprite cur = msm.getSprite();
 		if(red){
 			render.renderEntityColored(xInScreen+cur.getXOffset(),yInScreen+cur.getYOffset(),cur,0xDD0000); 
 		}
 		else render.renderEntity(xInScreen+cur.getXOffset(),yInScreen+cur.getYOffset(),cur);
-		
+		weapon.render(render);
 		debug(render);
 	}
 	
@@ -181,7 +181,7 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 
 
 	@Override
-	public void collide(Entity e) {
+	public void collide(Entity e, String args) {
 	}
 
 	public void takeDamage(int d, int ex, int ey){
@@ -241,7 +241,7 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 	@Override
 	public void attack() {
 		if(!attacking){
-			weapon.attack();
+			weapon.attack(dir);
 			attacking = true;
 			prevState  = msm.getCurrentStateName();
 			msm.change(weapon.getType(), "", true);

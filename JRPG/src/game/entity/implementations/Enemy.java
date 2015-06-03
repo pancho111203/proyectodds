@@ -91,12 +91,16 @@ public class Enemy extends MovingEntity {
 		return (s==1)||(s==9); // colision con *solid* y con *void*
 	}
 
+	
+	//TODO implementar sistema de 1.recibir daño 2.muerte (3.barra de vida) 4.ponerse rojo al recibir+inmunidad, generico para player y cualquier enemigo que lo necesite
 	@Override
-	public void collide(Entity e) {
+	public void collide(Entity e,String args) {
 		//TODO
-		if(e instanceof Player){
+		if(args.equals("player")){
 			((Player)e).takeDamage(dmg, x, y);
 			mov.stop(30);
+		}else if(args.equals("weapon")){
+			System.out.println("HIT");
 		}
 	}
 

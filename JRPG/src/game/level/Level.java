@@ -63,7 +63,6 @@ public abstract class Level {
 		mov.initializeEntity(player);
 		UI = new UserIface(player);
 		entList.addPlayer(player);
-		//TODO interfaz (patron Facade?) que haga estos 4 pasos llamando a un solo metodo, para simplificar
 		
 	    moveFocus();
 

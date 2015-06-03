@@ -89,12 +89,12 @@ public abstract class Entity {
 		return collider;
 	}
 	
-	public void collision(Entity e){
+	public void collision(Entity e,String args){
 		if(!e.equals(this)){
-			collide(e);
+			collide(e,args);
 		}
 	}
-	public abstract void collide(Entity e); //metodo llamado cuando e collidea con this
+	public abstract void collide(Entity e, String args); //metodo llamado cuando e collidea con this
 	
 	public void debug(Rendering render){
 		if(!GameStart.getDebug())return;

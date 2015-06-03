@@ -85,8 +85,8 @@ public class Rayo extends Entity{
 	}
 
 	@Override
-	public void collide(Entity e) {
-		if(active&&cont>timeUntilDmg&&e instanceof Player){
+	public void collide(Entity e, String args) {
+		if(active&&cont>timeUntilDmg&&args.equals("player")){
 			((Player)e).takeDamage(dmg, x, y);
 		}
 	}

@@ -1,12 +1,13 @@
 package game.entity.weapons;
 
 import game.entity.movestate.IMove;
+import game.graphics.Rendering;
 
 
-//TODO clase "Unarmed" implementando esta int
 public interface Weapon {
-	public void attack();
+	public void attack(int dir);
 	public void update();
+	public void render(Rendering render);
 	public void stopAttack();
 	public String getType();
 	public IMove getVisualMovement();

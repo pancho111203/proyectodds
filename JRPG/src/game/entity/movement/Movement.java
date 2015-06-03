@@ -10,7 +10,6 @@ public abstract class Movement { // maneja el movimiento
 	// no permite que haya movimiento hacia dos lados contrarios a la vez(evita fallos)
 	// maneja colisiones
 	
-	//TODO falta funcionalidad que permita que el player cambie de estado cuando se meta en el agua(nadar) y para escaleras, etc
 	protected int stop = 0; //representa los proximus updates que no habra movimiento(si es negativo sera infinito)
 	
 	

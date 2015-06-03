@@ -19,37 +19,30 @@ public class NoMove implements IMove{
 
 	@Override
 	public void onEnter(int dir) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void changeDirection(int dir) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public int getMovX() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public int getMovY() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public void move(int movX, int movY) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public Sprite getSprite() {
-		// TODO Auto-generated method stub
 		return currentSprite;
 	}
 
