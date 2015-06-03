@@ -1,10 +1,8 @@
 package game.entity.implementations;
 
-<<<<<<< HEAD
-import game.GameMaster;
-=======
->>>>>>> refs/heads/b2
+
 import static org.junit.Assert.assertFalse;
+import game.GameMaster;
 import game.entity.AtackingEntity;
 import game.entity.Entity;
 import game.entity.MovingEntity;
