@@ -1,11 +1,12 @@
 package game.entity.implementations;
 
 import game.entity.Entity;
+import game.entity.types.EntityActionable;
 import game.graphics.RenderingLevel;
 import game.input.GameInput;
 import game.level.Level;
 
-public class Door extends Entity{
+public class Door extends Entity implements EntityActionable{
 	private GameInput gi;
 	private String targetLevel;
 	private int spXNL, spYNL;
@@ -31,10 +32,8 @@ public class Door extends Entity{
 	}
 
 	@Override
-	public void collide(Entity e,String args) {
-		if(gi.inputPressed(9)&&args.equals("player")){
-			((Player)e).changeZone(targetLevel, spXNL, spYNL);
-		}
+	public void action(Player e) {
+		e.changeZone(targetLevel, spXNL, spYNL);
 	}
 
 }

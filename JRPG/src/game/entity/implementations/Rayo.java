@@ -1,6 +1,7 @@
 package game.entity.implementations;
 
 import game.entity.Entity;
+import game.entity.types.DamagingEntity;
 import game.graphics.Animator;
 import game.graphics.RenderingLevel;
 import game.graphics.Sprite;
@@ -11,7 +12,7 @@ import java.awt.Rectangle;
 import java.util.Random;
 
 // 32x88
-public class Rayo extends Entity{
+public class Rayo extends Entity implements DamagingEntity{
 
 	private Animator anim;
 	private int rate = 15, sprites=7;
@@ -85,10 +86,17 @@ public class Rayo extends Entity{
 	}
 
 	@Override
-	public void collide(Entity e, String args) {
-		if(active&&cont>timeUntilDmg&&args.equals("player")){
-			((Player)e).takeDamage(dmg, x, y);
+	public int getDmg() {
+		
+		int dmgtToDo = 0;
+		if(active&&cont>timeUntilDmg){
+			dmgtToDo = dmg;
 		}
+		return dmgtToDo;
+	}
+
+	@Override
+	public void dealtDamage(int d) {
 	}
 
 }

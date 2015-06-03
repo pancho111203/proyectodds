@@ -18,8 +18,4 @@ public class NullEntity extends Entity {
 	public void render(RenderingLevel render) {
 	}
 
-	@Override
-	public void collide(Entity e, String args) {
-	}
-
 }

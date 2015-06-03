@@ -5,6 +5,8 @@ import game.entity.MovingEntity;
 import game.entity.SpriteContainer;
 import game.entity.movement.Movement;
 import game.entity.movestate.NormalMove;
+import game.entity.types.DamagingEntity;
+import game.entity.types.EntityWithStats;
 import game.graphics.Animator;
 import game.graphics.RenderingLevel;
 import game.graphics.Sprite;
@@ -13,7 +15,7 @@ import game.level.Level;
 
 import java.awt.Rectangle;
 
-public class Enemy extends MovingEntity {
+public class Enemy extends MovingEntity implements EntityWithStats, DamagingEntity{
 	
 	private int dmg=10;
 //	private int timer=0;
@@ -91,17 +93,23 @@ public class Enemy extends MovingEntity {
 		return (s==1)||(s==9); // colision con *solid* y con *void*
 	}
 
-	
-	//TODO implementar sistema de 1.recibir daño 2.muerte (3.barra de vida) 4.ponerse rojo al recibir+inmunidad, generico para player y cualquier enemigo que lo necesite
 	@Override
-	public void collide(Entity e,String args) {
-		//TODO
-		if(args.equals("player")){
-			((Player)e).takeDamage(dmg, x, y);
-			mov.stop(30);
-		}else if(args.equals("weapon")){
-			System.out.println("HIT");
-		}
+	public int getDmg() {
+		return dmg;
 	}
+
+	@Override
+	public void dealtDamage(int d) {
+		mov.stop(30);
+	}
+
+	@Override
+	public void receiveDmg(int dmg, Entity e) {
+		//TODO implementar sistema de 1.recibir daño 2.muerte (3.barra de vida) 4.ponerse rojo al recibir+inmunidad, generico para player y cualquier enemigo que lo necesite
+		System.out.println("Enemy received "+dmg+" damage from "+e.getClass()+".");
+	}
+
+	
+
 
 }

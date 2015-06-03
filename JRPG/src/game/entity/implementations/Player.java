@@ -1,14 +1,19 @@
 package game.entity.implementations;
 
+import game.GameMaster;
 import game.entity.AtackingEntity;
 import game.entity.Entity;
 import game.entity.MovingEntity;
 import game.entity.SpriteContainer;
 import game.entity.SpriteFinishReceiver;
 import game.entity.collision.Collider;
+import game.entity.collision.OwnsCollider;
 import game.entity.movement.Movement;
 import game.entity.movestate.NoMove;
 import game.entity.movestate.NormalMovePlayer;
+import game.entity.types.DamagingEntity;
+import game.entity.types.EntityActionable;
+import game.entity.types.EntityWithStats;
 import game.entity.weapons.Sword;
 import game.entity.weapons.Weapon;
 import game.graphics.Animator;
@@ -23,7 +28,7 @@ import java.awt.Rectangle;
 
 import auxiliar.Vector2D;
 
-public class Player extends MovingEntity implements AtackingEntity, SpriteFinishReceiver{
+public class Player extends MovingEntity implements AtackingEntity, SpriteFinishReceiver, OwnsCollider, EntityWithStats{
 
 	
 	private boolean dead = false, attacking = false;
@@ -35,10 +40,11 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 	private ChangeLevel changeLevel;
 	private Weapon weapon;
 	private String prevState = "normal";
+	private GameInput gi;
 		
 	public Player(int x, int y,int w, int h, Movement mov, Level level, Rectangle tileOffs) {
 		super(x, y,w,h,level, mov);
-		
+		gi = GameInput.getSingleton();
 	    spriteOffsets = tileOffs;// siempre asignarlas antes de inicializar mov!!
 		
 		
@@ -71,7 +77,7 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 		
 		
 		collider = new Rectangle((int)(colliderOffsets.getWidth()-colliderOffsets.getX()),(int)(colliderOffsets.getHeight()-colliderOffsets.getY()));
-		colls = new Collider(this);//siempre en este orden (o no usar new, simplemente modificar width y heght del rect anterior)
+		colls = new Collider(this,getCollider(),level);//siempre en este orden (o no usar new, simplemente modificar width y heght del rect anterior)
 	
 		
 		collider.setLocation((int)(this.x+colliderOffsets.getX()), (int)(this.y+colliderOffsets.getY()));
@@ -120,7 +126,7 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 		yInScreen = y-level.getYPosScreen();
 		
 		updateCollider();
-		colls.checkCollisions("player");
+		colls.checkCollisions();
 		
 		if(!isAlive()){
 			die();
@@ -179,19 +185,6 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 		return s==1; //colision con *solid*
 	}
 
-
-	@Override
-	public void collide(Entity e, String args) {
-	}
-
-	public void takeDamage(int d, int ex, int ey){
-		if(red==false&&changeLevel==null){
-			push(new Vector2D(ex, ey), 20);
-			stats.hit(d);
-		}
-		red = true;
-	}
-	
 	public int getHP(){
 		return stats.getHP();
 	}
@@ -278,6 +271,34 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 		weapon.stopAttack();
 		msm.unBlock();
 		msm.change(prevState, "", false);
+	}
+
+
+	@Override
+	public void collide(Entity e) {
+		if(this.equals(e)){
+			return;
+		}
+		if(e instanceof EntityActionable){
+			if(gi.inputPressed(gi.ACTION)){
+				((EntityActionable)e).action(this);
+			}
+		}
+		
+		if(e instanceof DamagingEntity){
+			GameMaster.performAttack((DamagingEntity)e, this, this);
+		}
+		
+	}
+
+
+	@Override
+	public void receiveDmg(int dmg, Entity e) {
+		if(red==false&&changeLevel==null){
+			push(new Vector2D(e.getX(), e.getY()), 20);
+			stats.hit(dmg);
+		}
+		red = true;		
 	}
 
 }

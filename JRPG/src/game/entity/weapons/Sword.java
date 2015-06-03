@@ -1,13 +1,17 @@
 package game.entity.weapons;
 
 import game.AssetManager;
+import game.GameMaster;
 import game.GameStart;
 import game.entity.Entity;
 import game.entity.SpriteContainerWithReceiver;
 import game.entity.SpriteFinishReceiver;
 import game.entity.collision.Collider;
+import game.entity.collision.OwnsCollider;
 import game.entity.movestate.IMove;
 import game.entity.movestate.LockMove;
+import game.entity.types.DamagingEntity;
+import game.entity.types.EntityWithStats;
 import game.graphics.Animator;
 import game.graphics.Rendering;
 import game.graphics.Spritesheet;
@@ -15,7 +19,7 @@ import game.graphics.Spritesheet;
 import java.awt.Rectangle;
 import java.util.HashMap;
 
-public class Sword implements Weapon{
+public class Sword implements Weapon, OwnsCollider, DamagingEntity{
 
 	private SpriteFinishReceiver parent;
 	private Entity ent;
@@ -23,6 +27,7 @@ public class Sword implements Weapon{
 	private IMove move;
 	private HashMap<String,Rectangle> collideRects;//estos solo se usan para saber la referencia con respecto al player(al crear el collider creamos un rectangle nuevo)
 	private Collider collider;
+	private int dmg = 20;
 	
 	//las clases de armas se encargan de definir los sprites que van a usar y crean el IMove
 	//tambien se ecargan de gestionar las colisiones, etc
@@ -68,7 +73,7 @@ public class Sword implements Weapon{
 	public void update(){
 		if(active){
 			//System.out.println("atacando");
-			collider.checkCollisions("weapon");
+			collider.checkCollisions();
 			
 			
 		}
@@ -99,7 +104,7 @@ public class Sword implements Weapon{
 		
 		Rectangle reference = collideRects.get(d);
 		
-		collider = new Collider(ent,new Rectangle(ent.getX()+(int)reference.getX(),ent.getY()+(int)reference.getY(),(int)reference.getWidth(),(int)reference.getHeight()));
+		collider = new Collider(this,new Rectangle(ent.getX()+(int)reference.getX(),ent.getY()+(int)reference.getY(),(int)reference.getWidth(),(int)reference.getHeight()),ent.level);
 	}
 
 	@Override
@@ -112,6 +117,24 @@ public class Sword implements Weapon{
 	}
 	public IMove getVisualMovement() {
 		return move;
+	}
+	@Override
+	public void collide(Entity e) {
+		if(parent.equals(e)){
+			return;
+		}
+		
+		if(e instanceof EntityWithStats){
+			GameMaster.performAttack(this, (EntityWithStats)e, ent);
+		}	
+	}
+	@Override
+	public int getDmg() {
+		// TODO hacer que el daño dependa de los stats del que lleve el arma equipada
+		return dmg;
+	}
+	@Override
+	public void dealtDamage(int d) {
 	}
 		
 
