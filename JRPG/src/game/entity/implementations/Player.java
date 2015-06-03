@@ -58,7 +58,7 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 		Sprite currentAnimDer = new Animator(WIDTH, HEIGHT, 0, 0, 4, new Spritesheet(level.AM.getImage("minoPerfilDer")), 15,false);
 		//currentAnim = new Sprite(16,16,0,2,Spritesheet.tiles);
 		SpriteContainer normalState = new SpriteContainer();
-		normalState.addSprite("0", currentAnimBack); // hay que añadir un sprite para cada direccion (obligatorio para que la statemachine funcione)
+		normalState.addSprite("0", currentAnimBack); // hay que aï¿½adir un sprite para cada direccion (obligatorio para que la statemachine funcione)
 		normalState.addSprite("1", currentAnimDer); // despues puedo anadir los sprites que sean necesarios para cada estado diferente
 		normalState.addSprite("2", currentAnimDer);
 		normalState.addSprite("3", currentAnimDer);
@@ -131,10 +131,8 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 		updateCollider();
 		colls.checkCollisions();
 		
-		Tile pene=level.getTile(msm.getMovX(), msm.getMovY());
 		
-		
-		 //comprobar que si la vida llega a 0, el player esté muerto
+		 //comprobar que si la vida llega a 0, el player estï¿½ muerto
 		assertFalse((stats.getHP()==0)&&(isAlive()));
 
 		//comprobar que la energia no baja de 0 ni sobrepasa 1000
