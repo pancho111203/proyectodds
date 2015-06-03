@@ -51,6 +51,7 @@ public class GameInput {
 		key.update();
 		mouse.update();
 		
+		
 		//limpiar imputs
 		for(int i=0;i<NUMACTIONS;i++){
 			actions[i]=false;
@@ -73,7 +74,7 @@ public class GameInput {
 		if(key.keyDown(KeyEvent.VK_F9)){
 			actions[F9]=true;
 		}
-		if(key.keyDown(KeyEvent.VK_ENTER)){
+		if(key.keyDown(KeyEvent.VK_ENTER)||pad.getButtonValue(pad.L1)){
 			actions[ACTION]=true;
 		}
 		if(key.keyDown(KeyEvent.VK_SHIFT)){

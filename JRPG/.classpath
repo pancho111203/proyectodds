@@ -8,5 +8,6 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="res"/>
 	<classpathentry kind="lib" path="lib/jinput.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Marc/Desktop/junit-4.12.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

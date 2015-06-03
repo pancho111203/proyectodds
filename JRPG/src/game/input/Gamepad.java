@@ -81,9 +81,9 @@ public class Gamepad{
             
             // Add states of the buttons
             if(component.getName().contains("But")||component.getName().contains("Bot"))
-                if(component.getPollData() > 0.9f)
-                    buttonsValues.add(Boolean.TRUE);
-                else
+                if(component.getPollData() > 0.9f){
+                	buttonsValues.add(Boolean.TRUE);
+                }else
                     buttonsValues.add(Boolean.FALSE);
         }
         
@@ -105,7 +105,7 @@ public class Gamepad{
         }catch(NullPointerException e){
         	return false;
         }
-        
+        if(buttonsValues.get(0))System.out.println("pene");
         return isControllerValid;
     }
     
