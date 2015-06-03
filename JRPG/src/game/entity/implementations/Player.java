@@ -4,11 +4,9 @@ import game.entity.AtackingEntity;
 import game.entity.Entity;
 import game.entity.MovingEntity;
 import game.entity.SpriteContainer;
-import game.entity.SpriteContainerWithReceiver;
 import game.entity.SpriteFinishReceiver;
 import game.entity.collision.Collider;
 import game.entity.movement.Movement;
-import game.entity.movestate.LockMove;
 import game.entity.movestate.NoMove;
 import game.entity.movestate.NormalMovePlayer;
 import game.entity.weapons.Sword;
@@ -71,20 +69,6 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 		changeZoneAnim.addNotifictionReceiver(this, "disolve");
 		msm.add("disolve", new NoMove(changeZoneAnim));
 		
-		//ataques
-		Animator attackAnimSword = new Animator(60, 68, 0, 0, 3, new Spritesheet(level.AM.getImage("ataqueFrente")), 15,true);
-		SpriteContainerWithReceiver attackStateContainer = new SpriteContainerWithReceiver(this);
-		attackStateContainer.addAnimatorWithReceiver("0", attackAnimSword, "ataque");
-		attackStateContainer.addAnimatorWithReceiver("1", attackAnimSword, "ataque");
-		attackStateContainer.addAnimatorWithReceiver("2", attackAnimSword, "ataque");
-		attackStateContainer.addAnimatorWithReceiver("3", attackAnimSword, "ataque");
-		attackStateContainer.addAnimatorWithReceiver("4", attackAnimSword, "ataque");
-		attackStateContainer.addAnimatorWithReceiver("5", attackAnimSword, "ataque");
-		attackStateContainer.addAnimatorWithReceiver("6", attackAnimSword, "ataque");
-		attackStateContainer.addAnimatorWithReceiver("7", attackAnimSword, "ataque");
-		attackStateContainer.addAnimatorWithReceiver("8", attackAnimSword, "ataque");
-		msm.add("ataque1Sword", new LockMove(attackStateContainer));
-		
 		
 		colls = new Collider(this.x,this.y,w,h,this);
 	
@@ -97,9 +81,14 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 		
 		
 		msm.unBlock();
-		//TODO empezar con "Unarmed"
-		weapon = new Sword(this);
 		
+		
+		Sword sword = new Sword(this, "ataque");
+		msm.add(sword.getType(),sword.getVisualMovement());
+		
+		
+		//TODO empezar con "Unarmed"
+		setWeapon(sword);
 		
 	}
 
@@ -261,7 +250,7 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 			weapon.attack();
 			attacking = true;
 			prevState  = msm.getCurrentStateName();
-			msm.change("ataque1Sword", "", true);
+			msm.change(weapon.getType(), "", true);
 		}
 	}
 
@@ -279,7 +268,7 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 		this.weapon = weapon;
 	}
 
-
+	
 	@Override
 	public void spriteFinished(String id) {
 		switch(id){
