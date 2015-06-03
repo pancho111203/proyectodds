@@ -12,4 +12,8 @@ public interface Sprite {
 	public void addSprite(Sprite e);
 	public void removeSprite(Sprite e);
 	public Sprite getSprite(int i);
+	public int getXOffset();
+	public int getYOffset();
+	public void setXOffset(int a);
+	public void setYOffset(int a);
 }

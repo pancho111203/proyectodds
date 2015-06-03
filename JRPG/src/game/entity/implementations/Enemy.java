@@ -68,8 +68,8 @@ public class Enemy extends MovingEntity {
 
 	@Override
 	public void render(RenderingLevel render) {
-		
-		render.renderEntity(xInScreen,yInScreen,msm.getSprite());
+		Sprite cur = msm.getSprite();
+		render.renderEntity(xInScreen+cur.getXOffset(),yInScreen+cur.getYOffset(),cur);
 		
 		debug(render);
 	}

@@ -9,6 +9,7 @@ public class SingleSprite implements Sprite{
 	private int x, y;
 	protected int width, height;
 	protected Spritesheet sheet;
+	protected int xOff = 0, yOff = 0;
 	
 	
 	public SingleSprite (int size, int x, int y, Spritesheet sheet){
@@ -107,5 +108,24 @@ public class SingleSprite implements Sprite{
 	@Override
 	public Sprite getSprite(int i) {
 		return null;
+	}
+	@Override
+	public int getXOffset() {
+		return xOff;
+	}
+
+	@Override
+	public int getYOffset() {
+		return yOff;
+	}
+
+	@Override
+	public void setXOffset(int a) {
+		xOff = a;
+	}
+
+	@Override
+	public void setYOffset(int a) {
+		yOff = a;
 	}
 }

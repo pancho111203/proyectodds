@@ -22,7 +22,9 @@ public class Sword implements Weapon{
 		parent = ent;
 		
 		
-		Animator attackAnimSword = new Animator(60, 68, 0, 0, 3, new Spritesheet(AssetManager.getSingleton().getImage("ataqueFrente")), 15,true);
+		Animator attackAnimSword = new Animator(60, 68, 0, 0, 3, new Spritesheet(AssetManager.getSingleton().getImage("ataqueFrente")), 6,true);
+		attackAnimSword.setXOffset(-15);
+		
 		SpriteContainerWithReceiver attackStateContainer = new SpriteContainerWithReceiver(parent);
 		attackStateContainer.addAnimatorWithReceiver("0", attackAnimSword, attackFinishEvent);
 		attackStateContainer.addAnimatorWithReceiver("1", attackAnimSword, attackFinishEvent);

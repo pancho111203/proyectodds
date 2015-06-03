@@ -130,10 +130,12 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 
 	@Override
 	public void render(RenderingLevel render) {
+		
+		Sprite cur = msm.getSprite();
 		if(red){
-			render.renderEntityColored(xInScreen,yInScreen,msm.getSprite(),0xDD0000); 
+			render.renderEntityColored(xInScreen+cur.getXOffset(),yInScreen+cur.getYOffset(),cur,0xDD0000); 
 		}
-		else render.renderEntity(xInScreen,yInScreen,msm.getSprite());
+		else render.renderEntity(xInScreen+cur.getXOffset(),yInScreen+cur.getYOffset(),cur);
 		
 		debug(render);
 	}

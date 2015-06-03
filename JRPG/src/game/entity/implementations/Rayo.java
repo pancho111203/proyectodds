@@ -3,6 +3,7 @@ package game.entity.implementations;
 import game.entity.Entity;
 import game.graphics.Animator;
 import game.graphics.RenderingLevel;
+import game.graphics.Sprite;
 import game.graphics.Spritesheet;
 import game.level.Level;
 
@@ -76,8 +77,9 @@ public class Rayo extends Entity{
 
 	@Override
 	public void render(RenderingLevel render) {
+		Sprite cur = anim.getActual();
 		if(active){
-			render.renderEntity(xInScreen,yInScreen,anim.getActual());
+			render.renderEntity(xInScreen+cur.getXOffset(),yInScreen+cur.getYOffset(),cur);
 			debug(render);
 		}
 	}

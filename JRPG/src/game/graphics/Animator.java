@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class Animator implements Sprite{
 	
+	private int xOff=0, yOff=0;
 	//(n) es el numero de sprites en fila, (size) tamaño del sprite, (act) id del sprite actual en el array
 	private int x,y,width,height;
 	public int n,act, rate,size; // rate es el numero de frames que tarda en cambiar de sprite  
@@ -162,6 +163,26 @@ public class Animator implements Sprite{
 			receiver = r;
 			ident = i;
 		}
+	}
+
+	@Override
+	public int getXOffset() {
+		return xOff;
+	}
+
+	@Override
+	public int getYOffset() {
+		return yOff;
+	}
+
+	@Override
+	public void setXOffset(int a) {
+		xOff = a;
+	}
+
+	@Override
+	public void setYOffset(int a) {
+		yOff = a;
 	}
 	
 }

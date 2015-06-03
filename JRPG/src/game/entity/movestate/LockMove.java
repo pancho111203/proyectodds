@@ -3,12 +3,13 @@ package game.entity.movestate;
 import game.entity.SpriteContainer;
 import game.graphics.Animator;
 import game.graphics.Sprite;
-//TODO
+//no permite cambio de animator mientras el estado este activo, solo asignacion al entrar en el estado con onEnter
+//tampoco permite movimiento(si quiero volver a meterle movimiento basta con quitar los comments en los metodos)
 public class LockMove implements IMove{
 
 	private SpriteContainer container;
 	private Sprite currentSprite;
-	private int movX, movY;
+	//private int movX, movY;
 	
 	public LockMove(SpriteContainer sc){
 		
@@ -40,18 +41,20 @@ public class LockMove implements IMove{
 
 	@Override
 	public int getMovX() {
-		return movX;
+		//return movX;
+		return 0;
 	}
 
 	@Override
 	public int getMovY() {
-		return movY;
+		//return movY;
+		return 0;
 	}
 
 	@Override
 	public void move(int movX, int movY) {
-		this.movX = movX;
-		this.movY = movY;
+		//this.movX = movX;
+		//this.movY = movY;
 	}
 
 	@Override

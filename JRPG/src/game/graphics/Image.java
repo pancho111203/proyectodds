@@ -11,6 +11,7 @@ public class Image implements Sprite{
 	
 	private int x,y,w,h;
 	public int[] pixels;
+	private int xOff=0, yOff=0;
 	
 	public Image(String img) {
 			try {
@@ -90,6 +91,26 @@ public class Image implements Sprite{
 	@Override
 	public Sprite getSprite(int i) {
 		return null;
+	}
+
+	@Override
+	public int getXOffset() {
+		return xOff;
+	}
+
+	@Override
+	public int getYOffset() {
+		return yOff;
+	}
+
+	@Override
+	public void setXOffset(int a) {
+		xOff = a;
+	}
+
+	@Override
+	public void setYOffset(int a) {
+		yOff = a;
 	}
 
 }
