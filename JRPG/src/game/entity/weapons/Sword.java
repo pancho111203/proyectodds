@@ -27,7 +27,6 @@ public class Sword implements Weapon, OwnsCollider, DamagingEntity{
 	private IMove move;
 	private HashMap<String,Rectangle> collideRects;//estos solo se usan para saber la referencia con respecto al player(al crear el collider creamos un rectangle nuevo)
 	private Collider collider;
-	private int dmg = 20;
 	
 	//las clases de armas se encargan de definir los sprites que van a usar y crean el IMove
 	//tambien se ecargan de gestionar las colisiones, etc
@@ -41,6 +40,8 @@ public class Sword implements Weapon, OwnsCollider, DamagingEntity{
 		
 		parent = en;
 		ent = (Entity)parent;
+		
+		
 		
 		Animator attackAnimSword = new Animator(60, 68, 0, 0, 3, new Spritesheet(AssetManager.getSingleton().getImage("ataqueFrente")), 6,true);
 		attackAnimSword.setXOffset(-15);
@@ -135,11 +136,11 @@ public class Sword implements Weapon, OwnsCollider, DamagingEntity{
 	}
 	@Override
 	public int getDmg() {
-		// TODO hacer que el daño dependa de los stats del que lleve el arma equipada
-		return dmg;
+		return ((EntityWithStats)ent).getDmg();
 	}
 	@Override
 	public void dealtDamage(int d) {
+		
 	}
 	@Override
 	public boolean isActive() {

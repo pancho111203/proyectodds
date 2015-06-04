@@ -3,6 +3,7 @@ package game.entity.implementations;
 import game.entity.Entity;
 import game.entity.MovingEntity;
 import game.entity.SpriteContainer;
+import game.entity.modules.DMGModule;
 import game.entity.modules.HPModule;
 import game.entity.movement.Movement;
 import game.entity.movestate.NormalMove;
@@ -22,9 +23,11 @@ public class Enemy extends MovingEntity implements EntityWithStats, DamagingEnti
 	
 	private int dmg=10;
 	private HPModule hp_mod;
+	private DMGModule dmg_mod;
 //	private int timer=0;
 	
 	public final int MAXHP=100;
+	public final int DMG=10;
 	private final int IMMUNETIME = 25;
 	
 	public Enemy(int x, int y,int w, int h, Movement mov, Level level, Rectangle tileOffs) {
@@ -41,15 +44,9 @@ public class Enemy extends MovingEntity implements EntityWithStats, DamagingEnti
   		
 		SpriteContainer normalState = new SpriteContainer();
 		normalState.addSprite("0", currentAnim); // hay que añadir un sprite para cada direccion (obligatorio para que la statemachine funcione)
-		normalState.addSprite("1", currentAnimSplit); // despues puedo anadir los sprites que sean necesarios para cada estado diferente
-		normalState.addSprite("2", currentAnimSplit);
-		normalState.addSprite("3", currentAnimSplit);
-		normalState.addSprite("4", currentAnim);
-		normalState.addSprite("5", currentAnim);
-		normalState.addSprite("6", currentAnim);
-		normalState.addSprite("7", currentAnim);
-		normalState.addSprite("8", currentAnim);
-		msm.add("normal", new NormalMove(normalState, false));
+		normalState.addSprites(3,currentAnimSplit); // despues puedo anadir los sprites que sean necesarios para cada estado diferente
+		normalState.addSprites(5, currentAnim);
+		msm.add("normal", new NormalMove(normalState,false));
 		msm.change("normal", "", false);
 		
 		collider = new Rectangle((int)(colliderOffsets.getWidth()-colliderOffsets.getX()),(int)(colliderOffsets.getHeight()-colliderOffsets.getY()));
@@ -57,6 +54,7 @@ public class Enemy extends MovingEntity implements EntityWithStats, DamagingEnti
 		
 		
 		hp_mod = new HPModule(MAXHP, MAXHP, IMMUNETIME);
+		dmg_mod = new DMGModule(DMG);
 	}
 
 	@Override
@@ -115,7 +113,7 @@ public class Enemy extends MovingEntity implements EntityWithStats, DamagingEnti
 
 	@Override
 	public int getDmg() {
-		return dmg;
+		return dmg_mod.getDMG();
 	}
 
 	@Override
@@ -142,5 +140,7 @@ public class Enemy extends MovingEntity implements EntityWithStats, DamagingEnti
 		//TODO implementar muerte usando animacion
 		setToDestroy();
 	}
+
+
 
 }

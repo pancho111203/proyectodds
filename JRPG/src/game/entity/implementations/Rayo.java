@@ -1,6 +1,7 @@
 package game.entity.implementations;
 
 import game.entity.Entity;
+import game.entity.modules.DMGModule;
 import game.entity.types.DamagingEntity;
 import game.graphics.Animator;
 import game.graphics.RenderingLevel;
@@ -21,8 +22,9 @@ public class Rayo extends Entity implements DamagingEntity{
 	private int waitTime;
 	private int cont = 0, contWait = 0;
 	private boolean active = false;
-	private int dmg = 20;
+	private final int DMG = 20;
 	
+	private DMGModule dmg_mod;
 	
 	private Random random = new Random();
 	
@@ -36,6 +38,8 @@ public class Rayo extends Entity implements DamagingEntity{
 		colliderOffsets = new Rectangle(0,60,WIDTH,HEIGHT);
 		
 		collider = new Rectangle((int)(colliderOffsets.getWidth()-colliderOffsets.getX()),(int)(colliderOffsets.getHeight()-colliderOffsets.getY()));
+		
+		dmg_mod = new DMGModule(DMG);
 		
 		reset();
 	}
@@ -87,7 +91,7 @@ public class Rayo extends Entity implements DamagingEntity{
 
 	@Override
 	public int getDmg() {
-		return dmg;
+		return dmg_mod.getDMG();
 	}
 
 	@Override

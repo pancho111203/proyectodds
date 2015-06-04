@@ -10,6 +10,7 @@ import game.entity.SpriteContainer;
 import game.entity.SpriteFinishReceiver;
 import game.entity.collision.Collider;
 import game.entity.collision.OwnsCollider;
+import game.entity.modules.DMGModule;
 import game.entity.modules.EnergyModule;
 import game.entity.modules.HPModule;
 import game.entity.movement.Movement;
@@ -39,8 +40,9 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 	private Collider colls;
 	private EnergyModule energy_mod;
 	private HPModule hp_mod;
+	private DMGModule dmg_mod;
 	
-	public final int MAXENERGY= 1000, MAXHP=100;
+	public final int MAXENERGY= 1000, MAXHP=100, DMG = 20;
 	private final int IMMUNETIME = 25;
 	
 	private ChangeLevel changeLevel;
@@ -59,16 +61,11 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 	    Sprite currentAnimBack = new Animator(WIDTH, HEIGHT, 0, 0, 4, new Spritesheet(level.AM.getImage("minoBack")), 15,false);
 	    Sprite currentAnimIzq = new Animator(WIDTH, HEIGHT, 0, 0, 4, new Spritesheet(level.AM.getImage("minoPerfilIzq")), 15,false);
 		Sprite currentAnimDer = new Animator(WIDTH, HEIGHT, 0, 0, 4, new Spritesheet(level.AM.getImage("minoPerfilDer")), 15,false);
-		//currentAnim = new Sprite(16,16,0,2,Spritesheet.tiles);
 		SpriteContainer normalState = new SpriteContainer();
-		normalState.addSprite("0", currentAnimBack); // hay que aï¿½adir un sprite para cada direccion (obligatorio para que la statemachine funcione)
-		normalState.addSprite("1", currentAnimDer); // despues puedo anadir los sprites que sean necesarios para cada estado diferente
-		normalState.addSprite("2", currentAnimDer);
-		normalState.addSprite("3", currentAnimDer);
+		normalState.addSprite("0", currentAnimBack); // hay que añadir un sprite para cada direccion (obligatorio para que la statemachine funcione)
+		normalState.addSprites(3, currentAnimDer); // despues puedo anadir los sprites que sean necesarios para cada estado diferente
 		normalState.addSprite("4", currentAnimFront);
-		normalState.addSprite("5", currentAnimIzq);
-		normalState.addSprite("6", currentAnimIzq);
-		normalState.addSprite("7", currentAnimIzq);
+		normalState.addSprites(3, currentAnimIzq);
 		normalState.addSprite("8", currentAnim);
 		msm.add("normal", new NormalMove(normalState, false));
 		msm.change("normal", "", false);
@@ -90,6 +87,7 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 
 		hp_mod = new HPModule(MAXHP, MAXHP, IMMUNETIME);
 		energy_mod = new EnergyModule(MAXENERGY, MAXENERGY);
+		dmg_mod = new DMGModule(DMG);
 		
 		msm.unBlock();
 		
@@ -287,7 +285,7 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 		}
 		
 		if(e instanceof DamagingEntity){
-			GameMaster.performAttack((DamagingEntity)e, this, this);
+			GameMaster.performAttack((DamagingEntity)e, this, e);
 		}
 		
 	}
@@ -296,9 +294,15 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 	@Override
 	public void receiveDmg(int dmg, Entity e) {
 		if(!hp_mod.isImmune()&&changeLevel==null){
-			push(new Vector2D(e.getX(), e.getY()), 30);
+			push(new Vector2D(e.getX(), e.getY()), 5);
 			hp_mod.hit(dmg);
 		}
+	}
+
+
+	@Override
+	public int getDmg() {
+		return dmg_mod.getDMG();
 	}
 
 }

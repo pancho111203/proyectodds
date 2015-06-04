@@ -106,7 +106,6 @@ public abstract class Entity {
 
 	}
 	
-	
 	public boolean toBeDestroyed(){
 		return toBeDestroyed ;
 	}
@@ -114,4 +113,5 @@ public abstract class Entity {
 	public void setToDestroy(){
 		toBeDestroyed = true;
 	}
+
 }

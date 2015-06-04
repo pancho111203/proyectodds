@@ -71,18 +71,15 @@ public abstract class Movement { // maneja el movimiento
 		if(stop<0)return;
 		
 		if(stop>0){
+			executeMovement(true);
 			stop--;//si esta parado, solo ejecuta el movimiento obligatorio
-			horizontal = horizontalStopped;
-			vertical = verticalStopped;
 		}else{			
-			horizontal = horizontal + horizontalStopped; // si no esta parado, ejecuta todo el mov
-			vertical = vertical + verticalStopped;
+			executeMovement(false);// si no esta parado, ejecuta todo el mov
 		}
-		executeMovement();
 	}
 	
-	protected void executeMovement(){
-		
+	protected void executeMovement(boolean onlyStoppedMov){
+
 		// variable con valores de 0 a 7 indicando la direccion(tmb diagonal), se usa sobre todo para elegir sprite
 		//si tiene valor 8 es pq el pj esta quieto
 		int dir = 8;
@@ -111,6 +108,15 @@ public abstract class Movement { // maneja el movimiento
 		}
 		
 		ent.changeDirection(dir);
+		
+		if(onlyStoppedMov){
+			horizontal = horizontalStopped;
+			vertical = verticalStopped;
+		}else{
+			horizontal = horizontal + horizontalStopped; 
+			vertical = vertical + verticalStopped;
+		}
+		
 		
 		if(doMove){
 			
