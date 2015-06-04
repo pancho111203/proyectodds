@@ -23,8 +23,13 @@ public class EntityList {
 	public void update(){
 		
 		for(int i=0;i<ents.size();i++){
+			Entity cur = ents.get(i);
 			
-			((Entity)ents.get(i)).update();
+			cur.update();
+			
+			if(cur.toBeDestroyed()){
+				ents.remove(i);
+			}
 			
 		}
 		

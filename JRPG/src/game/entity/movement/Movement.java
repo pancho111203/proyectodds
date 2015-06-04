@@ -15,8 +15,8 @@ public abstract class Movement { // maneja el movimiento
 	
 	protected int prevVertical;
 	protected int prevHorizontal;
-	protected int vertical;
-	protected int horizontal;
+	protected int vertical, verticalStopped;
+	protected int horizontal, horizontalStopped;
 	
 	protected MovingEntity ent;
 	protected boolean doMove;
@@ -34,6 +34,8 @@ public abstract class Movement { // maneja el movimiento
 		prevHorizontal = 0;
 		horizontal = 0;
 		vertical = 0;
+		verticalStopped = 0;
+		horizontalStopped = 0;
 		
 		doMove = false;
 		
@@ -66,10 +68,21 @@ public abstract class Movement { // maneja el movimiento
 	public abstract void updateAux();
 	
 	protected void timeToMove(){
-		if(stop!=0){
-			stop--;
-			return;
+		if(stop<0)return;
+		
+		if(stop>0){
+			stop--;//si esta parado, solo ejecuta el movimiento obligatorio
+			horizontal = horizontalStopped;
+			vertical = verticalStopped;
+		}else{			
+			horizontal = horizontal + horizontalStopped; // si no esta parado, ejecuta todo el mov
+			vertical = vertical + verticalStopped;
 		}
+		executeMovement();
+	}
+	
+	protected void executeMovement(){
+		
 		// variable con valores de 0 a 7 indicando la direccion(tmb diagonal), se usa sobre todo para elegir sprite
 		//si tiene valor 8 es pq el pj esta quieto
 		int dir = 8;
@@ -122,6 +135,8 @@ public abstract class Movement { // maneja el movimiento
 			prevHorizontal = horizontal;
 			vertical = 0;
 			horizontal = 0;
+			verticalStopped=0;
+			horizontalStopped=0;
 		}
 	}
 	protected void horizontalCollision(){//estos dos metodos funcionan como manejadores de eventos
@@ -153,6 +168,31 @@ public abstract class Movement { // maneja el movimiento
 				vertical = movY;
 			}else{
 				if(vertical == 0){vertical = movY;}
+			}
+		}	
+		
+	}
+	
+	//TODO puede que este mal, check (he hecho copy paste)
+	public void moveWhenStopped(int movX, int movY){
+		doMove = true;
+		
+		
+		
+		if(movX!=0){
+			if(prevHorizontal * movX >= 0){ // si este frame esta llendo hacia la misma direccion que el anterior
+				horizontalStopped = movX;
+			}else{
+				if(horizontalStopped == 0){horizontalStopped = movX;}
+			}
+		}
+		
+		
+		if(movY!=0){
+			if(prevVertical * movY >= 0){ // si este frame esta llendo hacia la misma direccion que el anterior
+				verticalStopped = movY;
+			}else{
+				if(verticalStopped == 0){verticalStopped = movY;}
 			}
 		}	
 		

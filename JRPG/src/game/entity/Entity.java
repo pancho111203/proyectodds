@@ -26,6 +26,7 @@ public abstract class Entity {
 
 	
 	protected final int TS;
+	private boolean toBeDestroyed = false;
 	
 	
 	public Entity(int x, int y, int w, int h, Level level){
@@ -105,54 +106,12 @@ public abstract class Entity {
 
 	}
 	
-	protected class Stats{
-		private int HP,ENERGY;
-		private final int MAXENERGY = 1000;
-		
-		public Stats(){
-			HP=0;
-			ENERGY=MAXENERGY;
-		}
-		
-		public void setHP(int hp){
-			HP=hp;
-		}
-		
-		public int getHP(){
-			return HP;
-		}
-		public void setEnergy(int en){
-			ENERGY=en;
-		}
-		
-		public int getEnergy(){
-			return ENERGY;
-		}
-		
-		public int substractEnergy(int x){
-			if(ENERGY-x<=0){
-				return -1;
-			}
-			ENERGY-=x;
-			return ENERGY;
-		}
-		public int addEnergy(int x){
-			if(ENERGY+x>MAXENERGY){
-				return -1;
-			}
-			ENERGY+=x;
-			return ENERGY;
-		}
-		
-		public boolean isAlive(){
-			return HP>0;
-		}
-		
-		public void hit(int damage){
-			if(HP-damage>=0)HP-=damage;
-			else{
-				HP = 0;
-			}
-		}
+	
+	public boolean toBeDestroyed(){
+		return toBeDestroyed ;
+	}
+	
+	public void setToDestroy(){
+		toBeDestroyed = true;
 	}
 }

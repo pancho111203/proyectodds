@@ -25,10 +25,10 @@ public class UserIface {
 	
 	public void render(RenderingLevel render){
 		render.render(HPbar.getHeight(),HPbar.getWidth(), 0, 0, HPbar.pixels);
-		render.renderPart(HPBarInside.getHeight(),HPBarInside.getWidth(), 0, 0, HPBarInside.pixels,hP/100f);
+		render.renderPart(HPBarInside.getHeight(),HPBarInside.getWidth(), 0, 0, HPBarInside.pixels,hP/(float)player.MAXHP);
 		
 		render.render(HPbar.getHeight(),HPbar.getWidth(), 160, 0, HPbar.pixels);
-		render.renderPart(energyBarInside.getHeight(),energyBarInside.getWidth(), 160, 0, energyBarInside.pixels,energy/1000f);
+		render.renderPart(energyBarInside.getHeight(),energyBarInside.getWidth(), 160, 0, energyBarInside.pixels,energy/(float)player.MAXENERGY);
 		
 	}
 

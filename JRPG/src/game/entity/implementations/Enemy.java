@@ -3,6 +3,7 @@ package game.entity.implementations;
 import game.entity.Entity;
 import game.entity.MovingEntity;
 import game.entity.SpriteContainer;
+import game.entity.modules.HPModule;
 import game.entity.movement.Movement;
 import game.entity.movestate.NormalMove;
 import game.entity.types.DamagingEntity;
@@ -15,10 +16,16 @@ import game.level.Level;
 
 import java.awt.Rectangle;
 
+import auxiliar.Vector2D;
+
 public class Enemy extends MovingEntity implements EntityWithStats, DamagingEntity{
 	
 	private int dmg=10;
+	private HPModule hp_mod;
 //	private int timer=0;
+	
+	public final int MAXHP=100;
+	private final int IMMUNETIME = 25;
 	
 	public Enemy(int x, int y,int w, int h, Movement mov, Level level, Rectangle tileOffs) {
 		super(x, y, w, h,level, mov);
@@ -48,10 +55,15 @@ public class Enemy extends MovingEntity implements EntityWithStats, DamagingEnti
 		collider = new Rectangle((int)(colliderOffsets.getWidth()-colliderOffsets.getX()),(int)(colliderOffsets.getHeight()-colliderOffsets.getY()));
 		collider.setLocation((int)(x+colliderOffsets.getX()), (int)(y+colliderOffsets.getY()));
 		
+		
+		hp_mod = new HPModule(MAXHP, MAXHP, IMMUNETIME);
 	}
 
 	@Override
 	public void update() {
+		
+		hp_mod.update();
+		
 		msm.update();
 		
 		mov.update();
@@ -66,12 +78,20 @@ public class Enemy extends MovingEntity implements EntityWithStats, DamagingEnti
 		
 		xInScreen = x-level.getXPosScreen();
 		yInScreen = y-level.getYPosScreen();
+		
+		
+		if(!hp_mod.isAlive()){
+			die();
+		}
 	}
 
 	@Override
 	public void render(RenderingLevel render) {
 		Sprite cur = msm.getSprite();
-		render.renderEntity(xInScreen+cur.getXOffset(),yInScreen+cur.getYOffset(),cur);
+		if(hp_mod.isImmune()){
+			render.renderEntityColored(xInScreen+cur.getXOffset(),yInScreen+cur.getYOffset(),cur,0xDD0000); 
+		}
+		else render.renderEntity(xInScreen+cur.getXOffset(),yInScreen+cur.getYOffset(),cur);
 		
 		debug(render);
 	}
@@ -105,16 +125,22 @@ public class Enemy extends MovingEntity implements EntityWithStats, DamagingEnti
 
 	@Override
 	public void receiveDmg(int dmg, Entity e) {
-		//TODO implementar sistema de 1.recibir daño 2.muerte (3.barra de vida) 4.ponerse rojo al recibir+inmunidad, generico para player y cualquier enemigo que lo necesite
-		System.out.println("Enemy received "+dmg+" damage from "+e.getClass()+".");
+		//TODO implementar barra de vida
+		
+		if(!hp_mod.isImmune()){
+			push(new Vector2D(e.getX(), e.getY()), 15);
+			hp_mod.hit(dmg);
+		}
 	}
 
 	@Override
 	public boolean isActive() {
 		return true;
 	}
-
 	
-
+	public void die(){
+		//TODO implementar muerte usando animacion
+		setToDestroy();
+	}
 
 }

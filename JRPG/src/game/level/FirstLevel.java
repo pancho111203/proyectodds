@@ -1,11 +1,15 @@
 package game.level;
 
 import game.entity.implementations.Door;
+import game.entity.implementations.Enemy;
 import game.entity.implementations.Rayo;
+import game.entity.movement.EasyPFMovment;
+import game.entity.movement.Movement;
 import game.graphics.RenderingLevel;
 import game.graphics.Spritesheet;
 import game.states.LevelState;
 
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 
@@ -22,14 +26,14 @@ public class FirstLevel extends Level {
 		imgToLvL = AM.getImage("level3");
 		loadLevel();
 		
-//		Rectangle enemyCollider = new Rectangle(0, 16, 64, 64);
-//		
-//		Movement mov = new EasyPFMovment(this,player);
-//	    Rectangle enemy1TileOffs = new Rectangle(25,57,42,62);
-//	    Enemy malo1 = new Enemy(200,100,64,64,mov,this,enemy1TileOffs); // hay que ajustar los offsets
-//		malo1.addCustomCollider(enemyCollider);
-//	    mov.initializeEntity(malo1);
-//		entList.addEntity(malo1);
+		Rectangle enemyCollider = new Rectangle(0, 16, 64, 64);
+		
+		Movement mov = new EasyPFMovment(this,player);
+	    Rectangle enemy1TileOffs = new Rectangle(25,57,42,62);
+	    Enemy malo1 = new Enemy(200,100,64,64,mov,this,enemy1TileOffs); // hay que ajustar los offsets
+		malo1.addCustomCollider(enemyCollider);
+	    mov.initializeEntity(malo1);
+		entList.addEntity(malo1);
 			
 //		mov = new PathMovement(this, -100,-100,1);
 //	    Enemy malo2 = new Enemy(200,100,4,4,mov,this,enemy1TileOffs);

@@ -10,6 +10,8 @@ import game.entity.SpriteContainer;
 import game.entity.SpriteFinishReceiver;
 import game.entity.collision.Collider;
 import game.entity.collision.OwnsCollider;
+import game.entity.modules.EnergyModule;
+import game.entity.modules.HPModule;
 import game.entity.movement.Movement;
 import game.entity.movestate.NoMove;
 import game.entity.movestate.NormalMove;
@@ -33,12 +35,12 @@ import auxiliar.Vector2D;
 public class Player extends MovingEntity implements AtackingEntity, SpriteFinishReceiver, OwnsCollider, EntityWithStats{
 
 	
-	private boolean dead = false, attacking = false;
+	private boolean attacking = false;
 	private Collider colls;
-	private int delta=-1;
-	private boolean red=false;
-	private Stats stats;
+	private EnergyModule energy_mod;
+	private HPModule hp_mod;
 	
+	public final int MAXENERGY= 1000, MAXHP=100;
 	private final int IMMUNETIME = 25;
 	
 	private ChangeLevel changeLevel;
@@ -86,9 +88,8 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 		
 		collider.setLocation((int)(this.x+colliderOffsets.getX()), (int)(this.y+colliderOffsets.getY()));
 
-		stats = new Stats();
-		stats.setHP(100);
-		
+		hp_mod = new HPModule(MAXHP, MAXHP, IMMUNETIME);
+		energy_mod = new EnergyModule(MAXENERGY, MAXENERGY);
 		
 		msm.unBlock();
 		
@@ -109,16 +110,8 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 		if(GameInput.getSingleton().inputPressed(4)){
 			attack();
 		}
-		
-		
-		if(red&&!dead){
-			if(delta<=IMMUNETIME){
-				delta++;
-			}else{
-				red=false;
-				delta=-1;
-			}
-		}
+
+		hp_mod.update();
 		
 		weapon.update();
 		msm.update();
@@ -134,10 +127,10 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 		
 		
 		 //comprobar que si la vida llega a 0, el player est� muerto
-		assertFalse((stats.getHP()==0)&&(isAlive()));
+		assertFalse((hp_mod.getHP()==0)&&(hp_mod.isAlive()));
 
 		//comprobar que la energia no baja de 0 ni sobrepasa 1000
-		assertFalse((stats.getEnergy()<0)&&(stats.getEnergy()>1000));
+		assertFalse((energy_mod.getEnergy()<0)&&(energy_mod.getEnergy()>1000));
 		
 		if(!isAlive()){
 			die();
@@ -149,7 +142,7 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 		
 		
 		Sprite cur = msm.getSprite();
-		if(red){
+		if(hp_mod.isImmune()){
 			render.renderEntityColored(xInScreen+cur.getXOffset(),yInScreen+cur.getYOffset(),cur,0xDD0000); 
 		}
 		else render.renderEntity(xInScreen+cur.getXOffset(),yInScreen+cur.getYOffset(),cur);
@@ -197,30 +190,27 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 	}
 
 	public int getHP(){
-		return stats.getHP();
+		return hp_mod.getHP();
 	}
 	
 	public int substractEnergy(int x){
-		return stats.substractEnergy(x);
+		return energy_mod.substractEnergy(x);
 	}
 	public int addEnergy(int x){
-		return stats.addEnergy(x);
+		return energy_mod.addEnergy(x);
 	}
 
 	public boolean isAlive(){
-		return stats.isAlive();
+		return hp_mod.isAlive();
 	}
 	
 	private void die(){
 		mov.stop(-1);
 		msm.change("dead", "", true);
-		dead = true;
-		red = false;
-		
 	}
 
 	public int getEnergy() {
-		return stats.getEnergy();
+		return energy_mod.getEnergy();
 	}
 
 	public void changeZone(String targetLevel, int spXNL, int spYNL){
@@ -305,11 +295,10 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 
 	@Override
 	public void receiveDmg(int dmg, Entity e) {
-		if(red==false&&changeLevel==null){
-			push(new Vector2D(e.getX(), e.getY()), 20);
-			stats.hit(dmg);
+		if(!hp_mod.isImmune()&&changeLevel==null){
+			push(new Vector2D(e.getX(), e.getY()), 30);
+			hp_mod.hit(dmg);
 		}
-		red = true;		
 	}
 
 }

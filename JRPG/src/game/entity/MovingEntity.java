@@ -52,10 +52,11 @@ public abstract class MovingEntity extends Entity{
 		Vector2D vec = new Vector2D(x,y);
 		
 		vec = vec.minus(eVec);
-				
+
 		vec = vec.normalizeToLength(dist);
 		
-		mov.move((int)vec.x, (int)vec.y);
+		
+		mov.moveWhenStopped((int)vec.x, (int)vec.y);
 		
 	}
 
