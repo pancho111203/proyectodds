@@ -1,5 +1,6 @@
 package game.entity.implementations;
 
+
 import static org.junit.Assert.assertFalse;
 import game.GameMaster;
 import game.entity.AtackingEntity;
