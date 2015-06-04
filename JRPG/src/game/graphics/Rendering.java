@@ -59,6 +59,18 @@ public abstract class Rendering {
 				if(x+w<width && x+w >0)pixels[(x+w)+(y+i)*width] = color;
 			}
 		}
+		
+	}
+	
+	public void renderRectFilled(int x, int y, int w, int h, int color){ 
+		for(int i=0;i<w;i++){
+			for(int j=0;j<h;j++){
+				if(y+j< height && y+j > 0 && x+i < width && x+i > 0){
+					pixels[x+i+(y+j)*width] = color;
+				}
+			}
+			
+		}
 			
 	}
 }

@@ -59,20 +59,12 @@ public class Enemy extends MovingEntity implements EntityWithStats, DamagingEnti
 
 	@Override
 	public void update() {
-		
 		hp_mod.update();
 		
 		msm.update();
 		
 		mov.update();
 		updateCollider();
-//		//TEST
-//		timer++;
-//		if(timer>60){
-//			currAnim.FlipAll();
-//			timer=0;
-//		}
-//		//
 		
 		xInScreen = x-level.getXPosScreen();
 		yInScreen = y-level.getYPosScreen();
@@ -91,7 +83,12 @@ public class Enemy extends MovingEntity implements EntityWithStats, DamagingEnti
 		}
 		else render.renderEntity(xInScreen+cur.getXOffset(),yInScreen+cur.getYOffset(),cur);
 		
-		debug(render);
+		if(!hp_mod.isFullHP()){
+			int st = ((WIDTH - 50)/2);
+			render.renderRectFilled(x-level.getXPosScreen()+st, y-level.getYPosScreen(), (int)(hp_mod.getPercentage()*50), 3, 0xDD0000); //hp bar
+			debug(render);
+		}
+		
 	}
 
 

@@ -62,4 +62,12 @@ public class HPModule {
 	public boolean isImmune(){
 		return immune;
 	}
+	
+	public double getPercentage(){
+		return (double)HP/(double)maxHP;
+	}
+	
+	public boolean isFullHP(){
+		return HP == maxHP;
+	}
 }
