@@ -25,7 +25,6 @@ import game.graphics.Sprite;
 import game.graphics.Spritesheet;
 import game.input.GameInput;
 import game.level.Level;
-import game.level.tiles.Tile;
 
 import java.awt.Rectangle;
 
