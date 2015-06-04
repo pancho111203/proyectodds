@@ -1,6 +1,5 @@
 package game.entity.implementations;
 
-
 import static org.junit.Assert.assertFalse;
 import game.GameMaster;
 import game.entity.AtackingEntity;
@@ -25,7 +24,6 @@ import game.graphics.Sprite;
 import game.graphics.Spritesheet;
 import game.input.GameInput;
 import game.level.Level;
-import game.level.tiles.Tile;
 
 import java.awt.Rectangle;
 
@@ -130,8 +128,6 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 		
 		updateCollider();
 		colls.checkCollisions();
-		
-		Tile pene=level.getTile(msm.getMovX(), msm.getMovY());
 		
 		
 		 //comprobar que si la vida llega a 0, el player esté muerto
