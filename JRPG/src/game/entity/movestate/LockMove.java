@@ -9,32 +9,34 @@ public class LockMove implements IMove{
 
 	private SpriteContainer container;
 	private Sprite currentSprite;
+	private boolean still = true;
 	//private int movX, movY;
+	private boolean updateWhenStill;
 	
-	public LockMove(SpriteContainer sc){
-		
+	public LockMove(SpriteContainer sc, boolean updateWhenStill){
+		this.updateWhenStill = updateWhenStill;
 		container = sc;
 		currentSprite = container.getSprite("8");
 	}
 	
 	@Override
 	public void update() {
+		if(still&&!updateWhenStill )return;
 		if(currentSprite instanceof Animator){
 			((Animator)currentSprite).update();
 		} 
 	}
 
 	@Override
-	public void onEnter(int dir) {
-		
+	public void onEnter(int dir,boolean still) {
 		currentSprite = container.getSprite(dir+"");
 		currentSprite.startAgain();
-		
+		this.still  = still;
 	}
 
 	
 	@Override
-	public void changeDirection(int dir) { // esta clase solo permite cambio de sprite en la entrada del estado ("onEnter")
+	public void changeDirection(int dir, boolean stayingStill) { // esta clase solo permite cambio de sprite en la entrada del estado ("onEnter")
 	}
 	
 	

@@ -15,6 +15,7 @@ public class MoveStateMachin {
 	private IMove current;
 	private HashMap<String,IMove> states;
 	private int dir;
+	private boolean still = true;
 	private String currentStateName;
 	private boolean blocked = false;
 	
@@ -46,7 +47,7 @@ public class MoveStateMachin {
 		}
 		current = states.get(newState);
 		currentStateName = newState;
-		current.onEnter(dir);
+		current.onEnter(dir,still);
 		if(blocking)blocked = true;
 	}
 	
@@ -62,9 +63,10 @@ public class MoveStateMachin {
 		states.put(stName, state);
 	}
 
-	public void changeDirection(int dir) {
+	public void changeDirection(int dir, boolean still) {
 		this.dir = dir;
-		current.changeDirection(dir);
+		this.still = still;
+		current.changeDirection(dir, still);
 	}
 
 	public Sprite getSprite() {
@@ -73,6 +75,9 @@ public class MoveStateMachin {
 	
 	public int getDir(){
 		return dir;
+	}
+	public boolean getStill(){
+		return still;
 	}
 	
 	public String getCurrentStateName(){

@@ -12,7 +12,7 @@ import game.entity.collision.Collider;
 import game.entity.collision.OwnsCollider;
 import game.entity.movement.Movement;
 import game.entity.movestate.NoMove;
-import game.entity.movestate.NormalMovePlayer;
+import game.entity.movestate.NormalMove;
 import game.entity.types.DamagingEntity;
 import game.entity.types.EntityActionable;
 import game.entity.types.EntityWithStats;
@@ -68,7 +68,7 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 		normalState.addSprite("6", currentAnimIzq);
 		normalState.addSprite("7", currentAnimIzq);
 		normalState.addSprite("8", currentAnim);
-		msm.add("normal", new NormalMovePlayer(normalState));
+		msm.add("normal", new NormalMove(normalState, false));
 		msm.change("normal", "", false);
 		
 		Animator deadAnim = new Animator(54,48, 0, 0, 6, new Spritesheet(level.AM.getImage("minoDead")), 15,true);
@@ -245,7 +245,6 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 	@Override
 	public void attack() {
 		if(!attacking){
-			System.out.println(dir);
 			weapon.attack(dir);
 			attacking = true;
 			prevState  = msm.getCurrentStateName();

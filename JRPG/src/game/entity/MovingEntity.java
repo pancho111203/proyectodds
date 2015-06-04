@@ -27,13 +27,15 @@ public abstract class MovingEntity extends Entity{
 	public abstract boolean collidesWithState(int s);
 	
 	public void changeDirection(int dir){
-		if(this.dir!=dir)msm.changeDirection(dir);
-		if(dir==8){
-			stayingStill = true;
-			return;
+		if(this.dir!=dir){
+			if(dir==8){
+				stayingStill = true;
+			}else{
+				stayingStill = false;
+				this.dir = dir;
+			}
+			msm.changeDirection(this.dir,stayingStill);
 		}
-		stayingStill=false;
-		this.dir = dir;
 	}
 	
 	protected void updateCollider(){

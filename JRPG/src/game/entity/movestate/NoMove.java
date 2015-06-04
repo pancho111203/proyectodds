@@ -18,12 +18,12 @@ public class NoMove implements IMove{
 	}
 
 	@Override
-	public void onEnter(int dir) {
+	public void onEnter(int dir, boolean d) {
 		
 	}
 
 	@Override
-	public void changeDirection(int dir) {
+	public void changeDirection(int dir, boolean s) {
 	}
 
 	@Override

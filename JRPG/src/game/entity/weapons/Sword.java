@@ -46,8 +46,8 @@ public class Sword implements Weapon, OwnsCollider, DamagingEntity{
 		attackAnimSword.setXOffset(-15);
 		
 		Animator attackAnimSwordBack = new Animator(60, 68, 0, 0, 3, new Spritesheet(AssetManager.getSingleton().getImage("ataqueEspalda")), 6,true);
-		//TODO
-		attackAnimSword.setXOffset(-15);
+		attackAnimSwordBack.setXOffset(-13);
+		attackAnimSwordBack.setYOffset(-20);
 		
 		SpriteContainerWithReceiver attackStateContainer = new SpriteContainerWithReceiver(parent);
 		attackStateContainer.addAnimatorWithReceiver("0", attackAnimSwordBack, attackFinishEvent);
@@ -59,14 +59,12 @@ public class Sword implements Weapon, OwnsCollider, DamagingEntity{
 		attackStateContainer.addAnimatorWithReceiver("6", attackAnimSword, attackFinishEvent);
 		attackStateContainer.addAnimatorWithReceiver("7", attackAnimSword, attackFinishEvent);
 		attackStateContainer.addAnimatorWithReceiver("8", attackAnimSword, attackFinishEvent);
-		move = new LockMove(attackStateContainer);
+		move = new LockMove(attackStateContainer, true);
 		
 		collideRects = new HashMap<String, Rectangle>();
 		
 		Rectangle down = new Rectangle(-15,26,60,42);
-		
-		//TODO
-		Rectangle up = new Rectangle(-15,12,60,34);
+		Rectangle up = new Rectangle(-13,-20,62,42);
 		collideRects.put("0", up);
 		collideRects.put("1", down);
 		collideRects.put("2", down);

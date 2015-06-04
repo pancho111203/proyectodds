@@ -9,11 +9,11 @@ public class EmptyMove implements IMove{
 	}
 
 	@Override
-	public void onEnter(int dir) {
+	public void onEnter(int dir, boolean st) {
 	}
 
 	@Override
-	public void changeDirection(int dir) {
+	public void changeDirection(int dir, boolean st) {
 	}
 
 	@Override
