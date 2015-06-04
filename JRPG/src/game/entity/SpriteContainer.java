@@ -16,6 +16,14 @@ public class SpriteContainer {
 		sprites.put(name, sprite);
 	}
 	
+	//para añadir varios Sprites iguales correlativos 
+	public void addSprites(int n, Sprite sprite){
+		n=n+sprites.size();
+		for(int i=sprites.size();i<n;i++){
+			sprites.put(""+i, sprite);
+		}
+	}
+	
 	public Sprite getSprite(String name){
 		return sprites.get(name);
 	}

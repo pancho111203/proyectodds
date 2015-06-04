@@ -42,6 +42,8 @@ public class Sword implements Weapon, OwnsCollider, DamagingEntity{
 		parent = en;
 		ent = (Entity)parent;
 		
+		
+		
 		Animator attackAnimSword = new Animator(60, 68, 0, 0, 3, new Spritesheet(AssetManager.getSingleton().getImage("ataqueFrente")), 6,true);
 		attackAnimSword.setXOffset(-15);
 		
@@ -130,11 +132,11 @@ public class Sword implements Weapon, OwnsCollider, DamagingEntity{
 	}
 	@Override
 	public int getDmg() {
-		// TODO hacer que el daño dependa de los stats del que lleve el arma equipada
-		return dmg;
+		return ((EntityWithStats)ent).getStats().getDMG();
 	}
 	@Override
 	public void dealtDamage(int d) {
+		
 	}
 		
 

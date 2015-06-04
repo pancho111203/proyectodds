@@ -31,9 +31,14 @@ public class RenderingLevel extends Rendering{
 	public void renderEntityColored(int xp, int yp, Sprite sp,int color){ // (xp,yp) es la posicion del sprite respecto a la pantalla(en pixels!!)
 		SingleSprite sprite = sp.getActual();
 		int pix[] = new int[sprite.pixels.length];
+		
 		for(int i=0;i<pix.length;i++){
-			pix[i]=sprite.pixels[i]|color;
+			
+			if(pix[i]!=ALPHA&&pix[i]!=ALPHA2&&pix[i]!=ALPHA3)pix[i]=sprite.pixels[i]|color;
+			else pix[i]=sprite.pixels[i];
+			
 		}
+		
 		super.render(sprite.getHeight(),sprite.getWidth(),xp,yp,pix);
 	}
 	

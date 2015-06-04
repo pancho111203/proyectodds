@@ -4,9 +4,9 @@ public abstract class Rendering {
 	public int width, height;
 	protected int pixels[];
 	
-	private final int ALPHA2=0xffff1ef2;
-	private final int ALPHA=0xffff00de;
-	private final int ALPHA3=0xff808080;
+	protected final int ALPHA2=0xffff1ef2;
+	protected final int ALPHA=0xffff00de;
+	protected final int ALPHA3=0xff808080;
 	
 	public Rendering(int width,int height){
 		this.width = width;

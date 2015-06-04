@@ -8,6 +8,7 @@ import game.entity.Entity;
 import game.entity.MovingEntity;
 import game.entity.SpriteContainer;
 import game.entity.SpriteFinishReceiver;
+import game.entity.Stats;
 import game.entity.collision.Collider;
 import game.entity.collision.OwnsCollider;
 import game.entity.movement.Movement;
@@ -44,7 +45,7 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 	private String prevState = "normal";
 	private GameInput gi;
 		
-	public Player(int x, int y,int w, int h, Movement mov, Level level, Rectangle tileOffs) {
+	public Player(int x, int y,int w, int h, Movement mov, Level level, Rectangle tileOffs,Stats stats) {
 		super(x, y,w,h,level, mov);
 		gi = GameInput.getSingleton();
 	    spriteOffsets = tileOffs;// siempre asignarlas antes de inicializar mov!!
@@ -55,16 +56,11 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 	    Sprite currentAnimBack = new Animator(WIDTH, HEIGHT, 0, 0, 4, new Spritesheet(level.AM.getImage("minoBack")), 15,false);
 	    Sprite currentAnimIzq = new Animator(WIDTH, HEIGHT, 0, 0, 4, new Spritesheet(level.AM.getImage("minoPerfilIzq")), 15,false);
 		Sprite currentAnimDer = new Animator(WIDTH, HEIGHT, 0, 0, 4, new Spritesheet(level.AM.getImage("minoPerfilDer")), 15,false);
-		//currentAnim = new Sprite(16,16,0,2,Spritesheet.tiles);
 		SpriteContainer normalState = new SpriteContainer();
 		normalState.addSprite("0", currentAnimBack); // hay que añadir un sprite para cada direccion (obligatorio para que la statemachine funcione)
-		normalState.addSprite("1", currentAnimDer); // despues puedo anadir los sprites que sean necesarios para cada estado diferente
-		normalState.addSprite("2", currentAnimDer);
-		normalState.addSprite("3", currentAnimDer);
+		normalState.addSprites(3, currentAnimDer); // despues puedo anadir los sprites que sean necesarios para cada estado diferente
 		normalState.addSprite("4", currentAnimFront);
-		normalState.addSprite("5", currentAnimIzq);
-		normalState.addSprite("6", currentAnimIzq);
-		normalState.addSprite("7", currentAnimIzq);
+		normalState.addSprites(3, currentAnimIzq);
 		normalState.addSprite("8", currentAnim);
 		msm.add("normal", new NormalMovePlayer(normalState));
 		msm.change("normal", "", false);
@@ -82,14 +78,11 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 		colls = new Collider(this,getCollider(),level);//siempre en este orden (o no usar new, simplemente modificar width y heght del rect anterior)
 	
 		
-		collider.setLocation((int)(this.x+colliderOffsets.getX()), (int)(this.y+colliderOffsets.getY()));
-
-		stats = new Stats();
-		stats.setHP(100);
+		collider.setLocation((int)(this.x+colliderOffsets.getX()), (int)(this.y+colliderOffsets.getY()));		
 		
+		msm.unBlock();		
 		
-		msm.unBlock();
-		
+		this.stats=stats;
 		
 		Sword sword = new Sword(this, "ataque");
 		msm.add(sword.getType(),sword.getVisualMovement());
@@ -98,7 +91,11 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 		setWeapon(sword);
 		
 	}
-
+	
+	/*public Player(int x, int y,int w, int h, Movement mov, Level level, Rectangle tileOffs,Stats stats) {
+		this(x, y,w, h,mov,level,tileOffs);
+		
+	}*/
 	
 	@Override
 	public void update() {
@@ -131,7 +128,7 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 		colls.checkCollisions();
 		
 		
-		 //comprobar que si la vida llega a 0, el player esté muerto
+		 //comprobar que si la vida llega a 0, el player estï¿½ muerto
 		assertFalse((stats.getHP()==0)&&(isAlive()));
 
 		//comprobar que la energia no baja de 0 ni sobrepasa 1000
@@ -308,6 +305,11 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 			stats.hit(dmg);
 		}
 		red = true;		
+	}
+
+	@Override
+	public Stats getStats() {
+		return stats;
 	}
 
 }

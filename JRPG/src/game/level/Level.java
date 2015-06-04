@@ -1,6 +1,7 @@
 package game.level;
 
 import game.AssetManager;
+import game.entity.Stats;
 import game.entity.implementations.Player;
 import game.entity.list.EntityList;
 import game.entity.movement.Movement;
@@ -58,7 +59,7 @@ public abstract class Level {
 		Movement mov = new PlayerMovement(this, 1);
 		Rectangle playerCollider = new Rectangle(0, 5, 32, 45);
 		Rectangle playerTileOffs = new Rectangle(8,36,23,45);
-		player = new Player(spawnPosXPlayer,spawnPosYPlayer,32,48,mov,this, playerTileOffs);
+		player = new Player(spawnPosXPlayer,spawnPosYPlayer,32,48,mov,this, playerTileOffs, new Stats(100,1000,10));
 		player.addCustomCollider(playerCollider);
 		mov.initializeEntity(player);
 		UI = new UserIface(player);
