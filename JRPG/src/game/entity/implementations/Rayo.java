@@ -87,16 +87,16 @@ public class Rayo extends Entity implements DamagingEntity{
 
 	@Override
 	public int getDmg() {
-		
-		int dmgtToDo = 0;
-		if(active&&cont>timeUntilDmg){
-			dmgtToDo = dmg;
-		}
-		return dmgtToDo;
+		return dmg;
 	}
 
 	@Override
 	public void dealtDamage(int d) {
+	}
+
+	@Override
+	public boolean isActive() {
+		return (active&&cont>timeUntilDmg);
 	}
 
 }

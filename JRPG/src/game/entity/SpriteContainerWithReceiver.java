@@ -20,7 +20,7 @@ public class SpriteContainerWithReceiver extends SpriteContainer implements Spri
 		
 	}
 	
-	//TODO ver pq se llama varias veces a este metdo cuando deberia ser solo una
+
 	@Override
 	public void spriteFinished(String id) {
 		receptor.spriteFinished(id);

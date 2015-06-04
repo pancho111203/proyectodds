@@ -45,8 +45,12 @@ public class Sword implements Weapon, OwnsCollider, DamagingEntity{
 		Animator attackAnimSword = new Animator(60, 68, 0, 0, 3, new Spritesheet(AssetManager.getSingleton().getImage("ataqueFrente")), 6,true);
 		attackAnimSword.setXOffset(-15);
 		
+		Animator attackAnimSwordBack = new Animator(60, 68, 0, 0, 3, new Spritesheet(AssetManager.getSingleton().getImage("ataqueEspalda")), 6,true);
+		//TODO
+		attackAnimSword.setXOffset(-15);
+		
 		SpriteContainerWithReceiver attackStateContainer = new SpriteContainerWithReceiver(parent);
-		attackStateContainer.addAnimatorWithReceiver("0", attackAnimSword, attackFinishEvent);
+		attackStateContainer.addAnimatorWithReceiver("0", attackAnimSwordBack, attackFinishEvent);
 		attackStateContainer.addAnimatorWithReceiver("1", attackAnimSword, attackFinishEvent);
 		attackStateContainer.addAnimatorWithReceiver("2", attackAnimSword, attackFinishEvent);
 		attackStateContainer.addAnimatorWithReceiver("3", attackAnimSword, attackFinishEvent);
@@ -60,7 +64,10 @@ public class Sword implements Weapon, OwnsCollider, DamagingEntity{
 		collideRects = new HashMap<String, Rectangle>();
 		
 		Rectangle down = new Rectangle(-15,26,60,42);
-		collideRects.put("0", down);
+		
+		//TODO
+		Rectangle up = new Rectangle(-15,12,60,34);
+		collideRects.put("0", up);
 		collideRects.put("1", down);
 		collideRects.put("2", down);
 		collideRects.put("3", down);
@@ -135,6 +142,10 @@ public class Sword implements Weapon, OwnsCollider, DamagingEntity{
 	}
 	@Override
 	public void dealtDamage(int d) {
+	}
+	@Override
+	public boolean isActive() {
+		return active;
 	}
 		
 

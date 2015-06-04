@@ -11,6 +11,7 @@ public abstract class MovingEntity extends Entity{
 	protected Movement mov;
 	protected MoveStateMachin msm;
 	protected int dir;
+	protected boolean stayingStill = true;
 	
 	public MovingEntity(int x, int y, int w, int h, Level level, Movement mov) {
 		super(x, y, w, h, level);
@@ -27,6 +28,11 @@ public abstract class MovingEntity extends Entity{
 	
 	public void changeDirection(int dir){
 		if(this.dir!=dir)msm.changeDirection(dir);
+		if(dir==8){
+			stayingStill = true;
+			return;
+		}
+		stayingStill=false;
 		this.dir = dir;
 	}
 	

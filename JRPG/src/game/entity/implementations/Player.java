@@ -39,6 +39,8 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 	private boolean red=false;
 	private Stats stats;
 	
+	private final int IMMUNETIME = 25;
+	
 	private ChangeLevel changeLevel;
 	private Weapon weapon;
 	private String prevState = "normal";
@@ -110,7 +112,7 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 		
 		
 		if(red&&!dead){
-			if(delta<=20){
+			if(delta<=IMMUNETIME){
 				delta++;
 			}else{
 				red=false;
@@ -243,6 +245,7 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 	@Override
 	public void attack() {
 		if(!attacking){
+			System.out.println(dir);
 			weapon.attack(dir);
 			attacking = true;
 			prevState  = msm.getCurrentStateName();

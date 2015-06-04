@@ -57,8 +57,10 @@ public class Animator implements Sprite{
 	}
 	
 	public void addNotifictionReceiver(SpriteFinishReceiver fr, String ident){
-		
 		Receiver rec = new Receiver(fr, ident);
+		if(finishReceivers.contains(rec)){
+			return ;
+		}
 		finishReceivers.add(rec);
 	}
 	
@@ -162,6 +164,12 @@ public class Animator implements Sprite{
 		public Receiver(SpriteFinishReceiver r, String i){
 			receiver = r;
 			ident = i;
+		}
+		public boolean equals(Object e){
+			if(e instanceof Receiver && receiver.equals(((Receiver)e).receiver) && ident.equals(((Receiver)e).ident)){
+				return true;
+			}
+			return false;
 		}
 	}
 

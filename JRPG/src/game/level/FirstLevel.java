@@ -39,8 +39,8 @@ public class FirstLevel extends Level {
 		Door door1 = new Door(224, 38, 32, 32, this,"CustomLevel", 224, 350); 
 		entList.addEntity(door1);
 		
-		Rayo rayo2 = new Rayo(this, 220);
-		Rayo rayo = new Rayo(this, 150);
+		Rayo rayo2 = new Rayo(this, 112);
+		Rayo rayo = new Rayo(this, 163);
 		entList.addEntity(rayo);
 		entList.addEntity(rayo2);
 		

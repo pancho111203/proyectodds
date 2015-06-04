@@ -109,6 +109,11 @@ public class Enemy extends MovingEntity implements EntityWithStats, DamagingEnti
 		System.out.println("Enemy received "+dmg+" damage from "+e.getClass()+".");
 	}
 
+	@Override
+	public boolean isActive() {
+		return true;
+	}
+
 	
 
 
