@@ -34,8 +34,11 @@ public class RenderingLevel extends Rendering{
 		
 		for(int i=0;i<pix.length;i++){
 			
-			if(pix[i]!=ALPHA&&pix[i]!=ALPHA2&&pix[i]!=ALPHA3)pix[i]=sprite.pixels[i]|color;
-			else pix[i]=sprite.pixels[i];
+			if(sprite.pixels[i]!=ALPHA && sprite.pixels[i]!=ALPHA2 && sprite.pixels[i]!=ALPHA3){
+			
+				pix[i]=sprite.pixels[i]|color;
+			
+			}else pix[i]=sprite.pixels[i];
 			
 		}
 		
