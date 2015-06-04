@@ -48,10 +48,12 @@ public class FirstLevel extends Level {
 		entList.addEntity(rayo);
 		entList.addEntity(rayo2);
 		
+		
 	}
 	@Override
 	public void loadLevel(){
 		loadLevelFromImage();
+		
 	}
 	
 	

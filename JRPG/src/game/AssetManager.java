@@ -74,6 +74,15 @@ public class AssetManager {
 		sound.play(id);
 	}
 	
+	public void playSound(String id, int pos){
+		sound.playfrom(id, pos);
+	}
+	
+	public void stop(String id) {
+		sound.stop(id);
+		
+	}
+	
 	public BufferedImage getImage(String key){
 		return image.get(key);
 	}
@@ -140,4 +149,6 @@ public class AssetManager {
 			
 		}catch(IOException e){System.err.println(e); }
 	}
+
+	
 }

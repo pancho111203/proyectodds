@@ -2,6 +2,7 @@ package game.entity.implementations;
 
 
 import static org.junit.Assert.assertFalse;
+import game.AssetManager;
 import game.GameMaster;
 import game.entity.AtackingEntity;
 import game.entity.Entity;
@@ -204,6 +205,7 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 	
 	private void die(){
 		mov.stop(-1);
+		AssetManager.getSingleton().stop("music");
 		msm.change("dead", "", true);
 	}
 
@@ -213,7 +215,6 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 
 	public void changeZone(String targetLevel, int spXNL, int spYNL){
 		msm.change("disolve", "", true);
-		
 		changeLevel = new ChangeLevel(targetLevel, spXNL, spYNL);
 		
 	}

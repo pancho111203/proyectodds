@@ -1,5 +1,6 @@
 package game.menus;
 
+import game.AssetManager;
 import game.graphics.Image;
 import game.graphics.RenderingMenu;
 
@@ -28,6 +29,7 @@ public class MainMenu extends Menu {
 		}
 		sel.setY(sely);
 		if(gi.inputPressed(gi.ACTION)){
+			AssetManager.getSingleton().playSound("music");
 			changeTo = "level1";
 		}
 	}
