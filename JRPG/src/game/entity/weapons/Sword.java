@@ -104,6 +104,7 @@ public class Sword implements Weapon, OwnsCollider, DamagingEntity{
 	
 	@Override
 	public void attack(int dir) {
+		AssetManager.getSingleton().playSound("sword",5000);
 		active = true;
 		
 		String d = dir+"";
@@ -115,6 +116,7 @@ public class Sword implements Weapon, OwnsCollider, DamagingEntity{
 
 	@Override
 	public void stopAttack() {
+		AssetManager.getSingleton().stop("sword");
 		active = false;
 	}
 	@Override
