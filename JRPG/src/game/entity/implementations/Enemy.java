@@ -1,34 +1,29 @@
 package game.entity.implementations;
 
+import game.GameMaster;
 import game.entity.Entity;
 import game.entity.MovingEntity;
-import game.entity.SpriteContainer;
 import game.entity.modules.DMGModule;
 import game.entity.modules.HPModule;
 import game.entity.movement.Movement;
-import game.entity.movestate.NormalMove;
 import game.entity.types.DamagingEntity;
 import game.entity.types.EntityWithStats;
-import game.graphics.Animator;
 import game.graphics.RenderingLevel;
 import game.graphics.Sprite;
-import game.graphics.Spritesheet;
 import game.level.Level;
 
 import java.awt.Rectangle;
 
 import auxiliar.Vector2D;
 
-public class Enemy extends MovingEntity implements EntityWithStats, DamagingEntity{
+public abstract class Enemy extends MovingEntity implements EntityWithStats, DamagingEntity{
 	
-	private int dmg=10;
-	private HPModule hp_mod;
-	private DMGModule dmg_mod;
-//	private int timer=0;
-	
-	public final int MAXHP=100;
-	public final int DMG=10;
-	private final int IMMUNETIME = 25;
+	protected HPModule hp_mod;
+	protected DMGModule dmg_mod;
+
+	protected int MAXHP;
+	protected int DMG;
+	protected int IMMUNETIME;
 	
 	public Enemy(int x, int y,int w, int h, Movement mov, Level level, Rectangle tileOffs) {
 		super(x, y, w, h,level, mov);
@@ -36,25 +31,10 @@ public class Enemy extends MovingEntity implements EntityWithStats, DamagingEnti
 	   
 	    spriteOffsets = tileOffs;// siempre asignarlas antes de inicializar mov!!
 
-	    
-  		Sprite currentAnim = new Animator(64,64, 0, 0, 4, new Spritesheet(level.AM.getImage("Caballitomarbao")), 30,false);
-  		Sprite currentAnimSplit = new Animator(64,64, 0, 0, 4, new Spritesheet(level.AM.getImage("Caballitomarbao")), 30,false);
-  		currentAnimSplit.FlipAll();
-  		
-  		
-		SpriteContainer normalState = new SpriteContainer();
-		normalState.addSprite("0", currentAnim); // hay que añadir un sprite para cada direccion (obligatorio para que la statemachine funcione)
-		normalState.addSprites(3,currentAnimSplit); // despues puedo anadir los sprites que sean necesarios para cada estado diferente
-		normalState.addSprites(5, currentAnim);
-		msm.add("normal", new NormalMove(normalState,false));
-		msm.change("normal", "", false);
 		
 		collider = new Rectangle((int)(colliderOffsets.getWidth()-colliderOffsets.getX()),(int)(colliderOffsets.getHeight()-colliderOffsets.getY()));
 		collider.setLocation((int)(x+colliderOffsets.getX()), (int)(y+colliderOffsets.getY()));
-		
-		
-		hp_mod = new HPModule(MAXHP, MAXHP, IMMUNETIME);
-		dmg_mod = new DMGModule(DMG);
+	
 	}
 
 	@Override
@@ -86,8 +66,8 @@ public class Enemy extends MovingEntity implements EntityWithStats, DamagingEnti
 		if(!hp_mod.isFullHP()){
 			int st = ((WIDTH - 50)/2);
 			render.renderRectFilled(x-level.getXPosScreen()+st, y-level.getYPosScreen(), (int)(hp_mod.getPercentage()*50), 3, 0xDD0000); //hp bar
-			debug(render);
 		}
+		debug(render);
 		
 	}
 
@@ -120,8 +100,6 @@ public class Enemy extends MovingEntity implements EntityWithStats, DamagingEnti
 
 	@Override
 	public void receiveDmg(int dmg, Entity e) {
-		//TODO implementar barra de vida
-		
 		if(!hp_mod.isImmune()){
 			push(new Vector2D(e.getX(), e.getY()), 15);
 			hp_mod.hit(dmg);
@@ -135,7 +113,7 @@ public class Enemy extends MovingEntity implements EntityWithStats, DamagingEnti
 	
 	public void die(){
 		//TODO implementar muerte usando animacion
-		setToDestroy();
+		GameMaster.getSingleton().kill(this);
 	}
 
 

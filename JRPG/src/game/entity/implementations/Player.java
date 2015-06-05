@@ -2,7 +2,6 @@ package game.entity.implementations;
 
 
 import static org.junit.Assert.assertFalse;
-import game.AssetManager;
 import game.GameMaster;
 import game.entity.AtackingEntity;
 import game.entity.Entity;
@@ -32,6 +31,7 @@ import game.level.Level;
 
 import java.awt.Rectangle;
 
+import auxiliar.AssetManager;
 import auxiliar.Vector2D;
 
 public class Player extends MovingEntity implements AtackingEntity, SpriteFinishReceiver, OwnsCollider, EntityWithStats{
@@ -185,7 +185,7 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 	@Override
 	public boolean collidesWithState(int s) {
 
-		return s==1; //colision con *solid*
+		return (s==1)||(s==9); //colision con *solid* y con  *void*
 	}
 
 	public int getHP(){
@@ -286,7 +286,7 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 		}
 		
 		if(e instanceof DamagingEntity){
-			GameMaster.performAttack((DamagingEntity)e, this, e);
+			GameMaster.getSingleton().performAttack((DamagingEntity)e, this, e);
 		}
 		
 	}

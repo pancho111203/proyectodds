@@ -1,6 +1,5 @@
 package game.entity.weapons;
 
-import game.AssetManager;
 import game.GameMaster;
 import game.GameStart;
 import game.entity.Entity;
@@ -18,6 +17,8 @@ import game.graphics.Spritesheet;
 
 import java.awt.Rectangle;
 import java.util.HashMap;
+
+import auxiliar.AssetManager;
 
 public class Sword implements Weapon, OwnsCollider, DamagingEntity{
 
@@ -104,6 +105,8 @@ public class Sword implements Weapon, OwnsCollider, DamagingEntity{
 	
 	@Override
 	public void attack(int dir) {
+
+		AssetManager.getSingleton().stop("sword");
 		AssetManager.getSingleton().playSound("sword",5000);
 		active = true;
 		
@@ -116,7 +119,6 @@ public class Sword implements Weapon, OwnsCollider, DamagingEntity{
 
 	@Override
 	public void stopAttack() {
-		AssetManager.getSingleton().stop("sword");
 		active = false;
 	}
 	@Override
@@ -133,7 +135,7 @@ public class Sword implements Weapon, OwnsCollider, DamagingEntity{
 		}
 		
 		if(e instanceof EntityWithStats){
-			GameMaster.performAttack(this, (EntityWithStats)e, ent);
+			GameMaster.getSingleton().performAttack(this, (EntityWithStats)e, ent);
 		}	
 	}
 	@Override

@@ -3,6 +3,7 @@ package game.states;
 import game.level.CustomLevel;
 import game.level.FirstLevel;
 import game.level.Level;
+import game.level.SecondLevel;
 
 public class LevelFactory {
 	private int width, height;
@@ -18,6 +19,8 @@ public class LevelFactory {
 		
 		if(ident.equals("FirstLevel")){
 			return new FirstLevel(spX,spY,width,height,ls); 			
+		}else if(ident.equals("SecondLevel")){
+			return new SecondLevel(spX,spY,width,height,ls); 
 		}
 		
 		return new CustomLevel(spX,spY,width,height,ls);

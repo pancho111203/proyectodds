@@ -1,6 +1,6 @@
 package game.states;
 
-import game.AssetManager;
+import auxiliar.AssetManager;
 import game.GameStart;
 import game.graphics.Rendering;
 import game.graphics.RenderingLevel;
@@ -21,7 +21,7 @@ public class LevelState implements IState{
 		this.game = game; 
 		render = new RenderingLevel(w,h);
 		AM = AssetManager.getSingleton(); 
-		AM.load("FirstLevel");
+		AM.load("Level");
 		
 		WIDTH = w;
 		HEIGHT = h;
