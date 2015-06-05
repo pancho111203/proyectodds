@@ -1,6 +1,6 @@
 package game.menus;
 
-import game.AssetManager;
+import auxiliar.AssetManager;
 import game.graphics.RenderingMenu;
 import game.input.GameInput;
 

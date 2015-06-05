@@ -1,6 +1,6 @@
 package game.states;
 
-import game.AssetManager;
+import auxiliar.AssetManager;
 import game.GameStart;
 import game.graphics.Rendering;
 import game.graphics.RenderingLevel;

@@ -1,6 +1,5 @@
 package game.level;
 
-import game.AssetManager;
 import game.entity.implementations.Player;
 import game.entity.list.EntityList;
 import game.entity.movement.Movement;
@@ -14,6 +13,8 @@ import game.level.tiles.Tile;
 import game.states.LevelState;
 
 import java.awt.Rectangle;
+
+import auxiliar.AssetManager;
 
 public abstract class Level {
 	protected EntityList entList;

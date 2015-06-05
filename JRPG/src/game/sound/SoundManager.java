@@ -39,6 +39,16 @@ public class SoundManager {
 		}
 	}
 	
+	public Clip getSound(String id){
+		try {
+		     return clips.get(id);
+		} catch (Exception ex) {
+			System.err.println("Sound file couldn't be loaded.");
+		     ex.printStackTrace();
+		     return null;
+		}
+	}
+	
 	public void play(String id){
 		FloatControl cont =(FloatControl) clips.get(id).getControl(FloatControl.Type.MASTER_GAIN);
 		cont.setValue(-20);
