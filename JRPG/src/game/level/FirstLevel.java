@@ -3,6 +3,7 @@ package game.level;
 import game.entity.implementations.Door;
 import game.entity.implementations.Enemy;
 import game.entity.implementations.Rayo;
+import game.entity.implementations.enemies.CaballitoMarbao;
 import game.entity.movement.EasyPFMovment;
 import game.entity.movement.Movement;
 import game.graphics.RenderingLevel;
@@ -30,16 +31,11 @@ public class FirstLevel extends Level {
 		
 		Movement mov = new EasyPFMovment(this,player);
 	    Rectangle enemy1TileOffs = new Rectangle(25,57,42,62);
-	    Enemy malo1 = new Enemy(200,100,64,64,mov,this,enemy1TileOffs); // hay que ajustar los offsets
+	    Enemy malo1 = new CaballitoMarbao(200,100,64,64,mov,this,enemy1TileOffs); // hay que ajustar los offsets
 		malo1.addCustomCollider(enemyCollider);
 	    mov.initializeEntity(malo1);
 		entList.addEntity(malo1);
 			
-//		mov = new PathMovement(this, -100,-100,1);
-//	    Enemy malo2 = new Enemy(200,100,4,4,mov,this,enemy1TileOffs);
-//		mov.initializeEntity(malo2);
-//		entList.addEntity(malo2);
-		
 		Door door1 = new Door(224, 38, 32, 32, this,"CustomLevel", 224, 350); 
 		entList.addEntity(door1);
 		

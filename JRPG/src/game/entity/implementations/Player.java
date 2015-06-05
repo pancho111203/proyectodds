@@ -185,7 +185,7 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 	@Override
 	public boolean collidesWithState(int s) {
 
-		return s==1; //colision con *solid*
+		return (s==1)||(s==9); //colision con *solid* y con  *void*
 	}
 
 	public int getHP(){
