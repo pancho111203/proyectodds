@@ -286,7 +286,7 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 		}
 		
 		if(e instanceof DamagingEntity){
-			GameMaster.performAttack((DamagingEntity)e, this, e);
+			GameMaster.getSingleton().performAttack((DamagingEntity)e, this, e);
 		}
 		
 	}
