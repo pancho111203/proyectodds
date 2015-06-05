@@ -1,4 +1,4 @@
-package game;
+package auxiliar;
 
 import game.sound.SoundManager;
 
@@ -42,7 +42,6 @@ public class AssetManager {
 		if(!statesreaded.contains(state)){
 			statesreaded+=state;
 			readResources(state);
-			System.out.println(images.toString()+" "+sounds.toString());
 			try{
 				
 				for(int i=0;i<images.size();i++){
@@ -56,6 +55,8 @@ public class AssetManager {
 			}catch(IOException e){
 				System.err.println("Error cargando algún asset: "+e);
 			}
+
+			System.out.println(image.size()+" "+sound.size());
 		}
 	}
 
@@ -80,7 +81,6 @@ public class AssetManager {
 	
 	public void stop(String id) {
 		sound.stop(id);
-		
 	}
 	
 	public BufferedImage getImage(String key){
