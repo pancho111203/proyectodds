@@ -191,7 +191,9 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 	public int getHP(){
 		return hp_mod.getHP();
 	}
-	
+	public void heal(int hp){
+		hp_mod.setHP(getHP()+hp);
+	}
 	public int substractEnergy(int x){
 		return energy_mod.substractEnergy(x);
 	}
@@ -264,6 +266,7 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 	
 	private void finishDisolve() {
 		level.parent.changeLevel(changeLevel.targetLevel, changeLevel.spawnX, changeLevel.spawnY);
+		GameMaster.getSingleton().resetEnemyCounter();
 		msm.unBlock();
 	}
 	

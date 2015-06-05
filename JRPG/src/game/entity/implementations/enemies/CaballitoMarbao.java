@@ -1,10 +1,13 @@
 package game.entity.implementations.enemies;
 
+import game.GameMaster;
 import game.entity.SpriteContainer;
+import game.entity.SpriteFinishReceiver;
 import game.entity.implementations.Enemy;
 import game.entity.modules.DMGModule;
 import game.entity.modules.HPModule;
 import game.entity.movement.Movement;
+import game.entity.movestate.NoMove;
 import game.entity.movestate.NormalMove;
 import game.graphics.Animator;
 import game.graphics.Sprite;
@@ -13,7 +16,7 @@ import game.level.Level;
 
 import java.awt.Rectangle;
 
-public class CaballitoMarbao extends Enemy{
+public class CaballitoMarbao extends Enemy implements SpriteFinishReceiver{
 
 	
 	public CaballitoMarbao(int x, int y, int w, int h, Movement mov, Level level, Rectangle tileOffs) {
@@ -35,8 +38,32 @@ public class CaballitoMarbao extends Enemy{
 		msm.add("normal", new NormalMove(normalState,false));
 		msm.change("normal", "", false);
 		
+		Animator deadAnim = new Animator(82,85, 0, 0, 4, new Spritesheet(level.AM.getImage("explosion")), 15,true);
+		deadAnim.addNotifictionReceiver(this, "dead");
+		msm.add("dead", new NoMove(deadAnim));
+		
+		
 		hp_mod = new HPModule(MAXHP, MAXHP, IMMUNETIME);
 		dmg_mod = new DMGModule(DMG);
+	}
+
+	
+	@Override
+	public void die(){
+		mov.stop(-1);
+		msm.change("dead", "", true);
+		active = false;
+	}
+	
+	@Override
+	public void spriteFinished(String id) {
+		if(id.equals("dead")){
+			finishDead();
+		}
+	}
+
+	private void finishDead() {
+		GameMaster.getSingleton().kill(this);
 	}
 
 }
