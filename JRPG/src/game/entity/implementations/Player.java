@@ -282,9 +282,7 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 			return;
 		}
 		if(e instanceof EntityActionable){
-			if(gi.inputPressed(gi.ACTION)){
-				((EntityActionable)e).action(this);
-			}
+			((EntityActionable)e).action(this);
 		}
 		
 		if(e instanceof DamagingEntity){

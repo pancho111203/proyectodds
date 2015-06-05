@@ -3,6 +3,7 @@ package game.entity.implementations;
 import game.entity.Entity;
 import game.entity.types.EntityActionable;
 import game.graphics.RenderingLevel;
+import game.input.GameInput;
 import game.level.Level;
 
 public class Door extends Entity implements EntityActionable{
@@ -29,7 +30,10 @@ public class Door extends Entity implements EntityActionable{
 
 	@Override
 	public void action(Player e) {
-		e.changeZone(targetLevel, spXNL, spYNL);
+		
+		if(GameInput.getSingleton().inputPressed(GameInput.getSingleton().ACTION)){
+			e.changeZone(targetLevel, spXNL, spYNL);
+		}
 	}
 
 }
