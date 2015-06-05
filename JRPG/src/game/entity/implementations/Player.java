@@ -51,11 +51,9 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 	private ChangeLevel changeLevel;
 	private Weapon weapon;
 	private String prevState = "normal";
-	private GameInput gi;
 		
 	public Player(int x, int y,int w, int h, Movement mov, Level level, Rectangle tileOffs) {
 		super(x, y,w,h,level, mov);
-		gi = GameInput.getSingleton();
 	    spriteOffsets = tileOffs;// siempre asignarlas antes de inicializar mov!!
 		
 		
@@ -260,6 +258,7 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 	
 	private void finishGame(){
 		msm.unBlock();
+		GameMaster.getSingleton().resetEnemyCounter();
 		level.finish();
 	}
 	

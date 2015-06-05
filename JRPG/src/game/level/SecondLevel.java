@@ -1,10 +1,12 @@
 package game.level;
 
 import game.entity.implementations.Enemy;
+import game.entity.implementations.PressurePlate;
 import game.entity.implementations.Rayo;
 import game.entity.implementations.enemies.CaballitoMarbao;
 import game.entity.movement.EasyPFMovment;
 import game.entity.movement.Movement;
+import game.events.KillAmountObserver;
 import game.events.TileChanger;
 import game.graphics.RenderingLevel;
 import game.states.LevelState;
@@ -45,13 +47,20 @@ public class SecondLevel extends Level {
 		entList.addEntity(rayo);
 		entList.addEntity(rayo2);
 		
-		TileChanger t1 = new TileChanger(15, 1, 1, 0xffff2745, this);
-		TileChanger t2 = new TileChanger(16, 1, 1, 0xffff2746, this);
-		TileChanger t3 = new TileChanger(15, 2, 1, 0xffff2745, this);
-		TileChanger t4 = new TileChanger(16, 2, 1, 0xffff2746, this);
-		TileChanger t5 = new TileChanger(15, 3, 1, 0xffff2745, this);
-		TileChanger t6 = new TileChanger(16, 3, 1, 0xffff2746, this);
+		KillAmountObserver killObserver = new KillAmountObserver(1);
 		
+		TileChanger t1 = new TileChanger(killObserver,15, 1, 0xffff2745, this);
+		TileChanger t2 = new TileChanger(killObserver,16, 1, 0xffff2746, this);
+		TileChanger t3 = new TileChanger(killObserver,15, 2, 0xffff2745, this);
+		TileChanger t4 = new TileChanger(killObserver,16, 2, 0xffff2746, this);
+		TileChanger t5 = new TileChanger(killObserver,15, 3, 0xffff2745, this);
+		TileChanger t6 = new TileChanger(killObserver,16, 3, 0xffff2746, this);
+		
+		PressurePlate entranceCloseDoorPlate = new PressurePlate(239, 450, 32, 50, this);
+		entList.addEntity(entranceCloseDoorPlate);
+		
+		TileChanger ent1 = new TileChanger(entranceCloseDoorPlate,15, 34, 0xff13369b, this);
+		TileChanger ent2 = new TileChanger(entranceCloseDoorPlate,16, 34, 0xff13369b, this);
 		
 	}
 	@Override
