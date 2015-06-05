@@ -134,9 +134,9 @@ public abstract class Level {
 		//borde grande2
 		spr_t.initSpriteOnTileOnHex("bordeGra2", 14, 1, ss, 0xff13369b, 1, 1, 1, 1);
 		//borde lateral derecha2
-		spr_t.initSpriteOnTileOnHex("bordeDer2", 14, 2, ss, 0xff13369c, 1, 0, 1, 0);
+		spr_t.initSpriteOnTileOnHex("bordeDer2", 15, 0, ss, 0xff13369c, 1, 0, 1, 0);
 		//borde lateral izquierda2
-		spr_t.initSpriteOnTileOnHex("bordeIzq2", 14, 3, ss, 0xff13369d, 0, 1, 0, 1);
+		spr_t.initSpriteOnTileOnHex("bordeIzq2", 15, 1, ss, 0xff13369d, 0, 1, 0, 1);
 		//cielo
 		spr_t.initSpriteOnTileOnHex("agua", 0, 3, ss, 0xffa349a4, 3,3,3,3);
 		//puerta
@@ -180,11 +180,28 @@ public abstract class Level {
 			}
 		}
 		
-		spr_t.initSpriteOnTileOnHex("pared0", 14, 4, ss, 0xff41ace0, 1, 1, 1, 1);
-		spr_t.initSpriteOnTileOnHex("pared2", 14, 5, ss, 0xff41ace2, 1, 1, 1, 1);
-		spr_t.initSpriteOnTileOnHex("pared1", 14, 6, ss, 0xff41ace1, 1, 1, 1, 1);
-		spr_t.initSpriteOnTileOnHex("pared3", 14, 7, ss, 0xff41ace3, 1, 1, 1, 1);
-	
+		//puerta metal
+		int p1 = 0;
+		for(int y = 0;y<2;y++){
+			for(int x=0;x<3;x++){
+				spr_t.initSpriteOnTileOnHex("puerta_met_a"+y+x, 14+y, 2+x, ss, 0xff41ace0+p1, 1, 1, 1, 1);
+				p1++;
+			}
+		}
+		
+//		//anim puerta metal
+//		int p2 = 0;
+//		for(int y = 0;y<2;y++){
+//			for(int x=0;x<3;x++){
+//				spr_t.initSpriteOnTileOnHex("puerta_met_a"+y+x, 14+y, 2+x, ss, 0xff41ace0+p1, 1, 1, 1, 1);
+//				p1++;
+//			}
+//		}
+//		
+//		spr_t.initSpriteOnTileOnHex("pasillo1", 0, 5, ss, 0xffff2745);
+//		spr_t.initSpriteOnTileOnHex("pasillo2", 1, 5, ss, 0xffff2746);
+
+
 	}
 	public void moveFocus(){ 
 		

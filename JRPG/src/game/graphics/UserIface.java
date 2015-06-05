@@ -1,7 +1,7 @@
 package game.graphics;
 
-import auxiliar.AssetManager;
 import game.entity.implementations.Player;
+import auxiliar.AssetManager;
 
 public class UserIface {
 	

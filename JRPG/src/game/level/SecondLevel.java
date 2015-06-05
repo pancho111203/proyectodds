@@ -5,6 +5,7 @@ import game.entity.implementations.Rayo;
 import game.entity.implementations.enemies.CaballitoMarbao;
 import game.entity.movement.EasyPFMovment;
 import game.entity.movement.Movement;
+import game.events.TileChanger;
 import game.graphics.RenderingLevel;
 import game.states.LevelState;
 
@@ -43,6 +44,13 @@ public class SecondLevel extends Level {
 		Rayo rayo = new Rayo(this, 163);
 		entList.addEntity(rayo);
 		entList.addEntity(rayo2);
+		
+		TileChanger t1 = new TileChanger(15, 1, 1, 0xffff2745, this);
+		TileChanger t2 = new TileChanger(16, 1, 1, 0xffff2746, this);
+		TileChanger t3 = new TileChanger(15, 2, 1, 0xffff2745, this);
+		TileChanger t4 = new TileChanger(16, 2, 1, 0xffff2746, this);
+		TileChanger t5 = new TileChanger(15, 3, 1, 0xffff2745, this);
+		TileChanger t6 = new TileChanger(16, 3, 1, 0xffff2746, this);
 		
 		
 	}
