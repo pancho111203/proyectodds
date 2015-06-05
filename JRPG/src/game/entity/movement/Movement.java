@@ -108,7 +108,7 @@ public abstract class Movement { // maneja el movimiento
 		}
 		
 		ent.changeDirection(dir);
-		
+
 		if(onlyStoppedMov){
 			horizontal = horizontalStopped;
 			vertical = verticalStopped;

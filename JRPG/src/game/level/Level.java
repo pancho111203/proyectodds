@@ -188,18 +188,6 @@ public abstract class Level {
 				p1++;
 			}
 		}
-		
-//		//anim puerta metal
-//		int p2 = 0;
-//		for(int y = 0;y<2;y++){
-//			for(int x=0;x<3;x++){
-//				spr_t.initSpriteOnTileOnHex("puerta_met_a"+y+x, 14+y, 2+x, ss, 0xff41ace0+p1, 1, 1, 1, 1);
-//				p1++;
-//			}
-//		}
-//		
-//		spr_t.initSpriteOnTileOnHex("pasillo1", 0, 5, ss, 0xffff2745);
-//		spr_t.initSpriteOnTileOnHex("pasillo2", 1, 5, ss, 0xffff2746);
 
 
 	}
