@@ -24,6 +24,8 @@ public class FirstLevel extends Level {
 	public FirstLevel(int spawnPosXPlayer, int spawnPosYPlayer, int w, int h, LevelState p){
 		super(spawnPosXPlayer,spawnPosYPlayer,w,h,p);
 		
+		//AM.load("Level"); 
+		
 		imgToLvL = AM.getImage("level3");
 		loadLevel();
 		
@@ -36,7 +38,7 @@ public class FirstLevel extends Level {
 	    mov.initializeEntity(malo1);
 		entList.addEntity(malo1);
 			
-		Door door1 = new Door(224, 38, 32, 32, this,"CustomLevel", 224, 350); 
+		Door door1 = new Door(224, 38, 32, 32, this,"SecondLevel", 224, 350); 
 		entList.addEntity(door1);
 		
 		Rayo rayo2 = new Rayo(this, 112);
@@ -71,25 +73,46 @@ public class FirstLevel extends Level {
 		//AM.playSound("footsteps"); 
 	}
 
-	@Override
+	/*@Override
 	public void initializeSpritesAndTiles() {
-		Spritesheet ss = new Spritesheet(AM.getImage("BloqueSprites01"));
+		Spritesheet ss = new Spritesheet(AM.getImage("BloqueSprites02"));
 		//pilar
 		int pilar = 0;
 		for(int y = 0;y<3;y++){
 			for(int x=0;x<2;x++){
-				spr_t.initSpriteOnTileOnHex("borde"+x+y, x, y, ss, 0xff00f6f0+pilar,1,1,1,1);
+				spr_t.initSpriteOnTileOnHex("pilar"+x+y, x, y, ss, 0xff00f6f0+pilar,1,1,1,1);
 				pilar++;
 			}
 		}
+		//pilar Oscuro
+		int pilarOscuro = 0;
+		for(int y = 0;y<3;y++){
+			for(int x=0;x<2;x++){
+				spr_t.initSpriteOnTileOnHex("pilarOscuro"+x+y, x+12, y, ss, 0xff309b10+pilarOscuro,1,1,1,1);
+				pilarOscuro++;
+			}
+		}
 		//suelo
-		spr_t.initSpriteOnTileOnHex("suelo", 1, 4, ss, 0xffff7f27); //y: 0 y 1 diferentes suelos
-		//borde grande
-		spr_t.initSpriteOnTileOnHex("bordeGra", 1, 3, ss, 0xfffd0691, 1, 1, 1, 1);
-		//borde lateral derecha
-		spr_t.initSpriteOnTileOnHex("bordeDer", 2, 2, ss, 0xfffff200, 1, 0, 1, 0);
-		//borde lateral izquierda
-		spr_t.initSpriteOnTileOnHex("bordeIzq", 3, 2, ss, 0xfffd0634, 0, 1, 0, 1);
+		spr_t.initSpriteOnTileOnHex("suelo", 1, 4, ss, 0xffff7f27); 
+		//suelo2
+		spr_t.initSpriteOnTileOnHex("suelo2", 0, 4, ss, 0xffac1e6e); 
+		//suelo oscuro
+		spr_t.initSpriteOnTileOnHex("sueloOscuro", 14, 0, ss, 0xfff3e224);
+		//pasillo
+		spr_t.initSpriteOnTileOnHex("pasillo1", 0, 5, ss, 0xffff2745);
+		spr_t.initSpriteOnTileOnHex("pasillo2", 1, 5, ss, 0xffff2746);
+		//borde grande1
+		spr_t.initSpriteOnTileOnHex("bordeGra1", 1, 3, ss, 0xfffd0691, 1, 1, 1, 1);
+		//borde lateral derecha1
+		spr_t.initSpriteOnTileOnHex("bordeDer1", 2, 2, ss, 0xfffff200, 1, 0, 1, 0);
+		//borde lateral izquierda1
+		spr_t.initSpriteOnTileOnHex("bordeIzq1", 3, 2, ss, 0xfffd0634, 0, 1, 0, 1);
+		//borde grande2
+		spr_t.initSpriteOnTileOnHex("bordeGra2", 14, 1, ss, 0xff13369b, 1, 1, 1, 1);
+		//borde lateral derecha2
+		spr_t.initSpriteOnTileOnHex("bordeDer2", 14, 2, ss, 0xff13369c, 1, 0, 1, 0);
+		//borde lateral izquierda2
+		spr_t.initSpriteOnTileOnHex("bordeIzq2", 14, 3, ss, 0xff13369d, 0, 1, 0, 1);
 		//cielo
 		spr_t.initSpriteOnTileOnHex("agua", 0, 3, ss, 0xffa349a4, 3,3,3,3);
 		//puerta
@@ -100,7 +123,7 @@ public class FirstLevel extends Level {
 				puerta++;
 			}
 		}
-		//paret
+		//pared
 		int pared = 0;
 		for(int y = 0;y<2;y++){
 			for(int x=0;x<2;x++){
@@ -108,10 +131,34 @@ public class FirstLevel extends Level {
 				pared++;
 			}
 		}
+		//sombreado
+		//parte1
+		int sombra = 0;
+		for(int y = 0;y<3;y++){
+			for(int x=0;x<2;x++){
+				spr_t.initSpriteOnTileOnHex("sombraP1"+x+y, x+2, y+3, ss, 0xffa62c00+sombra);
+				sombra++;
+			}
+		}
+		
+		//parte2
+		for(int y = 0;y<3;y++){
+			for(int x=0;x<2;x++){
+				spr_t.initSpriteOnTileOnHex("sombraP2"+x+y, x+12, y+3, ss, 0xffa62c00+sombra);
+				sombra++;
+			}
+		}
+		//parte3
+		for(int y = 0;y<2;y++){
+			for(int x=0;x<14;x++){
+				spr_t.initSpriteOnTileOnHex("sombraP3"+x+y, x, y+6, ss, 0xffa62c00+sombra);
+				sombra++;
+			}
+		}
 		
 		
 	
 	}
-
+*/
 
 }
