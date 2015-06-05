@@ -20,6 +20,8 @@ public class LevelState implements IState{
 	public LevelState(GameStart game, int w, int h){
 		this.game = game; 
 		render = new RenderingLevel(w,h);
+		AM = AssetManager.getSingleton(); 
+		AM.load("Level");
 		
 		WIDTH = w;
 		HEIGHT = h;
