@@ -133,7 +133,7 @@ public class Sword implements Weapon, OwnsCollider, DamagingEntity{
 		}
 		
 		if(e instanceof EntityWithStats){
-			GameMaster.performAttack(this, (EntityWithStats)e, ent);
+			GameMaster.getSingleton().performAttack(this, (EntityWithStats)e, ent);
 		}	
 	}
 	@Override

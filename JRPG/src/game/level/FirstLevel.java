@@ -44,6 +44,7 @@ public class FirstLevel extends Level {
 		entList.addEntity(rayo);
 		entList.addEntity(rayo2);
 		
+		//TileChanger tc = new TileChanger(5, 5, 1, 0xff06599c, this);
 		
 	}
 	@Override

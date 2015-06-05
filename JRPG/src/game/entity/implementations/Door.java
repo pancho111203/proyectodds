@@ -3,11 +3,9 @@ package game.entity.implementations;
 import game.entity.Entity;
 import game.entity.types.EntityActionable;
 import game.graphics.RenderingLevel;
-import game.input.GameInput;
 import game.level.Level;
 
 public class Door extends Entity implements EntityActionable{
-	private GameInput gi;
 	private String targetLevel;
 	private int spXNL, spYNL;
 	public Door(int x, int y, int w, int h, Level level, String targetLevel, int spawnXNewLVL,int spawnYNewLvl) {
@@ -17,8 +15,6 @@ public class Door extends Entity implements EntityActionable{
 		spYNL = spawnYNewLvl;
 		
 		this.targetLevel = targetLevel;
-		
-		gi = GameInput.getSingleton();
 	}
 
 	@Override

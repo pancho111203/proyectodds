@@ -159,4 +159,9 @@ public abstract class Level {
 	public void finish() {
 		parent.finish();
 	}
+	
+	public void setTile(int x, int y, int subst){
+		tiles[(x+y*width)] = subst;
+	}
+	
 }

@@ -1,5 +1,6 @@
 package game.entity.implementations;
 
+import game.GameMaster;
 import game.entity.Entity;
 import game.entity.MovingEntity;
 import game.entity.modules.DMGModule;
@@ -112,7 +113,7 @@ public abstract class Enemy extends MovingEntity implements EntityWithStats, Dam
 	
 	public void die(){
 		//TODO implementar muerte usando animacion
-		setToDestroy();
+		GameMaster.getSingleton().kill(this);
 	}
 
 
