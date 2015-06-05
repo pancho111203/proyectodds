@@ -167,6 +167,12 @@ public abstract class Level {
 				sombra++;
 			}
 		}
+		
+		spr_t.initSpriteOnTileOnHex("pared0", 14, 4, ss, 0xff41ace0, 1, 1, 1, 1);
+		spr_t.initSpriteOnTileOnHex("pared2", 14, 5, ss, 0xff41ace2, 1, 1, 1, 1);
+		spr_t.initSpriteOnTileOnHex("pared1", 14, 6, ss, 0xff41ace1, 1, 1, 1, 1);
+		spr_t.initSpriteOnTileOnHex("pared3", 14, 7, ss, 0xff41ace3, 1, 1, 1, 1);
+	
 	}
 	public void moveFocus(){ 
 		

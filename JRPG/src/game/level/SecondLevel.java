@@ -1,13 +1,11 @@
 package game.level;
 
-import game.entity.implementations.Door;
 import game.entity.implementations.Enemy;
 import game.entity.implementations.Rayo;
 import game.entity.implementations.enemies.CaballitoMarbao;
 import game.entity.movement.EasyPFMovment;
 import game.entity.movement.Movement;
 import game.graphics.RenderingLevel;
-import game.graphics.Spritesheet;
 import game.states.LevelState;
 
 import java.awt.Rectangle;
@@ -16,8 +14,8 @@ import java.awt.image.BufferedImage;
 
 public class SecondLevel extends Level {
 	
-	public static final int START_POS_X = 200; 
-	public static final int START_POS_Y = 260;
+	public static final int START_POS_X = 239; 
+	public static final int START_POS_Y = 506;
 	
 	private BufferedImage imgToLvL;
 		

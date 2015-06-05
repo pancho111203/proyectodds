@@ -7,7 +7,6 @@ import game.entity.implementations.enemies.CaballitoMarbao;
 import game.entity.movement.EasyPFMovment;
 import game.entity.movement.Movement;
 import game.graphics.RenderingLevel;
-import game.graphics.Spritesheet;
 import game.states.LevelState;
 
 import java.awt.Rectangle;
@@ -38,7 +37,7 @@ public class FirstLevel extends Level {
 	    mov.initializeEntity(malo1);
 		entList.addEntity(malo1);
 			
-		Door door1 = new Door(224, 38, 32, 32, this,"SecondLevel", 224, 350); 
+		Door door1 = new Door(224, 38, 32, 32, this,"SecondLevel", SecondLevel.START_POS_X, SecondLevel.START_POS_Y); 
 		entList.addEntity(door1);
 		
 		Rayo rayo2 = new Rayo(this, 112);
