@@ -1,6 +1,6 @@
 package game.entity.modules;
 
-public class DMGModule {
+public class DMGModule extends Module{
 	private int DMG;
 	
 	public DMGModule(int dmg){

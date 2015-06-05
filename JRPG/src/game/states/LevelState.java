@@ -1,11 +1,15 @@
 package game.states;
 
-import auxiliar.AssetManager;
 import game.GameStart;
+import game.entity.modules.Module;
 import game.graphics.Rendering;
 import game.graphics.RenderingLevel;
 import game.level.FirstLevel;
 import game.level.Level;
+
+import java.util.ArrayList;
+
+import auxiliar.AssetManager;
 
 public class LevelState implements IState{
 
@@ -63,7 +67,13 @@ public class LevelState implements IState{
 	}
 	
 	public void changeLevel(String newL, int spawnX, int spawnY){
-		curLevel = fact.getLevel(newL,spawnX,spawnY);		
+		if(curLevel!=null){
+			ArrayList<Module> r = curLevel.getPlayerModules();
+			curLevel = fact.getLevel(newL,spawnX,spawnY);		
+			curLevel.loadPlayer(r);
+		}else{
+			curLevel = fact.getLevel(newL,spawnX,spawnY);	
+		}
 	}
 
 	public void finish() {

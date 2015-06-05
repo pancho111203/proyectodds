@@ -2,6 +2,7 @@ package game.level;
 
 import game.entity.implementations.Player;
 import game.entity.list.EntityList;
+import game.entity.modules.Module;
 import game.entity.movement.Movement;
 import game.entity.movement.PlayerMovement;
 import game.graphics.RenderingLevel;
@@ -13,6 +14,7 @@ import game.level.tiles.Tile;
 import game.states.LevelState;
 
 import java.awt.Rectangle;
+import java.util.ArrayList;
 
 import auxiliar.AssetManager;
 
@@ -70,6 +72,15 @@ public abstract class Level {
 
 		initializeSpritesAndTiles();
 	}
+	
+	public void loadPlayer(ArrayList<Module> r){
+		player.loadModules(r);
+	}
+	public ArrayList<Module> getPlayerModules(){
+		return player.getModules();
+	}
+	
+	
 	public void update(){
 		entList.update();
 		spr_t.updateAnims(); //update de sprites animados

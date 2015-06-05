@@ -13,6 +13,7 @@ import game.entity.collision.OwnsCollider;
 import game.entity.modules.DMGModule;
 import game.entity.modules.EnergyModule;
 import game.entity.modules.HPModule;
+import game.entity.modules.Module;
 import game.entity.movement.Movement;
 import game.entity.movestate.NoMove;
 import game.entity.movestate.NormalMove;
@@ -30,6 +31,7 @@ import game.input.GameInput;
 import game.level.Level;
 
 import java.awt.Rectangle;
+import java.util.ArrayList;
 
 import auxiliar.AssetManager;
 import auxiliar.Vector2D;
@@ -304,6 +306,19 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 	@Override
 	public int getDmg() {
 		return dmg_mod.getDMG();
+	}
+	
+	public ArrayList<Module> getModules(){
+		ArrayList<Module> res = new ArrayList<Module>();
+		res.add(hp_mod);
+		res.add(energy_mod);
+		res.add(dmg_mod);
+		return res;
+	}
+	public void loadModules(ArrayList<Module> r){
+		hp_mod = (HPModule)r.get(0);
+		energy_mod = (EnergyModule)r.get(1);
+		dmg_mod = (DMGModule)r.get(2);
 	}
 
 }

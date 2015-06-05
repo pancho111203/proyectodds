@@ -1,6 +1,6 @@
 package game.entity.modules;
 
-public class EnergyModule {
+public class EnergyModule extends Module{
 	private int energy, maxEnergy;
 	
 	private int emptiedLockQuant;

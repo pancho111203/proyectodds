@@ -1,7 +1,7 @@
 package game.entity.modules;
 
 
-public class HPModule {
+public class HPModule extends Module{
 	private int HP, maxHP, immuneTimeOnHit, immuneTime;
 	
 	private int immunityCounter = 0;
