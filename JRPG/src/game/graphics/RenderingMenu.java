@@ -18,7 +18,7 @@ public class RenderingMenu extends Rendering{
 		
 		for(int i=0;i<pix.length;i++){
 			
-			if(sp.pixels[i]!=ALPHA && sp.pixels[i]!=ALPHA2 && sp.pixels[i]!=ALPHA3){
+			if(!isALPHA(sp.pixels[i])){
 			
 				pix[i]=sp.pixels[i]&color;
 			

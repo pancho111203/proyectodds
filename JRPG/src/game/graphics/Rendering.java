@@ -4,16 +4,13 @@ public abstract class Rendering {
 	public int width, height;
 	protected int pixels[];
 	
-	protected final int ALPHA2=0xffff1ef2;
-	protected final int ALPHA=0xffff00de;
-	protected final int ALPHA3=0xff808080;
+	protected final int[] ALPHA= {0xffff1ef2, 0xffff00de, 0xff808080};
 	
 	public Rendering(int width,int height){
 		this.width = width;
 		this.height = height;
 		pixels = new int[width*height];
 	}
-	
 
 	//set all the pixels to 0
 	public void clear() {
@@ -27,6 +24,18 @@ public abstract class Rendering {
 		return pixels;
 	}
 	
+	//ahora ALPHA es una array simplifica render, y nos permite comprobar otras cosas si hiciera falta
+	public boolean isALPHA(int pixel){
+		
+		for(int i=0;i<ALPHA.length;i++){
+			if(pixel==ALPHA[i]){
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
 	public void render(int h, int w, int xp, int yp, int pixels[]){
 		
 		for(int y=0;y<h;y++){// (x,y) es la posicion del pixel respecto al sprite
@@ -38,9 +47,10 @@ public abstract class Rendering {
 				if(xa >= width || xa<0 || ya >= height || ya<0){
 					continue;
 				}
-				int aux = pixels[x+y*w];
-				if(aux!=ALPHA&&aux!=ALPHA2&&aux!=ALPHA3)
-				this.pixels[xa+ya*width]= pixels[x+y*w];
+				
+				int pixel = pixels[x+y*w];
+				if(!isALPHA(pixel))
+				this.pixels[xa+ya*width]= pixel;
 			}
 		}
 		

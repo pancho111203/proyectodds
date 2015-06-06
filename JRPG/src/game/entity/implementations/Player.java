@@ -193,6 +193,9 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 	}
 	public void heal(int hp){
 		hp_mod.setHP(getHP()+hp);
+		
+		//asegurar que el player no obtiene de un corazón más del maximo de su vida
+		assertFalse(hp_mod.getHP()>MAXHP);
 	}
 	public int substractEnergy(int x){
 		return energy_mod.substractEnergy(x);
