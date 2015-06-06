@@ -121,10 +121,10 @@ public class GameStart extends Canvas implements Runnable{
 				delta -= UPDATES; // los nanosegundos perdidosse guardan para la proxima iteracion, asi el estado del programa siempre es estable a 60ups
 				update();
 				ups++;
+				render(); 
+				fps++;
 			}
 			
-			render(); // el metodo render no esta limitado, se ejecuta las veces que la maquina lo permita
-			fps++;
 			
 			
 			
