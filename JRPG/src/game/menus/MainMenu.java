@@ -31,7 +31,7 @@ public class MainMenu extends Menu {
 			AssetManager.getSingleton().playSound("music");
 			changeTo = "level1";
 			}else if(select==1){
-				
+				changeTo="credits";
 			}else{
 				exit=true;
 			}

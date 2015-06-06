@@ -31,6 +31,8 @@ public abstract class Menu {
 	}
 
 	public String change(){
-		return changeTo;
+		String ch = changeTo;
+		changeTo = null;
+		return ch;
 	}
 }

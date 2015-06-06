@@ -85,7 +85,6 @@ public class SecondLevel extends Level {
 	public void render(RenderingLevel render){
 		super.render(render);
 		
-		//AM.playSound("footsteps"); 
 	}
 
 
