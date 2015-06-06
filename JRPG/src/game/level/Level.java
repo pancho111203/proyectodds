@@ -143,6 +143,10 @@ public abstract class Level {
 		spr_t.initSpriteOnTileOnHex("bordeDer2", 15, 0, ss, 0xff13369c, 1, 0, 1, 0);
 		//borde lateral izquierda2
 		spr_t.initSpriteOnTileOnHex("bordeIzq2", 15, 1, ss, 0xff13369d, 0, 1, 0, 1);
+		//borde lateral derecha3
+		spr_t.initSpriteOnTileOnHex("bordeDer3", 5, 8, ss, 0xff13369e, 1, 0, 1, 0);
+		//borde lateral izquierda3
+		spr_t.initSpriteOnTileOnHex("bordeIzq3", 6, 8, ss, 0xff13369f, 0, 1, 0, 1);
 		//cielo
 		spr_t.initSpriteOnTileOnHex("agua", 0, 3, ss, 0xffa349a4, 3,3,3,3);
 		//puerta
@@ -194,8 +198,10 @@ public abstract class Level {
 				p1++;
 			}
 		}
-
-
+		//escala
+		for(int x = 0;x<5;x++){
+		spr_t.initSpriteOnTileOnHex("escal"+x, x, 8, ss, 0xff77c650+x);
+		}
 	}
 	public void moveFocus(){ 
 		
