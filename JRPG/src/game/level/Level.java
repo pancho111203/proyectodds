@@ -5,6 +5,7 @@ import game.entity.list.EntityList;
 import game.entity.modules.Module;
 import game.entity.movement.Movement;
 import game.entity.movement.PlayerMovement;
+import game.graphics.Image;
 import game.graphics.RenderingLevel;
 import game.graphics.SingleSprite;
 import game.graphics.Spritesheet;
@@ -40,6 +41,7 @@ public abstract class Level {
 	
 	protected Player player;
 	protected UserIface UI;
+	protected Image gameover;
 
 	protected SpriteTileFacade spr_t;
 		
@@ -68,6 +70,8 @@ public abstract class Level {
 		UI = new UserIface(player);
 		entList.addPlayer(player);
 		
+		gameover = new Image(AM.getImage("gameover"));
+		
 	    moveFocus();
 
 		initializeSpritesAndTiles();
@@ -93,6 +97,8 @@ public abstract class Level {
 		moveFocus();
 		
 		UI.render(render);
+		
+		if(!player.isAlive())render.renderImage(25, 50, gameover);
 	}
 	
 	public abstract void loadLevel();
