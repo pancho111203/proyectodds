@@ -2,6 +2,7 @@ package game.level;
 
 import game.entity.implementations.Player;
 import game.entity.list.EntityList;
+import game.entity.modules.Module;
 import game.entity.movement.Movement;
 import game.entity.movement.PlayerMovement;
 import game.graphics.RenderingLevel;
@@ -13,6 +14,7 @@ import game.level.tiles.Tile;
 import game.states.LevelState;
 
 import java.awt.Rectangle;
+import java.util.ArrayList;
 
 import auxiliar.AssetManager;
 
@@ -70,6 +72,15 @@ public abstract class Level {
 
 		initializeSpritesAndTiles();
 	}
+	
+	public void loadPlayer(ArrayList<Module> r){
+		player.loadModules(r);
+	}
+	public ArrayList<Module> getPlayerModules(){
+		return player.getModules();
+	}
+	
+	
 	public void update(){
 		entList.update();
 		spr_t.updateAnims(); //update de sprites animados
@@ -123,9 +134,9 @@ public abstract class Level {
 		//borde grande2
 		spr_t.initSpriteOnTileOnHex("bordeGra2", 14, 1, ss, 0xff13369b, 1, 1, 1, 1);
 		//borde lateral derecha2
-		spr_t.initSpriteOnTileOnHex("bordeDer2", 14, 2, ss, 0xff13369c, 1, 0, 1, 0);
+		spr_t.initSpriteOnTileOnHex("bordeDer2", 15, 0, ss, 0xff13369c, 1, 0, 1, 0);
 		//borde lateral izquierda2
-		spr_t.initSpriteOnTileOnHex("bordeIzq2", 14, 3, ss, 0xff13369d, 0, 1, 0, 1);
+		spr_t.initSpriteOnTileOnHex("bordeIzq2", 15, 1, ss, 0xff13369d, 0, 1, 0, 1);
 		//cielo
 		spr_t.initSpriteOnTileOnHex("agua", 0, 3, ss, 0xffa349a4, 3,3,3,3);
 		//puerta
@@ -168,6 +179,17 @@ public abstract class Level {
 				sombra++;
 			}
 		}
+		
+		//puerta metal
+		int p1 = 0;
+		for(int y = 0;y<2;y++){
+			for(int x=0;x<3;x++){
+				spr_t.initSpriteOnTileOnHex("puerta_met_a"+y+x, 14+y, 2+x, ss, 0xff41ace0+p1, 1, 1, 1, 1);
+				p1++;
+			}
+		}
+
+
 	}
 	public void moveFocus(){ 
 		

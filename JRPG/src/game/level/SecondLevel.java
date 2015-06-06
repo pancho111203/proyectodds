@@ -1,13 +1,14 @@
 package game.level;
 
-import game.entity.implementations.Door;
 import game.entity.implementations.Enemy;
+import game.entity.implementations.PressurePlate;
 import game.entity.implementations.Rayo;
 import game.entity.implementations.enemies.CaballitoMarbao;
 import game.entity.movement.EasyPFMovment;
 import game.entity.movement.Movement;
+import game.events.KillAmountObserver;
+import game.events.TileChanger;
 import game.graphics.RenderingLevel;
-import game.graphics.Spritesheet;
 import game.states.LevelState;
 
 import java.awt.Rectangle;
@@ -16,8 +17,8 @@ import java.awt.image.BufferedImage;
 
 public class SecondLevel extends Level {
 	
-	public static final int START_POS_X = 200; 
-	public static final int START_POS_Y = 260;
+	public static final int START_POS_X = 239; 
+	public static final int START_POS_Y = 506;
 	
 	private BufferedImage imgToLvL;
 		
@@ -46,6 +47,20 @@ public class SecondLevel extends Level {
 		entList.addEntity(rayo);
 		entList.addEntity(rayo2);
 		
+		KillAmountObserver killObserver = new KillAmountObserver(1);
+		
+		TileChanger t1 = new TileChanger(killObserver,15, 1, 0xffff2745, this);
+		TileChanger t2 = new TileChanger(killObserver,16, 1, 0xffff2746, this);
+		TileChanger t3 = new TileChanger(killObserver,15, 2, 0xffff2745, this);
+		TileChanger t4 = new TileChanger(killObserver,16, 2, 0xffff2746, this);
+		TileChanger t5 = new TileChanger(killObserver,15, 3, 0xffff2745, this);
+		TileChanger t6 = new TileChanger(killObserver,16, 3, 0xffff2746, this);
+		
+		PressurePlate entranceCloseDoorPlate = new PressurePlate(239, 450, 32, 50, this);
+		entList.addEntity(entranceCloseDoorPlate);
+		
+		TileChanger ent1 = new TileChanger(entranceCloseDoorPlate,15, 34, 0xff13369b, this);
+		TileChanger ent2 = new TileChanger(entranceCloseDoorPlate,16, 34, 0xff13369b, this);
 		
 	}
 	@Override

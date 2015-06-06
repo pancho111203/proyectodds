@@ -13,6 +13,7 @@ import game.entity.collision.OwnsCollider;
 import game.entity.modules.DMGModule;
 import game.entity.modules.EnergyModule;
 import game.entity.modules.HPModule;
+import game.entity.modules.Module;
 import game.entity.movement.Movement;
 import game.entity.movestate.NoMove;
 import game.entity.movestate.NormalMove;
@@ -30,6 +31,7 @@ import game.input.GameInput;
 import game.level.Level;
 
 import java.awt.Rectangle;
+import java.util.ArrayList;
 
 import auxiliar.AssetManager;
 import auxiliar.Vector2D;
@@ -49,11 +51,9 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 	private ChangeLevel changeLevel;
 	private Weapon weapon;
 	private String prevState = "normal";
-	private GameInput gi;
 		
 	public Player(int x, int y,int w, int h, Movement mov, Level level, Rectangle tileOffs) {
 		super(x, y,w,h,level, mov);
-		gi = GameInput.getSingleton();
 	    spriteOffsets = tileOffs;// siempre asignarlas antes de inicializar mov!!
 		
 		
@@ -191,7 +191,9 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 	public int getHP(){
 		return hp_mod.getHP();
 	}
-	
+	public void heal(int hp){
+		hp_mod.setHP(getHP()+hp);
+	}
 	public int substractEnergy(int x){
 		return energy_mod.substractEnergy(x);
 	}
@@ -258,11 +260,13 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 	
 	private void finishGame(){
 		msm.unBlock();
+		GameMaster.getSingleton().resetEnemyCounter();
 		level.finish();
 	}
 	
 	private void finishDisolve() {
 		level.parent.changeLevel(changeLevel.targetLevel, changeLevel.spawnX, changeLevel.spawnY);
+		GameMaster.getSingleton().resetEnemyCounter();
 		msm.unBlock();
 	}
 	
@@ -280,9 +284,7 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 			return;
 		}
 		if(e instanceof EntityActionable){
-			if(gi.inputPressed(gi.ACTION)){
-				((EntityActionable)e).action(this);
-			}
+			((EntityActionable)e).action(this);
 		}
 		
 		if(e instanceof DamagingEntity){
@@ -304,6 +306,19 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 	@Override
 	public int getDmg() {
 		return dmg_mod.getDMG();
+	}
+	
+	public ArrayList<Module> getModules(){
+		ArrayList<Module> res = new ArrayList<Module>();
+		res.add(hp_mod);
+		res.add(energy_mod);
+		res.add(dmg_mod);
+		return res;
+	}
+	public void loadModules(ArrayList<Module> r){
+		hp_mod = (HPModule)r.get(0);
+		energy_mod = (EnergyModule)r.get(1);
+		dmg_mod = (DMGModule)r.get(2);
 	}
 
 }

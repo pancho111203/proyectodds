@@ -16,7 +16,7 @@ public class Animator implements Sprite{
 	private boolean onlyOneRun = false;
 	private long delta=0;
 	private ArrayList<Receiver> finishReceivers;
-	
+
 	
 	public Animator(int w,int h,int x, int y,int n,Spritesheet spriteSheet, int r,boolean oneRunOnly){
 		onlyOneRun = oneRunOnly;

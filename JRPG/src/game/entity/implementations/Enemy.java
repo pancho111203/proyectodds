@@ -21,6 +21,7 @@ public abstract class Enemy extends MovingEntity implements EntityWithStats, Dam
 	protected HPModule hp_mod;
 	protected DMGModule dmg_mod;
 
+	protected boolean active = true;
 	protected int MAXHP;
 	protected int DMG;
 	protected int IMMUNETIME;
@@ -108,11 +109,10 @@ public abstract class Enemy extends MovingEntity implements EntityWithStats, Dam
 
 	@Override
 	public boolean isActive() {
-		return true;
+		return active;
 	}
 	
 	public void die(){
-		//TODO implementar muerte usando animacion
 		GameMaster.getSingleton().kill(this);
 	}
 

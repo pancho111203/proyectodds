@@ -27,7 +27,7 @@ public abstract class MovingEntity extends Entity{
 	public abstract boolean collidesWithState(int s);
 	
 	public void changeDirection(int dir){
-		if(this.dir!=dir){
+		if(this.dir!=dir||stayingStill==true){
 			if(dir==8){
 				stayingStill = true;
 			}else{

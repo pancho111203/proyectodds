@@ -4,11 +4,12 @@ import game.entity.Entity;
 import game.entity.implementations.Enemy;
 import game.entity.types.DamagingEntity;
 import game.entity.types.EntityWithStats;
+import game.events.EventGenerator;
 import game.events.EventListener;
 
 import java.util.ArrayList;
 
-public class GameMaster {
+public class GameMaster implements EventGenerator{
 	
 	private int enemyKilledCounter = 0;
 	
@@ -53,6 +54,9 @@ public class GameMaster {
 		enemyKilledCounter = 0;
 	}
 	
+
+	
+	
 	public void addListener(EventListener e){
 		listeners.add(e);
 	}
@@ -65,4 +69,5 @@ public class GameMaster {
 			listeners.get(i).notifyMe();
 		}
 	}
+
 }
