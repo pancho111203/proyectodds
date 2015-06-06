@@ -7,6 +7,7 @@ import game.graphics.SingleSprite;
 import game.graphics.Sprite;
 import game.graphics.Spritesheet;
 import game.level.Level;
+import auxiliar.AssetManager;
 
 public class Hearth extends Entity implements EntityActionable{
 
@@ -29,6 +30,8 @@ public class Hearth extends Entity implements EntityActionable{
 
 	@Override
 	public void action(Player e) {
+		AssetManager.getSingleton().stop("pickup");
+		AssetManager.getSingleton().playSound("pickup",0);
 		e.heal(healAmount);
 		setToDestroy();
 	}

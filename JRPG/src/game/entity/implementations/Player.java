@@ -29,9 +29,12 @@ import game.graphics.Sprite;
 import game.graphics.Spritesheet;
 import game.input.GameInput;
 import game.level.Level;
+import game.sound.SoundManager;
 
 import java.awt.Rectangle;
 import java.util.ArrayList;
+
+import javax.sound.sampled.Clip;
 
 import auxiliar.AssetManager;
 import auxiliar.Vector2D;
@@ -47,6 +50,9 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 	
 	public final int MAXENERGY= 1000, MAXHP=100, DMG = 20;
 	private final int IMMUNETIME = 25;
+	
+	private int low_hp;
+	private boolean low = false;
 	
 	private ChangeLevel changeLevel;
 	private Weapon weapon;
@@ -99,6 +105,8 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 		//TODO diferetes controles para diferentes armas
 		setWeapon(sword);
 		
+		
+		low_hp = MAXHP/5;
 	}
 
 	
@@ -133,6 +141,16 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 		
 		if(!isAlive()){
 			die();
+		}
+		if(getHP()<=low_hp&&low==false){
+			low = true;
+			AssetManager.getSingleton().stop("lowhp");
+			AssetManager.getSingleton().playSound("lowhp",0);
+			SoundManager.getSingleton().loop("lowhp",Clip.LOOP_CONTINUOUSLY);
+			
+		}else if(getHP()>low_hp){
+			low = false;
+			SoundManager.getSingleton().stop("lowhp");
 		}
 	}
 
@@ -209,6 +227,7 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 		mov.stop(-1);
 		AssetManager.getSingleton().stop("music");
 		msm.change("dead", "", true);
+		SoundManager.getSingleton().stop("lowhp");
 	}
 
 	public int getEnergy() {
@@ -297,6 +316,8 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 	@Override
 	public void receiveDmg(int dmg, Entity e) {
 		if(!hp_mod.isImmune()&&changeLevel==null){
+			//AssetManager.getSingleton().stop("hurt");
+			//AssetManager.getSingleton().playSound("hurt",0);
 			push(new Vector2D(e.getX(), e.getY()), 5);
 			hp_mod.hit(dmg);
 		}

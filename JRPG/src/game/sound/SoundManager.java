@@ -75,7 +75,7 @@ public class SoundManager {
 		clips.get(id).setFramePosition(0);
 	}
 	
-	public void loop(int id, int times){
+	public void loop(String id, int times){
 		clips.get(id).loop(times);
 	}
 	
