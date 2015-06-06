@@ -1,5 +1,6 @@
 package game.entity.implementations.enemies;
 
+import static org.junit.Assert.assertEquals;
 import game.GameMaster;
 import game.entity.SpriteContainer;
 import game.entity.SpriteFinishReceiver;
@@ -16,10 +17,10 @@ import game.level.Level;
 
 import java.awt.Rectangle;
 
-public class CaballitoMarbao extends Enemy implements SpriteFinishReceiver{
+public class Horseman extends Enemy implements SpriteFinishReceiver{
 
 	
-	public CaballitoMarbao(int x, int y, int w, int h, Movement mov, Level level, Rectangle tileOffs) {
+	public Horseman(int x, int y, int w, int h, Movement mov, Level level, Rectangle tileOffs) {
 		super(x, y, w, h, mov, level, tileOffs);
 		
 		MAXHP = 100;
@@ -50,6 +51,9 @@ public class CaballitoMarbao extends Enemy implements SpriteFinishReceiver{
 	
 	@Override
 	public void die(){
+		//al morir el enemigo tiene vida == 0
+		assertEquals(hp_mod.getHP(),0);
+		
 		mov.stop(-1);
 		msm.change("dead", "", true);
 		active = false;

@@ -56,7 +56,7 @@ public class AssetManager {
 				System.err.println("Error cargando algún asset: "+e);
 			}
 
-			System.out.println(image.size()+" "+sound.size());
+			System.out.println(images.toString()+" "+sounds.toString());
 		}
 	}
 

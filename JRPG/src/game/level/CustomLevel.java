@@ -1,7 +1,7 @@
 package game.level;
 
 import game.entity.implementations.Enemy;
-import game.entity.implementations.enemies.CaballitoMarbao;
+import game.entity.implementations.enemies.Horseman;
 import game.entity.movement.EasyPFMovment;
 import game.entity.movement.Movement;
 import game.states.LevelState;
@@ -23,7 +23,7 @@ public class CustomLevel extends Level {
 		
 		Movement mov = new EasyPFMovment(this,player);
 	    Rectangle enemy1TileOffs = new Rectangle(25,57,42,62);
-	    Enemy malo1 = new CaballitoMarbao(200,100,64,64,mov,this,enemy1TileOffs); // hay que ajustar los offsets
+	    Enemy malo1 = new Horseman(200,100,64,64,mov,this,enemy1TileOffs); // hay que ajustar los offsets
 		mov.initializeEntity(malo1);
 		entList.addEntity(malo1);
 		

@@ -1,10 +1,10 @@
 +MainMenu
 -img
-bg/botonsito/selectorp/
+bg/btnCredts/btnJugar/btnSalir/selectorp/creditos/
 -sound
 
 +Level
 -img
-BloqueSprites01/level3/BloqueSprites02/level4/Caballitomarbao/life/HPbar/minoDead/minoPerfilDer/minoPerfilIzq/minoFront/minoBack/energy/rayo/minoDisolver/ataqueFrente/ataqueEspalda/hearth/rayoZeus/zeus/explosion/
+BloqueSprites01/level3/BloqueSprites02/level4/level5/Caballitomarbao/life/HPbar/minoDead/minoPerfilDer/minoPerfilIzq/minoFront/minoBack/energy/rayo/minoDisolver/ataqueFrente/ataqueEspalda/hearth/rayoZeus/zeus/explosion/gameover/
 -sound
-footsteps/shoot/sword/tp/music/boss_hit/enemy_hit/pickup/lowhp/
+sword/tp/music/ray/horse/pickup/lowhp/

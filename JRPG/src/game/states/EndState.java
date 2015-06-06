@@ -3,6 +3,7 @@ package game.states;
 import game.GameStart;
 import game.graphics.Rendering;
 import game.graphics.RenderingMenu;
+import game.menus.CreditsMenu;
 import game.menus.MainMenu;
 import game.menus.Menu;
  
@@ -30,8 +31,15 @@ public class EndState implements IState{
 	@Override
 	public void update() {
 		curMenu.update();
-		if(curMenu.change()!= null){
-			game.change(curMenu.change(), "init");
+		String ch = curMenu.change();
+		if(ch!=null){
+			if(ch.equals("level1")){
+				game.change("level1", "init");
+			}else if(ch.equals("credits")){
+				curMenu = new CreditsMenu();
+			} else if(ch.equals("mainmenu")){
+				curMenu = new MainMenu();
+			}
 		}
 	}
 

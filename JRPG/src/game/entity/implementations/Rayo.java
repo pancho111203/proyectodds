@@ -12,6 +12,8 @@ import game.level.Level;
 import java.awt.Rectangle;
 import java.util.Random;
 
+import auxiliar.AssetManager;
+
 // 32x88
 public class Rayo extends Entity implements DamagingEntity{
 
@@ -71,6 +73,7 @@ public class Rayo extends Entity implements DamagingEntity{
 		anim.startAgain();
 		xInScreen = x-level.getXPosScreen();
 		yInScreen = y-level.getYPosScreen();
+		AssetManager.getSingleton().playSound("ray");
 	}
 
 	private void reset() {

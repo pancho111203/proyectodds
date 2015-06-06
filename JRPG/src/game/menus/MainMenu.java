@@ -1,46 +1,53 @@
 package game.menus;
 
-import auxiliar.AssetManager;
 import game.graphics.Image;
 import game.graphics.RenderingMenu;
+import auxiliar.AssetManager;
 
 public class MainMenu extends Menu {
 	
 	private Image bg;
-	private Image btn;
-	private Image sel;
+	private Image btn1,btn2,btn3;
+	private int select=0;
 
 	public MainMenu(){
 		bg =new Image(AM.getImage("bg"));
-		btn = new Image(AM.getImage("botonsito"));
-		sel = new Image(AM.getImage("selectorp"));
-		sel.setX(265);
-		sel.setY(20);
+		btn1 = new Image(AM.getImage("btnJugar"));
+		btn2 = new Image(AM.getImage("btnCredts"));
+		btn3 = new Image(AM.getImage("btnSalir"));
 	}
 	
 	public void update(){
-		int sely=sel.getY();
 		
 		if(gi.inputPressed(gi.UP)){
-			sely = (sely > 30) ? (sely-25) : 70;
+			select = (select==0) ? 2 : select-1;
 		}
 		if(gi.inputPressed(gi.DOWN)){
-			sely = (sely < 60) ? (sely+25) : 20;
+			select = (select==2) ? 0 : select+1;
 		}
-		sel.setY(sely);
-		if(gi.inputPressed(gi.ACTION)){
-			AssetManager.getSingleton().stop("music");
-			AssetManager.getSingleton().playSound("music");
-			changeTo = "level1";
+		if(gi.inputPressed(gi.ACTION)){			
+			if(select==0){
+				AssetManager.getSingleton().stop("music");
+				AssetManager.getSingleton().getSounds().setVol("music", -20);
+				AssetManager.getSingleton().playSound("music");
+				changeTo = "level1";
+			}else if(select==1){
+				changeTo="credits";
+			}else if(select==2){
+				exit=true;
+			}
 		}
 	}
 	
 	public void render(RenderingMenu render){
 		render.renderImage(0, 0, bg);
-		render.renderImage(200, 30, btn);
-		render.renderImage(200, 55, btn);
-		render.renderImage(200, 80, btn);
-		render.renderImage(sel.getX(), sel.getY(), sel);	
+		if(select==0) render.renderImageColored(105, 130, btn1, 0xFEEECE);
+		else render.renderImage(105, 130, btn1);
+		if(select==1) render.renderImageColored(105, 165, btn2, 0xFEEECE);
+		else render.renderImage(105, 165, btn2);
+		if(select==2) render.renderImageColored(105, 200, btn3, 0xFEEECE);
+		else render.renderImage(105, 200, btn3);
+	//	render.renderImage(sel.getX(), sel.getY(), sel);	
 	}
 
 }

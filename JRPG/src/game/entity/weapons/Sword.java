@@ -1,5 +1,6 @@
 package game.entity.weapons;
 
+import static org.junit.Assert.assertTrue;
 import game.GameMaster;
 import game.GameStart;
 import game.entity.Entity;
@@ -41,6 +42,10 @@ public class Sword implements Weapon, OwnsCollider, DamagingEntity{
 		
 		parent = en;
 		ent = (Entity)parent;
+		
+		
+		//asegurar que solo podrá asignarse un arma a entidades con daño y vida
+		assertTrue(ent instanceof EntityWithStats);
 		
 		
 		
@@ -107,6 +112,8 @@ public class Sword implements Weapon, OwnsCollider, DamagingEntity{
 	public void attack(int dir) {
 
 		AssetManager.getSingleton().stop("sword");
+
+		AssetManager.getSingleton().getSounds().setVol("sword", -20);
 		AssetManager.getSingleton().playSound("sword",5000);
 		active = true;
 		

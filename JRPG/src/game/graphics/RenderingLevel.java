@@ -10,6 +10,11 @@ public class RenderingLevel extends Rendering{
 		super(w, h);
 	}
 
+	public void renderImage(int xp, int yp, Image sp){ // (xp,yp) es la posicion del sprite respecto a la pantalla(en pixels!!)
+
+		super.render(sp.getHeight(),sp.getWidth(),xp,yp,sp.pixels);
+	
+	}
 		
 	public void renderTile(int xp, int yp, int xRest, int yRest, Tile tile){ // (xp,yp) es la posicion del tile respecto a la pantalla 
 		//(xRest,yRest) respresentan el desplazamiento del sprite. el valor maximo de este desplazamiento
@@ -34,7 +39,7 @@ public class RenderingLevel extends Rendering{
 		
 		for(int i=0;i<pix.length;i++){
 			
-			if(sprite.pixels[i]!=ALPHA && sprite.pixels[i]!=ALPHA2 && sprite.pixels[i]!=ALPHA3){
+			if(!isALPHA(sprite.pixels[i])){
 			
 				pix[i]=sprite.pixels[i]|color;
 			

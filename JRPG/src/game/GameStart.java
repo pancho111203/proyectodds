@@ -73,6 +73,7 @@ public class GameStart extends Canvas implements Runnable{
 		add("end", new EndState(this,WIDTH,HEIGHT));
 		add("level1", new LevelState(this,WIDTH,HEIGHT));
 		
+		
 		gi= GameInput.getSingleton();
 		gi.addListeners(this);
 		

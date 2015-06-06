@@ -103,8 +103,8 @@ public abstract class Enemy extends MovingEntity implements EntityWithStats, Dam
 	@Override
 	public void receiveDmg(int dmg, Entity e) {
 		if(!hp_mod.isImmune()&&active){
-			AssetManager.getSingleton().stop("enemy_hit");
-			AssetManager.getSingleton().playSound("enemy_hit",0);
+			AssetManager.getSingleton().stop("horse");
+			AssetManager.getSingleton().playSound("horse");
 			push(new Vector2D(e.getX(), e.getY()), 15);
 			hp_mod.hit(dmg);
 		}
