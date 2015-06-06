@@ -11,7 +11,6 @@ public class MenuState implements IState{
 	private GameStart game;
 	private RenderingMenu render;
 	
-
 	private Menu curMenu;
 	
 
@@ -33,11 +32,11 @@ public class MenuState implements IState{
 		if(curMenu.change()!= null){
 			game.change(curMenu.change(), "init");
 		}
+		if(curMenu.exit())game.stop();
 	}
 
 	@Override
 	public void onExit() {
-		
 	}
 
 	@Override
