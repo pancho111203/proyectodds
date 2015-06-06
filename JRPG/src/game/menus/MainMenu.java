@@ -41,11 +41,11 @@ public class MainMenu extends Menu {
 	
 	public void render(RenderingMenu render){
 		render.renderImage(0, 0, bg);
-		if(select==0) render.renderImageColored(105, 130, btn1, 0xEEEEEE);
+		if(select==0) render.renderImageColored(105, 130, btn1, 0xFEEECE);
 		else render.renderImage(105, 130, btn1);
-		if(select==1) render.renderImageColored(105, 165, btn2, 0xEEEEEE);
+		if(select==1) render.renderImageColored(105, 165, btn2, 0xFEEECE);
 		else render.renderImage(105, 165, btn2);
-		if(select==2) render.renderImageColored(105, 200, btn3, 0xEEEEEE);
+		if(select==2) render.renderImageColored(105, 200, btn3, 0xFEEECE);
 		else render.renderImage(105, 200, btn3);
 	//	render.renderImage(sel.getX(), sel.getY(), sel);	
 	}
