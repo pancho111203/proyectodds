@@ -50,8 +50,6 @@ public class SoundManager {
 	}
 	
 	public void play(String id){
-		FloatControl cont =(FloatControl) clips.get(id).getControl(FloatControl.Type.MASTER_GAIN);
-		cont.setValue(-20);
 		if (!clips.get(id).isRunning()){
 			clips.get(id).setFramePosition(0);
 			clips.get(id).start();
@@ -59,8 +57,6 @@ public class SoundManager {
 	}
 	
 	public void playfrom(String id,int pos){
-		FloatControl cont =(FloatControl) clips.get(id).getControl(FloatControl.Type.MASTER_GAIN);
-		cont.setValue(-20);
 		if (!clips.get(id).isRunning()){
 			clips.get(id).setFramePosition(pos);
 			clips.get(id).start();
@@ -68,7 +64,7 @@ public class SoundManager {
 	}
 	public void setVol(String id, float vol){
 		FloatControl cont =(FloatControl) clips.get(id).getControl(FloatControl.Type.MASTER_GAIN);
-		cont.setValue(-20);
+		cont.setValue(vol);
 	}
 	public void stop(String id){
 		clips.get(id).stop();

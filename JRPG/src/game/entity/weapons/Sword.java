@@ -107,6 +107,8 @@ public class Sword implements Weapon, OwnsCollider, DamagingEntity{
 	public void attack(int dir) {
 
 		AssetManager.getSingleton().stop("sword");
+
+		AssetManager.getSingleton().getSounds().setVol("sword", -20);
 		AssetManager.getSingleton().playSound("sword",5000);
 		active = true;
 		

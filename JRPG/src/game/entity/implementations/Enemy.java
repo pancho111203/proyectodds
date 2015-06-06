@@ -14,6 +14,7 @@ import game.level.Level;
 
 import java.awt.Rectangle;
 
+import auxiliar.AssetManager;
 import auxiliar.Vector2D;
 
 public abstract class Enemy extends MovingEntity implements EntityWithStats, DamagingEntity{
@@ -102,6 +103,8 @@ public abstract class Enemy extends MovingEntity implements EntityWithStats, Dam
 	@Override
 	public void receiveDmg(int dmg, Entity e) {
 		if(!hp_mod.isImmune()){
+			AssetManager.getSingleton().stop("horse");
+			AssetManager.getSingleton().playSound("horse");
 			push(new Vector2D(e.getX(), e.getY()), 15);
 			hp_mod.hit(dmg);
 		}
