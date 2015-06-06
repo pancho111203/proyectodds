@@ -33,7 +33,7 @@ public class MenuState implements IState{
 		String ch = curMenu.change();
 		if(ch!=null){
 			if(ch.equals("level1")){
-				game.change(ch, "init");
+				game.change("level1", "init");
 			}else if(ch.equals("credits")){
 				curMenu = new CreditsMenu();
 			} else if(ch.equals("mainmenu")){

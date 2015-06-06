@@ -27,12 +27,12 @@ public class MainMenu extends Menu {
 		}
 		if(gi.inputPressed(gi.ACTION)){
 			if(select==0){
-			AssetManager.getSingleton().stop("music");
-			AssetManager.getSingleton().playSound("music");
-			changeTo = "level1";
+				AssetManager.getSingleton().stop("music");
+				AssetManager.getSingleton().playSound("music");
+				changeTo = "level1";
 			}else if(select==1){
 				changeTo="credits";
-			}else{
+			}else if(select==2){
 				exit=true;
 			}
 		}
