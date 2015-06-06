@@ -1,8 +1,8 @@
 package game.menus;
 
-import auxiliar.AssetManager;
 import game.graphics.RenderingMenu;
 import game.input.GameInput;
+import auxiliar.AssetManager;
 
 public abstract class Menu {
 
@@ -10,6 +10,7 @@ public abstract class Menu {
 	protected AssetManager AM;
 	
 	protected String changeTo;
+	protected boolean exit=false;
 	
 	public Menu() {
 		changeTo=null;
@@ -25,6 +26,9 @@ public abstract class Menu {
 		 
 	}
 	
+	public boolean exit(){
+		return exit;
+	}
 
 	public String change(){
 		return changeTo;

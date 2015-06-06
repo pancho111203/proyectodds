@@ -1,10 +1,10 @@
 +MainMenu
 -img
-bg/botonsito/selectorp/
+bg/btnCredts/btnJugar/btnSalir/selectorp/
 -sound
 
 +Level
 -img
 BloqueSprites01/level3/BloqueSprites02/level4/Caballitomarbao/life/HPbar/minoDead/minoPerfilDer/minoPerfilIzq/minoFront/minoBack/energy/rayo/minoDisolver/ataqueFrente/ataqueEspalda/hearth/rayoZeus/zeus/explosion/
 -sound
-footsteps/shoot/sword/tp/music/
+sword/tp/music/
