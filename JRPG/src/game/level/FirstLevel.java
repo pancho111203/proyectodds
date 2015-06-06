@@ -38,7 +38,7 @@ public class FirstLevel extends Level {
 	    mov.initializeEntity(malo1);
 		entList.addEntity(malo1);
 			
-		Door door1 = new Door(224, 38, 32, 32, this,"SecondLevel", SecondLevel.START_POS_X, SecondLevel.START_POS_Y); 
+		Door door1 = new Door(244, 68, 1, 5, this,"SecondLevel", SecondLevel.START_POS_X, SecondLevel.START_POS_Y); 
 		entList.addEntity(door1);
 		
 		Rayo rayo2 = new Rayo(this, 112);

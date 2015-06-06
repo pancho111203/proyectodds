@@ -53,18 +53,27 @@ public class Sword implements Weapon, OwnsCollider, DamagingEntity{
 		attackAnimSword.setXOffset(-15);
 		
 		Animator attackAnimSwordBack = new Animator(60, 68, 0, 0, 3, new Spritesheet(AssetManager.getSingleton().getImage("ataqueEspalda")), 6,true);
-		attackAnimSwordBack.setXOffset(-13);
+		attackAnimSwordBack.setXOffset(-12);
 		attackAnimSwordBack.setYOffset(-20);
+		
+		
+		Animator attackAnimSwordIzq = new Animator(50, 48, 0, 0, 3, new Spritesheet(AssetManager.getSingleton().getImage("ataquePerfilIzq")), 6,true);
+		attackAnimSwordIzq.setXOffset(-24);
+		
+		
+		Animator attackAnimSwordDer = new Animator(50, 48, 0, 0, 3, new Spritesheet(AssetManager.getSingleton().getImage("ataquePerfilDer")), 6,true);
+		attackAnimSwordDer.setXOffset(6);
+		
 		
 		SpriteContainerWithReceiver attackStateContainer = new SpriteContainerWithReceiver(parent);
 		attackStateContainer.addAnimatorWithReceiver("0", attackAnimSwordBack, attackFinishEvent);
-		attackStateContainer.addAnimatorWithReceiver("1", attackAnimSword, attackFinishEvent);
-		attackStateContainer.addAnimatorWithReceiver("2", attackAnimSword, attackFinishEvent);
+		attackStateContainer.addAnimatorWithReceiver("1", attackAnimSwordBack, attackFinishEvent);
+		attackStateContainer.addAnimatorWithReceiver("2", attackAnimSwordDer, attackFinishEvent);
 		attackStateContainer.addAnimatorWithReceiver("3", attackAnimSword, attackFinishEvent);
 		attackStateContainer.addAnimatorWithReceiver("4", attackAnimSword, attackFinishEvent);
 		attackStateContainer.addAnimatorWithReceiver("5", attackAnimSword, attackFinishEvent);
-		attackStateContainer.addAnimatorWithReceiver("6", attackAnimSword, attackFinishEvent);
-		attackStateContainer.addAnimatorWithReceiver("7", attackAnimSword, attackFinishEvent);
+		attackStateContainer.addAnimatorWithReceiver("6", attackAnimSwordIzq, attackFinishEvent);
+		attackStateContainer.addAnimatorWithReceiver("7", attackAnimSwordBack, attackFinishEvent);
 		attackStateContainer.addAnimatorWithReceiver("8", attackAnimSword, attackFinishEvent);
 		move = new LockMove(attackStateContainer, true);
 		
@@ -72,14 +81,16 @@ public class Sword implements Weapon, OwnsCollider, DamagingEntity{
 		
 		Rectangle down = new Rectangle(-15,26,60,42);
 		Rectangle up = new Rectangle(-13,-20,62,42);
+		Rectangle izq = new Rectangle(-22,10,32,32);
+		Rectangle der = new Rectangle(20,10,32,32);
 		collideRects.put("0", up);
-		collideRects.put("1", down);
-		collideRects.put("2", down);
+		collideRects.put("1", up);
+		collideRects.put("2", der);
 		collideRects.put("3", down);
 		collideRects.put("4", down);
 		collideRects.put("5", down);
-		collideRects.put("6", down);
-		collideRects.put("7", down);
+		collideRects.put("6", izq);
+		collideRects.put("7", up);
 		collideRects.put("8", down);
 	}
 	public void update(){

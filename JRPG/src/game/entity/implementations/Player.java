@@ -69,11 +69,16 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 	    Sprite currentAnimIzq = new Animator(WIDTH, HEIGHT, 0, 0, 4, new Spritesheet(level.AM.getImage("minoPerfilIzq")), 15,false);
 		Sprite currentAnimDer = new Animator(WIDTH, HEIGHT, 0, 0, 4, new Spritesheet(level.AM.getImage("minoPerfilDer")), 15,false);
 		SpriteContainer normalState = new SpriteContainer();
-		normalState.addSprite("0", currentAnimBack); // hay que añadir un sprite para cada direccion (obligatorio para que la statemachine funcione)
-		normalState.addSprites(3, currentAnimDer); // despues puedo anadir los sprites que sean necesarios para cada estado diferente
-		normalState.addSprite("4", currentAnimFront);
-		normalState.addSprites(3, currentAnimIzq);
-		normalState.addSprite("8", currentAnim);
+		normalState.addSprite("0", currentAnimBack); 
+		normalState.addSprite("1", currentAnimBack); 
+		normalState.addSprite("2", currentAnimDer); 
+		normalState.addSprite("3", currentAnimFront); 
+		normalState.addSprite("4", currentAnimFront); 
+		normalState.addSprite("5", currentAnimFront); 
+		normalState.addSprite("6", currentAnimIzq); 
+		normalState.addSprite("7", currentAnimBack); 
+		normalState.addSprite("8", currentAnim); 
+		
 		msm.add("normal", new NormalMove(normalState, false));
 		msm.change("normal", "", false);
 		
@@ -112,7 +117,6 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 	
 	@Override
 	public void update() {
-		
 		//TEST es temporal para probar ataque
 		if(GameInput.getSingleton().inputPressed(4)){
 			attack();

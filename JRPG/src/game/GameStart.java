@@ -91,6 +91,7 @@ public class GameStart extends Canvas implements Runnable{
 	
 	public void stop(){
 		isRunning = false;
+		System.exit(0);
 	}
 	
 	@Override

@@ -1,5 +1,6 @@
 package game.level;
 
+import game.entity.implementations.Door;
 import game.entity.implementations.Enemy;
 import game.entity.implementations.PressurePlate;
 import game.entity.implementations.Rayo;
@@ -39,8 +40,6 @@ public class SecondLevel extends Level {
 	    mov.initializeEntity(malo1);
 		entList.addEntity(malo1);
 			
-		//Door door1 = new Door(224, 38, 32, 32, this,"CustomLevel", 224, 350); 
-		//entList.addEntity(door1);
 		
 		Rayo rayo2 = new Rayo(this, 112);
 		Rayo rayo = new Rayo(this, 163);
@@ -56,11 +55,18 @@ public class SecondLevel extends Level {
 		TileChanger t5 = new TileChanger(killObserver,15, 3, 0xffff2745, this);
 		TileChanger t6 = new TileChanger(killObserver,16, 3, 0xffff2746, this);
 		
+		
+		Door door1 = new Door(253, 5, 1, 5, this,"ThirdLevel", ThirdLevel.START_POS_X, ThirdLevel.START_POS_Y); 
+		entList.addEntity(door1);
+		
+		
 		PressurePlate entranceCloseDoorPlate = new PressurePlate(239, 450, 32, 50, this);
 		entList.addEntity(entranceCloseDoorPlate);
 		
 		TileChanger ent1 = new TileChanger(entranceCloseDoorPlate,15, 34, 0xff13369b, this);
 		TileChanger ent2 = new TileChanger(entranceCloseDoorPlate,16, 34, 0xff13369b, this);
+		
+		
 		
 	}
 	@Override
