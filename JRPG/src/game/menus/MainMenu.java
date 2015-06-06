@@ -28,7 +28,7 @@ public class MainMenu extends Menu {
 		if(gi.inputPressed(gi.ACTION)){			
 			if(select==0){
 				AssetManager.getSingleton().stop("music");
-				AssetManager.getSingleton().getSounds().setVol("music", -20);
+				AssetManager.getSingleton().getSounds().setVol("music",-5);
 				AssetManager.getSingleton().playSound("music");
 				changeTo = "level1";
 			}else if(select==1){
