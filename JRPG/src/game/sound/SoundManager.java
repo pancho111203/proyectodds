@@ -1,7 +1,7 @@
 package game.sound;
 
-import java.io.File;
-import java.net.URL;
+import java.io.BufferedInputStream;
+import java.io.InputStream;
 import java.util.HashMap;
 
 import javax.sound.sampled.AudioInputStream;
@@ -26,11 +26,10 @@ public class SoundManager {
 		return soundmanager;
 	}
 	
-	public void add(String name,URL sound){
+	public void add(String name,InputStream sound){
 		try {
-		     URL defaultSound = sound;
-		     File soundFile = new File(defaultSound.toURI());
-		     AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
+			 InputStream bufferedIn = new BufferedInputStream(sound);
+		     AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(bufferedIn);
 		     clips.put(name,AudioSystem.getClip());	 
 		     clips.get(name).open(audioInputStream);
 		} catch (Exception ex) {

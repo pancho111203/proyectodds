@@ -49,7 +49,7 @@ public class AssetManager {
 				}
 				
 				for(int i=0;i<sounds.size();i++){
-					sound.add(sounds.get(i), AssetManager.class.getResource("/sounds/"+sounds.get(i)+".wav"));
+					sound.add(sounds.get(i), AssetManager.class.getResourceAsStream("/sounds/"+sounds.get(i)+".wav"));
 				}
 				
 			}catch(IOException e){

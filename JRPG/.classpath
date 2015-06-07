@@ -6,8 +6,9 @@
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="JRPG/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="res"/>
-	<classpathentry kind="lib" path="lib/jinput.jar"/>
-	<classpathentry kind="lib" path="junit-4.12.jar"/>
+	<classpathentry exported="true" kind="lib" path="res"/>
+	<classpathentry exported="true" kind="lib" path="lib/jinput.jar"/>
+	<classpathentry exported="true" kind="lib" path="junit-4.12.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
