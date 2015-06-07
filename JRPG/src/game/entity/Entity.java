@@ -16,7 +16,7 @@ public abstract class Entity {
 	
 	protected Rectangle colliderOffsets;
 	protected Rectangle collider;
-	
+	protected boolean enabled = true;
 	
 	protected final int WIDTH;
 	protected final int HEIGHT;
@@ -56,6 +56,13 @@ public abstract class Entity {
 	public void addCustomCollider(Rectangle newColl){
 		colliderOffsets = newColl;
 		collider.setSize((int)(colliderOffsets.getWidth()-colliderOffsets.getX()), (int)(colliderOffsets.getHeight()-colliderOffsets.getY()));
+	}
+	
+	public void setEnabled(boolean e){
+		enabled = e;
+	}
+	public boolean getEnabled(){
+		return enabled;
 	}
 	
 	public abstract void update(); 

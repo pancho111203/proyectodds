@@ -1,7 +1,11 @@
 package game.level;
 
+import game.entity.implementations.Hearth;
 import game.entity.implementations.PressurePlate;
 import game.entity.implementations.Rayo;
+import game.entity.implementations.enemies.zeus.Zeus;
+import game.entity.movement.HorizontalMovement;
+import game.entity.movement.Movement;
 import game.events.TileChanger;
 import game.graphics.RenderingLevel;
 import game.states.LevelState;
@@ -34,6 +38,17 @@ public class ThirdLevel extends Level {
 		entList.addEntity(rayo);
 		entList.addEntity(rayo2);
 		
+		Hearth hp = new Hearth(30, 218,400, this);
+		entList.addEntity(hp);
+		hp = new Hearth(30, 218,360, this);
+		entList.addEntity(hp);
+		hp = new Hearth(30, 218,320, this);
+		entList.addEntity(hp);
+		
+		Movement zeusMov = new HorizontalMovement(this, 240, 1);
+		Zeus zeus = new Zeus(55, 40, 90, 124, zeusMov, this);
+		zeusMov.initializeEntity(zeus);
+		entList.addEntity(zeus);
 		
 	}
 	@Override

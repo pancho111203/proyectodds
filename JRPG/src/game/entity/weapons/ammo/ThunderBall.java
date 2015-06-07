@@ -1,57 +1,34 @@
 package game.entity.weapons.ammo;
 
-import game.entity.MovingEntity;
+import game.entity.SpriteContainer;
 import game.entity.movement.Movement;
-import game.entity.types.DamagingEntity;
-import game.graphics.RenderingLevel;
+import game.entity.movestate.NormalMove;
+import game.graphics.Animator;
+import game.graphics.Sprite;
+import game.graphics.Spritesheet;
 import game.level.Level;
 
-public class ThunderBall extends MovingEntity implements DamagingEntity{
+import java.awt.Rectangle;
 
-	public ThunderBall(int x, int y, int w, int h, Level level, Movement mov) {
-		super(x, y, w, h, level, mov);
-		// TODO Auto-generated constructor stub
-	}
+public class ThunderBall extends Ammo{
 
-	@Override
-	public boolean isActive() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public int getDmg() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void dealtDamage(int d) {
-		// TODO Auto-generated method stub
+	public ThunderBall(int x, int y, Level level, Movement mov, int dmg, boolean destroyOnHit) {
+		super(x, y, 30, 30, level, mov, dmg,destroyOnHit);
+	
 		
+		addCustomCollider(new Rectangle(5,5,25,25));
 	}
 
 	@Override
-	public void move(int movX, int movY) {
-		// TODO Auto-generated method stub
+	public void setSprite() {
+
+		Sprite anim = new Animator(WIDTH, HEIGHT, 0, 0, 4, new Spritesheet(level.AM.getImage("thunderBall")), 10,false);
 		
-	}
-
-	@Override
-	public boolean collidesWithState(int s) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void update() {
-		// TODO Auto-generated method stub
+		SpriteContainer normalState = new SpriteContainer();
+		normalState.addSprites(8, anim); 
 		
-	}
-
-	@Override
-	public void render(RenderingLevel render) {
-		// TODO Auto-generated method stub
+		msm.add("normal", new NormalMove(normalState, true));
+		msm.change("normal", "", false);
 		
 	}
 

@@ -1,6 +1,7 @@
 package game.level;
 
 import game.entity.Entity;
+import game.entity.implementations.Enemy;
 import game.entity.implementations.Player;
 import game.entity.list.EntityList;
 import game.entity.modules.Module;
@@ -283,6 +284,13 @@ public abstract class Level {
 	
 	public void setTile(int x, int y, int subst){
 		tiles[(x+y*width)] = subst;
+	}
+
+	public void enemyDestroyed(Enemy e) {
+	}
+
+	public Entity getPlayer() {
+		return player;
 	}
 	
 }

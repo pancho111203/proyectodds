@@ -6,6 +6,7 @@ import game.graphics.Rendering;
 import game.graphics.RenderingLevel;
 import game.level.FirstLevel;
 import game.level.Level;
+import game.level.ThirdLevel;
 
 import java.util.ArrayList;
 
@@ -32,8 +33,9 @@ public class LevelState implements IState{
 		
 		fact = new LevelFactory(WIDTH, HEIGHT, this);
 		
-		changeLevel("FirstLevel",FirstLevel.START_POS_X, FirstLevel.START_POS_Y);
-		
+		//changeLevel("FirstLevel",FirstLevel.START_POS_X, FirstLevel.START_POS_Y);
+		changeLevel("ThirdLevel",ThirdLevel.START_POS_X, ThirdLevel.START_POS_Y);
+
 	}	
 
 	@Override

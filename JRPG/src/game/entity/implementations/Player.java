@@ -42,7 +42,6 @@ import auxiliar.Vector2D;
 public class Player extends MovingEntity implements AtackingEntity, SpriteFinishReceiver, OwnsCollider, EntityWithStats{
 
 	
-	private boolean attacking = false;
 	private Collider colls;
 	private EnergyModule energy_mod;
 	private HPModule hp_mod;
@@ -53,7 +52,7 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 	
 	private int low_hp;
 	private boolean low = false;
-	
+	private boolean dead = false;
 	private ChangeLevel changeLevel;
 	private Weapon weapon;
 	private String prevState = "normal";
@@ -103,12 +102,12 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 		
 		msm.unBlock();
 		
-		
-		Sword sword = new Sword(this, "ataque");
-		msm.add(sword.getType(),sword.getVisualMovement());
-		
-		//TODO diferetes controles para diferentes armas
+		Sword sword = new Sword(this,"ataque");
 		setWeapon(sword);
+
+		
+		if(weapon.customSprite())msm.add(sword.getType(),sword.getVisualMovement());
+		
 		
 		
 		low_hp = MAXHP/5;
@@ -118,7 +117,7 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 	@Override
 	public void update() {
 		//TEST es temporal para probar ataque
-		if(GameInput.getSingleton().inputPressed(4)){
+		if(GameInput.getSingleton().inputPressed(4)&&!dead){
 			attack();
 		}
 
@@ -173,6 +172,7 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 	
 	public void move(int movX,int movY){
 		msm.move(movX, movY);
+		System.out.println(x+" "+y);
 		
 		movX = msm.getMovX();
 		movY = msm.getMovY();
@@ -235,6 +235,7 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 		AssetManager.getSingleton().stop("music");
 		msm.change("dead", "", true);
 		SoundManager.getSingleton().stop("lowhp");
+		dead = true;
 	}
 
 	public int getEnergy() {
@@ -261,11 +262,12 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 
 	@Override
 	public void attack() {
-		if(!attacking){
+		if(weapon.canAttack()){
 			weapon.attack(dir);
-			attacking = true;
-			prevState  = msm.getCurrentStateName();
-			msm.change(weapon.getType(), "", true);
+			if(weapon.customSprite()){
+				prevState  = msm.getCurrentStateName();
+				msm.change(weapon.getType(), "", true);
+			}
 		}
 	}
 
@@ -297,7 +299,6 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 	}
 	
 	private void finishAttack() {
-		attacking = false;
 		weapon.stopAttack();
 		msm.unBlock();
 		msm.change(prevState, "", false);

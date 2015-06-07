@@ -14,9 +14,6 @@ import game.level.Level;
 
 import java.awt.Rectangle;
 
-import auxiliar.AssetManager;
-import auxiliar.Vector2D;
-
 public abstract class Enemy extends MovingEntity implements EntityWithStats, DamagingEntity{
 	
 	protected HPModule hp_mod;
@@ -27,16 +24,14 @@ public abstract class Enemy extends MovingEntity implements EntityWithStats, Dam
 	protected int DMG;
 	protected int IMMUNETIME;
 	
-	public Enemy(int x, int y,int w, int h, Movement mov, Level level, Rectangle tileOffs) {
+	public Enemy(int x, int y,int w, int h, Movement mov, Level level) {
 		super(x, y, w, h,level, mov);
 		
 	   
-	    spriteOffsets = tileOffs;// siempre asignarlas antes de inicializar mov!!
-
-		
 		collider = new Rectangle((int)(colliderOffsets.getWidth()-colliderOffsets.getX()),(int)(colliderOffsets.getHeight()-colliderOffsets.getY()));
 		collider.setLocation((int)(x+colliderOffsets.getX()), (int)(y+colliderOffsets.getY()));
 	
+		
 	}
 
 	@Override
@@ -55,6 +50,8 @@ public abstract class Enemy extends MovingEntity implements EntityWithStats, Dam
 		if(!hp_mod.isAlive()){
 			die();
 		}
+		
+
 	}
 
 	@Override
@@ -101,14 +98,7 @@ public abstract class Enemy extends MovingEntity implements EntityWithStats, Dam
 	}
 
 	@Override
-	public void receiveDmg(int dmg, Entity e) {
-		if(!hp_mod.isImmune()&&active){
-			AssetManager.getSingleton().stop("horse");
-			AssetManager.getSingleton().playSound("horse");
-			push(new Vector2D(e.getX(), e.getY()), 15);
-			hp_mod.hit(dmg);
-		}
-	}
+	public abstract void receiveDmg(int dmg, Entity e);
 
 	@Override
 	public boolean isActive() {
@@ -118,6 +108,12 @@ public abstract class Enemy extends MovingEntity implements EntityWithStats, Dam
 	public void die(){
 		GameMaster.getSingleton().kill(this);
 	}
+	
+	public boolean isImmune(){
+		return hp_mod.isImmune();
+	}
+	
+
 
 
 

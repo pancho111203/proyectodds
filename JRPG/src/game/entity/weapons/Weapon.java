@@ -11,5 +11,6 @@ public interface Weapon {
 	public void stopAttack();
 	public String getType();
 	public IMove getVisualMovement();
-	
+	public boolean customSprite();
+	public boolean canAttack();
 }

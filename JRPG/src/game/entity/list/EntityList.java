@@ -25,7 +25,7 @@ public class EntityList {
 		for(int i=0;i<ents.size();i++){
 			Entity cur = ents.get(i);
 			
-			cur.update();
+			if(cur.getEnabled())cur.update();
 			
 			if(cur.toBeDestroyed()){
 				ents.remove(i);
@@ -39,8 +39,9 @@ public class EntityList {
 	public void render(RenderingLevel render){
 		
 		for(int i=0;i<ents.size();i++){
+			Entity cur = ents.get(i);
 			
-			((Entity)ents.get(i)).render(render);
+			if(cur.getEnabled())cur.render(render);
 			
 		}
 		

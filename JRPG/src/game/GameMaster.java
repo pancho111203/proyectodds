@@ -42,6 +42,7 @@ public class GameMaster implements EventGenerator{
 		e.setToDestroy();
 		if(e instanceof Enemy){
 			enemyKilledCounter++;
+			e.level.enemyDestroyed((Enemy)e);
 			notifyObservers();
 		}
 	}

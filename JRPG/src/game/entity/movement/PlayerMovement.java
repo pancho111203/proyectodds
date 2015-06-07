@@ -5,7 +5,7 @@ import game.level.Level;
 
 public class PlayerMovement extends Movement{
 
-	private final int ENERGYCONSUMEDONSPRINT = 10;
+	private final int ENERGYCONSUMEDONSPRINT = 5;
 	private int speed;
 	private int sprint = 1;
 	private GameInput gi;

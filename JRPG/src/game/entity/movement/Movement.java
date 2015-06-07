@@ -25,7 +25,16 @@ public abstract class Movement { // maneja el movimiento
 	
 	protected Level level;
 	
-	private int startColX, startColY, endColX, endColY;
+	protected int startColX;
+
+
+	protected int startColY;
+
+
+	protected int endColX;
+
+
+	protected int endColY;
 	
 	public Movement(Level level){
 		

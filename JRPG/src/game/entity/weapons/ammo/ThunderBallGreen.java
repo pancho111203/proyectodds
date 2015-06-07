@@ -3,22 +3,26 @@ package game.entity.weapons.ammo;
 import game.entity.SpriteContainer;
 import game.entity.movement.Movement;
 import game.entity.movestate.NormalMove;
-import game.graphics.SingleSprite;
+import game.graphics.Animator;
 import game.graphics.Sprite;
 import game.graphics.Spritesheet;
 import game.level.Level;
 
+import java.awt.Rectangle;
 
-public class RayZeus extends Ammo{
+public class ThunderBallGreen extends Ammo{
+
+	public ThunderBallGreen(int x, int y, Level level, Movement mov, int dmg, boolean destroyOnHit) {
+		super(x, y, 30, 30, level, mov, dmg,destroyOnHit);
 	
-	public RayZeus(int x, int y, Level level, Movement mov, int dmg, boolean destroyOnHit) {
-		super(x, y, 18, 72, level, mov, dmg,destroyOnHit);
-
+		
+		addCustomCollider(new Rectangle(5,5,25,25));
 	}
 
 	@Override
 	public void setSprite() {
-		Sprite anim = new SingleSprite(WIDTH, HEIGHT, 0, 0, new Spritesheet(level.AM.getImage("rayoZeus")));
+
+		Sprite anim = new Animator(WIDTH, HEIGHT, 0, 0, 4, new Spritesheet(level.AM.getImage("thunderBallGreen")), 10,false);
 		
 		SpriteContainer normalState = new SpriteContainer();
 		normalState.addSprites(8, anim); 
@@ -28,5 +32,4 @@ public class RayZeus extends Ammo{
 		
 	}
 
-	
 }

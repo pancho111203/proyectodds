@@ -2,6 +2,7 @@ package game.entity.implementations.enemies;
 
 import static org.junit.Assert.assertEquals;
 import game.GameMaster;
+import game.entity.Entity;
 import game.entity.SpriteContainer;
 import game.entity.SpriteFinishReceiver;
 import game.entity.implementations.Enemy;
@@ -17,11 +18,16 @@ import game.level.Level;
 
 import java.awt.Rectangle;
 
+import auxiliar.AssetManager;
+import auxiliar.Vector2D;
+
 public class Horseman extends Enemy implements SpriteFinishReceiver{
 
 	
 	public Horseman(int x, int y, int w, int h, Movement mov, Level level, Rectangle tileOffs) {
-		super(x, y, w, h, mov, level, tileOffs);
+		super(x, y, w, h, mov, level);
+		
+		spriteOffsets = tileOffs;
 		
 		MAXHP = 100;
 		DMG = 10;
@@ -70,4 +76,13 @@ public class Horseman extends Enemy implements SpriteFinishReceiver{
 		GameMaster.getSingleton().kill(this);
 	}
 
+	@Override
+	public void receiveDmg(int dmg, Entity e) {
+		if(!hp_mod.isImmune()&&active){
+			AssetManager.getSingleton().stop("horse");
+			AssetManager.getSingleton().playSound("horse");
+			push(new Vector2D(e.getX(), e.getY()), 15);
+			hp_mod.hit(dmg);
+		}
+	}
 }

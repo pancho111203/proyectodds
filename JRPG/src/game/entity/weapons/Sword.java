@@ -168,6 +168,14 @@ public class Sword implements Weapon, OwnsCollider, DamagingEntity{
 	public boolean isActive() {
 		return active;
 	}
+	@Override
+	public boolean customSprite() {
+		return true;
+	}
+	@Override
+	public boolean canAttack() {
+		return !active;
+	}
 		
 
 }

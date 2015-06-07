@@ -2,6 +2,7 @@ package game.level;
 
 import game.entity.implementations.Door;
 import game.entity.implementations.Enemy;
+import game.entity.implementations.Hearth;
 import game.entity.implementations.PressurePlate;
 import game.entity.implementations.enemies.Horseman;
 import game.entity.movement.EasyPFMovment;
@@ -21,7 +22,8 @@ public class SecondLevel extends Level {
 	public static final int START_POS_Y = 506;
 	
 	private BufferedImage imgToLvL;
-		
+	private Rectangle enemyCollider, enemy1TileOffs;
+	
 	public SecondLevel(int spawnPosXPlayer, int spawnPosYPlayer, int w, int h, LevelState p){
 		super(spawnPosXPlayer,spawnPosYPlayer,w,h,p);
 		
@@ -30,16 +32,16 @@ public class SecondLevel extends Level {
 		imgToLvL = AM.getImage("level4");
 		loadLevel();
 		
-		Rectangle enemyCollider = new Rectangle(0, 16, 64, 64);
-		
+		enemyCollider = new Rectangle(0, 16, 64, 64);
 		Movement mov = new EasyPFMovment(this,player);
-	    Rectangle enemy1TileOffs = new Rectangle(25,57,42,62);
+	    enemy1TileOffs = new Rectangle(25,57,42,62);
 	    Enemy malo1 = new Horseman(200,100,64,64,mov,this,enemy1TileOffs); // hay que ajustar los offsets
 		malo1.addCustomCollider(enemyCollider);
 	    mov.initializeEntity(malo1);
 		entList.addEntity(malo1);
 			
-		KillAmountObserver killObserver = new KillAmountObserver(1);
+		//TODO cambiar a 10
+		KillAmountObserver killObserver = new KillAmountObserver(10);
 		
 		TileChanger t1 = new TileChanger(killObserver,15, 1, 0xffff2745, this);
 		TileChanger t2 = new TileChanger(killObserver,16, 1, 0xffff2746, this);
@@ -62,6 +64,37 @@ public class SecondLevel extends Level {
 		
 		
 	}
+	
+	
+	public void enemyDestroyed(Enemy e){
+		int y;
+		
+		y = (int) (Math.random()*10);
+		if(y>6){
+			Hearth hp = new Hearth(30, e.getX(), e.getY(), this);
+			entList.addEntity(hp);
+		}
+		
+		
+		y = (int) (Math.random()*(getHeight()*Level.TILESIZE-15)+15);
+		
+		//cada vez que se destruye un enemigo aparecen dos mas
+		Movement mov = new EasyPFMovment(this,player);
+		Enemy malo1 = new Horseman(25,y,64,64,mov,this,enemy1TileOffs);
+		malo1.addCustomCollider(enemyCollider);
+		mov.initializeEntity(malo1);
+		entList.addEntity(malo1);
+		
+		y = (int) (Math.random()*(getHeight()*Level.TILESIZE-15)+15);
+		
+		Movement mov2 = new EasyPFMovment(this,player);
+		Enemy malo2 = new Horseman(450,y,64,64,mov2,this,enemy1TileOffs);
+		malo1.addCustomCollider(enemyCollider);
+		mov2.initializeEntity(malo2);
+		entList.addEntity(malo2);	}
+	
+	
+	
 	@Override
 	public void loadLevel(){
 		loadLevelFromImage();
