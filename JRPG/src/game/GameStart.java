@@ -127,6 +127,7 @@ public class GameStart extends Canvas implements Runnable{
 			
 			
 		}
+		Thread.currentThread().interrupt();
 	}
 	
 	private void updateFrames(int fps, int ups) {

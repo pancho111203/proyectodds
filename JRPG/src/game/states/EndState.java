@@ -41,6 +41,7 @@ public class EndState implements IState{
 				curMenu = new MainMenu();
 			}
 		}
+		if(curMenu.exit())game.stop();
 	}
 
 	@Override
