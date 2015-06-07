@@ -3,7 +3,6 @@ package game.level;
 import game.entity.implementations.Door;
 import game.entity.implementations.Enemy;
 import game.entity.implementations.PressurePlate;
-import game.entity.implementations.Rayo;
 import game.entity.implementations.enemies.Horseman;
 import game.entity.movement.EasyPFMovment;
 import game.entity.movement.Movement;
@@ -40,12 +39,6 @@ public class SecondLevel extends Level {
 	    mov.initializeEntity(malo1);
 		entList.addEntity(malo1);
 			
-		
-		Rayo rayo2 = new Rayo(this, 112);
-		Rayo rayo = new Rayo(this, 163);
-		entList.addEntity(rayo);
-		entList.addEntity(rayo2);
-		
 		KillAmountObserver killObserver = new KillAmountObserver(1);
 		
 		TileChanger t1 = new TileChanger(killObserver,15, 1, 0xffff2745, this);

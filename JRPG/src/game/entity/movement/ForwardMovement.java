@@ -7,10 +7,12 @@ public class ForwardMovement extends Movement{
 //cuando encuentra un obstaculo cambia de direccion
 
 	private int direcV, direcH;
+	private boolean collideObs;
 	
-	public ForwardMovement(Level level, int startingX, int startingY) {
+	public ForwardMovement(Level level, int startingX, int startingY, boolean collidesWithObstacles) {
 		super(level);
 		
+		collideObs = collidesWithObstacles;
 		direcV = startingY;
 		direcH = startingX;
 	}
@@ -32,7 +34,11 @@ public class ForwardMovement extends Movement{
 		direcV = (-1)*direcV;
 	}
 
-	
+	protected boolean collisionWithState(int s){
+		if(collideObs)return ent.collidesWithState(s);
+		
+		return false;
+	}
 	
 
 }

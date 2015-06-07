@@ -1,6 +1,7 @@
 package game.level;
 
 import game.entity.implementations.PressurePlate;
+import game.entity.implementations.Rayo;
 import game.events.TileChanger;
 import game.graphics.RenderingLevel;
 import game.states.LevelState;
@@ -27,6 +28,12 @@ public class ThirdLevel extends Level {
 		
 		TileChanger ent1 = new TileChanger(entranceCloseDoorPlate,13, 29, 0xff13369b, this);
 		TileChanger ent2 = new TileChanger(entranceCloseDoorPlate,14, 29, 0xff13369b, this);
+		
+		Rayo rayo2 = new Rayo(this, 60);
+		Rayo rayo = new Rayo(this, 100);
+		entList.addEntity(rayo);
+		entList.addEntity(rayo2);
+		
 		
 	}
 	@Override

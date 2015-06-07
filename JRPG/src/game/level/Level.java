@@ -1,5 +1,6 @@
 package game.level;
 
+import game.entity.Entity;
 import game.entity.implementations.Player;
 import game.entity.list.EntityList;
 import game.entity.modules.Module;
@@ -84,6 +85,9 @@ public abstract class Level {
 		return player.getModules();
 	}
 	
+	public void addEntityToList(Entity e){
+		entList.addEntity(e);
+	}
 	
 	public void update(){
 		entList.update();

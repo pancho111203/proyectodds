@@ -3,7 +3,6 @@ package game.level;
 import game.entity.implementations.Door;
 import game.entity.implementations.Enemy;
 import game.entity.implementations.Hearth;
-import game.entity.implementations.Rayo;
 import game.entity.implementations.enemies.Horseman;
 import game.entity.movement.EasyPFMovment;
 import game.entity.movement.Movement;
@@ -40,11 +39,6 @@ public class FirstLevel extends Level {
 			
 		Door door1 = new Door(244, 68, 1, 5, this,"SecondLevel", SecondLevel.START_POS_X, SecondLevel.START_POS_Y); 
 		entList.addEntity(door1);
-		
-		Rayo rayo2 = new Rayo(this, 112);
-		Rayo rayo = new Rayo(this, 163);
-		entList.addEntity(rayo);
-		entList.addEntity(rayo2);
 		
 		Hearth hp = new Hearth(30, 100, 100, this);
 		entList.addEntity(hp);
