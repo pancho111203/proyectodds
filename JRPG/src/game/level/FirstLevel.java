@@ -3,6 +3,7 @@ package game.level;
 import game.entity.implementations.Door;
 import game.entity.implementations.Enemy;
 import game.entity.implementations.Hearth;
+import game.entity.implementations.SignBoard;
 import game.entity.implementations.enemies.Horseman;
 import game.entity.movement.EasyPFMovment;
 import game.entity.movement.Movement;
@@ -42,6 +43,10 @@ public class FirstLevel extends Level {
 		
 		Hearth hp = new Hearth(30, 100, 100, this);
 		entList.addEntity(hp);
+		
+		String[] tut1Contents = {"LOLOLO"};
+		SignBoard tut1 = new SignBoard(190, 90, this, tut1Contents);
+		entList.addEntity(tut1);
 		
 	}
 	@Override

@@ -83,6 +83,10 @@ public class GameInput {
 			actions[ATTACK]=true;
 		}
 		
+		if(key.keyDown(KeyEvent.VK_ESCAPE)){
+			actions[PAUSE]=true;
+		}
+		
 		//leerPRESSED
 		if(key.keyPressed(KeyEvent.VK_W)||key.keyPressed(KeyEvent.VK_UP)||pad.padChanged(pad.Lup)||pad.buttonChanged(pad.UP)){
 			actionsPressed[UP]=true;
@@ -107,6 +111,9 @@ public class GameInput {
 		}
 		if(key.keyPressed(KeyEvent.VK_Z)||pad.buttonChanged(pad.CIRC)){
 			actionsPressed[ATTACK]=true;
+		}
+		if(key.keyPressed(KeyEvent.VK_ESCAPE)){
+			actionsPressed[PAUSE]=true;
 		}
 	}
 	

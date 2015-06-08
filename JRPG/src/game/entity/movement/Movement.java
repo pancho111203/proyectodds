@@ -1,5 +1,5 @@
 package game.entity.movement;
-
+import game.entity.Entity;
 import game.entity.MovingEntity;
 import game.level.Level;
 import game.level.tiles.Tile;
@@ -69,7 +69,7 @@ public abstract class Movement { // maneja el movimiento
 	
 	
 	public void update(){
-		if(ent!=null){
+		if(ent!=null&&!((Entity)ent).isPaused()){
 			updateAux();
 		}
 	};

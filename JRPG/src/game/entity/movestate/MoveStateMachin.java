@@ -1,5 +1,7 @@
 package game.entity.movestate;
 
+import game.entity.Entity;
+import game.entity.MovingEntity;
 import game.graphics.Sprite;
 
 import java.util.HashMap;
@@ -18,11 +20,13 @@ public class MoveStateMachin {
 	private boolean still = true;
 	private String currentStateName;
 	private boolean blocked = false;
+	private MovingEntity cur;
 	
-	public MoveStateMachin(){
+	public MoveStateMachin(MovingEntity c){
 		states = new HashMap<String,IMove>();
 		current = new EmptyMove();
 		currentStateName = "empty";
+		cur = c;
 	}
 	
 	public void move(int movX, int movY){
@@ -37,7 +41,7 @@ public class MoveStateMachin {
 	}
 	
 	public void update(){
-		current.update();
+		if(!((Entity)cur).isPaused())current.update();
 	}
 	
 		

@@ -19,6 +19,7 @@ import game.entity.movestate.NoMove;
 import game.entity.movestate.NormalMove;
 import game.entity.types.DamagingEntity;
 import game.entity.types.EntityActionable;
+import game.entity.types.EntityActionableImmuneToPause;
 import game.entity.types.EntityWithStats;
 import game.entity.weapons.Sword;
 import game.entity.weapons.Weapon;
@@ -117,7 +118,7 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 	@Override
 	public void update() {
 		//TEST es temporal para probar ataque
-		if(GameInput.getSingleton().inputPressed(4)&&!dead){
+		if(GameInput.getSingleton().inputPressed(4)&&!dead&&!isPaused()){
 			attack();
 		}
 
@@ -127,7 +128,7 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 		msm.update();
 		mov.update();
 		
-		addEnergy(1);
+		if(!isPaused())addEnergy(1);
 		
 		xInScreen = x-level.getXPosScreen();
 		yInScreen = y-level.getYPosScreen();
@@ -307,17 +308,22 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 
 	@Override
 	public void collide(Entity e) {
-		if(this.equals(e)){
+		
+		if(this.equals(e)||dead){
 			return;
 		}
-		if(e instanceof EntityActionable){
-			((EntityActionable)e).action(this);
+		if(e instanceof EntityActionableImmuneToPause){
+			((EntityActionableImmuneToPause)e).action(this);
 		}
-		
-		if(e instanceof DamagingEntity){
-			GameMaster.getSingleton().performAttack((DamagingEntity)e, this, e);
-		}
-		
+		if(!isPaused()){
+			if(e instanceof EntityActionable){
+				((EntityActionable)e).action(this);
+			}
+			
+			if(e instanceof DamagingEntity){
+				GameMaster.getSingleton().performAttack((DamagingEntity)e, this, e);
+			}
+		}		
 	}
 
 

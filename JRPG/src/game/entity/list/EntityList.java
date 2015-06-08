@@ -13,6 +13,7 @@ public class EntityList {
 	private ArrayList<Entity> ents;
 	private Entity player;
 	private Level level;
+	private boolean paused = false;
 	
 	public EntityList(Level level){
 		ents = new ArrayList<Entity>();
@@ -76,5 +77,28 @@ public class EntityList {
 	
 	public void clearList(){
 		ents.clear();
+	}
+
+	public void pauseAll() {
+		if(!paused){
+			player.setPaused(true);
+			paused  = true;
+			for(int i=0;i<ents.size();i++){
+				Entity cur = ents.get(i);
+				cur.setPaused(true);
+				
+			}
+		}
+	}
+	public void unPauseAll() {
+		if(paused){
+			player.setPaused(false);
+			paused = false;
+			for(int i=0;i<ents.size();i++){
+				Entity cur = ents.get(i);
+				cur.setPaused(false);
+				
+			}
+		}
 	}
 }

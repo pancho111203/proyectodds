@@ -56,5 +56,19 @@ public class Tile {
 		return subStates[i];
 	}
 	
+	public void setState(int i, int x){
+		subStates[i] = x;
+	}
+	public void setAllStates(int x){
+		subStates[0] = x;
+		subStates[1] = x;
+		subStates[2] = x;
+		subStates[3] = x;
+	}
+	
+	public Tile clone(){
+		return new Tile(sprite, subStates[0], subStates[1], subStates[2], subStates[3]);
+	}
+	
 	
 }

@@ -27,6 +27,7 @@ public abstract class Entity {
 	
 	protected final int TS;
 	private boolean toBeDestroyed = false;
+	private boolean paused = false;
 	
 	
 	public Entity(int x, int y, int w, int h, Level level){
@@ -121,4 +122,12 @@ public abstract class Entity {
 		toBeDestroyed = true;
 	}
 
+
+	public boolean isPaused() {
+		return paused  ;
+	}
+	
+	public void setPaused(boolean m){
+		paused = m;
+	}
 }

@@ -18,7 +18,7 @@ public abstract class MovingEntity extends Entity{
 		
 		this.mov = mov;
 		
-		msm = new MoveStateMachin();
+		msm = new MoveStateMachin(this);
 		
 	}
 	
@@ -58,6 +58,5 @@ public abstract class MovingEntity extends Entity{
 		mov.moveWhenStopped((int)vec.x, (int)vec.y);
 		
 	}
-
 
 }
