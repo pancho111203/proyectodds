@@ -19,7 +19,6 @@ public class CustomLevel extends Level {
 		super(spawnPosXPlayer,spawnPosXPlayer,w,h,p);
 		width = w;
 		height = h;
-		tiles = new int[width*height];
 		
 		Movement mov = new EasyPFMovment(this,player);
 	    Rectangle enemy1TileOffs = new Rectangle(25,57,42,62);
@@ -32,15 +31,17 @@ public class CustomLevel extends Level {
 	
 	@Override
 	public void loadLevel() {
+		int[] pixels = new int[width*height];
 		for(int i=0;i<width*height;i++){
-			if(i%2==0)tiles[i] = 1234;
-			else if(i%3==0)tiles[i] = 4321;
-			else if(i%5==0)tiles[i] = 1111;
+			if(i%2==0)pixels[i] = 1234;
+			else if(i%3==0)pixels[i] = 4321;
+			else if(i%5==0)pixels[i] = 1111;
 			else{
-				tiles[i] = 0000;
+				pixels[i] = 0000;
 			}
 			
 		}
+		loadAllPixelsToTiles(pixels);
 	}
 
 	@Override

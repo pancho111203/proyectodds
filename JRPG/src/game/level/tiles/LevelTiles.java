@@ -27,9 +27,14 @@ public class LevelTiles {
 		hex.put(h, name);
 	}
 	
-	public Tile getTile(int h){ // con el valor hex devuelve el Tile
+	public Tile getTileByHex(int h){ // con el valor hex devuelve el Tile
 		
 		
 		return tiles.get(hex.get(h));
+	}
+	public Tile getTile(String name){
+		
+		
+		return tiles.get(name);
 	}
 }

@@ -94,9 +94,13 @@ public class SpriteTileFacade {
 		ls.updateAnims();
 	}
 
-	public Tile getTile(int h) { // con el valor hex devuelve el Tile
+	public Tile getTileByHex(int h) { // con el valor hex devuelve el Tile
+		
+		return lt.getTileByHex(h);
+	}
+	public Tile getTile(String name) { 
 
-		return lt.getTile(h);
+		return lt.getTile(name);
 	}
 
 }

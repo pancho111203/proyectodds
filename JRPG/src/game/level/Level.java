@@ -19,7 +19,6 @@ import game.states.LevelState;
 
 import java.awt.Rectangle;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import auxiliar.AssetManager;
 
@@ -30,15 +29,12 @@ public abstract class Level {
 	
 	protected Tile voidTile = new Tile(new SingleSprite(Level.TILESIZE, 0x000000),9,9,9,9);
 	
-	protected HashMap<Integer,Tile> newTiles = new HashMap<Integer, Tile>();
-	
 	public AssetManager AM;
 	
-	// enteros que representan la distancia x e y del punto central del nivel al punto actual donde la camara apunta
 	protected int xOffset, yOffset; 
 	
 	protected int width, height;
-	protected int[] tiles;
+	protected Tile[] tiles;
 	
 	private int pauseCounter = 0; //cuenta las fuentes de las que se llama al pause, solo llama al unpause cuando esta es 0.
 	
@@ -85,6 +81,7 @@ public abstract class Level {
 	    moveFocus();
 
 		initializeSpritesAndTiles();
+		
 	}
 	
 	public void loadPlayer(ArrayList<Module> r){
@@ -99,7 +96,6 @@ public abstract class Level {
 	}
 	
 	public void update(){ 
-		
 		if(GameInput.getSingleton().inputPressed(GameInput.getSingleton().PAUSE)){
 			if(pausedEsc){
 				pausedEsc = false;
@@ -245,13 +241,9 @@ public abstract class Level {
 	
 	public Tile getTile(int x, int y) {  // (x,y) 
 		
-		if(newTiles.containsKey(x+y*width)){
-			return newTiles.get(x+y*width);
-		}
-		
 		if(x < 0 || y < 0 || x >= width || y>= height){return voidTile;}
 		
-		Tile t = spr_t.getTile(tiles[(x+y*width)]);
+		Tile t = tiles[(x+y*width)];
 		
 		if(t!=null){
 			return t;
@@ -260,6 +252,16 @@ public abstract class Level {
 		return voidTile;
 	}
 
+	protected void loadAllPixelsToTiles(int[] pixels){
+		tiles = new Tile[pixels.length];
+		
+		for(int y=0; y< height ; y++){
+			for(int x=0;x<width;x++){
+				tiles[x+y*width] = spr_t.getTileByHex(pixels[(x+y*width)]);
+			}
+		}
+		
+	}
 	
 	public int getXPosScreen(){
 		return xOffset;
@@ -306,7 +308,7 @@ public abstract class Level {
 		parent.finish();
 	}
 	
-	public void setTile(int x, int y, int subst){
+	public void setTile(int x, int y, Tile subst){
 		tiles[(x+y*width)] = subst;
 	}
 
@@ -315,10 +317,6 @@ public abstract class Level {
 
 	public Entity getPlayer() {
 		return player;
-	}
-	
-	public void setTileNew(int x, int y, Tile tile){
-		newTiles.put(x+y*width, tile);
 	}
 	
 	public void pause(){ //POR AHORA EL PAUSE SOLO HACE QUE LAS ENTITIES NO SE PUEDAN MOVER 
@@ -333,5 +331,30 @@ public abstract class Level {
 		if(pauseCounter==0){
 			entList.unPauseAll();
 		}
+	}
+	
+	public boolean checkIfNotCollidingWithAnything(int sX, int sY, int sWidth, int sHeight){ 
+		int nTilesX = (sWidth/TILESIZE)+1;
+		int nTilesY = (sHeight/TILESIZE)+1;
+		
+		int tileX = sX/TILESIZE;
+		int tileY = sY/TILESIZE;
+		
+		for (int y = 0; y < nTilesY; y++) {
+			for (int x = 0; x < nTilesX; x++) {
+				if(getTile(x+tileX, y+tileY).isAnyState(1)){
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+	
+	public boolean checkIfNotOutsidePlayerView(int sX, int sY, int sWidth, int sHeight){
+		//hay que comprobar las 4 esquinas
+		Rectangle entity = new Rectangle(sX, sY, sWidth, sHeight);
+		Rectangle screen = new Rectangle(xOffset, yOffset, screenW, screenH);
+		
+		return !entity.intersects(screen);
 	}
 }

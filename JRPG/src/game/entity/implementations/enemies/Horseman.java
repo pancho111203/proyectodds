@@ -24,6 +24,8 @@ import auxiliar.Vector2D;
 public class Horseman extends Enemy implements SpriteFinishReceiver{
 
 	
+	public static int WIDTH = 64, HEIGHT = 64;
+	
 	public Horseman(int x, int y, int w, int h, Movement mov, Level level, Rectangle tileOffs) {
 		super(x, y, w, h, mov, level);
 		

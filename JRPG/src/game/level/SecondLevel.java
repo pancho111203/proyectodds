@@ -10,6 +10,7 @@ import game.entity.movement.Movement;
 import game.events.KillAmountObserver;
 import game.events.TileChanger;
 import game.graphics.RenderingLevel;
+import game.level.tiles.Tile;
 import game.states.LevelState;
 
 import java.awt.Rectangle;
@@ -43,12 +44,15 @@ public class SecondLevel extends Level {
 		//TODO cambiar a 10
 		KillAmountObserver killObserver = new KillAmountObserver(10);
 		
-		TileChanger t1 = new TileChanger(killObserver,15, 1, 0xffff2745, this);
-		TileChanger t2 = new TileChanger(killObserver,16, 1, 0xffff2746, this);
-		TileChanger t3 = new TileChanger(killObserver,15, 2, 0xffff2745, this);
-		TileChanger t4 = new TileChanger(killObserver,16, 2, 0xffff2746, this);
-		TileChanger t5 = new TileChanger(killObserver,15, 3, 0xffff2745, this);
-		TileChanger t6 = new TileChanger(killObserver,16, 3, 0xffff2746, this);
+		
+		Tile pasillo1 = spr_t.getTile("pasillo1");
+		Tile pasillo2 = spr_t.getTile("pasillo2");
+		TileChanger t1 = new TileChanger(killObserver,15, 1, pasillo1, this);
+		TileChanger t2 = new TileChanger(killObserver,16, 1, pasillo2, this);
+		TileChanger t3 = new TileChanger(killObserver,15, 2, pasillo1, this);
+		TileChanger t4 = new TileChanger(killObserver,16, 2, pasillo2, this);
+		TileChanger t5 = new TileChanger(killObserver,15, 3, pasillo1, this);
+		TileChanger t6 = new TileChanger(killObserver,16, 3, pasillo2, this);
 		
 		
 		Door door1 = new Door(253, 5, 1, 5, this,"ThirdLevel", ThirdLevel.START_POS_X, ThirdLevel.START_POS_Y); 
@@ -58,40 +62,44 @@ public class SecondLevel extends Level {
 		PressurePlate entranceCloseDoorPlate = new PressurePlate(239, 450, 32, 50, this);
 		entList.addEntity(entranceCloseDoorPlate);
 		
-		TileChanger ent1 = new TileChanger(entranceCloseDoorPlate,15, 34, 0xff13369b, this);
-		TileChanger ent2 = new TileChanger(entranceCloseDoorPlate,16, 34, 0xff13369b, this);
+		Tile bordeGra2 = spr_t.getTile("bordeGra2");
+		TileChanger ent1 = new TileChanger(entranceCloseDoorPlate,15, 34, bordeGra2, this);
+		TileChanger ent2 = new TileChanger(entranceCloseDoorPlate,16, 34, bordeGra2, this);
 		
 		
 		
 	}
 	
-	
 	public void enemyDestroyed(Enemy e){
-		int y;
+		int y, x;
 		
 		y = (int) (Math.random()*10);
 		if(y>6){
-			Hearth hp = new Hearth(30, e.getX(), e.getY(), this);
+			Hearth hp = new Hearth(30, e.getX()+e.getWidth()/2, e.getY()+e.getHeight()/2, this);
 			entList.addEntity(hp);
 		}
 		
+		do{
+			y = (int) (Math.random()*(getHeight()*Level.TILESIZE-15)+15);
+			x = (int) (Math.random()*(getWidth()*Level.TILESIZE-15)+15);
+			//comprueba que el enemigo no spawnea tocando algo solido ni dentro de la pantalla
+		}while(!checkIfNotCollidingWithAnything(x, y, Horseman.WIDTH, Horseman.HEIGHT) || !checkIfNotOutsidePlayerView(x, y, Horseman.WIDTH, Horseman.HEIGHT));
 		
-		y = (int) (Math.random()*(getHeight()*Level.TILESIZE-15)+15);
 		
-		//cada vez que se destruye un enemigo aparecen dos mas
+		//TODO cambiar(cada vez que se destruye un enemigo aparecen dos mas)
 		Movement mov = new EasyPFMovment(this,player);
-		Enemy malo1 = new Horseman(25,y,64,64,mov,this,enemy1TileOffs);
+		Enemy malo1 = new Horseman(x,y,64,64,mov,this,enemy1TileOffs);
 		malo1.addCustomCollider(enemyCollider);
 		mov.initializeEntity(malo1);
 		entList.addEntity(malo1);
-		
-		y = (int) (Math.random()*(getHeight()*Level.TILESIZE-15)+15);
-		
-		Movement mov2 = new EasyPFMovment(this,player);
-		Enemy malo2 = new Horseman(450,y,64,64,mov2,this,enemy1TileOffs);
-		malo1.addCustomCollider(enemyCollider);
-		mov2.initializeEntity(malo2);
-		entList.addEntity(malo2);	}
+//		
+//		
+//		Movement mov2 = new EasyPFMovment(this,player);
+//		Enemy malo2 = new Horseman(x,y,64,64,mov2,this,enemy1TileOffs);
+//		malo1.addCustomCollider(enemyCollider);
+//		mov2.initializeEntity(malo2);
+//		entList.addEntity(malo2);
+	}
 	
 	
 	
@@ -107,10 +115,11 @@ public class SecondLevel extends Level {
 		image = imgToLvL;
 		width=image.getWidth();
 		height=image.getHeight();			
-		tiles=new int[width*height];
-		image.getRGB(0, 0, width, height, tiles, 0, width); // se pasa la imagen al array tiles en formato RGB
+		int[] pixels=new int[width*height];
+		image.getRGB(0, 0, width, height, pixels, 0, width); // se pasa la imagen al array tiles en formato RGB
 											// mas adelante el metodo getTile se encarga de mapear cada color a un tile
 		
+		loadAllPixelsToTiles(pixels);
 		
 	}
 

@@ -61,10 +61,11 @@ public class FirstLevel extends Level {
 		image = imgToLvL;
 		width=image.getWidth();
 		height=image.getHeight();			
-		tiles=new int[width*height];
-		image.getRGB(0, 0, width, height, tiles, 0, width); // se pasa la imagen al array tiles en formato RGB
+		int[] pixels=new int[width*height];
+		image.getRGB(0, 0, width, height, pixels, 0, width); // se pasa la imagen al array tiles en formato RGB
 											// mas adelante el metodo getTile se encarga de mapear cada color a un tile
 		
+		loadAllPixelsToTiles(pixels);
 		
 	}
 

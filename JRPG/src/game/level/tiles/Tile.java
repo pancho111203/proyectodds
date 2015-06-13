@@ -70,5 +70,11 @@ public class Tile {
 		return new Tile(sprite, subStates[0], subStates[1], subStates[2], subStates[3]);
 	}
 	
+	public boolean isAnyState(int x){
+		if(subStates[0] == x || subStates[1] == x || subStates[2] == x || subStates[3] == x){
+			return true;
+		}
+		return false;
+	}
 	
 }

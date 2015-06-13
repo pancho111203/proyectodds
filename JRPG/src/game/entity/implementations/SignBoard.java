@@ -23,19 +23,19 @@ public class SignBoard extends Entity implements EntityActionableImmuneToPause{
 		
 		Tile t1 = level.getTile(x/Level.TILESIZE, y/Level.TILESIZE).clone();
 		t1.setAllStates(1);
-		level.setTileNew(x/Level.TILESIZE, y/Level.TILESIZE, t1);
+		level.setTile(x/Level.TILESIZE, y/Level.TILESIZE, t1);
 		
 		Tile t2 = level.getTile(x/Level.TILESIZE+1, y/Level.TILESIZE).clone();
 		t2.setAllStates(1);
-		level.setTileNew(x/Level.TILESIZE+1, y/Level.TILESIZE, t2);
+		level.setTile(x/Level.TILESIZE+1, y/Level.TILESIZE, t2);
 		
 		Tile t3 = level.getTile(x/Level.TILESIZE, y/Level.TILESIZE+1).clone();
 		t3.setAllStates(1);
-		level.setTileNew(x/Level.TILESIZE, y/Level.TILESIZE+1, t3);
+		level.setTile(x/Level.TILESIZE, y/Level.TILESIZE+1, t3);
 		
 		Tile t4 = level.getTile(x/Level.TILESIZE+1, y/Level.TILESIZE+1).clone();
 		t4.setAllStates(1);
-		level.setTileNew(x/Level.TILESIZE+1, y/Level.TILESIZE+1, t4);
+		level.setTile(x/Level.TILESIZE+1, y/Level.TILESIZE+1, t4);
 		
 		
 		

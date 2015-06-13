@@ -110,7 +110,6 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 		if(weapon.customSprite())msm.add(sword.getType(),sword.getVisualMovement());
 		
 		
-		
 		low_hp = MAXHP/5;
 	}
 
@@ -173,7 +172,6 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 	
 	public void move(int movX,int movY){
 		msm.move(movX, movY);
-		System.out.println(x+" "+y);
 		
 		movX = msm.getMovX();
 		movY = msm.getMovY();

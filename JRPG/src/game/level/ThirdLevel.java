@@ -8,6 +8,7 @@ import game.entity.movement.HorizontalMovement;
 import game.entity.movement.Movement;
 import game.events.TileChanger;
 import game.graphics.RenderingLevel;
+import game.level.tiles.Tile;
 import game.states.LevelState;
 
 import java.awt.image.BufferedImage;
@@ -30,8 +31,9 @@ public class ThirdLevel extends Level {
 		PressurePlate entranceCloseDoorPlate = new PressurePlate(208, 380, 32, 50, this);
 		entList.addEntity(entranceCloseDoorPlate);
 		
-		TileChanger ent1 = new TileChanger(entranceCloseDoorPlate,13, 29, 0xff13369b, this);
-		TileChanger ent2 = new TileChanger(entranceCloseDoorPlate,14, 29, 0xff13369b, this);
+		Tile bordeGra2 = spr_t.getTile("bordeGra2");
+		TileChanger ent1 = new TileChanger(entranceCloseDoorPlate,13, 29, bordeGra2, this);
+		TileChanger ent2 = new TileChanger(entranceCloseDoorPlate,14, 29, bordeGra2, this);
 		
 		Rayo rayo2 = new Rayo(this, 60);
 		Rayo rayo = new Rayo(this, 100);
@@ -63,10 +65,11 @@ public class ThirdLevel extends Level {
 		image = imgToLvL;
 		width=image.getWidth();
 		height=image.getHeight();			
-		tiles=new int[width*height];
-		image.getRGB(0, 0, width, height, tiles, 0, width); // se pasa la imagen al array tiles en formato RGB
+		int[] pixels=new int[width*height];
+		image.getRGB(0, 0, width, height, pixels, 0, width); // se pasa la imagen al array tiles en formato RGB
 											// mas adelante el metodo getTile se encarga de mapear cada color a un tile
 		
+		loadAllPixelsToTiles(pixels);
 		
 	}
 
