@@ -342,7 +342,8 @@ public abstract class Level {
 		
 		for (int y = 0; y < nTilesY; y++) {
 			for (int x = 0; x < nTilesX; x++) {
-				if(getTile(x+tileX, y+tileY).isAnyState(1)){
+				Tile t = getTile(x+tileX, y+tileY);
+				if(t == null || t.isAnyState(1) || t.isAnyState(9)){
 					return false;
 				}
 			}

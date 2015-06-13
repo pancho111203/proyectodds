@@ -24,7 +24,8 @@ public class SecondLevel extends Level {
 	
 	private BufferedImage imgToLvL;
 	private Rectangle enemyCollider, enemy1TileOffs;
-	
+	private int difficulty = 0;
+	private boolean left = true;
 	public SecondLevel(int spawnPosXPlayer, int spawnPosYPlayer, int w, int h, LevelState p){
 		super(spawnPosXPlayer,spawnPosYPlayer,w,h,p);
 		
@@ -71,7 +72,7 @@ public class SecondLevel extends Level {
 	}
 	
 	public void enemyDestroyed(Enemy e){
-		int y, x;
+		int y;
 		
 		y = (int) (Math.random()*10);
 		if(y>6){
@@ -79,29 +80,60 @@ public class SecondLevel extends Level {
 			entList.addEntity(hp);
 		}
 		
+		increaseDifficulty();
+
+	}
+	
+	public void increaseDifficulty(){
+		difficulty++;
+		
+		if(difficulty%2==1){
+			if(left){
+				spawnEnemyHorseLeftSide();
+				left = false;
+			}else{
+				spawnEnemyHorseRightSide();
+				left = true;
+			}
+		}else{
+			spawnEnemyHorseLeftSide();
+			spawnEnemyHorseRightSide();
+		}
+		
+	}
+	
+	public void spawnEnemyHorseLeftSide(){
+		int x, y;
+		
 		do{
-			y = (int) (Math.random()*(getHeight()*Level.TILESIZE-15)+15);
-			x = (int) (Math.random()*(getWidth()*Level.TILESIZE-15)+15);
+			y = (int) (Math.random()*(getHeight()*Level.TILESIZE));
+			x = (int) (Math.random()*(getWidth()/2*Level.TILESIZE));
 			//comprueba que el enemigo no spawnea tocando algo solido ni dentro de la pantalla
 		}while(!checkIfNotCollidingWithAnything(x, y, Horseman.WIDTH, Horseman.HEIGHT) || !checkIfNotOutsidePlayerView(x, y, Horseman.WIDTH, Horseman.HEIGHT));
 		
 		
-		//TODO cambiar(cada vez que se destruye un enemigo aparecen dos mas)
 		Movement mov = new EasyPFMovment(this,player);
 		Enemy malo1 = new Horseman(x,y,64,64,mov,this,enemy1TileOffs);
 		malo1.addCustomCollider(enemyCollider);
 		mov.initializeEntity(malo1);
 		entList.addEntity(malo1);
-//		
-//		
-//		Movement mov2 = new EasyPFMovment(this,player);
-//		Enemy malo2 = new Horseman(x,y,64,64,mov2,this,enemy1TileOffs);
-//		malo1.addCustomCollider(enemyCollider);
-//		mov2.initializeEntity(malo2);
-//		entList.addEntity(malo2);
 	}
-	
-	
+	public void spawnEnemyHorseRightSide(){
+		int x, y;
+		
+		do{
+			y = (int) (Math.random()*(getHeight()*Level.TILESIZE));
+			x = (int) (Math.random()*(getWidth()/2*Level.TILESIZE)+(getWidth()/2*Level.TILESIZE));
+			//comprueba que el enemigo no spawnea tocando algo solido ni dentro de la pantalla
+		}while(!checkIfNotCollidingWithAnything(x, y, Horseman.WIDTH, Horseman.HEIGHT) || !checkIfNotOutsidePlayerView(x, y, Horseman.WIDTH, Horseman.HEIGHT));
+		
+		
+		Movement mov = new EasyPFMovment(this,player);
+		Enemy malo1 = new Horseman(x,y,64,64,mov,this,enemy1TileOffs);
+		malo1.addCustomCollider(enemyCollider);
+		mov.initializeEntity(malo1);
+		entList.addEntity(malo1);
+	}
 	
 	@Override
 	public void loadLevel(){
