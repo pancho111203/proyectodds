@@ -1,10 +1,10 @@
 package game;
 import game.graphics.Rendering;
 import game.input.GameInput;
-import game.states.EndState;
 import game.states.IState;
 import game.states.LevelState;
 import game.states.MenuState;
+import game.states.PauseDecorator;
 import game.states.StateEmpty;
 
 import java.awt.Canvas;
@@ -70,7 +70,6 @@ public class GameStart extends Canvas implements Runnable{
 		
 		
 		add("mainmenu", new MenuState(this,WIDTH,HEIGHT));
-		add("end", new EndState(this,WIDTH,HEIGHT));
 		add("level1", new LevelState(this,WIDTH,HEIGHT));
 		
 		
@@ -191,5 +190,16 @@ public class GameStart extends Canvas implements Runnable{
 	
 	private void changeDebug() {
 		debug = !debug;
+	}
+	
+
+	public void pause(){
+		if(currentS instanceof PauseDecorator)return;
+		currentS = new PauseDecorator(this, currentS);
+	}
+	
+	public void unpause(){
+		if(!(currentS instanceof PauseDecorator))return;
+		currentS = ((PauseDecorator)currentS).getPrevState();
 	}
 }

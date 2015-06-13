@@ -1,7 +1,7 @@
 package game.entity.implementations;
 
 import game.entity.Entity;
-import game.entity.types.EntityActionableImmuneToPause;
+import game.entity.types.EntityActionable;
 import game.graphics.RenderingLevel;
 import game.graphics.SingleSprite;
 import game.graphics.Sprite;
@@ -10,8 +10,8 @@ import game.input.GameInput;
 import game.level.Level;
 import game.level.tiles.Tile;
 
-public class SignBoard extends Entity implements EntityActionableImmuneToPause{
-
+public class SignBoard extends Entity implements EntityActionable{
+//TODO cartel
 	private String lines[];
 	private Sprite disp;
 	private boolean cartelActivo = false;
@@ -66,12 +66,10 @@ public class SignBoard extends Entity implements EntityActionableImmuneToPause{
 	
 	private void activarCartel(){
 		cartelActivo = true;
-		level.pause();
 	}
 	
 	private void desactivarCartel(){
 		cartelActivo = false;
-		level.unpause();
 		
 	}
 

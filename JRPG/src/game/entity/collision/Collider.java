@@ -1,7 +1,6 @@
 package game.entity.collision;
 
 import game.entity.Entity;
-import game.entity.implementations.Player;
 import game.entity.list.EntityIterator;
 import game.entity.list.EntityList;
 import game.level.Level;
@@ -31,10 +30,7 @@ public class Collider{
 		while(iterator.hasNext()){
 			Entity current = iterator.next();
 			if(ownerRect.intersects(current.getCollider())){
-				if(owner instanceof Player){
-					owner.collide(current);
-				}
-				else if(!owner.isPaused())owner.collide(current);
+				owner.collide(current);
 			}
 		
 		}

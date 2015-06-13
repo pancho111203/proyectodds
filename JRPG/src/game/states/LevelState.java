@@ -4,6 +4,7 @@ import game.GameStart;
 import game.entity.modules.Module;
 import game.graphics.Rendering;
 import game.graphics.RenderingLevel;
+import game.input.GameInput;
 import game.level.FirstLevel;
 import game.level.Level;
 
@@ -39,7 +40,9 @@ public class LevelState implements IState{
 
 	@Override
 	public void update() {
-		
+		if(GameInput.getSingleton().inputPressed(GameInput.getSingleton().PAUSE)){
+			game.pause();
+		}
 		curLevel.update();		
 	}
 	
@@ -52,7 +55,7 @@ public class LevelState implements IState{
 
 	@Override
 	public void onExit() {
-		
+		curLevel = null;
 	}
 
 	@Override
@@ -78,8 +81,8 @@ public class LevelState implements IState{
 	}
 
 	public void finish() {
-		game.change("end", "");
-		curLevel = null;
+		game.change("mainmenu", "");
+		
 	}
 
 

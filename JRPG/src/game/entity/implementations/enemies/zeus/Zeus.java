@@ -100,11 +100,10 @@ public class Zeus extends Enemy{
 	@Override
 	public void update() {
 		super.update();
-		if(!isPaused()){
-			cont++;
-			
-		}
 		
+		cont++;
+			
+			
 		if(hp_mod.getHP()>low_hp){
 			if(cont%900==0){
 				changePhase("middle");
@@ -117,11 +116,9 @@ public class Zeus extends Enemy{
 			changePhase("enrage");
 		}
 		
-		
-		if(!isPaused()){
-			currentPhase.update();
-			
-		}
+
+		currentPhase.update();
+
 		
 		
 	}

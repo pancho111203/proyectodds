@@ -176,10 +176,7 @@ public class Sword implements Weapon, OwnsCollider, DamagingEntity{
 	public boolean canAttack() {
 		return !active;
 	}
-	@Override
-	public boolean isPaused() {
-		return ent.isPaused();
-	}
+
 		
 
 }

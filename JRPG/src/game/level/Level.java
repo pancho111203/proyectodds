@@ -12,7 +12,6 @@ import game.graphics.RenderingLevel;
 import game.graphics.SingleSprite;
 import game.graphics.Spritesheet;
 import game.graphics.UserIface;
-import game.input.GameInput;
 import game.level.tiles.SpriteTileFacade;
 import game.level.tiles.Tile;
 import game.states.LevelState;
@@ -36,9 +35,6 @@ public abstract class Level {
 	protected int width, height;
 	protected Tile[] tiles;
 	
-	private int pauseCounter = 0; //cuenta las fuentes de las que se llama al pause, solo llama al unpause cuando esta es 0.
-	
-	protected boolean pausedEsc = false;
 	
 	public int screenW;
 	public int screenH;
@@ -96,16 +92,6 @@ public abstract class Level {
 	}
 	
 	public void update(){ 
-		if(GameInput.getSingleton().inputPressed(GameInput.getSingleton().PAUSE)){
-			if(pausedEsc){
-				pausedEsc = false;
-				unpause();
-			}
-			else{
-				pausedEsc = true;
-				pause();
-			}
-		}
 		
 		entList.update();
 		spr_t.updateAnims(); //update de sprites animados
@@ -318,20 +304,7 @@ public abstract class Level {
 	public Entity getPlayer() {
 		return player;
 	}
-	
-	public void pause(){ //POR AHORA EL PAUSE SOLO HACE QUE LAS ENTITIES NO SE PUEDAN MOVER 
-		//TODO hacer que cuando el juego este pausado las entities no puedan hacer daño ni attacar(el boss sigue lanzando ataques pausado y varias cosas mas estan mal)
-		pauseCounter++;
-		if(pauseCounter==1){
-			entList.pauseAll();
-		}		
-	}
-	public void unpause(){
-		pauseCounter--;
-		if(pauseCounter==0){
-			entList.unPauseAll();
-		}
-	}
+
 	
 	public boolean checkIfNotCollidingWithAnything(int sX, int sY, int sWidth, int sHeight){ 
 		int nTilesX = (sWidth/TILESIZE)+1;

@@ -1,6 +1,5 @@
 package game.entity.movestate;
 
-import game.entity.Entity;
 import game.entity.MovingEntity;
 import game.graphics.Sprite;
 
@@ -41,7 +40,7 @@ public class MoveStateMachin {
 	}
 	
 	public void update(){
-		if(!((Entity)cur).isPaused())current.update();
+		current.update();
 	}
 	
 		
