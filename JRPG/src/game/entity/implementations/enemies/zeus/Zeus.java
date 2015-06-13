@@ -64,7 +64,7 @@ public class Zeus extends Enemy{
 		
 		changePhase("initial");
 		
-		low_hp = MAXHP/5;
+		low_hp = MAXHP/4;
 		
 	}
 	
