@@ -9,17 +9,14 @@ public class InitialPhase implements ZeusPhase{
 	}
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
 		
 	}
 	@Override
 	public void onEnter() {
-		// TODO Auto-generated method stub
 		
 	}
 	@Override
 	public void onExit() {
-		// TODO Auto-generated method stub
 		
 	}
 	@Override

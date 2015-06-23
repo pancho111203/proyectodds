@@ -42,7 +42,6 @@ public class SecondLevel extends Level {
 	    mov.initializeEntity(malo1);
 		entList.addEntity(malo1);
 			
-		//TODO cambiar a 10
 		KillAmountObserver killObserver = new KillAmountObserver(10);
 		
 		

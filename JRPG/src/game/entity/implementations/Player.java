@@ -102,6 +102,7 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 		
 		msm.unBlock();
 		
+
 		Sword sword = new Sword(this,"ataque");
 		setWeapon(sword);
 
@@ -115,7 +116,6 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 	
 	@Override
 	public void update() {
-		//TEST es temporal para probar ataque
 		if(GameInput.getSingleton().inputPressed(4)&&!dead){
 			attack();
 		}

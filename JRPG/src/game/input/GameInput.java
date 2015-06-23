@@ -79,7 +79,7 @@ public class GameInput {
 		if(key.keyDown(KeyEvent.VK_SHIFT)||pad.getButtonValue(pad.SQUA)){
 			actions[SPRINT]=true;
 		}
-		if(key.keyDown(KeyEvent.VK_Z)||pad.getButtonValue(pad.CIRC)){
+		if(key.keyDown(KeyEvent.VK_SPACE)||key.keyDown(KeyEvent.VK_Z)||pad.getButtonValue(pad.CIRC)){
 			actions[ATTACK]=true;
 		}
 		
@@ -109,7 +109,7 @@ public class GameInput {
 		if(key.keyPressed(KeyEvent.VK_SHIFT)||pad.buttonChanged(pad.SQUA)){
 			actionsPressed[SPRINT]=true;
 		}
-		if(key.keyPressed(KeyEvent.VK_Z)||pad.buttonChanged(pad.CIRC)){
+		if(key.keyPressed(KeyEvent.VK_SPACE)||key.keyPressed(KeyEvent.VK_Z)||pad.buttonChanged(pad.CIRC)){
 			actionsPressed[ATTACK]=true;
 		}
 		if(key.keyPressed(KeyEvent.VK_ESCAPE)){

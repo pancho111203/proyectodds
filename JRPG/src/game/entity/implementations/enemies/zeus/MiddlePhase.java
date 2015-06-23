@@ -68,12 +68,10 @@ public class MiddlePhase implements ZeusPhase{
 	}
 	@Override
 	public void onDmgDealt() {
-		// TODO Auto-generated method stub
 		
 	}
 	@Override
 	public void onDmgReceived() {
-		// TODO Auto-generated method stub
 		
 	}
 

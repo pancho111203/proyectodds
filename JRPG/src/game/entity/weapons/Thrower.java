@@ -12,7 +12,6 @@ import game.entity.weapons.ammo.ThunderBallGreen;
 import game.graphics.Rendering;
 
 public class Thrower implements Weapon{
-	//TODO implementar el resto de metodos usando animacion
 	private EntityWithStats parent;
 	private int modifier;
 	private String ammo_type;

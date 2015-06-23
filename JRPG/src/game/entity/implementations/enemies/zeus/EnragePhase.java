@@ -29,22 +29,18 @@ public class EnragePhase implements ZeusPhase{
 	}
 	@Override
 	public void onEnter() {
-		// TODO Auto-generated method stub
 		
 	}
 	@Override
 	public void onExit() {
-		// TODO Auto-generated method stub
 		
 	}
 	@Override
 	public void onDmgDealt() {
-		// TODO Auto-generated method stub
 		
 	}
 	@Override
 	public void onDmgReceived() {
-		// TODO Auto-generated method stub
 		
 	}
 
