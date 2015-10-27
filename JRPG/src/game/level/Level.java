@@ -8,13 +8,13 @@ import game.entity.modules.Module;
 import game.entity.movement.Movement;
 import game.entity.movement.PlayerMovement;
 import game.graphics.Image;
-import game.graphics.RenderingLevel;
+import game.graphics.Rendering;
 import game.graphics.SingleSprite;
 import game.graphics.Spritesheet;
 import game.graphics.UserIface;
 import game.level.tiles.SpriteTileFacade;
 import game.level.tiles.Tile;
-import game.states.LevelState;
+import game.states.games.IGameState;
 
 import java.awt.Rectangle;
 import java.util.ArrayList;
@@ -39,7 +39,7 @@ public abstract class Level {
 	public int screenW;
 	public int screenH;
 	
-	public LevelState parent;
+	public IGameState parent;
 	
 	protected Player player;
 	protected UserIface UI;
@@ -47,13 +47,13 @@ public abstract class Level {
 
 	protected SpriteTileFacade spr_t;
 		
-	public Level(int spawnPosXPlayer, int spawnPosYPlayer, int w, int h, LevelState l){
+	public Level(int spawnPosXPlayer, int spawnPosYPlayer, int w, int h, IGameState l){
 		
 		parent = l;
 		
 		AM=AssetManager.getSingleton();
 		//AM.load("Level"); 
-		//TODO creo que ahora se puede acceder a am desde todo el juego y cargarï¿½ todo pero me falta testear cuando cambia el lvl
+		// creo que ahora se puede acceder a am desde todo el juego y cargaria todo pero me falta testear cuando cambia el lvl
 		
 		entList = new EntityList(this);
 		entList.clearList();
@@ -92,17 +92,17 @@ public abstract class Level {
 	}
 	
 	public void update(){ 
-		
+		//moveFocus antes estaba puesto en render y daba un pequeño error gráfico, aunque no he entendido porque exactamente
+		moveFocus();
 		entList.update();
 		spr_t.updateAnims(); //update de sprites animados
 		UI.update();
+		
 	}
-	public void render(RenderingLevel render){
+	public void render(Rendering render){
+		
 		renderTiles(render);
-		
-		entList.render(render);
-		moveFocus();
-		
+		entList.render(render);		
 		UI.render(render);
 		
 		if(!player.isAlive())render.renderImage(25, 50, gameover);
@@ -215,7 +215,6 @@ public abstract class Level {
 		int px = player.getX();
 		int py = player.getY();
 			
-		
 		xOffset = px - screenW/2 + player.getWidth()/2;
 		yOffset = py - screenH/2 + player.getHeight()/2;
 		
@@ -223,6 +222,7 @@ public abstract class Level {
 		if(yOffset<0)yOffset=0;
 		if(xOffset+screenW>width*TILESIZE)xOffset = width*TILESIZE-screenW;
 		if(yOffset+screenH>height*TILESIZE)yOffset = height*TILESIZE-screenH;
+		
 	}
 	
 	public Tile getTile(int x, int y) {  // (x,y) 
@@ -263,7 +263,7 @@ public abstract class Level {
 	}
 	
 	
-	protected void renderTiles(RenderingLevel render) {
+	protected void renderTiles(Rendering render) {
 		int tsize = Level.TILESIZE;
 		
 		int xRest = xOffset%tsize;
@@ -290,8 +290,12 @@ public abstract class Level {
 	public EntityList getEntityList() {
 		return entList;
 	}
-	public void finish() {
-		parent.finish();
+	public void died() {
+		parent.died();
+	}
+	
+	public void win(){
+		parent.win();
 	}
 	
 	public void setTile(int x, int y, Tile subst){

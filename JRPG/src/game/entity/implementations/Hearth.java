@@ -2,7 +2,7 @@ package game.entity.implementations;
 
 import game.entity.Entity;
 import game.entity.types.EntityActionable;
-import game.graphics.RenderingLevel;
+import game.graphics.Rendering;
 import game.graphics.SingleSprite;
 import game.graphics.Sprite;
 import game.graphics.Spritesheet;
@@ -43,7 +43,7 @@ public class Hearth extends Entity implements EntityActionable{
 	}
 
 	@Override
-	public void render(RenderingLevel render) {
+	public void render(Rendering render) {
 		render.renderEntity(xInScreen,yInScreen,disp);
 		debug(render);
 	}

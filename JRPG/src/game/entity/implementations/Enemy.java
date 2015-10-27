@@ -8,7 +8,7 @@ import game.entity.modules.HPModule;
 import game.entity.movement.Movement;
 import game.entity.types.DamagingEntity;
 import game.entity.types.EntityWithStats;
-import game.graphics.RenderingLevel;
+import game.graphics.Rendering;
 import game.graphics.Sprite;
 import game.level.Level;
 
@@ -55,7 +55,7 @@ public abstract class Enemy extends MovingEntity implements EntityWithStats, Dam
 	}
 
 	@Override
-	public void render(RenderingLevel render) {
+	public void render(Rendering render) {
 		Sprite cur = msm.getSprite();
 		if(hp_mod.isImmune()){
 			render.renderEntityColored(xInScreen+cur.getXOffset(),yInScreen+cur.getYOffset(),cur,0xDD0000); 

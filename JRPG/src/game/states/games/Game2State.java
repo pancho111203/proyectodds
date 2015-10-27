@@ -1,47 +1,56 @@
-package game.states;
+package game.states.games;
 
 import game.GameStart;
 import game.entity.modules.Module;
 import game.graphics.Rendering;
-import game.graphics.RenderingLevel;
+import game.graphics.Rendering;
 import game.input.GameInput;
-import game.level.FirstLevel;
 import game.level.Level;
+import game.level.game1.FirstLevel;
+import game.states.IState;
+import game.states.pause.GamePause;
 
+import java.awt.Graphics;
 import java.util.ArrayList;
 
 import auxiliar.AssetManager;
 
-public class LevelState implements IState{
+public class Game2State implements IState, IGameState{
 
 	
 	private AssetManager AM;
-	private GameStart game;
-	private RenderingLevel render;
+	public GameStart game;
+	private Rendering render;
 	private Level curLevel;
 	private int WIDTH,HEIGHT;
-	private LevelFactory fact;
+	private ILevelFactory fact;
 	
-	public LevelState(GameStart game, int w, int h){
+	public Game2State(GameStart game, int w, int h){
 		this.game = game; 
-		render = new RenderingLevel(w,h);
 		AM = AssetManager.getSingleton(); 
 		AM.load("Level");
+
+		render = new Rendering(w,h);
 		
 		WIDTH = w;
 		HEIGHT = h;
 		
-		fact = new LevelFactory(WIDTH, HEIGHT, this);
-		
-		changeLevel("FirstLevel",FirstLevel.START_POS_X, FirstLevel.START_POS_Y);
-		//changeLevel("ThirdLevel",ThirdLevel.START_POS_X, ThirdLevel.START_POS_Y);
+		fact = new Game2Factory(WIDTH, HEIGHT, this);
 
 	}	
 
+	private void startFirstLevel(){
+		AssetManager.getSingleton().stop("music");
+		AssetManager.getSingleton().getSounds().setVol("music",-5);
+		AssetManager.getSingleton().playSound("music");
+		
+		changeLevel("FirstLevel",FirstLevel.START_POS_X, FirstLevel.START_POS_Y);
+	}
+	
 	@Override
 	public void update() {
 		if(GameInput.getSingleton().inputPressed(GameInput.getSingleton().PAUSE)){
-			game.pause();
+			game.pause(new GamePause());
 		}
 		curLevel.update();		
 	}
@@ -61,10 +70,14 @@ public class LevelState implements IState{
 	@Override
 	public void onEnter(String params) {
 		if(curLevel==null){
-			changeLevel("FirstLevel",FirstLevel.START_POS_X, FirstLevel.START_POS_Y);
+			 startFirstLevel();
 		}
 	}
 
+	public void restart(String params){
+		onExit();
+		onEnter(params);
+	}
 	@Override
 	public Rendering getRender() {
 		return render;
@@ -80,8 +93,16 @@ public class LevelState implements IState{
 		}
 	}
 
-	public void finish() {
-		game.change("mainmenu", "");
+	public void died() {
+		restart("");
+		
+	}
+
+	@Override
+	public void renderGraphics(Graphics g) {
+	}
+
+	public void win() {
 		
 	}
 

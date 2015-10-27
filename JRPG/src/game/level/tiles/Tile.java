@@ -1,6 +1,6 @@
 package game.level.tiles;
 
-import game.graphics.RenderingLevel;
+import game.graphics.Rendering;
 import game.graphics.SingleSprite;
 import game.graphics.Sprite;
 
@@ -48,7 +48,7 @@ public class Tile {
 		return sprite.getActual();
 	}
 	
-	public void render(int x, int y, int xRest, int yRest, RenderingLevel render){
+	public void render(int x, int y, int xRest, int yRest, Rendering render){
 		render.renderTile(x, y,xRest,yRest, this);
 	}
 	

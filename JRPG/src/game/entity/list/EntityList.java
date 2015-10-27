@@ -3,7 +3,7 @@ package game.entity.list;
 import game.entity.Entity;
 import game.entity.implementations.NullEntity;
 import game.entity.implementations.Player;
-import game.graphics.RenderingLevel;
+import game.graphics.Rendering;
 import game.level.Level;
 
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ public class EntityList {
 		player.update();
 	}
 	
-	public void render(RenderingLevel render){
+	public void render(Rendering render){
 		
 		for(int i=0;i<ents.size();i++){
 			Entity cur = ents.get(i);

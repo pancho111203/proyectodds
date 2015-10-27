@@ -1,8 +1,7 @@
 package game.menus;
 
 import game.graphics.Image;
-import game.graphics.RenderingMenu;
-import auxiliar.AssetManager;
+import game.graphics.Rendering;
 
 public class MainMenu extends Menu {
 	
@@ -27,9 +26,6 @@ public class MainMenu extends Menu {
 		}
 		if(gi.inputPressed(gi.ACTION)){			
 			if(select==0){
-				AssetManager.getSingleton().stop("music");
-				AssetManager.getSingleton().getSounds().setVol("music",-5);
-				AssetManager.getSingleton().playSound("music");
 				changeTo = "level1";
 			}else if(select==1){
 				changeTo="credits";
@@ -39,7 +35,7 @@ public class MainMenu extends Menu {
 		}
 	}
 	
-	public void render(RenderingMenu render){
+	public void render(Rendering render){
 		render.renderImage(0, 0, bg);
 		if(select==0) render.renderImageColored(105, 130, btn1, 0xFEEECE);
 		else render.renderImage(105, 130, btn1);

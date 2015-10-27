@@ -4,7 +4,7 @@ import game.entity.Entity;
 import game.entity.types.EntityActionable;
 import game.events.EventGenerator;
 import game.events.EventListener;
-import game.graphics.RenderingLevel;
+import game.graphics.Rendering;
 import game.level.Level;
 
 import java.util.ArrayList;
@@ -42,7 +42,7 @@ public class PressurePlate extends Entity implements EntityActionable, EventGene
 	}
 
 	@Override
-	public void render(RenderingLevel render) {
+	public void render(Rendering render) {
 		debug(render);
 	}
 	

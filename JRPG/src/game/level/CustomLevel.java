@@ -4,7 +4,7 @@ import game.entity.implementations.Enemy;
 import game.entity.implementations.enemies.Horseman;
 import game.entity.movement.EasyPFMovment;
 import game.entity.movement.Movement;
-import game.states.LevelState;
+import game.states.games.IGameState;
 
 import java.awt.Rectangle;
 
@@ -15,7 +15,7 @@ public class CustomLevel extends Level {
 	public static final int START_POS_X = 50; 
 	public static final int START_POS_Y = 50;
 	
-	public CustomLevel(int spawnPosXPlayer, int spawnPosYPlayer, int w, int h, LevelState p){
+	public CustomLevel(int spawnPosXPlayer, int spawnPosYPlayer, int w, int h, IGameState p){
 		super(spawnPosXPlayer,spawnPosXPlayer,w,h,p);
 		width = w;
 		height = h;

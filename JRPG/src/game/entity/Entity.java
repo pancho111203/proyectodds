@@ -2,7 +2,7 @@ package game.entity;
 
 import game.GameStart;
 import game.graphics.Rendering;
-import game.graphics.RenderingLevel;
+import game.graphics.Rendering;
 import game.level.Level;
 
 import java.awt.Rectangle;
@@ -66,7 +66,7 @@ public abstract class Entity {
 	}
 	
 	public abstract void update(); 
-	public abstract void render(RenderingLevel render);
+	public abstract void render(Rendering render);
 	
 	public int getX() {
 		return x;

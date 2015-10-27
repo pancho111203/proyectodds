@@ -1,7 +1,7 @@
 package game.entity.implementations;
 
 import game.entity.Entity;
-import game.graphics.RenderingLevel;
+import game.graphics.Rendering;
 import game.level.Level;
 
 public class NullEntity extends Entity {
@@ -15,7 +15,7 @@ public class NullEntity extends Entity {
 	}
 
 	@Override
-	public void render(RenderingLevel render) {
+	public void render(Rendering render) {
 	}
 
 }

@@ -166,12 +166,11 @@ public abstract class Movement { // maneja el movimiento
 	public void move(int movX, int movY){
 		doMove = true;
 		
-		
-		
 		if(movX!=0){
 			if(prevHorizontal * movX >= 0){ // si este frame esta llendo hacia la misma direccion que el anterior
 				horizontal = movX;
 			}else{
+				
 				if(horizontal == 0){horizontal = movX;}
 			}
 		}
@@ -187,7 +186,7 @@ public abstract class Movement { // maneja el movimiento
 		
 	}
 	
-	//TODO puede que este mal, check (he hecho copy paste)
+	//puede que este mal, check (he hecho copy paste)
 	public void moveWhenStopped(int movX, int movY){
 		doMove = true;
 		

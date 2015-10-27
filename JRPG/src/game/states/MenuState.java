@@ -2,22 +2,24 @@ package game.states;
 
 import game.GameStart;
 import game.graphics.Rendering;
-import game.graphics.RenderingMenu;
+import game.graphics.Rendering;
 import game.menus.CreditsMenu;
 import game.menus.MainMenu;
 import game.menus.Menu;
+
+import java.awt.Graphics;
  
 public class MenuState implements IState{
 
 	private GameStart game;
-	private RenderingMenu render;
+	private Rendering render;
 	
 	private Menu curMenu;
 	
 
 	public MenuState(GameStart game, int w, int h){
 		this.game = game;
-		render = new RenderingMenu(w,h);
+		render = new Rendering(w,h);
 		
 		curMenu = new MainMenu();
 	}
@@ -33,7 +35,7 @@ public class MenuState implements IState{
 		String ch = curMenu.change();
 		if(ch!=null){
 			if(ch.equals("level1")){
-				game.change("level1", "init");
+				game.change("game1", "init");
 			}else if(ch.equals("credits")){
 				curMenu = new CreditsMenu();
 			} else if(ch.equals("mainmenu")){
@@ -54,6 +56,10 @@ public class MenuState implements IState{
 	
 	public Rendering getRender(){
 		return render;
+	}
+
+	@Override
+	public void renderGraphics(Graphics g) {
 	}
 	
 

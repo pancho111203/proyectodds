@@ -8,7 +8,7 @@ public class GameInput {
 	
 	
 	private final int NUMACTIONS = 11;
-	//TODO refactoring de esto pasandolo a un enum para evitar errores
+	//TODO /REF de esto pasandolo a un enum para evitar errores
 	public final int UP=0,DOWN=1,RIGHT=2,LEFT=3,ATTACK=4,JUMP=5,PAUSE=6,ESC=7, F9=8, ACTION=9, SPRINT=10;
 	public boolean actions[],actionsPressed[]; 
 

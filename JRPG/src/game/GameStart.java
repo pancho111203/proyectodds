@@ -2,13 +2,16 @@ package game;
 import game.graphics.Rendering;
 import game.input.GameInput;
 import game.states.IState;
-import game.states.LevelState;
 import game.states.MenuState;
-import game.states.PauseDecorator;
 import game.states.StateEmpty;
+import game.states.games.Game1State;
+import game.states.games.Game2State;
+import game.states.pause.PauseDecorator;
+import game.states.pause.PausedState;
 
 import java.awt.Canvas;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
@@ -18,12 +21,17 @@ import java.util.HashMap;
 import javax.swing.JFrame;
 public class GameStart extends Canvas implements Runnable{
 	
+	//TODO /REF Cambiar todos los usos de GameStart a Singletons
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
 	private static boolean debug = false;
+	
+	public int fontSize = 30;
+	public Font dialogFont = new Font("TimesRoman", Font.PLAIN, fontSize); 
 	
 	public static final String NAME = "My Game";
 	public static final int WIDTH = 320; //width in pixels // tienen que ser multiplos de 16
@@ -47,7 +55,7 @@ public class GameStart extends Canvas implements Runnable{
 	
 	
 	public static void main(String[]args){
-		GameStart theGame = new GameStart();
+		GameStart theGame = GameStart.getSingleton();
 		JFrame frame = new JFrame();
 		frame.add(theGame);
 		frame.pack();
@@ -60,8 +68,18 @@ public class GameStart extends Canvas implements Runnable{
 		theGame.start();
 		
 	}
-	 
-	public GameStart(){
+	
+	private static GameStart gamestart;
+	
+	public static GameStart getSingleton(){
+		if(gamestart==null){
+			gamestart = new GameStart();
+		}
+		
+		return gamestart;
+	}
+	
+	private GameStart(){
 		
 		setPreferredSize(new Dimension(WIDTH*pixelSize,HEIGHT*pixelSize));
 		
@@ -70,8 +88,8 @@ public class GameStart extends Canvas implements Runnable{
 		
 		
 		add("mainmenu", new MenuState(this,WIDTH,HEIGHT));
-		add("level1", new LevelState(this,WIDTH,HEIGHT));
-		
+		add("game1", new Game1State(this,WIDTH,HEIGHT));
+		add("game2", new Game2State(this,WIDTH,HEIGHT));
 		
 		gi= GameInput.getSingleton();
 		gi.addListeners(this);
@@ -167,6 +185,7 @@ public class GameStart extends Canvas implements Runnable{
 		Graphics g = bs.getDrawGraphics();
 		
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
+		currentS.renderGraphics(g);
 		
 		g.dispose();
 		bs.show();
@@ -193,13 +212,18 @@ public class GameStart extends Canvas implements Runnable{
 	}
 	
 
-	public void pause(){
+	public void pause(PausedState pau){
 		if(currentS instanceof PauseDecorator)return;
-		currentS = new PauseDecorator(this, currentS);
+		currentS = new PauseDecorator(this, currentS, pau);
 	}
 	
 	public void unpause(){
 		if(!(currentS instanceof PauseDecorator))return;
 		currentS = ((PauseDecorator)currentS).getPrevState();
+	}
+	
+	public boolean isPaused(){
+		if(currentS instanceof PauseDecorator)return true;
+		return false;
 	}
 }

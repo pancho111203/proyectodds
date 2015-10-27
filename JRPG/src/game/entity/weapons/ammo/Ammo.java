@@ -4,7 +4,7 @@ import game.GameMaster;
 import game.entity.MovingEntity;
 import game.entity.movement.Movement;
 import game.entity.types.DamagingEntity;
-import game.graphics.RenderingLevel;
+import game.graphics.Rendering;
 import game.level.Level;
 
 import java.awt.Rectangle;
@@ -74,7 +74,7 @@ public abstract class Ammo extends MovingEntity implements DamagingEntity{
 	}
 
 	@Override
-	public void render(RenderingLevel render) {
+	public void render(Rendering render) {
 
 		render.renderEntity(xInScreen,yInScreen,msm.getSprite());
 		debug(render);

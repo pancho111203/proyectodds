@@ -1,4 +1,4 @@
-package game.level;
+package game.level.game1;
 
 import game.entity.implementations.Door;
 import game.entity.implementations.Enemy;
@@ -7,8 +7,9 @@ import game.entity.implementations.SignBoard;
 import game.entity.implementations.enemies.Horseman;
 import game.entity.movement.EasyPFMovment;
 import game.entity.movement.Movement;
-import game.graphics.RenderingLevel;
-import game.states.LevelState;
+import game.graphics.Rendering;
+import game.level.Level;
+import game.states.games.IGameState;
 
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -21,7 +22,7 @@ public class FirstLevel extends Level {
 	
 	private BufferedImage imgToLvL;
 		
-	public FirstLevel(int spawnPosXPlayer, int spawnPosYPlayer, int w, int h, LevelState p){
+	public FirstLevel(int spawnPosXPlayer, int spawnPosYPlayer, int w, int h, IGameState p){
 		super(spawnPosXPlayer,spawnPosYPlayer,w,h,p);
 		
 		//AM.load("Level"); 
@@ -44,7 +45,7 @@ public class FirstLevel extends Level {
 		Hearth hp = new Hearth(30, 100, 100, this);
 		entList.addEntity(hp);
 		
-		String[] tut1Contents = {"LOLOLO"};
+		String tut1Contents = "LOLOLOLOO AFSDFASDFASF ASDFASDFASDF sdfasfasdf";
 		SignBoard tut1 = new SignBoard(190, 90, this, tut1Contents);
 		entList.addEntity(tut1);
 		
@@ -69,7 +70,7 @@ public class FirstLevel extends Level {
 		
 	}
 
-	public void render(RenderingLevel render){
+	public void render(Rendering render){
 		super.render(render);
 		
 		//AM.playSound("footsteps"); 

@@ -1,7 +1,7 @@
 package game.menus;
 
 import game.graphics.Image;
-import game.graphics.RenderingMenu;
+import game.graphics.Rendering;
 
 public class CreditsMenu extends Menu{
 
@@ -17,7 +17,7 @@ public class CreditsMenu extends Menu{
 		}
 	}
 	
-	public void render(RenderingMenu render){
+	public void render(Rendering render){
 		render.renderImage(0, 0, bg);
 	}
 	

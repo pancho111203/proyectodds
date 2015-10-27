@@ -1,5 +1,6 @@
 package game.entity.implementations.enemies.zeus;
 
+import game.GameMaster;
 import game.entity.Entity;
 import game.entity.SpriteContainer;
 import game.entity.implementations.Enemy;
@@ -47,7 +48,7 @@ public class Zeus extends Enemy{
 			
 		hp_mod = new HPModule(MAXHP, MAXHP, IMMUNETIME);
 		dmg_mod = new DMGModule(DMG);
-		//TODO hace object pool para los rayos de zeus y lo corazns, etc
+		//TODO /OPT hace object pool para los rayos de zeus y lo corazns, etc
 
 		
 		weps = new HashMap<String, Weapon>();
@@ -123,6 +124,11 @@ public class Zeus extends Enemy{
 		
 	}
 	
+	public void die(){
+		GameMaster.getSingleton().kill(this);
+		
+		level.win();
+	}
 
 
 }

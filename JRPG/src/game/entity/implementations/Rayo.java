@@ -4,7 +4,7 @@ import game.entity.Entity;
 import game.entity.modules.DMGModule;
 import game.entity.types.DamagingEntity;
 import game.graphics.Animator;
-import game.graphics.RenderingLevel;
+import game.graphics.Rendering;
 import game.graphics.Sprite;
 import game.graphics.Spritesheet;
 import game.level.Level;
@@ -84,7 +84,7 @@ public class Rayo extends Entity implements DamagingEntity{
 	}
 
 	@Override
-	public void render(RenderingLevel render) {
+	public void render(Rendering render) {
 		Sprite cur = anim.getActual();
 		if(active){
 			render.renderEntity(xInScreen+cur.getXOffset(),yInScreen+cur.getYOffset(),cur);

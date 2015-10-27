@@ -1,4 +1,4 @@
-package game.level;
+package game.level.game1;
 
 import game.entity.implementations.Hearth;
 import game.entity.implementations.PressurePlate;
@@ -7,9 +7,10 @@ import game.entity.implementations.enemies.zeus.Zeus;
 import game.entity.movement.HorizontalMovement;
 import game.entity.movement.Movement;
 import game.events.TileChanger;
-import game.graphics.RenderingLevel;
+import game.graphics.Rendering;
+import game.level.Level;
 import game.level.tiles.Tile;
-import game.states.LevelState;
+import game.states.games.IGameState;
 
 import java.awt.image.BufferedImage;
 
@@ -21,7 +22,7 @@ public class ThirdLevel extends Level {
 	
 	private BufferedImage imgToLvL;
 		
-	public ThirdLevel(int spawnPosXPlayer, int spawnPosYPlayer, int w, int h, LevelState p){
+	public ThirdLevel(int spawnPosXPlayer, int spawnPosYPlayer, int w, int h, IGameState p){
 		super(spawnPosXPlayer,spawnPosYPlayer,w,h,p);
 		
 		imgToLvL = AM.getImage("level5");
@@ -73,7 +74,7 @@ public class ThirdLevel extends Level {
 		
 	}
 
-	public void render(RenderingLevel render){
+	public void render(Rendering render){
 		super.render(render);
 		
 	}

@@ -1,6 +1,9 @@
 package game.graphics;
 
-public abstract class Rendering {
+import game.level.Level;
+import game.level.tiles.Tile;
+
+public class Rendering {
 	public int width, height;
 	protected int pixels[];
 	
@@ -82,5 +85,75 @@ public abstract class Rendering {
 			
 		}
 			
+	}
+	
+	public void renderImage(int xp, int yp, Image sp){ // (xp,yp) es la posicion del sprite respecto a la pantalla(en pixels!!)
+
+		render(sp.getHeight(),sp.getWidth(),xp,yp,sp.pixels);
+	
+	}
+	
+	public void renderImageColored(int xp, int yp, Image sp,int color){ // (xp,yp) es la posicion del sprite respecto a la pantalla(en pixels!!)
+	
+		int pix[] = new int[sp.pixels.length];
+		
+		for(int i=0;i<pix.length;i++){
+			
+			if(!isALPHA(sp.pixels[i])){
+			
+				pix[i]=sp.pixels[i]&color;
+			
+			}else pix[i]=sp.pixels[i];
+			
+		}
+		
+		render(sp.getHeight(),sp.getWidth(),xp,yp,pix);
+	}
+		
+	public void renderTile(int xp, int yp, int xRest, int yRest, Tile tile){ // (xp,yp) es la posicion del tile respecto a la pantalla 
+		//(xRest,yRest) respresentan el desplazamiento del sprite. el valor maximo de este desplazamiento
+		// es 31(el tamano del tile-1). el desplazamiento sera hacia la izquierda con respecto a la pantalla	
+		int size = Level.TILESIZE;
+		
+		int yPixel = yp * size; 
+		int xPixel = xp * size; // transformamos a medida pixel
+		
+		render(size,size,(xPixel-xRest),(yPixel-yRest),tile.getSprite().pixels);	
+	}
+	
+	public void renderEntity(int xp, int yp, Sprite sp){ // (xp,yp) es la posicion del sprite respecto a la pantalla(en pixels!!)
+		SingleSprite sprite = sp.getActual();
+		
+		render(sprite.getHeight(),sprite.getWidth(),xp,yp,sprite.pixels);
+	}
+	
+	public void renderEntityColored(int xp, int yp, Sprite sp,int color){ // (xp,yp) es la posicion del sprite respecto a la pantalla(en pixels!!)
+		SingleSprite sprite = sp.getActual();
+		int pix[] = new int[sprite.pixels.length];
+		
+		for(int i=0;i<pix.length;i++){
+			
+			if(!isALPHA(sprite.pixels[i])){
+			
+				pix[i]=sprite.pixels[i]|color;
+			
+			}else pix[i]=sprite.pixels[i];
+			
+		}
+		
+		render(sprite.getHeight(),sprite.getWidth(),xp,yp,pix);
+	}
+	
+	public void renderPart(int h, int w, int px, int py, int[] pixels, float p){
+		int nw = ((int)(w*p));
+		int aux[]= new int[nw*h];
+		
+		for(int y=0;y<h;y++){
+			for(int x=0;x<nw;x++){
+				aux[x+y*nw]=pixels[x+y*w];
+			}
+		}
+		
+		render(h,nw,px,py,aux);
 	}
 }

@@ -15,10 +15,10 @@ public class GameMaster implements EventGenerator{
 	
 	private static GameMaster instance;
 	//usa observer design pattern para notificar a sus listeners el numero de kills que ha hecho el player
-	//TODO posiblemente pasar este funcionamiento a otra clase y dejar esta solo para metodos estaticos(performAttack, kill, eetc)
+	//posiblemente pasar este funcionamiento a otra clase y dejar esta solo para metodos estaticos(performAttack, kill, eetc)
 	private ArrayList<EventListener> listeners = new ArrayList<EventListener>();
 	
-	//TODO comprobaciones de que no sean aliados, etc
+
 	
 	public static GameMaster getSingleton(){
 		if(instance==null){
@@ -31,6 +31,7 @@ public class GameMaster implements EventGenerator{
 		
 	}
 	
+	//faltan comprobaciones de que no sean aliados, etc (todavia no he implementado aliados)
 	public void performAttack(DamagingEntity from, EntityWithStats to, Entity source){
 		if(from.isActive()){
 			int dmg = from.getDmg();

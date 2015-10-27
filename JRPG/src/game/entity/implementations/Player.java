@@ -23,7 +23,7 @@ import game.entity.types.EntityWithStats;
 import game.entity.weapons.Sword;
 import game.entity.weapons.Weapon;
 import game.graphics.Animator;
-import game.graphics.RenderingLevel;
+import game.graphics.Rendering;
 import game.graphics.SingleSprite;
 import game.graphics.Sprite;
 import game.graphics.Spritesheet;
@@ -130,7 +130,6 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 		
 		xInScreen = x-level.getXPosScreen();
 		yInScreen = y-level.getYPosScreen();
-		
 		updateCollider();
 		colls.checkCollisions();
 		
@@ -157,7 +156,7 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 	}
 
 	@Override
-	public void render(RenderingLevel render) {
+	public void render(Rendering render) {
 		
 		
 		Sprite cur = msm.getSprite();
@@ -165,11 +164,14 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 			render.renderEntityColored(xInScreen+cur.getXOffset(),yInScreen+cur.getYOffset(),cur,0xDD0000); 
 		}
 		else render.renderEntity(xInScreen+cur.getXOffset(),yInScreen+cur.getYOffset(),cur);
+		
+		
 		weapon.render(render);
 		debug(render);
 	}
 	
 	public void move(int movX,int movY){
+		
 		msm.move(movX, movY);
 		
 		movX = msm.getMovX();
@@ -230,7 +232,6 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 	
 	private void die(){
 		mov.stop(-1);
-		AssetManager.getSingleton().stop("music");
 		msm.change("dead", "", true);
 		SoundManager.getSingleton().stop("lowhp");
 		dead = true;
@@ -287,7 +288,7 @@ public class Player extends MovingEntity implements AtackingEntity, SpriteFinish
 	private void finishGame(){
 		msm.unBlock();
 		GameMaster.getSingleton().resetEnemyCounter();
-		level.finish();
+		level.died();
 	}
 	
 	private void finishDisolve() {

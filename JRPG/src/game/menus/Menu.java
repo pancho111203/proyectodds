@@ -1,6 +1,6 @@
 package game.menus;
 
-import game.graphics.RenderingMenu;
+import game.graphics.Rendering;
 import game.input.GameInput;
 import auxiliar.AssetManager;
 
@@ -22,7 +22,7 @@ public abstract class Menu {
 	public void update(){		
 	}
 
-	public void render(RenderingMenu render){
+	public void render(Rendering render){
 		 
 	}
 	

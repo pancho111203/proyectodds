@@ -17,7 +17,7 @@ public class Gamepad{
     private Controller controller;
     //id de cada botón 
     public final int CROS=0,CIRC=1,SQUA=2,TRIA=3, UP=10, DOWN=11, LEFT=12, RIGHT=13;
-    public final int L1=4,R1=5,SELECT=6,START=7,L3=8,R3=9;               				//TODO L2=14,R2=15 (gatillos)
+    public final int L1=4,R1=5,SELECT=6,START=7,L3=8,R3=9;               				//L2=14,R2=15 (gatillos)
     //ID de cada direccion de los dos pads
     public final int Lup=0,Ldown=1,Lleft=2,Lright=3,Rup=4,Rdown=5,Rleft=6,Rright=7;
     

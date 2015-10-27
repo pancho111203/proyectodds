@@ -2,7 +2,7 @@ package game.entity.implementations;
 
 import game.entity.Entity;
 import game.entity.types.EntityActionable;
-import game.graphics.RenderingLevel;
+import game.graphics.Rendering;
 import game.input.GameInput;
 import game.level.Level;
 
@@ -24,7 +24,7 @@ public class Door extends Entity implements EntityActionable{
 	}
 
 	@Override
-	public void render(RenderingLevel render) {
+	public void render(Rendering render) {
 		debug(render);		
 	}
 

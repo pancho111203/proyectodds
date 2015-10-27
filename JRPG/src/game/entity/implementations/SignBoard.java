@@ -1,25 +1,30 @@
 package game.entity.implementations;
 
+import game.GameStart;
 import game.entity.Entity;
 import game.entity.types.EntityActionable;
-import game.graphics.RenderingLevel;
+import game.graphics.Rendering;
 import game.graphics.SingleSprite;
 import game.graphics.Sprite;
 import game.graphics.Spritesheet;
 import game.input.GameInput;
 import game.level.Level;
 import game.level.tiles.Tile;
+import game.states.pause.PausedState;
+import game.states.pause.SignPause;
 
 public class SignBoard extends Entity implements EntityActionable{
-//TODO cartel
-	private String lines[];
+//TODO letras cartel scrollable
+	private String content;
 	private Sprite disp;
 	private boolean cartelActivo = false;
+	private Level level;
+	private PausedState pausedState;
 	
-	public SignBoard(int x, int y, Level level, String[] lines) {
+	public SignBoard(int x, int y, Level level, String content) {
 		super(x-x%Level.TILESIZE, y-y%Level.TILESIZE, 32, 32, level); // al ser una entity solida tiene que estar alineada con los tiles
 		
-		System.out.println(x+" "+y);
+		this.level = level;
 		
 		Tile t1 = level.getTile(x/Level.TILESIZE, y/Level.TILESIZE).clone();
 		t1.setAllStates(1);
@@ -39,11 +44,12 @@ public class SignBoard extends Entity implements EntityActionable{
 		
 		
 		
-		this.lines = lines;
+		this.content = content;
 		
 		xInScreen = x-level.getXPosScreen();
 		yInScreen = y-level.getYPosScreen();
 		
+		pausedState = new SignPause(content);
 		
 		disp = new SingleSprite(32, 1, 0, new Spritesheet(level.AM.getImage("signboard")));
 	}
@@ -52,7 +58,7 @@ public class SignBoard extends Entity implements EntityActionable{
 	public void action(Player e) {
 		if(GameInput.getSingleton().inputPressed(GameInput.getSingleton().ACTION)){
 			System.out.println("LEER CARTEL");
-			if(cartelActivo){
+			if(GameStart.getSingleton().isPaused()){
 				desactivarCartel();
 			}else{
 				activarCartel();
@@ -66,6 +72,7 @@ public class SignBoard extends Entity implements EntityActionable{
 	
 	private void activarCartel(){
 		cartelActivo = true;
+		GameStart.getSingleton().pause(pausedState);
 	}
 	
 	private void desactivarCartel(){
@@ -80,7 +87,7 @@ public class SignBoard extends Entity implements EntityActionable{
 	}
 
 	@Override
-	public void render(RenderingLevel render) {
+	public void render(Rendering render) {
 		render.renderEntity(xInScreen,yInScreen,disp);
 		debug(render);
 	}

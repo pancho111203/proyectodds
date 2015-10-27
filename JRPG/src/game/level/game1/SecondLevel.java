@@ -1,4 +1,4 @@
-package game.level;
+package game.level.game1;
 
 import game.entity.implementations.Door;
 import game.entity.implementations.Enemy;
@@ -9,9 +9,10 @@ import game.entity.movement.EasyPFMovment;
 import game.entity.movement.Movement;
 import game.events.KillAmountObserver;
 import game.events.TileChanger;
-import game.graphics.RenderingLevel;
+import game.graphics.Rendering;
+import game.level.Level;
 import game.level.tiles.Tile;
-import game.states.LevelState;
+import game.states.games.IGameState;
 
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -26,7 +27,7 @@ public class SecondLevel extends Level {
 	private Rectangle enemyCollider, enemy1TileOffs;
 	private int difficulty = 0;
 	private boolean left = true;
-	public SecondLevel(int spawnPosXPlayer, int spawnPosYPlayer, int w, int h, LevelState p){
+	public SecondLevel(int spawnPosXPlayer, int spawnPosYPlayer, int w, int h, IGameState p){
 		super(spawnPosXPlayer,spawnPosYPlayer,w,h,p);
 		
 		//AM.load("Level"); 
@@ -154,7 +155,7 @@ public class SecondLevel extends Level {
 		
 	}
 
-	public void render(RenderingLevel render){
+	public void render(Rendering render){
 		super.render(render);
 		
 	}

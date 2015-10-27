@@ -1,15 +1,15 @@
-package game.states;
+package game.states.games;
 
 import game.level.CustomLevel;
-import game.level.FirstLevel;
 import game.level.Level;
-import game.level.SecondLevel;
-import game.level.ThirdLevel;
+import game.level.game1.FirstLevel;
+import game.level.game1.SecondLevel;
+import game.level.game1.ThirdLevel;
 
-public class LevelFactory {
+public class Game1Factory implements ILevelFactory {
 	private int width, height;
-	private LevelState ls;
-	public LevelFactory(int w, int h, LevelState ls){
+	private IGameState ls;
+	public Game1Factory(int w, int h, IGameState ls){
 		width = w;
 		height = h;
 		this.ls = ls;
