@@ -1,4 +1,4 @@
-package auxiliar;
+package game;
 
 import game.sound.SoundManager;
 

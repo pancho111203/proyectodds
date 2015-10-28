@@ -1,6 +1,7 @@
 package game.entity.weapons;
 
 import static org.junit.Assert.assertTrue;
+import game.AssetManager;
 import game.GameMaster;
 import game.GameStart;
 import game.entity.Entity;
@@ -18,8 +19,6 @@ import game.graphics.Spritesheet;
 
 import java.awt.Rectangle;
 import java.util.HashMap;
-
-import auxiliar.AssetManager;
 
 public class Sword implements Weapon, OwnsCollider, DamagingEntity{
 

@@ -1,13 +1,12 @@
 package game.states.pause;
 
+import game.AssetManager;
 import game.GameStart;
 import game.graphics.Image;
 import game.graphics.Rendering;
 import game.input.GameInput;
 
 import java.awt.Graphics;
-
-import auxiliar.AssetManager;
 
 public class SignPause implements PausedState{
 	

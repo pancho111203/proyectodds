@@ -1,5 +1,6 @@
 package game.states.games;
 
+import game.AssetManager;
 import game.GameStart;
 import game.entity.modules.Module;
 import game.graphics.Rendering;
@@ -12,8 +13,6 @@ import game.states.pause.GamePause;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
-
-import auxiliar.AssetManager;
 
 public class Game1State implements IState, IGameState{
 

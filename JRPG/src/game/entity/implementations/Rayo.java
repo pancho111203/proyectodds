@@ -1,5 +1,6 @@
 package game.entity.implementations;
 
+import game.AssetManager;
 import game.entity.Entity;
 import game.entity.modules.DMGModule;
 import game.entity.types.DamagingEntity;
@@ -11,8 +12,6 @@ import game.level.Level;
 
 import java.awt.Rectangle;
 import java.util.Random;
-
-import auxiliar.AssetManager;
 
 // 32x88
 public class Rayo extends Entity implements DamagingEntity{

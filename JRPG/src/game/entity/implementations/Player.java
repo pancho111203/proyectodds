@@ -2,6 +2,7 @@ package game.entity.implementations;
 
 
 import static org.junit.Assert.assertFalse;
+import game.AssetManager;
 import game.GameMaster;
 import game.entity.AtackingEntity;
 import game.entity.Entity;
@@ -36,7 +37,6 @@ import java.util.ArrayList;
 
 import javax.sound.sampled.Clip;
 
-import auxiliar.AssetManager;
 import auxiliar.Vector2D;
 
 public class Player extends MovingEntity implements AtackingEntity, SpriteFinishReceiver, OwnsCollider, EntityWithStats{

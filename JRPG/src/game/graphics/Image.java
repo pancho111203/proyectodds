@@ -35,7 +35,18 @@ public class Image implements Sprite{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-}
+	}
+	public Image(BufferedImage img, int sw, int sh) { //load image cropped in the specified width and height
+		try {
+			BufferedImage image = img;
+			int w = Math.min(sw, image.getWidth());
+			int h = Math.min(sh, image.getHeight());
+			pixels = new int[w*h];
+			image.getRGB(0, 0, w, h, pixels, 0, w);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 	public int getHeight(){
 		return h;

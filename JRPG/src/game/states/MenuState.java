@@ -2,8 +2,6 @@ package game.states;
 
 import game.GameStart;
 import game.graphics.Rendering;
-import game.graphics.Rendering;
-import game.menus.CreditsMenu;
 import game.menus.MainMenu;
 import game.menus.Menu;
 
@@ -15,13 +13,15 @@ public class MenuState implements IState{
 	private Rendering render;
 	
 	private Menu curMenu;
-	
+	private int w, h;
 
 	public MenuState(GameStart game, int w, int h){
+		this.w = w;
+		this.h = h;
 		this.game = game;
 		render = new Rendering(w,h);
 		
-		curMenu = new MainMenu();
+		curMenu = new MainMenu(w, h);
 	}
 	
 	@Override
@@ -32,17 +32,18 @@ public class MenuState implements IState{
 	@Override
 	public void update() {
 		curMenu.update();
-		String ch = curMenu.change();
-		if(ch!=null){
-			if(ch.equals("level1")){
-				game.change("game1", "init");
-			}else if(ch.equals("credits")){
-				curMenu = new CreditsMenu();
-			} else if(ch.equals("mainmenu")){
-				curMenu = new MainMenu();
-			}
-		}
-		if(curMenu.exit())game.stop();
+		
+		
+//		if(ch!=null){
+//			if(ch.equals("level1")){
+//				game.change("game1", "init");
+//			}else if(ch.equals("credits")){
+//				curMenu = new CreditsMenu();
+//			} else if(ch.equals("mainmenu")){
+//				curMenu = new MainMenu();
+//			}
+//		}
+//		if(curMenu.exit())game.stop();
 	}
 
 	@Override
@@ -51,7 +52,7 @@ public class MenuState implements IState{
 
 	@Override
 	public void onEnter(String params) {
-		curMenu = new MainMenu();
+		curMenu = new MainMenu(w,h);
 	}
 	
 	public Rendering getRender(){

@@ -1,6 +1,7 @@
 package game.entity.implementations.enemies;
 
 import static org.junit.Assert.assertEquals;
+import game.AssetManager;
 import game.GameMaster;
 import game.entity.Entity;
 import game.entity.SpriteContainer;
@@ -18,7 +19,6 @@ import game.level.Level;
 
 import java.awt.Rectangle;
 
-import auxiliar.AssetManager;
 import auxiliar.Vector2D;
 
 public class Horseman extends Enemy implements SpriteFinishReceiver{

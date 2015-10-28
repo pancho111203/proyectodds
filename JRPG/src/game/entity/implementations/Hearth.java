@@ -1,5 +1,6 @@
 package game.entity.implementations;
 
+import game.AssetManager;
 import game.entity.Entity;
 import game.entity.types.EntityActionable;
 import game.graphics.Rendering;
@@ -7,7 +8,6 @@ import game.graphics.SingleSprite;
 import game.graphics.Sprite;
 import game.graphics.Spritesheet;
 import game.level.Level;
-import auxiliar.AssetManager;
 
 public class Hearth extends Entity implements EntityActionable{
 

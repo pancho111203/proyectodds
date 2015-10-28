@@ -1,24 +1,17 @@
 package game.menus;
 
-import game.graphics.Image;
-import game.graphics.Rendering;
 
 public class CreditsMenu extends Menu{
 
-	private Image bg;
-	
-	public CreditsMenu() {
-		bg = new Image(AM.getImage("creditos"));
+	public CreditsMenu(int w, int h) {
+		super(w, h);
 	}
 
-	public void update(){
-		if(gi.inputPressed(gi.ACTION)){
-			changeTo = "mainmenu";
-		}
+	@Override
+	protected void initContent() {
+		parentView.setBackground("creditos");
+		parentView.setSelectable();
 	}
-	
-	public void render(Rendering render){
-		render.renderImage(0, 0, bg);
-	}
-	
+
+
 }
